@@ -1,5 +1,6 @@
 import React from "react"
-import { Link } from "gatsby"
+// import { Link } from "gatsby"
+import CallToAction from "../components/CallToActionComponent"
 
 import HomeLayout from "../components/HomeLayout"
 
@@ -18,6 +19,12 @@ const IndexPage = () => (
         </div>
       </div>
     </div>
+    <CallToAction
+      className="skills-cta"
+      title="Skills & Experience"
+      content="Learn more about my skill-set and experiences of over 10 years in IT!"
+      buttonText="Learn More"
+      buttonLink="/about-me" />
   </HomeLayout>
 )
 

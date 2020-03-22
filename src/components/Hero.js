@@ -1,5 +1,6 @@
 import React from 'react'
 import Navbar from "./Navbar2"
+import CallToAction from "./CallToActionComponent"
 
 const HeroComponent = () => (
   <div className="hero-wrapper">
@@ -26,7 +27,13 @@ const HeroComponent = () => (
         </div>
       </div>
     </div>
-    <div className="hero-cta-wrapper">
+    <CallToAction
+      className="hero-cta"
+      title="Follow me on Twitch!"
+      content="Live coding every Thurs at 8:30pm Central Time."
+      buttonText="My Twitch Channel"
+      buttonLink="https://twitch.tv/brianmmdev" />
+    {/* <div className="hero-cta-wrapper">
       <div className="hero-cta container">
         <div className="row">
           <div className="col-12">
@@ -34,7 +41,7 @@ const HeroComponent = () => (
           </div>
         </div>
       </div>
-    </div> 
+    </div>  */}
   </div>
 )
 
