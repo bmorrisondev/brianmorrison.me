@@ -33,15 +33,6 @@ const HeroComponent = () => (
       content="Live coding every Thurs at 8:30pm Central Time."
       buttonText="My Twitch Channel"
       buttonLink="https://twitch.tv/brianmmdev" />
-    {/* <div className="hero-cta-wrapper">
-      <div className="hero-cta container">
-        <div className="row">
-          <div className="col-12">
-            Follow me on Twitch!
-          </div>
-        </div>
-      </div>
-    </div>  */}
   </div>
 )
 

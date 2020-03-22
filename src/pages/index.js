@@ -3,6 +3,7 @@ import React from "react"
 import CallToAction from "../components/CallToActionComponent"
 
 import HomeLayout from "../components/HomeLayout"
+import SocialWidget from "../components/widgets/SocialWidget"
 
 const IndexPage = () => (
   <HomeLayout>
@@ -25,6 +26,25 @@ const IndexPage = () => (
       content="Learn more about my skill-set and experiences of over 10 years in IT!"
       buttonText="Learn More"
       buttonLink="/about-me" />
+    <div className="contact-area contact-wrapper parallax">
+      <div className="container"> 
+        <div className="row">
+          <div className="col-12">
+            <h2>Get in Touch</h2>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-md-6">
+            <h4>Discord</h4>
+            <p>The easiest way to contact me is on my Discord server, where we discuss code, hobbies, and participate in weekly challenges:</p>
+            <iframe src="https://discordapp.com/widget?id=553773331674038282&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0"></iframe>
+          </div>
+          <div className="col-md-6">
+            <SocialWidget />
+          </div>
+        </div>
+      </div>
+    </div>
   </HomeLayout>
 )
 
