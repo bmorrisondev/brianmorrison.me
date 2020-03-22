@@ -21,7 +21,13 @@ module.exports = {
         verboseOutput: false,
       },
     },
-    'gatsby-plugin-sharp',
+    'gatsby-plugin-sharp',    
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        path: `${__dirname}/src/img/`,
+      },
+    },
     'gatsby-transformer-sharp',
     {
       // Removes unused css rules
