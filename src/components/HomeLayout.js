@@ -1,6 +1,7 @@
 import React from "react"
 import HelmetWrapper from "./HelmetWrapper"
 import Hero from "./Hero"
+import Footer from "./Footer"
 
 import './all.sass'
 
@@ -11,6 +12,7 @@ const IndexPage = ({children}) => (
     <div>
       {children}
     </div>
+    <Footer />
   </div>
 )
 

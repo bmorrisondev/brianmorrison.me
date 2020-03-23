@@ -1,9 +1,56 @@
+// My Branding
+$bmme-dark-blue: #000000
+$bmme-light-blue: #12b8f2
+
+// Other Branding
+$twitch-purple: #6643a6
+$twitch-purple-dark: #4c2a8c
+$twitter-blue: #1DA1F2
+$instagram-pink: #E4405F
+$github-green: #2DBA4E
+$youtube-red: #D60C1C
+
 body
   padding: 0px;
   margin: 0px;
 
   .navbar
+    margin-top: 10px;
     max-width: 1140px;
+    color: white;
+    text-transform: uppercase;
+
+    .nav-text-item
+      padding: 10px 20px !important;
+      a
+        color: white;
+        text-decoration: none;
+        &:hover
+          border-bottom: 2px solid $bmme-light-blue;
+          margin-bottom: -2px;
+    
+    .nav-social-item
+      padding: 10px 0px !important;
+      a
+        color: white;
+        text-decoration: none;
+        &:hover
+          margin-bottom: -2px;
+
+      .nav-link-twitch:hover
+          border-bottom: 2px solid $twitch-purple
+
+      .nav-link-twitter:hover
+          border-bottom: 2px solid $twitter-blue
+
+      .nav-link-instagram:hover
+          border-bottom: 2px solid $instagram-pink
+
+      .nav-link-youtube:hover
+          border-bottom: 2px solid $youtube-red
+
+      .nav-link-github:hover
+          border-bottom: 2px solid $github-green
 
   .nav 
     padding: 15px 10px;
@@ -20,7 +67,7 @@ body
 
       .hero-content
         padding: 10px;
-        border: 2px solid #12b8f2;
+        border: 2px solid $bmme-light-blue;
         border-radius: 4px;
         background: white;
 
@@ -28,13 +75,25 @@ body
     padding: 30px 0px;
 
   .hero-cta
-    background-color: #6643A6;
+    background-color: $twitch-purple;
+    color: white;
+    .cta-button
+      border: 1px solid black;
+      background-color: $twitch-purple;
+      color: white;
+      text-transform: uppercase;
+      border-radius: 0px;
+      font-size: 14px;
+      padding: 10px 20px;
+      &:hover
+        background-color: $twitch-purple-dark;
 
   .skills-cta
     background-color: #cccccc;
 
   .contact-area
     color: #eeeeee;
+    padding: 20px 0px;
 
   .contact-wrapper
     background: url('../img/contact-bg.png')
@@ -54,3 +113,8 @@ body
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+
+  .footer-wrapper
+    padding: 10px 0px;
+    background-color: #1E1D1D;
+    color: #eeeeee;

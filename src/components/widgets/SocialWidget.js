@@ -1,23 +1,24 @@
 import React from 'react'
+import socials from '../../data/social-links.json'
 
 const SocialWidget = ({shouldIncludeDiscord}) => (
   <div className="social-widget">
     <h4>Main Channel</h4>
     <div>            
-      <a href="https://twitch.tv/brianmmdev" target="_blank" rel="noopener noreferrer">
+      <a href={socials.twitch} target="_blank" rel="noopener noreferrer">
         <img alt="twitch-logo" src='/img/social/twitch-logo.png'/>
         Twitch Channel
       </a>
     </div>
     <h4>Channel Updates & IRL</h4>
     <div>            
-      <a href="https://twitter.com/brianmmdev" target="_blank" rel="noopener noreferrer"> 
+      <a href={socials.twitter} target="_blank" rel="noopener noreferrer"> 
         <img alt="twitter-logo" src='/img/social/twitter-logo.png' />
         Twitter (@brianmmdev)
       </a>
     </div>
     <div>            
-      <a href="https://www.instagram.com/brianmmdev/" target="_blank" rel="noopener noreferrer">
+      <a href={socials.instagram} target="_blank" rel="noopener noreferrer">
         <img alt="instagram-logo" src='/img/social/insta-logo.png' />
         Instagram
       </a>

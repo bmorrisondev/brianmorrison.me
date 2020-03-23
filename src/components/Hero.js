@@ -1,9 +1,9 @@
 import React from 'react'
-import Navbar from "./Navbar2"
+import Navbar from "./Navbar"
 import CallToAction from "./CallToActionComponent"
 
 const HeroComponent = () => (
-  <div className="hero-wrapper">
+  <div className="hero-wrapper parallax">
     <Navbar />
     <div className="hero container">
       <div className="row">

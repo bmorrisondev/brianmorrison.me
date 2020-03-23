@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'gatsby'
 
 const CallToAction = ({
   title,
@@ -7,7 +8,7 @@ const CallToAction = ({
   buttonText,
   className
 }) => {
-  var _className = "cta"
+  let _className = "cta"
   
   if(className) {
     _className += ` ${className}`
@@ -22,7 +23,18 @@ const CallToAction = ({
             <div>{content}</div>
           </div>
           <div className="col-sm-6">
-            <div>TODO: Put button here</div> 
+            <div className="float-md-right">
+              {buttonLink.includes("http") && (
+                <a className="btn btn-primary cta-button" href={buttonLink} target="_blank" rel="noopener noreferrer">
+                  {buttonText}
+                </a>
+              )}
+              {!buttonLink.includes("http") && (
+                <Link to={buttonLink} className="btn btn-primary cta-button">
+                  {buttonText}
+                </Link>
+              )}
+            </div> 
           </div>
         </div>
       </div>
