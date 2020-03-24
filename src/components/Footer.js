@@ -4,14 +4,8 @@ const Footer = () => (
   <div className="footer footer-wrapper">
     <div className="container">
       <div className="row">
-        <div className="col-md-4">
-          Col 1
-        </div>
-        <div className="col-md-4">
-          Col 2
-        </div>
-        <div className="col-md-4">
-          Col 3
+        <div className="col-md-12">
+          © {(new Date).getFullYear()} Brian Morrison II
         </div>
       </div>
     </div>

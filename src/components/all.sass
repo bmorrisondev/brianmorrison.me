@@ -14,14 +14,34 @@ body
   padding: 0px;
   margin: 0px;
 
+  h1,h2,h3,h4,h5,h6
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+
+  h4
+    font-size: 1.3rem;
+
+  a
+    text-decoration: none;
+    color: inherit;
+    border-bottom: 2px solid $bmme-light-blue;
+    &:hover
+      text-decoration: none;
+      color: inherit;
+      border-bottom: 2px solid $bmme-dark-blue;
+      
+
   .navbar
     margin-top: 10px;
     max-width: 1140px;
     color: white;
     text-transform: uppercase;
 
+    a
+      border-bottom: none;
+
     .nav-text-item
-      padding: 10px 20px !important;
+      padding: 10px;
       a
         color: white;
         text-decoration: none;
@@ -57,19 +77,27 @@ body
 
   .hero-wrapper
     background: url('../img/hero-bg.jpg')
+    min-height: calc(100vh - 55px)
 
     .hero
       padding-top: 80px;
-      padding-bottom: 40px;
+      padding-bottom: 100px;
+      // height: 100vh;
+      color: white;
 
       .hero-header
-        color: white;
+        font-size: 72px;
 
       .hero-content
-        padding: 10px;
-        border: 2px solid $bmme-light-blue;
-        border-radius: 4px;
-        background: white;
+        color: white;
+        font-size: 24px;
+
+  .home-panel
+    background-color: rgba(12,12,12,0.9);
+    color: white;
+    padding: 25px;
+    border-radius: 15px;
+    margin: 15px 0px;
 
   .cta
     padding: 30px 0px;
@@ -103,8 +131,11 @@ body
       a 
         color: #eeeeee;
         text-decoration: none;
+        border-bottom: none;
+
         &:hover
           color: #cccccc;
+          border-bottom: none;
       img
         margin: 15px;
       
@@ -115,6 +146,10 @@ body
     background-size: cover;
 
   .footer-wrapper
-    padding: 10px 0px;
-    background-color: #1E1D1D;
-    color: #eeeeee;
+    padding: 15px 0px;
+    border-top: 1px solid #333333;
+    // background-color: #1E1D1D;
+    background-color: #111111;
+    color: #555;
+
+  
