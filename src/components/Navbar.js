@@ -16,6 +16,7 @@ export default function Navbar() {
           </button>
 
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
+
             {/* <ul className="navbar-nav mr-auto">
               <li className="nav-item active">
                 <a className="nav-link" href="#">Home <span className="sr-only">(current)</span></a>
@@ -38,6 +39,7 @@ export default function Navbar() {
                 <a className="nav-link disabled" href="#">Disabled</a>
               </li>
             </ul> */}
+
             <ul className="navbar-nav ml-auto align-items-right">
               <li className="nav-item nav-text-item">
                 <Link to="/about" className="nav-link">
@@ -56,27 +58,27 @@ export default function Navbar() {
               </li>
               <li className="nav-item nav-social-item">
                 <a className="nav-link nav-link-twitch" href={socials.twitch} target="_blank" rel="noopener noreferrer">
-                  <i class="fab fa-twitch"></i>
+                  <i className="fab fa-twitch" />
                 </a>
               </li>
               <li className="nav-item nav-social-item">
                 <a className="nav-link nav-link-twitter" href={socials.twitter} target="_blank" rel="noopener noreferrer">
-                  <i class="fab fa-twitter"></i>
+                  <i className="fab fa-twitter" />
                 </a>
               </li>
               <li className="nav-item nav-social-item">
                 <a className="nav-link nav-link-youtube" href={socials.youtube} target="_blank" rel="noopener noreferrer">
-                  <i class="fab fa-youtube"></i>
+                  <i className="fab fa-youtube" />
                 </a>
               </li>
               <li className="nav-item nav-social-item">
                 <a className="nav-link nav-link-instagram" href={socials.instagram} target="_blank" rel="noopener noreferrer">
-                  <i class="fab fa-instagram"></i>
+                  <i className="fab fa-instagram" />
                 </a>
               </li>
               <li className="nav-item nav-social-item">
                 <a className="nav-link nav-link-github" href={socials.github} target="_blank" rel="noopener noreferrer">
-                  <i class="fab fa-github"></i>
+                  <i className="fab fa-github" />
                 </a>
               </li>
             </ul>
