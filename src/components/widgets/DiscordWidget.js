@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react"
 
 const DiscordWidget = () => {
   const [name, setName] = useState(0)
-  const [memberCount, setMemberCount] = useState(0)
   const [activeCount, setActiveCount] = useState(0)
   const [inviteLink, setInviteLink] = useState(0)
 
@@ -12,7 +11,6 @@ const DiscordWidget = () => {
       .then(response => response.json()) // parse JSON from request
       .then(resultData => {
         setName(resultData.name)
-        setMemberCount(resultData.members.length)
         setActiveCount(resultData.presence_count)
         setInviteLink(resultData.instant_invite)
       }) // set data for the number of stars
@@ -20,11 +18,16 @@ const DiscordWidget = () => {
   
   return (
     <div className="discord-widget">
-      {/* <h2>Discord</h2>
-      <div>{name}</div>
-      <div>{memberCount}</div>
-      <div>{activeCount}</div>
-      <div>{inviteLink}</div> */}
+      <div className="content-panel">
+        <span className="widget-title">Chat on my Discord Community</span>
+        <div className="info-panel">
+          <span>{name} • </span>
+          <span>online members: {activeCount}</span>
+        </div>
+      </div>
+      <a href={inviteLink} className="connect-button" alt="join-on-discord-button"><i class="fab fa-discord"></i>Join</a>
+      {/* <div className="connect-button">
+      </div> */}
     </div>
   )
 }

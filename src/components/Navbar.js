@@ -56,7 +56,25 @@ export default function Navbar() {
                   Blog
                 </Link>
               </li>
-              <li className="nav-item nav-social-item">
+              <li className="nav-item nav-social-items">
+                <a className="nav-link nav-link-twitch" href={socials.twitch} target="_blank" rel="noopener noreferrer">
+                  <i className="fab fa-twitch" />
+                </a>
+                <a className="nav-link nav-link-twitter" href={socials.twitter} target="_blank" rel="noopener noreferrer">
+                  <i className="fab fa-twitter" />
+                </a>
+                <a className="nav-link nav-link-youtube" href={socials.youtube} target="_blank" rel="noopener noreferrer">
+                  <i className="fab fa-youtube" />
+                </a>
+                <a className="nav-link nav-link-instagram" href={socials.instagram} target="_blank" rel="noopener noreferrer">
+                  <i className="fab fa-instagram" />
+                </a>
+                <a className="nav-link nav-link-github" href={socials.github} target="_blank" rel="noopener noreferrer">
+                  <i className="fab fa-github" />
+                </a>
+              </li>
+
+              {/* <li className="nav-item nav-social-item">
                 <a className="nav-link nav-link-twitch" href={socials.twitch} target="_blank" rel="noopener noreferrer">
                   <i className="fab fa-twitch" />
                 </a>
@@ -80,7 +98,7 @@ export default function Navbar() {
                 <a className="nav-link nav-link-github" href={socials.github} target="_blank" rel="noopener noreferrer">
                   <i className="fab fa-github" />
                 </a>
-              </li>
+              </li> */}
             </ul>
             {/* <ul class="nav navbar-nav navbar-right">
               <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
