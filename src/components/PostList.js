@@ -10,25 +10,24 @@ export default class IndexPage extends React.Component {
       <section className="section">
         <div className="container">
           <div className="content">
-            <h1 className="has-text-weight-bold is-size-2">{title}</h1>
+            <h1 className="has-text-weight-bold is-size-2 blog-title">{title}</h1>
           </div>
           {posts.map(({ node: post }) => (
             <div
-              className="content"
-              style={{ border: '1px solid #eaecee', padding: '2em 4em' }}
+              className="content post-excerpt"
               key={post.id}
             >
               <p>
                 <Link className="has-text-primary" to={`/blog/${post.slug}`}>
-                  {post.title}
+                  <h4>{post.title}</h4>
                 </Link>
-                <span> &bull; </span>
-                <small>
-                  {post.date} - posted by{' '}
+                <span className="post-excerpt-meta">
+                  {post.date}
+                  {/* {post.date} - posted by{' '}
                   <Link to={`/author/${post.author.slug}`}>
                     {post.author.name}
-                  </Link>
-                </small>
+                  </Link> */}
+                </span>
               </p>
               <div>
                 <div

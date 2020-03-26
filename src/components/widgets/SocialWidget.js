@@ -14,6 +14,12 @@ const SocialWidget = ({shouldIncludeDiscord}) => (
         </a>
       </span>
       <span>    
+        <img alt="youtube-logo" src='/img/social/youtube-logo.png' />
+        <a href={socials.youtube} target="_blank" rel="noopener noreferrer"> 
+          YouTube Channel
+        </a>
+      </span>
+      <span>    
         <img alt="twitter-logo" src='/img/social/twitter-logo.png' />
         <a href={socials.twitter} target="_blank" rel="noopener noreferrer"> 
           Twitter (@brianmmdev)

@@ -12,7 +12,7 @@ export default class BlogPage extends React.Component {
 
     return (
       <Layout>
-        <PostList posts={posts} title="Latest posts" />
+        <PostList posts={posts} title="Blog" />
         <Pagination pageContext={pageContext} pathPrefix="/" />
       </Layout>
     )
