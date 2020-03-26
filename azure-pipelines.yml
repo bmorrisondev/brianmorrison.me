@@ -22,7 +22,7 @@ steps:
   
 - task: PublishBuildArtifacts@1
   inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)/public'
+    PathtoPublish: '$(Pipeline.Workspace)/s/public'
     ArtifactName: 'drop'
     publishLocation: 'Container'
 
