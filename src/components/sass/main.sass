@@ -1,3 +1,5 @@
+@import './light.sass'
+
 // My Branding
 $bmme-dark-blue: #071a2b
 $bmme-light-blue: #12b8f2
@@ -37,6 +39,9 @@ body
       border-bottom: 2px solid $bmme-dark-blue;
 
   // Nav
+  .nav-wrapper-bg 
+    background: url('/img/hero-bg.jpg')
+
   .navbar
     margin-top: 10px;
     max-width: 1140px;
@@ -98,7 +103,6 @@ body
     .hero
       padding-top: 80px;
       padding-bottom: 100px;
-      // height: 100vh;
       color: white;
       border-bottom: 2px solid #333;
 
@@ -109,59 +113,8 @@ body
         color: white;
         font-size: 24px;
 
-  .home-panel
-    background-color: rgba($light-container,0.9);
-    color: #111;
-    padding: 25px;
-    border-radius: 15px;
-    margin: 15px 0px;
-    box-shadow: 5px 10px 10px rgba(12,12,12,0.05);
-
   .cta
     padding: 30px 0px;
-
-  .social-widget
-    div
-      a 
-        color: #111;
-        text-decoration: none;
-        font-weight: 500;
-        border-bottom: 2px solid $bmme-light-blue;
-
-        &:hover
-          // color: #cccccc;
-          border-bottom: 2px solid $bmme-light-blue;
-      img
-        margin: 15px 10px;
-
-  .discord-widget
-    background-color: #121212;
-    border: 1px solid #333;
-    border-radius: 15px;
-    display: flex;
-    flex-direction: row;
-
-    .content-panel
-      display: flex;
-      flex-direction: column;
-      flex: 3;
-      padding: 3px 10px;
-
-      .info-panel
-        color: #777;
-      
-    .connect-button
-      border-left: 1px solid #333;
-      flex: 1;
-      border-bottom: none;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 0px 15px 15px 0px;
-      &:hover
-        background-color: $discord-purple;
-      i
-        padding-right: 5px;
 
   .parallax
     background-attachment: fixed;
@@ -169,34 +122,12 @@ body
     background-repeat: no-repeat;
     background-size: cover;
 
-  .blog-title
-    color: white;
-
-  .post-excerpt
-    color: white;
-    background-color: rgba(12,12,12,0.9);
-    border-radius: 15px;
-    margin: 15px 0px;
-    padding: 25px;
-    box-shadow: 5px 10px 10px rgba(12,12,12,0.4);
-
-  .post-excerpt-meta
-    font-style: italic;
-    color: #777
-
-  .post
-    color: white;
-    background-color: rgba(12,12,12,0.9);
-    border-radius: 15px;
-    margin: 15px 0px;
-    padding: 25px;
-    box-shadow: 5px 10px 10px rgba(12,12,12,0.4);
-    
+  .post-list
+    padding-top: 15px;
 
   .footer-wrapper
     padding: 15px 0px;
     border-top: 1px solid #333333;
-    // background-color: #1E1D1D;
     background-color: #111111;
     color: #777;
 

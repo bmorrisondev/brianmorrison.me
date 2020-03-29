@@ -3,7 +3,7 @@ import HelmetWrapper from "./HelmetWrapper"
 import Hero from "./Hero"
 import Footer from "./Footer"
 
-import './all.sass'
+import './sass/main.sass'
 
 const IndexPage = ({children}) => (
   <div className="home-wrapper">

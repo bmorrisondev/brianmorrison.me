@@ -1,0 +1,101 @@
+
+$bmme-dark-blue: #071a2b
+$bmme-light-blue: #12b8f2
+
+// Theme
+$bg-color: #eaeaea;
+$container-bg: #efefef;
+$text-color: #111111;
+
+// Other Branding
+$twitch-purple: #6643a6
+$twitch-purple-dark: #4c2a8c
+$twitter-blue: #1DA1F2
+$instagram-pink: #E4405F
+$github-green: #2DBA4E
+$youtube-red: #D60C1C
+$discord-purple: #7289DA;
+
+.home-panel
+  background-color: rgba($container-bg,0.9);
+  color: $text-color;
+  padding: 25px;
+  border-radius: 15px;
+  margin: 15px 0px;
+  box-shadow: 5px 10px 10px rgba(12,12,12,0.05);
+
+.social-widget
+  div
+    a 
+      color: $text-color;
+      text-decoration: none;
+      font-weight: 500;
+      border-bottom: 2px solid $bmme-light-blue;
+
+      &:hover
+        border-bottom: 2px solid $bmme-light-blue;
+    img
+      margin: 15px 10px;
+
+.discord-widget
+  background-color: $container-bg;
+  border: 1px solid #ddd;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: row;
+
+  .content-panel
+    display: flex;
+    flex-direction: column;
+    flex: 3;
+    padding: 3px 10px;
+
+    .info-panel
+      color: #777;
+    
+  .connect-button
+    border-left: 1px solid #ddd;
+    flex: 1;
+    border-bottom: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0px 15px 15px 0px;
+    &:hover
+      background-color: $discord-purple;
+    i
+      padding-right: 5px;
+
+.blog-title
+  color: $text-color;
+
+.post-excerpt
+  color: $text-color;
+  background-color: rgba($container-bg,0.9);
+  border-radius: 15px;
+  margin: 15px 0px;
+  padding: 25px;
+  box-shadow: 5px 10px 10px rgba(12,12,12,0.05);
+
+.post-excerpt-meta
+  font-style: italic;
+  color: #777
+
+.post
+  color: $text-color;
+  background-color: rgba($container-bg,0.9);
+  border-radius: 15px;
+  margin: 15px 0px;
+  padding: 25px;
+  box-shadow: 5px 10px 10px rgba(12,12,12,0.4);
+
+.pagination
+  padding-bottom: 15px;
+  a
+    text-decoration: none;
+    color: $text-color;
+    border-bottom: 2px solid $bmme-light-blue !important;
+    &:hover
+      text-decoration: none;
+      color: $text-color;
+      border-bottom: 2px solid $bmme-dark-blue;

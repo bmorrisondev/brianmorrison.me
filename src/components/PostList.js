@@ -7,7 +7,7 @@ export default class IndexPage extends React.Component {
     const { posts, title } = this.props
 
     return (
-      <section className="section">
+      <section className="section post-list">
         <div className="container">
           <div className="content">
             <h1 className="has-text-weight-bold is-size-2 blog-title">{title}</h1>

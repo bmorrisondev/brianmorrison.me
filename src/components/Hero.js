@@ -4,7 +4,7 @@ import socials from "../data/social-links.json"
 
 const HeroComponent = () => (
   <div className="hero-wrapper parallax">
-    <Navbar />
+    <Navbar hideBackground />
     <div className="hero container">
       <div className="row">
         <div className="col-12">
