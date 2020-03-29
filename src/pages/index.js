@@ -1,8 +1,7 @@
 import React from "react"
-import { graphql } from 'gatsby'
+import { Link, graphql } from 'gatsby'
 import PropTypes from 'prop-types'
 
-// import { Link } from "gatsby"
 import CallToAction from "../components/CallToActionComponent"
 import DiscordWidget from "../components/widgets/DiscordWidget"
 import HomeLayout from "../components/HomeLayout"
@@ -25,7 +24,17 @@ const IndexPage = ({data}) => {
           <div className="col-md-6">
             <div className="home-panel">
               <h2>From the blog.</h2>
-              {post.title}
+              <div>
+                <Link to={`/blog/${post.slug}`}>
+                  <h4>{post.title}</h4>
+                </Link>
+              </div>
+              <div className="post-excerpt" dangerouslySetInnerHTML={{__html: post.excerpt}} />
+              <div className="post-excerpt-footer">
+                <Link to={`/blog/${post.slug}`}>
+                  Keep Reading →
+                </Link>
+              </div>
             </div>
           </div>
         </div>
