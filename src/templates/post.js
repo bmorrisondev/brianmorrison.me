@@ -92,32 +92,55 @@ BlogPost.propTypes = {
 export default BlogPost
 
 export const pageQuery = graphql`
-  fragment PostFields on wordpress__POST {
+  fragment PostFields on wpgraphql_Post {
     id
     slug
     content
-    date(formatString: "MMMM DD, YYYY")
+    date
     title
   }
-  query BlogPostByID($id: String!) {
-    wordpressPost(id: { eq: $id }) {
-      id
-      title
-      slug
-      content
-      date(formatString: "MMMM DD, YYYY")
-      categories {
-        name
+  query BlogPostByID2($id: ID!) {
+    wpgraphql {
+      post(id: $id) {
+        id
+        title
         slug
-      }
-      tags {
-        name
-        slug
-      }
-      author {
-        name
-        slug
+        content
+        date
       }
     }
   }
 `
+
+// export const pageQuery = graphql`
+//   fragment PostFields on wpgraphql_Post {
+//     id
+//     slug
+//     content
+//     date
+//     title
+//   }
+//   query BlogPostByID2($id: ID!) {
+//     wpgraphql {
+//       post(id: $id) {
+//         id
+//         title
+//         slug
+//         content
+//         date
+//         categories {
+//           name
+//           slug
+//         }
+//         tags {
+//           name
+//           slug
+//         }
+//         author {
+//           name
+//           slug
+//         }
+//       }
+//     }
+//   }
+// `

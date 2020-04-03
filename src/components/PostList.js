@@ -53,18 +53,18 @@ IndexPage.propTypes = {
 }
 
 export const pageQuery = graphql`
-  fragment PostListFields on wordpress__POST {
+  fragment PostListFields on wpgraphql_Post {
     id
     title
     excerpt
     author {
       name
       slug
-      avatar_urls {
-        wordpress_48
+      avatar {
+        url
       }
     }
-    date(formatString: "MMMM DD, YYYY")
+    date
     slug
   }
 `

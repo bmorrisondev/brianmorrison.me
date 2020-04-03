@@ -33,16 +33,44 @@ BlogPage.propTypes = {
 
 export const pageQuery = graphql`
   query BlogQuery($limit: Int!, $skip: Int!) {
-    allWordpressPost(
-      sort: { fields: date, order: DESC }
-      limit: $limit
-      skip: $skip
-    ) {
-      edges {
-        node {
-          ...PostListFields
+    wpgraphql {
+      posts(
+        where:{ 
+          orderby:{
+            field: DATE
+            order: DESC
+          }
+        }
+        first: $limit
+      ) {
+        edges {
+          node {
+            ...PostListFields
+          }
         }
       }
     }
   }
 `
+// export const pageQuery = graphql`
+//   query BlogQuery($limit: Int!, $skip: Int!) {
+//     wpgraphql {
+//       posts(
+//         where:{ 
+//           orderby:{
+//             field: DATE
+//             order: DESC
+//           }
+//         }
+//         first: $limit
+//         after: $skip
+//       ) {
+//         edges {
+//           node {
+//             ...PostListFields
+//           }
+//         }
+//       }
+//     }
+//   }
+// `

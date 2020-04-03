@@ -3,6 +3,8 @@ version: '3.3'
 services:
    db:
      image: mysql:5.7
+     ports:
+      - "3306:3306"
      volumes:
        - db_data:/var/lib/mysql
      restart: always
@@ -17,8 +19,10 @@ services:
        - db
      image: wordpress:latest
      ports:
-       - "8081:80"
+       - "8088:80"
      restart: always
+     volumes: 
+      - "./conf/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini"
      environment:
        WORDPRESS_DB_HOST: db:3306
        WORDPRESS_DB_USER: wordpress

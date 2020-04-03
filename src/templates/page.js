@@ -47,10 +47,12 @@ Page.propTypes = {
 export default Page
 
 export const pageQuery = graphql`
-  query PageById($id: String!) {
-    wordpressPage(id: { eq: $id }) {
-      title
-      content
+  query PageById($id: ID!) {
+    wpgraphql {
+      page(id: $id) {
+        title
+        content
+      }
     }
   }
 `

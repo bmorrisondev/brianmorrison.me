@@ -8,7 +8,7 @@ import HomeLayout from "../components/HomeLayout"
 import SocialWidget from "../components/widgets/SocialWidget"
 
 const IndexPage = ({data}) => {
-  const post = data.allWordpressPost.edges[0].node
+  const post = data
 
   return (  
     <HomeLayout>
@@ -54,24 +54,21 @@ IndexPage.propTypes = {
 
 export const pageQuery = graphql`
   query IndexQuery {
-    allWordpressPost(
-      sort: { fields: date, order: DESC }
-      limit: 1
-    ) {
-      edges {
-        node {
-          id
-          title
-          excerpt
-          author {
-            name
+    wpgraphql {
+      posts(where:{ 
+        orderby:{
+          field: DATE
+        	order: DESC
+        }
+      }, first: 1) {
+        edges {
+          node {
+            id
+            title
+            excerpt
+            date
             slug
-            avatar_urls {
-              wordpress_48
-            }
           }
-          date(formatString: "MMMM DD, YYYY")
-          slug
         }
       }
     }
