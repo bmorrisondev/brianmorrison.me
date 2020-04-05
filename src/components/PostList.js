@@ -22,7 +22,7 @@ export default class IndexPage extends React.Component {
                   <h4>{post.title}</h4>
                 </Link>
                 <span className="post-excerpt-meta">
-                  {post.date}
+                  {(new Date(post.date)).toDateString()}
                   {/* {post.date} - posted by{' '}
                   <Link to={`/author/${post.author.slug}`}>
                     {post.author.name}
