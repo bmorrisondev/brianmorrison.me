@@ -8,7 +8,7 @@ import HomeLayout from "../components/HomeLayout"
 import SocialWidget from "../components/widgets/SocialWidget"
 
 const IndexPage = ({data}) => {
-  const post = data
+  const post = data.wpgraphql.posts.edges[0].node
 
   return (  
     <HomeLayout>
@@ -43,14 +43,13 @@ const IndexPage = ({data}) => {
   )
 }
 
-
-IndexPage.propTypes = {
-  data: PropTypes.shape({
-    allWordpressPost: PropTypes.shape({
-      edges: PropTypes.array,
-    }),
-  })
-}
+// IndexPage.propTypes = {
+//   data: PropTypes.shape({
+//     allWordpressPost: PropTypes.shape({
+//       edges: PropTypes.array,
+//     }),
+//   })
+// }
 
 export const pageQuery = graphql`
   query IndexQuery {

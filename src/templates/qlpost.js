@@ -40,7 +40,7 @@ BlogPostTemplate.propTypes = {
 }
 
 const BlogPost = ({ data }) => {
-  const { wordpressPost: post } = data
+  const { post } = data.wpgraphql
 
   return (
     <Layout>
@@ -57,11 +57,11 @@ const BlogPost = ({ data }) => {
   )
 }
 
-BlogPost.propTypes = {
-  data: PropTypes.shape({
-    markdownRemark: PropTypes.object,
-  }),
-}
+// BlogPost.propTypes = {
+//   data: PropTypes.shape({
+//     markdownRemark: PropTypes.object,
+//   }),
+// }
 
 export default BlogPost
 

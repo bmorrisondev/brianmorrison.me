@@ -49,7 +49,7 @@ exports.createPages = ({ actions, graphql }) => {
       // Call `createPage()` once per WordPress page
       pages.forEach(p => {
         createPage({
-          path: `/${p.slug}/`,
+          path: `/blog/${p.slug}/`,
           component: pageTemplate,
           context: {
             id: p.id,

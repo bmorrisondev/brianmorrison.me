@@ -8,7 +8,7 @@ import Pagination from '../components/Pagination'
 export default class BlogPage extends React.Component {
   render() {
     const { data, pageContext } = this.props
-    const { edges: posts } = data.allWordpressPost
+    const { edges: posts } = data.wpgraphql.posts
 
     return (
       <Layout>
@@ -19,20 +19,20 @@ export default class BlogPage extends React.Component {
   }
 }
 
-BlogPage.propTypes = {
-  data: PropTypes.shape({
-    allWordpressPost: PropTypes.shape({
-      edges: PropTypes.array,
-    }),
-  }),
-  pageContext: PropTypes.shape({
-    currentPage: PropTypes.number,
-    numPages: PropTypes.number,
-  }),
-}
+// BlogPage.propTypes = {
+//   data: PropTypes.shape({
+//     wpgraphql: PropTypes.shape({
+//       edges: PropTypes.array,
+//     }),
+//   }),
+//   pageContext: PropTypes.shape({
+//     currentPage: PropTypes.number,
+//     numPages: PropTypes.number,
+//   }),
+// }
 
 export const pageQuery = graphql`
-  query BlogQuery($limit: Int!, $skip: Int!) {
+  query BlogQuery {
     wpgraphql {
       posts(
         where:{ 
@@ -41,7 +41,6 @@ export const pageQuery = graphql`
             order: DESC
           }
         }
-        first: $limit
       ) {
         edges {
           node {
@@ -58,7 +57,7 @@ export const pageQuery = graphql`
 //       posts(
 //         where:{ 
 //           orderby:{
-//             field: DATE
+//             field: DATE  
 //             order: DESC
 //           }
 //         }
