@@ -6,11 +6,11 @@ import Layout from '../components/Layout'
 
 export const BlogPostTemplate = ({
   content,
-  categories,
-  tags,
+  // categories,
+  // tags,
   title,
   date,
-  author,
+  // author,
 }) => {
   return (
     <section className="section">
@@ -20,38 +20,12 @@ export const BlogPostTemplate = ({
             <h1 className="title is-size-2 has-text-weight-bold is-bold-light">
               {title}
             </h1>
+            <div>Posted on {(new Date(date)).toDateString()}</div>
             <div dangerouslySetInnerHTML={{ __html: content }} />
             <div style={{ marginTop: `4rem` }}>
               <p>
-                {date} - posted by{' '}
-                <Link to={`/author/${author.slug}`}>{author.name}</Link>
+                {/* <Link to={`/author/${author.slug}`}>{author.name}</Link> */}
               </p>
-              {categories && categories.length ? (
-                <div>
-                  <h4>Categories</h4>
-                  <ul className="taglist">
-                    {categories.map(category => (
-                      <li key={`${category.slug}cat`}>
-                        <Link to={`/categories/${category.slug}/`}>
-                          {category.name}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ) : null}
-              {tags && tags.length ? (
-                <div>
-                  <h4>Tags</h4>
-                  <ul className="taglist">
-                    {tags.map(tag => (
-                      <li key={`${tag.slug}tag`}>
-                        <Link to={`/tags/${tag.slug}/`}>{tag.name}</Link>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ) : null}
             </div>
           </div>
         </div>
@@ -66,40 +40,33 @@ BlogPostTemplate.propTypes = {
 }
 
 const BlogPost = ({ data }) => {
-  const { wordpressPost: post } = data
+  const { post } = data.wpgraphql
 
   return (
     <Layout>
       <Helmet title={`${post.title} | Blog`} />
       <BlogPostTemplate
         content={post.content}
-        categories={post.categories}
-        tags={post.tags}
+        // categories={post.categories}
+        // tags={post.tags}
         title={post.title}
         date={post.date}
-        author={post.author}
+        // author={post.author}
       />
     </Layout>
   )
 }
 
-BlogPost.propTypes = {
-  data: PropTypes.shape({
-    markdownRemark: PropTypes.object,
-  }),
-}
+// BlogPost.propTypes = {
+//   data: PropTypes.shape({
+//     markdownRemark: PropTypes.object,
+//   }),
+// }
 
 export default BlogPost
 
 export const pageQuery = graphql`
-  fragment PostFields on wpgraphql_Post {
-    id
-    slug
-    content
-    date
-    title
-  }
-  query BlogPostByID2($id: ID!) {
+  query BlogPostByID($id: ID!) {
     wpgraphql {
       post(id: $id) {
         id
@@ -112,35 +79,22 @@ export const pageQuery = graphql`
   }
 `
 
-// export const pageQuery = graphql`
-//   fragment PostFields on wpgraphql_Post {
-//     id
-//     slug
-//     content
-//     date
-//     title
-//   }
-//   query BlogPostByID2($id: ID!) {
-//     wpgraphql {
-//       post(id: $id) {
-//         id
-//         title
-//         slug
-//         content
-//         date
-//         categories {
-//           name
-//           slug
-//         }
-//         tags {
-//           name
-//           slug
-//         }
-//         author {
-//           name
-//           slug
-//         }
-//       }
-//     }
-//   }
-// `
+    // wordpressPost(id: { eq: $id }) {
+    //   id
+    //   title
+    //   slug
+    //   content
+    //   date(formatString: "MMMM DD, YYYY")
+    //   categories {
+    //     name
+    //     slug
+    //   }
+    //   tags {
+    //     name
+    //     slug
+    //   }
+    //   author {
+    //     name
+    //     slug
+    //   }
+    // }

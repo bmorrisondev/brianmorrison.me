@@ -1,21 +1,15 @@
-const _ = require('lodash')
 const path = require('path')
 const { createFilePath } = require('gatsby-source-filesystem')
 // const { paginate } = require('gatsby-awesome-pagination')
 
-// const getOnlyPublished = edges =>
-//   _.filter(edges, ({ node }) => node.status === 'publish')
-
 const getOnlyPublished = function(edges) {
-  console.log('here 7')
   return edges.filter(e => e.status === 'publish');
 }
 
 exports.createPages = ({ actions, graphql }) => {
   const { createPage } = actions
-  console.log('here 1')
 
-  return graphql(`
+  const postsQuery = `
     {
       wpgraphql {
         posts {
@@ -27,31 +21,24 @@ exports.createPages = ({ actions, graphql }) => {
         }
       }
     }
-  `)
+  `
+
+  return graphql(postsQuery)
     .then(result => {
       if (result.errors) {
         result.errors.forEach(e => console.error(e.toString()))
         return Promise.reject(result.errors)
       }
-      console.log('here 2')
 
-      const pageTemplate = path.resolve(`./src/templates/qlpost.js`)
-
-      // Only publish pages with a `status === 'publish'` in production. This
-      // excludes drafts, future posts, etc. They will appear in development,
-      // but not in a production build.
+      const pageTemplate = path.resolve(`./src/templates/post.js`)
 
       let allPosts = result.data.wpgraphql.posts.nodes
       allPosts = JSON.parse(JSON.stringify(allPosts))
-      console.log(allPosts);
       const pages =
         process.env.NODE_ENV === 'production'
           ? getOnlyPublished(allPosts)
           : allPosts
           
-      console.log('here 3')
-
-      // Call `createPage()` once per WordPress page
       pages.forEach(p => {
         createPage({
           path: `/blog/${p.slug}/`,
@@ -61,18 +48,6 @@ exports.createPages = ({ actions, graphql }) => {
           },
         })
       });
-
-      
-      console.log('here 4')
-      // _.each(pages, ({ node: page }) => {
-      //   createPage({
-      //     path: `/${page.slug}/`,
-      //     component: pageTemplate,
-      //     context: {
-      //       id: page.id,
-      //     },
-      //   })
-      // })
     });
 }
 
