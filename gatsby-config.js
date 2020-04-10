@@ -1,3 +1,5 @@
+const config = require('./app.config.json')
+
 module.exports = {
   siteMetadata: {
     title: 'Brian Morrison II, Software Engineer & Developer Advocate',
@@ -15,7 +17,7 @@ module.exports = {
         fieldName: "wpgraphql",
         // Url to query from
         // url: "http://localhost:8088/graphql",
-        url: "https://brianmorrison.me/graphql"
+        url: config.wpsourceurl
       },
     },
     // {
@@ -52,6 +54,5 @@ module.exports = {
         purgeOnly: ['/all.sass'],
       },
     }, // must be after other CSS plugins
-    'gatsby-plugin-netlify', // make sure to keep it last in the array
   ],
 }
