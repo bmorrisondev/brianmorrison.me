@@ -9,7 +9,7 @@ module.exports = {
     'gatsby-plugin-sass',
     // Simple config, passing URL
     {
-      resolve: "gatsby-source-graphql",
+      resolve: "gatsby-source-graphql-universal",
       options: {
         // Arbitrary name for the remote schema Query type
         typeName: "wpgraphql",
