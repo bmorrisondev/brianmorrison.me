@@ -7,11 +7,13 @@ const { createFilePath } = require('gatsby-source-filesystem')
 //   _.filter(edges, ({ node }) => node.status === 'publish')
 
 const getOnlyPublished = function(edges) {
+  console.log('here 7')
   return edges.filter(e => e.status === 'publish');
 }
 
 exports.createPages = ({ actions, graphql }) => {
   const { createPage } = actions
+  console.log('here 1')
 
   return graphql(`
     {
@@ -31,6 +33,7 @@ exports.createPages = ({ actions, graphql }) => {
         result.errors.forEach(e => console.error(e.toString()))
         return Promise.reject(result.errors)
       }
+      console.log('here 2')
 
       const pageTemplate = path.resolve(`./src/templates/qlpost.js`)
 
@@ -45,6 +48,8 @@ exports.createPages = ({ actions, graphql }) => {
         process.env.NODE_ENV === 'production'
           ? getOnlyPublished(allPosts)
           : allPosts
+          
+      console.log('here 3')
 
       // Call `createPage()` once per WordPress page
       pages.forEach(p => {
@@ -56,6 +61,9 @@ exports.createPages = ({ actions, graphql }) => {
           },
         })
       });
+
+      
+      console.log('here 4')
       // _.each(pages, ({ node: page }) => {
       //   createPage({
       //     path: `/${page.slug}/`,
@@ -70,6 +78,7 @@ exports.createPages = ({ actions, graphql }) => {
 
 exports.onCreateNode = ({ node, actions, getNode }) => {
   const { createNodeField } = actions
+  console.log('here 5')
 
   if (node.internal.type === `MarkdownRemark`) {
     const value = createFilePath({ node, getNode })
@@ -79,4 +88,6 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
       value,
     })
   }
+  
+  console.log('here 6')
 }
