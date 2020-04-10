@@ -16,12 +16,12 @@ module.exports = {
       },
     },
     'gatsby-plugin-sharp',    
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        path: `${__dirname}/src/img/`,
-      },
-    },
+    // {
+    //   resolve: `gatsby-source-filesystem`,
+    //   options: {
+    //     path: `${__dirname}/src/img/`,
+    //   },
+    // },
     'gatsby-transformer-sharp',
     {
       resolve:'gatsby-plugin-purgecss',
