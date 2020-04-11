@@ -5,6 +5,7 @@ import Footer from "./Footer"
 
 import './sass/main.sass'
 
+
 const IndexPage = ({children}) => (
   <div className="home-wrapper">
     <HelmetWrapper pageTitle="Home" />

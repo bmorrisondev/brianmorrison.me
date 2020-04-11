@@ -15,7 +15,7 @@ module.exports = {
         url: config.wpsourceurl
       },
     },
-    'gatsby-plugin-sharp',    
+    'gatsby-plugin-sharp',
     // {
     //   resolve: `gatsby-source-filesystem`,
     //   options: {

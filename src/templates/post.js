@@ -20,7 +20,13 @@ export const BlogPostTemplate = ({
             <h1 className="title is-size-2 has-text-weight-bold is-bold-light">
               {title}
             </h1>
-            <div>Posted on {(new Date(date)).toDateString()}</div>
+            <div>
+              {/* TODO: Style name should be renamed and style below should go into scss file */}
+              <span className="post-excerpt-meta">
+                <i className="far fa-calendar" style={{paddingRight: 5 + 'px'}} />
+                {(new Date(date)).toDateString()}
+              </span> 
+            </div>
             <div dangerouslySetInnerHTML={{ __html: content }} />
             <div style={{ marginTop: `4rem` }}>
               <p>
