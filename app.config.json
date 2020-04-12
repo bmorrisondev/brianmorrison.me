@@ -1,3 +1,4 @@
 {
-  "wpsourceurl": "https://wp2.brianmorrison.me/graphql"
+  "wpsourceurl": "https://wp2.brianmorrison.me/graphql",
+  "googleAnalyticsTrackingId": "$(googleAnalyticsTrackingId)"
 }
