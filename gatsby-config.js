@@ -15,6 +15,12 @@ module.exports = {
         url: config.wpsourceurl
       },
     },
+    {
+      resolve: 'gatsby-plugin-google-analytics',
+      options: {
+        trackingId: config.googleAnalyticsTrackingId,
+      }
+    },
     'gatsby-plugin-sharp',
     // {
     //   resolve: `gatsby-source-filesystem`,
