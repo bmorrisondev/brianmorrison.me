@@ -25,7 +25,7 @@ const DiscordWidget = () => {
           <span>online members: {activeCount}</span>
         </div>
       </div>
-      <a href={inviteLink} className="connect-button" alt="join-on-discord-button"><i class="fab fa-discord"></i>Join</a>
+      <a href={inviteLink} className="connect-button" alt="join-on-discord-button"><i className="fab fa-discord"></i>Join</a>
       {/* <div className="connect-button">
       </div> */}
     </div>

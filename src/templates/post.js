@@ -2,7 +2,18 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Helmet from 'react-helmet'
 import { graphql, Link } from 'gatsby'
+import Prism from 'prismjs'
+// let Prism = require("prismjs");  // prism isn't typescript friendly just import it
+// import bash from "prismjs/components/prism-bash"
+// import "prismjs/plugins/autoloader/prism-autoloader"
+// import langs from 'prismjs/components'
 import Layout from '../components/Layout'
+
+// console.log(langs)
+// console.log(Prism)
+// Prism.highlightAll();
+
+const parser = new DOMParser();
 
 export const BlogPostTemplate = ({
   content,
@@ -12,11 +23,25 @@ export const BlogPostTemplate = ({
   date,
   // author,
 }) => {
+  // console.log(Prism.languages.bash)
+  // console.log("fn", bash(Prism))
+  // console.log("lng", Prism.languages.bash)
+  // let highlighted = Prism.highlight(content, Prism.languages.bash, "bash")
+  // console.log(highlighted)
+  // Prism.highlightAllUnder(content, false, out => console.log(out))
+  // Prism.highlightAll();
+  const parsedHtml = parser.parseFromString(content, "text/html");
+  // parsedHtml.querySelectorAll("code").forEach(c => Prism.highlight(c, Prism.languages.bash, "bash"));
+  parsedHtml.querySelectorAll("code").forEach(c => {
+    // console.log(c)
+    Prism.highlightElement(c);
+  });
+  const highlighted = parsedHtml.querySelector("body").innerHTML
   return (
     <section className="section">
       <div className="container content">
         <div className="row">
-          <div className="col-8-md post">
+          <div className="col-12-md post">
             <h1 className="title is-size-2 has-text-weight-bold is-bold-light">
               {title}
             </h1>
@@ -27,7 +52,7 @@ export const BlogPostTemplate = ({
                 {(new Date(date)).toDateString()}
               </span> 
             </div>
-            <div dangerouslySetInnerHTML={{ __html: content }} />
+            <div dangerouslySetInnerHTML={{ __html: highlighted }} />
             <div style={{ marginTop: `4rem` }}>
               <p>
                 {/* <Link to={`/author/${author.slug}`}>{author.name}</Link> */}
