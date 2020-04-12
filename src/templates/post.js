@@ -1,15 +1,15 @@
 import React from 'react'
-import PropTypes from 'prop-types'
+// import PropTypes from 'prop-types'
 import Helmet from 'react-helmet'
-import { graphql, Link } from 'gatsby'
-import Prism from 'prismjs'
+// import { graphql, Link } from 'gatsby'
+// import Prism from 'prismjs'
 // let Prism = require("prismjs");  // prism isn't typescript friendly just import it
 // import bash from "prismjs/components/prism-bash"
 // import "prismjs/plugins/autoloader/prism-autoloader"
 // import langs from 'prismjs/components'
 // import jsdom from 'jsdom'
-import cheerio from 'cheerio'
-import { DOMParser } from 'xmldom'
+// import cheerio from 'cheerio'
+// import { DOMParser } from 'xmldom'
 import Layout from '../components/Layout'
 
 // console.log(langs)
@@ -94,23 +94,42 @@ export const BlogPostTemplate = ({
   )
 }
 
-BlogPostTemplate.propTypes = {
-  content: PropTypes.node.isRequired,
-  title: PropTypes.string,
-}
+// BlogPostTemplate.propTypes = {
+//   content: PropTypes.node.isRequired,
+//   title: PropTypes.string,
+// }
 
-const BlogPost = ({ data }) => {
-  const { post } = data.wpgraphql
+// const BlogPost = ({ data }) => {
+//   const { post } = data.wpgraphql
 
+//   return (
+//     <Layout>
+//       <Helmet title={`${post.title} | Blog`} />
+//       <BlogPostTemplate
+//         content={post.content}
+//         // categories={post.categories}
+//         // tags={post.tags}
+//         title={post.title}
+//         date={post.date}
+//         // author={post.author}
+//       />
+//     </Layout>
+//   )
+// }
+
+const BlogPost = ({
+  pageContext
+}) => {
+  console.log(pageContext)
   return (
     <Layout>
-      <Helmet title={`${post.title} | Blog`} />
+      <Helmet title={`${pageContext.title} | Blog`} />
       <BlogPostTemplate
-        content={post.content}
+        content={pageContext.content}
         // categories={post.categories}
         // tags={post.tags}
-        title={post.title}
-        date={post.date}
+        title={pageContext.title}
+        date={pageContext.date}
         // author={post.author}
       />
     </Layout>
@@ -125,19 +144,19 @@ const BlogPost = ({ data }) => {
 
 export default BlogPost
 
-export const pageQuery = graphql`
-  query BlogPostByID($id: ID!) {
-    wpgraphql {
-      post(id: $id) {
-        id
-        title
-        slug
-        content
-        date
-      }
-    }
-  }
-`
+// export const pageQuery = graphql`
+//   query BlogPostByID($id: ID!) {
+//     wpgraphql {
+//       post(id: $id) {
+//         id
+//         title
+//         slug
+//         content
+//         date
+//       }
+//     }
+//   }
+// `
 
     // wordpressPost(id: { eq: $id }) {
     //   id
