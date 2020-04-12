@@ -5,36 +5,19 @@ const jsdom = require('jsdom')
 const loadLanguages = require('prismjs/components/index.js');
 
 loadLanguages()
-// import "prismjs/plugins/autoloader/prism-autoloader"
-
 // const { paginate } = require('gatsby-awesome-pagination')
 
 const getOnlyPublished = function(edges) {
   return edges.filter(e => e.status === 'publish');
 }
 
-// exports.onCreateWebpackConfig = ({ actions }) => {
-//   actions.setWebpackConfig({
-//     node: {
-//       fs: 'empty'
-//     }
-//   })
-// }
-
 const highlightCode = function(content) {
   const dom = new jsdom.JSDOM(content);
-  // const parsedHtml = dom.window.document;
   dom.window.document.querySelectorAll("code").forEach(c => {
-    // console.log(c)
-    // const highlighted = Prism.highlightElement(c);
-    // c.innerHTML = highlighted;
     const code = c.textContent;
     const name = c.className
       .replace("language-", "")
       .replace("lang-", "");
-    console.log("code", code)
-    console.log("name", name)
-    console.log("Prism.languages[name]", Prism.languages[name])
     if(name) {
       const processed = Prism.highlight(code, Prism.languages[name], name);
       c.innerHTML = processed;
@@ -42,7 +25,6 @@ const highlightCode = function(content) {
     }
   });
   return dom.window.document.body.innerHTML;
-  // return parsedHtml.querySelector("body").innerHTML
 }
 
 exports.createPages = ({ actions, graphql }) => {
@@ -65,6 +47,26 @@ exports.createPages = ({ actions, graphql }) => {
     }
   `
 
+    // wordpressPost(id: { eq: $id }) {
+    //   id
+    //   title
+    //   slug
+    //   content
+    //   date(formatString: "MMMM DD, YYYY")
+    //   categories {
+    //     name
+    //     slug
+    //   }
+    //   tags {
+    //     name
+    //     slug
+    //   }
+    //   author {
+    //     name
+    //     slug
+    //   }
+    // }
+
   return graphql(postsQuery)
     .then(result => {
       if (result.errors) {
@@ -80,16 +82,6 @@ exports.createPages = ({ actions, graphql }) => {
         process.env.NODE_ENV === 'production'
           ? getOnlyPublished(allPosts)
           : allPosts
-          
-      // pages.forEach(p => {
-      //   createPage({
-      //     path: `/blog/${p.slug}/`,
-      //     component: pageTemplate,
-      //     context: {
-      //       id: p.id,
-      //     },
-      //   })
-      // });
           
       pages.forEach(p => {
         const highlightedContent = highlightCode(p.content)
