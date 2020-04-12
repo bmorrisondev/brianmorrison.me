@@ -10,6 +10,12 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
+- task: FileTransform@2
+  inputs:
+    folderPath: '$(Pipeline.Workspace)/s'
+    xmlTransformationRules: 
+    jsonTargetFiles: 'app.config.json'
+    
 - task: NodeTool@0
   inputs:
     versionSpec: '12.x'
