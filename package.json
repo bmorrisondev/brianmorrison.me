@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "author": "Brian Morrison II",
   "dependencies": {
+    "cheerio": "^1.0.0-rc.3",
     "gatsby": "^2.20.15",
     "gatsby-awesome-pagination": "^0.3.3",
     "gatsby-image": "^2.3.2",
@@ -24,7 +25,9 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-helmet": "^5.2.1",
-    "uuid": "^3.4.0"
+    "uuid": "^3.4.0",
+    "webpack-node-externals": "^1.7.2",
+    "xmldom": "^0.3.0"
   },
   "keywords": [
     "gatsby"

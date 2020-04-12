@@ -7,13 +7,16 @@ import Prism from 'prismjs'
 // import bash from "prismjs/components/prism-bash"
 // import "prismjs/plugins/autoloader/prism-autoloader"
 // import langs from 'prismjs/components'
+// import jsdom from 'jsdom'
+import cheerio from 'cheerio'
+import { DOMParser } from 'xmldom'
 import Layout from '../components/Layout'
 
 // console.log(langs)
 // console.log(Prism)
 // Prism.highlightAll();
 
-const parser = new DOMParser();
+// const parser = new DOMParser();
 
 export const BlogPostTemplate = ({
   content,
@@ -30,13 +33,39 @@ export const BlogPostTemplate = ({
   // console.log(highlighted)
   // Prism.highlightAllUnder(content, false, out => console.log(out))
   // Prism.highlightAll();
-  const parsedHtml = parser.parseFromString(content, "text/html");
-  // parsedHtml.querySelectorAll("code").forEach(c => Prism.highlight(c, Prism.languages.bash, "bash"));
-  parsedHtml.querySelectorAll("code").forEach(c => {
-    // console.log(c)
-    Prism.highlightElement(c);
-  });
-  const highlighted = parsedHtml.querySelector("body").innerHTML
+  // const parsedHtml = parser.parseFromString(content, "text/html");
+  // // parsedHtml.querySelectorAll("code").forEach(c => Prism.highlight(c, Prism.languages.bash, "bash"));
+  // parsedHtml.querySelectorAll("code").forEach(c => {
+  //   // console.log(c)
+  //   Prism.highlightElement(c);
+  // });
+  // const highlighted = parsedHtml.querySelector("body").innerHTML
+
+  // const parsedHtml = cheerio.parseHTML(content);
+  // console.log(parsedHtml)
+  // // var codeTags = $('code').toArray();
+  // parsedHtml.querySelectorAll("code").forEach(c => Prism.highlightElement(c));
+  // console.log(parsedHtml); // '<!DOCTYPE html><p>Bye moon</p>'
+
+  // const parser = new DOMParser();
+  // const parsedHtml = parser.parseFromString(content)
+  // const elements = parsedHtml.getElementsByName("code") //.forEach(c => Prism.highlightElement(c));
+  // Object.keys(elements).map(key => elements[key]).forEach(c => console.log(c))
+  // console.log(elements); // '<!DOCTYPE html><p>Bye moon</p>'
+  // const highlighted = parsedHtml.body.innerHTML
+  // console.log(highlighted)
+
+
+
+  // const parsedHtml = new jsdom.JSDOM(content);
+  // console.log(parsedHtml)
+  // // const parsedHtml = dom.window.document;
+  // parsedHtml.querySelectorAll("code").forEach(c => {
+  //   // console.log(c)
+  //   Prism.highlightElement(c);
+  // });
+  // const highlighted = parsedHtml.querySelector("body").innerHTML
+
   return (
     <section className="section">
       <div className="container content">
@@ -52,7 +81,7 @@ export const BlogPostTemplate = ({
                 {(new Date(date)).toDateString()}
               </span> 
             </div>
-            <div dangerouslySetInnerHTML={{ __html: highlighted }} />
+            <div dangerouslySetInnerHTML={{ __html: content }} />
             <div style={{ marginTop: `4rem` }}>
               <p>
                 {/* <Link to={`/author/${author.slug}`}>{author.name}</Link> */}

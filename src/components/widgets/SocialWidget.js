@@ -8,7 +8,7 @@ const SocialWidget = ({shouldIncludeDiscord}) => (
         <h4>Main Channel</h4>
       </div> */}
       <span>
-        <img alt="twitch-logo" src='/img/social/twitch-logo.png'/>
+        <img alt="twitch-logo" src='/img/social/twitch-logo.png' />
         <a href={socials.twitch} target="_blank" rel="noopener noreferrer">
           Twitch Channel
         </a>
