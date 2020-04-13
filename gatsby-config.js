@@ -7,6 +7,8 @@ module.exports = {
   plugins: [
     'gatsby-plugin-react-helmet',
     'gatsby-plugin-sass',
+    'gatsby-plugin-sharp',
+    'gatsby-transformer-sharp',
     {
       resolve: "gatsby-source-graphql-universal",
       options: {
@@ -21,14 +23,21 @@ module.exports = {
         trackingId: config.googleAnalyticsTrackingId,
       }
     },
-    'gatsby-plugin-sharp',
+    // TODO: Figure out how to get this working with headers only - https://github.com/typekit/webfontloader
+    // {
+    //   resolve: 'gatsby-plugin-web-font-loader',
+    //   options: {
+    //     google: {
+    //       families: ['Montserrat']
+    //     }
+    //   }
+    // },
     // {
     //   resolve: `gatsby-source-filesystem`,
     //   options: {
     //     path: `${__dirname}/src/img/`,
     //   },
     // },
-    'gatsby-transformer-sharp',
     {
       resolve:'gatsby-plugin-purgecss',
       options: {

@@ -1,7 +1,10 @@
+/* eslint-disable react/jsx-closing-bracket-location */
 import React from 'react'
 import Helmet from 'react-helmet'
 // import { graphql, Link } from 'gatsby'
 import Layout from '../components/Layout'
+
+import PostMetaWidget from '../components/widgets/PostMetaWidget'
 
 export const BlogPostTemplate = ({
   content,
@@ -9,29 +12,22 @@ export const BlogPostTemplate = ({
   // tags,
   title,
   date,
-  // author,
+  author
 }) => {
   return (
     <section className="section">
       <div className="container content">
         <div className="row">
-          <div className="col-12-md post">
+          <div className="col-md-8 post">
             <h1 className="title is-size-2 has-text-weight-bold is-bold-light">
               {title}
             </h1>
-            <div>
-              {/* TODO: Style name should be renamed and style below should go into scss file */}
-              <span className="post-excerpt-meta">
-                <i className="far fa-calendar" style={{paddingRight: 5 + 'px'}} />
-                {(new Date(date)).toDateString()}
-              </span> 
-            </div>
             <div dangerouslySetInnerHTML={{ __html: content }} />
-            <div style={{ marginTop: `4rem` }}>
-              <p>
-                {/* <Link to={`/author/${author.slug}`}>{author.name}</Link> */}
-              </p>
-            </div>
+          </div>
+          <div className="col-md-4">
+            <PostMetaWidget 
+              date={date}
+              author={author} />
           </div>
         </div>
       </div>
@@ -51,7 +47,7 @@ const BlogPost = ({
         // tags={post.tags}
         title={pageContext.title}
         date={pageContext.date}
-        // author={post.author}
+        author={pageContext.author}
       />
     </Layout>
   )

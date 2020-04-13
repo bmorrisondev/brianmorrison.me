@@ -1,8 +1,5 @@
 import React from "react"
 import { Link, graphql } from 'gatsby'
-import PropTypes from 'prop-types'
-
-import CallToAction from "../components/CallToActionComponent"
 import DiscordWidget from "../components/widgets/DiscordWidget"
 import HomeLayout from "../components/HomeLayout"
 import SocialWidget from "../components/widgets/SocialWidget"
@@ -17,7 +14,8 @@ const IndexPage = ({data}) => {
           <div className="col-md-6">
             <div className="home-panel">
               <h2>Get in touch.</h2>
-              <DiscordWidget />
+              {/* TODO: Move to config */}
+              <DiscordWidget guildId="553773331674038282" />
               <SocialWidget />
             </div>
           </div>

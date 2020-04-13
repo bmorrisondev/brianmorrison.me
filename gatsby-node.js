@@ -40,7 +40,17 @@ exports.createPages = ({ actions, graphql }) => {
             status,
             title,
             content,
-            date
+            date,
+            author {
+              id
+              slug
+              name
+              lastName
+              description
+              avatar {
+                url
+              }
+            }
           }
         }
       }
@@ -89,9 +99,11 @@ exports.createPages = ({ actions, graphql }) => {
           path: `/blog/${p.slug}/`,
           component: pageTemplate,
           context: {
+            id: p.id,
             content: highlightedContent,
             title: p.title,
-            date: p.date
+            date: p.date,
+            author: p.author
           },
         })
       });

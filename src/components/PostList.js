@@ -2,6 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Link, graphql } from 'gatsby'
 
+import { DateFormatter } from './formatters/CommonFormatters'
+
 export default class IndexPage extends React.Component {
   render() {
     const { posts, title } = this.props
@@ -22,7 +24,7 @@ export default class IndexPage extends React.Component {
                   <h4>{post.title}</h4>
                 </Link>
                 <span className="post-excerpt-meta">
-                  {(new Date(post.date)).toDateString()}
+                  <DateFormatter date={post.date} />
                   {/* {post.date} - posted by{' '}
                   <Link to={`/author/${post.author.slug}`}>
                     {post.author.name}
