@@ -10,7 +10,7 @@ const IndexPage = ({data}) => {
   return (  
     <HomeLayout>
       <div className="container">
-        <div className="row">
+        <div className="row h-100">
           <div className="col-md-6">
             <div className="home-panel">
               <h2>Get in touch.</h2>
@@ -30,7 +30,7 @@ const IndexPage = ({data}) => {
               <div className="post-excerpt" dangerouslySetInnerHTML={{__html: post.excerpt}} />
               <div className="post-excerpt-footer">
                 <Link to={`/blog/${post.slug}`}>
-                  Keep Reading →
+                  Keep Reading <i class="fas fa-angle-double-right"></i>
                 </Link>
               </div>
             </div>

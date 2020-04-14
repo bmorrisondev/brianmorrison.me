@@ -11,20 +11,19 @@ const PostMetaWidget = ({
       <DateFormatter date={date} />
       <div className="row author-panel">
         <div className="col-md-4">
-          <img src={author.avatar.url} className="img-fluid rounded-circle author-image" />
+          <img src={author.avatar.url} 
+            className="img-fluid rounded-circle author-image" />
         </div>
         <div className="col-md-8 my-auto author-name">
-          <h2>By {author.name}</h2>
+          <h3>By {author.name}</h3>
         </div>
-        <div className="col-md-12 author-description">
-          {author.description}
-        </div>
-        <div className="col-md-12 author-link">
+        <div className="col-md-12 author-description" 
+          dangerouslySetInnerHTML={{ __html: author.description}} />
+        {/* <div className="col-md-12 author-link">
           <Link to={`authors/${author.slug}`}>
-            More from {author.name}
+            More from {author.name} <i class="fas fa-angle-double-right"></i>
           </Link>
-        </div>
-        {/* {JSON.stringify(author)} */}
+        </div> */}
       </div>
     </div>
   )

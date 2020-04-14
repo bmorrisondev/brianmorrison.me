@@ -38,7 +38,7 @@ export default class IndexPage extends React.Component {
                   }}
                 />
                 <Link className="button is-small" to={`/blog/${post.slug}`}>
-                  Keep Reading →
+                  Keep Reading <i class="fas fa-angle-double-right"></i>
                 </Link>
               </div>
             </div>
