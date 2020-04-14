@@ -6,6 +6,7 @@ $bmme-light-blue: #12b8f2
 $container-bg: #ffffff;
 // $container-bg: #efefef;
 $text-color: #111111;
+$light-bg: #fafbff;
 
 // Other Branding
 $twitch-purple: #6643a6
@@ -79,10 +80,23 @@ $discord-purple: #7289DA;
   color: $text-color;
   // background-color: rgba($container-bg,0.9);
   // border-radius: 15px;
-  margin: 15px 0px;
   padding: 25px;
-  border-bottom: 1px solid #ddd;
+  // border-bottom: 1px solid #ddd;
   // box-shadow: 5px 10px 10px rgba(12,12,12,0.05);
+
+.pretty-code-divider
+  color: #ededed;
+  margin-top: 20px;
+  width: 100%;
+  text-align: center;
+
+  i
+    background-color: $light-bg
+    padding: 0px 10px;
+  
+  hr
+    border-top: 1px solid #ededed;
+    margin: -0.8em;
 
 .post-excerpt-meta
   font-style: italic;
@@ -104,6 +118,16 @@ $discord-purple: #7289DA;
   padding: 25px;
   box-shadow: 5px 10px 10px rgba(12,12,12,0.05);
 
+  .formatted-date
+    font-style: italic;
+    color: #777
+
+  .pretty-code-divider
+    padding-bottom: 2em;
+
+    i
+      background-color: white // $light-bg
+
 
 .pagination
   padding-bottom: 15px;
@@ -120,5 +144,5 @@ $discord-purple: #7289DA;
   color: #777;
 
   .footer-content
-    border-top: 1px solid #ddd;
+    // border-top: 1px solid #ddd;
     padding: 15px;

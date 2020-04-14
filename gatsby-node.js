@@ -27,7 +27,7 @@ const highlightCode = function(content) {
   return dom.window.document.body.innerHTML;
 }
 
-exports.createPages = ({ actions, graphql }) => {
+exports.createPages = async ({ actions, graphql }) => {
   const { createPage } = actions
 
   const postsQuery = `
@@ -57,57 +57,36 @@ exports.createPages = ({ actions, graphql }) => {
     }
   `
 
-    // wordpressPost(id: { eq: $id }) {
-    //   id
-    //   title
-    //   slug
-    //   content
-    //   date(formatString: "MMMM DD, YYYY")
-    //   categories {
-    //     name
-    //     slug
-    //   }
-    //   tags {
-    //     name
-    //     slug
-    //   }
-    //   author {
-    //     name
-    //     slug
-    //   }
-    // }
+  const queryResult = await graphql(postsQuery);
 
-  return graphql(postsQuery)
-    .then(result => {
-      if (result.errors) {
-        result.errors.forEach(e => console.error(e.toString()))
-        return Promise.reject(result.errors)
-      }
+  if (queryResult.errors) {
+    // eslint-disable-next-line no-console
+    queryResult.errors.forEach(e => console.error(e.toString()))
+    throw queryResult.errors
+  }
 
-      const pageTemplate = path.resolve(`./src/templates/post.js`)
+  const pageTemplate = path.resolve(`./src/templates/post.js`)
 
-      let allPosts = result.data.wpgraphql.posts.nodes
-      allPosts = JSON.parse(JSON.stringify(allPosts))
-      const pages =
-        process.env.NODE_ENV === 'production'
-          ? getOnlyPublished(allPosts)
-          : allPosts
-          
-      pages.forEach(p => {
-        const highlightedContent = highlightCode(p.content)
-        createPage({
-          path: `/blog/${p.slug}/`,
-          component: pageTemplate,
-          context: {
-            id: p.id,
-            content: highlightedContent,
-            title: p.title,
-            date: p.date,
-            author: p.author
-          },
-        })
-      });
-    });
+  let posts = queryResult.data.wpgraphql.posts.nodes
+  posts = JSON.parse(JSON.stringify(posts))
+  if(process.env.NODE_ENV === 'production') {
+    posts = getOnlyPublished(posts)
+  }
+      
+  posts.forEach(p => {
+    const highlightedContent = highlightCode(p.content)
+    createPage({
+      path: `/blog/${p.slug}/`,
+      component: pageTemplate,
+      context: {
+        id: p.id,
+        content: highlightedContent,
+        title: p.title,
+        date: p.date,
+        author: p.author
+      },
+    })
+  });
 }
 
 exports.onCreateNode = ({ node, actions, getNode }) => {

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { Link, graphql } from 'gatsby'
 
 import { DateFormatter } from './formatters/CommonFormatters'
+import PrettyCodeDivider from './PrettyCodeDivider'
 
 export default class IndexPage extends React.Component {
   render() {
@@ -14,12 +15,12 @@ export default class IndexPage extends React.Component {
           <div className="content">
             <h1 className="has-text-weight-bold is-size-2 blog-title">{title}</h1>
           </div>
-          {posts.map(({ node: post }) => (
+          {posts.map(({ node: post }, index) => (
             <div
               className="content post-excerpt"
               key={post.id}
             >
-              <p>
+              <div>
                 <Link className="has-text-primary" to={`/blog/${post.slug}`}>
                   <h4>{post.title}</h4>
                 </Link>
@@ -30,7 +31,7 @@ export default class IndexPage extends React.Component {
                     {post.author.name}
                   </Link> */}
                 </span>
-              </p>
+              </div>
               <div>
                 <div
                   dangerouslySetInnerHTML={{
@@ -41,8 +42,11 @@ export default class IndexPage extends React.Component {
                   Keep Reading <i class="fas fa-angle-double-right"></i>
                 </Link>
               </div>
+              {index !== (posts.length - 1) && (
+                <PrettyCodeDivider />
+              )}
             </div>
-          ))}
+          ))} 
         </div>
       </section>
     )
