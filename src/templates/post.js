@@ -8,21 +8,34 @@ import PostMetaWidget from '../components/widgets/PostMetaWidget'
 
 export const BlogPostTemplate = ({
   content,
-  // categories,
-  // tags,
   title,
   date,
-  author
+  author,
+  featuredImage,
+  categories,
+  tags
 }) => {
+  let featuredImageUrl = ""
+  if(featuredImage) {
+    featuredImageUrl = featuredImage.mediaItemUrl.replace("https://wp2.brianmorrison.me/wp-content/uploads", "https://cdn.brianmorrison.me/images")
+  }
   return (
     <section className="section">
       <div className="container content">
         <div className="row">
           <div className="col-md-8 post">
+            {featuredImageUrl !== "" && (
+              <div>
+                <img src={featuredImageUrl} alt={featuredImage.altText} className="img-fluid post-featured-image" />
+              </div>
+            )}
             <h1 className="title is-size-2 has-text-weight-bold is-bold-light">
               {title}
             </h1>
             <div dangerouslySetInnerHTML={{ __html: content }} />
+            <div>
+              {JSON.stringify(featuredImage)}
+            </div>
           </div>
           <div className="col-md-4">
             <PostMetaWidget 
@@ -48,6 +61,9 @@ const BlogPost = ({
         title={pageContext.title}
         date={pageContext.date}
         author={pageContext.author}
+        featuredImage={pageContext.featuredImage}
+        categories={pageContext.categories}
+        tags={pageContext.tags}
       />
     </Layout>
   )

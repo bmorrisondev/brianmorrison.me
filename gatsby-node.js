@@ -35,12 +35,17 @@ exports.createPages = async ({ actions, graphql }) => {
       wpgraphql {
         posts {
           nodes {
-            id,
-            slug,
-            status,
-            title,
-            content,
-            date,
+            id
+            slug
+            featuredImage {
+              uri
+              altText
+              mediaItemUrl
+            }
+            status
+            title
+            content
+            date
             author {
               id
               slug
@@ -49,6 +54,20 @@ exports.createPages = async ({ actions, graphql }) => {
               description
               avatar {
                 url
+              }
+            }
+            tags {
+              nodes {
+                id
+                name
+                slug
+              }
+            }
+            categories {
+              nodes {
+                id
+                name
+                slug
               }
             }
           }
@@ -72,6 +91,8 @@ exports.createPages = async ({ actions, graphql }) => {
   if(process.env.NODE_ENV === 'production') {
     posts = getOnlyPublished(posts)
   }
+
+  // console.log(JSON.stringify(posts))
       
   posts.forEach(p => {
     const highlightedContent = highlightCode(p.content)
@@ -83,7 +104,10 @@ exports.createPages = async ({ actions, graphql }) => {
         content: highlightedContent,
         title: p.title,
         date: p.date,
-        author: p.author
+        author: p.author,
+        featuredImage: p.featuredImage,
+        categories: p.categories,
+        tags: p.tags
       },
     })
   });
