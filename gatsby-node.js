@@ -27,13 +27,38 @@ const highlightCode = function(content) {
   return dom.window.document.body.innerHTML;
 }
 
+const addResponsiveImageTags = function(content) {
+  const dom = new jsdom.JSDOM(content);
+  dom.window.document.querySelectorAll("img").forEach(img => {
+    let classList = img.className.split(" ");
+    if(!classList.includes("img-fluid")) {
+      classList.push("img-fluid");
+      img.className = classList.join(" ");
+    }
+  })
+  return dom.window.document.body.innerHTML;
+}
+
+const makeVideoEmbedsResponsive = function(content) {
+  const dom = new jsdom.JSDOM(content);
+  dom.window.document.querySelectorAll(".wp-block-embed__wrapper").forEach(el => {
+    let classList = el.className.split(" ");
+    if(!classList.includes("embed-responsive")) {
+      classList.push("embed-responsive");
+      classList.push("embed-responsive-16by9");
+      el.className = classList.join(" ");
+    }
+  })
+  return dom.window.document.body.innerHTML;
+}
+
 exports.createPages = async ({ actions, graphql }) => {
   const { createPage } = actions
 
   const postsQuery = `
     {
       wpgraphql {
-        posts {
+        posts(first: 100) {
           nodes {
             id
             slug
@@ -91,17 +116,22 @@ exports.createPages = async ({ actions, graphql }) => {
   if(process.env.NODE_ENV === 'production') {
     posts = getOnlyPublished(posts)
   }
-
-  // console.log(JSON.stringify(posts))
       
   posts.forEach(p => {
-    const highlightedContent = highlightCode(p.content)
+    let transformedContent = highlightCode(p.content)
+    transformedContent = addResponsiveImageTags(transformedContent)
+    transformedContent = makeVideoEmbedsResponsive(transformedContent)
+
+    if(p.featuredImage) {
+      p.featuredImage.azureFeaturedImageUrl = p.featuredImage.mediaItemUrl.replace("https://wp2.brianmorrison.me/wp-content/uploads", "https://cdn.brianmorrison.me/images")
+    }
+
     createPage({
       path: `/blog/${p.slug}/`,
       component: pageTemplate,
       context: {
         id: p.id,
-        content: highlightedContent,
+        content: transformedContent,
         title: p.title,
         date: p.date,
         author: p.author,

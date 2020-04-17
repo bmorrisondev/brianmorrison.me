@@ -8,6 +8,12 @@ import PrettyCodeDivider from './PrettyCodeDivider'
 export default class IndexPage extends React.Component {
   render() {
     const { posts, title } = this.props
+    
+    posts.forEach(({ node: p }) => {
+      if(p.featuredImage) {
+        p.featuredImage.azureFeaturedImageUrl = p.featuredImage.mediaItemUrl.replace("https://wp2.brianmorrison.me/wp-content/uploads", "https://cdn.brianmorrison.me/images")
+      }
+    })
 
     return (
       <section className="section post-list">
@@ -16,34 +22,42 @@ export default class IndexPage extends React.Component {
             <h1 className="has-text-weight-bold is-size-2 blog-title">{title}</h1>
           </div>
           {posts.map(({ node: post }, index) => (
-            <div
-              className="content post-excerpt"
-              key={post.id}
-            >
-              <div>
-                <Link className="has-text-primary" to={`/blog/${post.slug}`}>
-                  <h4>{post.title}</h4>
-                </Link>
-                <span className="post-excerpt-meta">
-                  <DateFormatter date={post.date} />
-                  {/* {post.date} - posted by{' '}
-                  <Link to={`/author/${post.author.slug}`}>
-                    {post.author.name}
-                  </Link> */}
-                </span>
-              </div>
-              <div>
+            <div className="row">
+              <div className="col-md-12">
                 <div
-                  dangerouslySetInnerHTML={{
-                    __html: post.excerpt.replace(/<p class="link-more.*/, ''),
-                  }}
-                />
-                <Link className="button is-small" to={`/blog/${post.slug}`}>
-                  Keep Reading <i class="fas fa-angle-double-right"></i>
-                </Link>
+                  className="content post-excerpt"
+                  key={post.id}
+                >
+                  <div>
+                    <Link className="has-text-primary" to={`/blog/${post.slug}`}>
+                      
+                      {post.featuredImage && (
+                        <img src={post.featuredImage.azureFeaturedImageUrl} 
+                          alt={post.featuredImage.altText} 
+                          className="img-fluid post-featured-image" />
+                      )}
+                      <h4>{post.title}</h4>
+                    </Link>
+                    <span className="post-excerpt-meta">
+                      <DateFormatter date={post.date} />
+                    </span>
+                  </div>
+                  <div>
+                    <div
+                      dangerouslySetInnerHTML={{
+                        __html: post.excerpt.replace(/<p class="link-more.*/, ''),
+                      }}
+                    />
+                    <Link className="button is-small" to={`/blog/${post.slug}`}>
+                      Keep Reading <i class="fas fa-angle-double-right"></i>
+                    </Link>
+                  </div>
+                </div>
               </div>
               {index !== (posts.length - 1) && (
-                <PrettyCodeDivider />
+                <div className="col-md-12">
+                  <PrettyCodeDivider />
+                </div>
               )}
             </div>
           ))} 
@@ -57,6 +71,52 @@ IndexPage.propTypes = {
   posts: PropTypes.arrayOf(PropTypes.object),
   title: PropTypes.string,
 }
+
+// export const pageQuery = graphql`
+//   {
+//     wpgraphql {
+//       posts(first: 100) {
+//         nodes {
+//           id
+//           slug
+//           featuredImage {
+//             uri
+//             altText
+//             mediaItemUrl
+//           }
+//           status
+//           title
+//           content
+//           date
+//           author {
+//             id
+//             slug
+//             name
+//             lastName
+//             description
+//             avatar {
+//               url
+//             }
+//           }
+//           tags {
+//             nodes {
+//               id
+//               name
+//               slug
+//             }
+//           }
+//           categories {
+//             nodes {
+//               id
+//               name
+//               slug
+//             }
+//           }
+//         }
+//       }
+//     }
+//   }
+// `
 
 export const pageQuery = graphql`
   fragment PostListFields on wpgraphql_Post {
@@ -72,5 +132,10 @@ export const pageQuery = graphql`
     }
     date
     slug
+    featuredImage {
+      uri
+      altText
+      mediaItemUrl
+    }
   }
 `

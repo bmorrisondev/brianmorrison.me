@@ -15,27 +15,20 @@ export const BlogPostTemplate = ({
   categories,
   tags
 }) => {
-  let featuredImageUrl = ""
-  if(featuredImage) {
-    featuredImageUrl = featuredImage.mediaItemUrl.replace("https://wp2.brianmorrison.me/wp-content/uploads", "https://cdn.brianmorrison.me/images")
-  }
   return (
     <section className="section">
       <div className="container content">
         <div className="row">
           <div className="col-md-8 post">
-            {featuredImageUrl !== "" && (
+            {featuredImage && (
               <div>
-                <img src={featuredImageUrl} alt={featuredImage.altText} className="img-fluid post-featured-image" />
+                <img src={featuredImage.azureFeaturedImageUrl} alt={featuredImage.altText} className="img-fluid post-featured-image" />
               </div>
             )}
             <h1 className="title is-size-2 has-text-weight-bold is-bold-light">
               {title}
             </h1>
             <div dangerouslySetInnerHTML={{ __html: content }} />
-            <div>
-              {JSON.stringify(featuredImage)}
-            </div>
           </div>
           <div className="col-md-4">
             <PostMetaWidget 
