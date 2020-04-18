@@ -42,7 +42,7 @@ const addResponsiveImageTags = function(content) {
 const makeVideoEmbedsResponsive = function(content) {
   const dom = new jsdom.JSDOM(content);
   dom.window.document.querySelectorAll(".wp-block-embed__wrapper").forEach(el => {
-    let classList = el.className.split(" ");
+    const classList = el.className.split(" ");
     if(!classList.includes("embed-responsive")) {
       classList.push("embed-responsive");
       classList.push("embed-responsive-16by9");
@@ -52,9 +52,7 @@ const makeVideoEmbedsResponsive = function(content) {
   return dom.window.document.body.innerHTML;
 }
 
-exports.createPages = async ({ actions, graphql }) => {
-  const { createPage } = actions
-
+const generatePostPages = async function(createPageFn, graphql) {
   const postsQuery = `
     {
       wpgraphql {
@@ -126,7 +124,7 @@ exports.createPages = async ({ actions, graphql }) => {
       p.featuredImage.azureFeaturedImageUrl = p.featuredImage.mediaItemUrl.replace("https://wp2.brianmorrison.me/wp-content/uploads", "https://cdn.brianmorrison.me/images")
     }
 
-    createPage({
+    createPageFn({
       path: `/blog/${p.slug}/`,
       component: pageTemplate,
       context: {
@@ -141,6 +139,12 @@ exports.createPages = async ({ actions, graphql }) => {
       },
     })
   });
+}
+
+exports.createPages = async ({ actions, graphql }) => {
+  const { createPage } = actions
+
+  await generatePostPages(createPage, graphql)
 }
 
 exports.onCreateNode = ({ node, actions, getNode }) => {

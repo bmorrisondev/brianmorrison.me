@@ -4,6 +4,7 @@ import { Link, graphql } from 'gatsby'
 
 import { DateFormatter } from './formatters/CommonFormatters'
 import PrettyCodeDivider from './PrettyCodeDivider'
+import { fixImageUrl } from '../utils/imageUtils'
 
 export default class IndexPage extends React.Component {
   render() {
@@ -11,7 +12,7 @@ export default class IndexPage extends React.Component {
     
     posts.forEach(({ node: p }) => {
       if(p.featuredImage) {
-        p.featuredImage.azureFeaturedImageUrl = p.featuredImage.mediaItemUrl.replace("https://wp2.brianmorrison.me/wp-content/uploads", "https://cdn.brianmorrison.me/images")
+        p.featuredImage = fixImageUrl(p.featuredImage)
       }
     })
 

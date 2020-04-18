@@ -1,9 +1,30 @@
 /* eslint-disable react/jsx-closing-bracket-location */
 /* eslint-disable import/prefer-default-export */
 import React from 'react'
+// import { renderToString } from "react-dom/server"
+// import Prism from 'prismjs'
+// import jsdom from 'jsdom'
+// import loadLanguages from 'prismjs/components/index'
+
+// loadLanguages()
+
+// const highlightCode = function(content) {
+//   const dom = new jsdom.JSDOM(content);
+//   dom.window.document.querySelectorAll("code").forEach(c => {
+//     const code = c.textContent;
+//     const name = c.className
+//       .replace("language-", "")
+//       .replace("lang-", "");
+//     if(name) {
+//       const processed = Prism.highlight(code, Prism.languages[name], name);
+//       c.innerHTML = processed;
+//       c.parentNode.className = `${c.parentNode.className} language-${name}`
+//     }
+//   });
+//   return dom.window.document.body.innerHTML;
+// }
 
 export const onRenderBody = ({ setPostBodyComponents }) => {
-  
   setPostBodyComponents([
     <script 
       src="https://kit.fontawesome.com/456fa9b7f3.js" 
@@ -22,3 +43,10 @@ export const onRenderBody = ({ setPostBodyComponents }) => {
       crossOrigin="anonymous" />
   ])
 }
+
+// export const replaceRenderer = ({ bodyComponent, replaceBodyHTMLString }) => {
+//   const bodyHtml = renderToString(bodyComponent)
+//   const highlightedHtml = highlightCode(bodyHtml);
+
+//   replaceBodyHTMLString(highlightedHtml)
+// }

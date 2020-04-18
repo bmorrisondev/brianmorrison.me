@@ -18,7 +18,7 @@ export default function Navbar({
           <nav className="navbar navbar-expand-lg col-12">
             
             <Link to="/" className="navbar-item">
-              <img src='/img/logo-light-retina.png' alt="Brian Morrison II" className="logo" />
+              <img src='/img/logo-light-retina-2.png' alt="Brian Morrison II" className="logo img-fluid" />
             </Link>
             <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span className="navbar-toggler-icon"></span>
