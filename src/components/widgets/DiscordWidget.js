@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react"
 
-const DiscordWidget = () => {
+const DiscordWidget = ({
+  guildId
+}) => {
   const [name, setName] = useState(0)
   const [activeCount, setActiveCount] = useState(0)
   const [inviteLink, setInviteLink] = useState(0)
 
   useEffect(() => {
     // get data from GitHub api
-    fetch(`https://discordapp.com/api/guilds/553773331674038282/widget.json`)
+    fetch(`https://discordapp.com/api/guilds/${guildId}/widget.json`)
       .then(response => response.json()) // parse JSON from request
       .then(resultData => {
         setName(resultData.name)

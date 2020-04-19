@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "author": "Brian Morrison II",
   "dependencies": {
+    "bootstrap": "^4.4.1",
     "gatsby": "^2.20.15",
     "gatsby-awesome-pagination": "^0.3.3",
     "gatsby-image": "^2.3.2",
@@ -12,6 +13,7 @@
     "gatsby-plugin-react-helmet": "^3.2.1",
     "gatsby-plugin-sass": "^2.2.1",
     "gatsby-plugin-sharp": "^2.5.4",
+    "gatsby-plugin-web-font-loader": "^1.0.4",
     "gatsby-remark-images": "^3.2.2",
     "gatsby-source-filesystem": "^2.2.2",
     "gatsby-source-graphql-universal": "^3.1.11",
@@ -25,6 +27,7 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-helmet": "^5.2.1",
+    "typeface-montserrat": "0.0.75",
     "uuid": "^3.4.0"
   },
   "keywords": [

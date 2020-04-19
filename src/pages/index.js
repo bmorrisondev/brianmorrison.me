@@ -1,23 +1,27 @@
 import React from "react"
 import { Link, graphql } from 'gatsby'
-import PropTypes from 'prop-types'
-
-import CallToAction from "../components/CallToActionComponent"
 import DiscordWidget from "../components/widgets/DiscordWidget"
 import HomeLayout from "../components/HomeLayout"
 import SocialWidget from "../components/widgets/SocialWidget"
+import { fixImageUrl } from "../utils/imageUtils"
+import { DateFormatter } from '../components/formatters/CommonFormatters'
 
 const IndexPage = ({data}) => {
   const post = data.wpgraphql.posts.edges[0].node
 
+  if(post.featuredImage) {
+    post.featuredImage = fixImageUrl(post.featuredImage)
+  }
+
   return (  
     <HomeLayout>
       <div className="container">
-        <div className="row">
+        <div className="row h-100">
           <div className="col-md-6">
             <div className="home-panel">
               <h2>Get in touch.</h2>
-              <DiscordWidget />
+              {/* TODO: Move to config */}
+              <DiscordWidget guildId="553773331674038282" />
               <SocialWidget />
             </div>
           </div>
@@ -25,14 +29,18 @@ const IndexPage = ({data}) => {
             <div className="home-panel">
               <h2>From the blog.</h2>
               <div>
+                {/* {post.featuredImage && (
+                  <img src={post.featuredImage.azureFeaturedImageUrl} alt={post.featuredImage.altText} className="img-fluid img-thumbnail" />
+                )} */}
                 <Link to={`/blog/${post.slug}`}>
                   <h4>{post.title}</h4>
                 </Link>
+                <span className="post-excerpt-meta"><DateFormatter date={post.date} /></span>
               </div>
               <div className="post-excerpt" dangerouslySetInnerHTML={{__html: post.excerpt}} />
               <div className="post-excerpt-footer">
                 <Link to={`/blog/${post.slug}`}>
-                  Keep Reading →
+                  Keep Reading <i class="fas fa-angle-double-right"></i>
                 </Link>
               </div>
             </div>
@@ -42,14 +50,6 @@ const IndexPage = ({data}) => {
     </HomeLayout>
   )
 }
-
-// IndexPage.propTypes = {
-//   data: PropTypes.shape({
-//     allWordpressPost: PropTypes.shape({
-//       edges: PropTypes.array,
-//     }),
-//   })
-// }
 
 export const pageQuery = graphql`
   query IndexQuery {
@@ -67,6 +67,10 @@ export const pageQuery = graphql`
             excerpt
             date
             slug
+            featuredImage {
+              mediaItemUrl
+              altText
+            }
           }
         }
       }

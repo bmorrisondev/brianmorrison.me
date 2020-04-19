@@ -27,75 +27,124 @@ const highlightCode = function(content) {
   return dom.window.document.body.innerHTML;
 }
 
-exports.createPages = ({ actions, graphql }) => {
-  const { createPage } = actions
+const addResponsiveImageTags = function(content) {
+  const dom = new jsdom.JSDOM(content);
+  dom.window.document.querySelectorAll("img").forEach(img => {
+    let classList = img.className.split(" ");
+    if(!classList.includes("img-fluid")) {
+      classList.push("img-fluid");
+      img.className = classList.join(" ");
+    }
+  })
+  return dom.window.document.body.innerHTML;
+}
 
+const makeVideoEmbedsResponsive = function(content) {
+  const dom = new jsdom.JSDOM(content);
+  dom.window.document.querySelectorAll(".wp-block-embed__wrapper").forEach(el => {
+    const classList = el.className.split(" ");
+    if(!classList.includes("embed-responsive")) {
+      classList.push("embed-responsive");
+      classList.push("embed-responsive-16by9");
+      el.className = classList.join(" ");
+    }
+  })
+  return dom.window.document.body.innerHTML;
+}
+
+const generatePostPages = async function(createPageFn, graphql) {
   const postsQuery = `
     {
       wpgraphql {
-        posts {
+        posts(first: 100) {
           nodes {
-            id,
-            slug,
-            status,
-            title,
-            content,
+            id
+            slug
+            featuredImage {
+              uri
+              altText
+              mediaItemUrl
+            }
+            status
+            title
+            content
             date
+            author {
+              id
+              slug
+              name
+              lastName
+              description
+              avatar {
+                url
+              }
+            }
+            tags {
+              nodes {
+                id
+                name
+                slug
+              }
+            }
+            categories {
+              nodes {
+                id
+                name
+                slug
+              }
+            }
           }
         }
       }
     }
   `
 
-    // wordpressPost(id: { eq: $id }) {
-    //   id
-    //   title
-    //   slug
-    //   content
-    //   date(formatString: "MMMM DD, YYYY")
-    //   categories {
-    //     name
-    //     slug
-    //   }
-    //   tags {
-    //     name
-    //     slug
-    //   }
-    //   author {
-    //     name
-    //     slug
-    //   }
-    // }
+  const queryResult = await graphql(postsQuery);
 
-  return graphql(postsQuery)
-    .then(result => {
-      if (result.errors) {
-        result.errors.forEach(e => console.error(e.toString()))
-        return Promise.reject(result.errors)
-      }
+  if (queryResult.errors) {
+    // eslint-disable-next-line no-console
+    queryResult.errors.forEach(e => console.error(e.toString()))
+    throw queryResult.errors
+  }
 
-      const pageTemplate = path.resolve(`./src/templates/post.js`)
+  const pageTemplate = path.resolve(`./src/templates/post.js`)
 
-      let allPosts = result.data.wpgraphql.posts.nodes
-      allPosts = JSON.parse(JSON.stringify(allPosts))
-      const pages =
-        process.env.NODE_ENV === 'production'
-          ? getOnlyPublished(allPosts)
-          : allPosts
-          
-      pages.forEach(p => {
-        const highlightedContent = highlightCode(p.content)
-        createPage({
-          path: `/blog/${p.slug}/`,
-          component: pageTemplate,
-          context: {
-            content: highlightedContent,
-            title: p.title,
-            date: p.date
-          },
-        })
-      });
-    });
+  let posts = queryResult.data.wpgraphql.posts.nodes
+  posts = JSON.parse(JSON.stringify(posts))
+  if(process.env.NODE_ENV === 'production') {
+    posts = getOnlyPublished(posts)
+  }
+      
+  posts.forEach(p => {
+    let transformedContent = highlightCode(p.content)
+    transformedContent = addResponsiveImageTags(transformedContent)
+    transformedContent = makeVideoEmbedsResponsive(transformedContent)
+
+    if(p.featuredImage) {
+      p.featuredImage.azureFeaturedImageUrl = p.featuredImage.mediaItemUrl.replace("https://wp2.brianmorrison.me/wp-content/uploads", "https://cdn.brianmorrison.me/images")
+    }
+
+    createPageFn({
+      path: `/blog/${p.slug}/`,
+      component: pageTemplate,
+      context: {
+        id: p.id,
+        content: transformedContent,
+        title: p.title,
+        date: p.date,
+        author: p.author,
+        featuredImage: p.featuredImage,
+        categories: p.categories,
+        tags: p.tags
+      },
+    })
+  });
+}
+
+exports.createPages = async ({ actions, graphql }) => {
+  const { createPage } = actions
+
+  await generatePostPages(createPage, graphql)
 }
 
 exports.onCreateNode = ({ node, actions, getNode }) => {

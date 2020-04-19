@@ -35,6 +35,7 @@ export const pageQuery = graphql`
   query BlogQuery {
     wpgraphql {
       posts(
+        first: 100
         where:{ 
           orderby:{
             field: DATE

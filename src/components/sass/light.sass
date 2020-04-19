@@ -3,10 +3,10 @@ $bmme-dark-blue: #071a2b
 $bmme-light-blue: #12b8f2
 
 // Theme
-$bg-color: #eaeaea;
 $container-bg: #ffffff;
 // $container-bg: #efefef;
 $text-color: #111111;
+$light-bg: #fafbff;
 
 // Other Branding
 $twitch-purple: #6643a6
@@ -24,6 +24,7 @@ $discord-purple: #7289DA;
   border-radius: 15px;
   margin: 15px 0px;
   box-shadow: 5px 10px 10px rgba(12,12,12,0.05);
+  height: 90%;
 
   .post-excerpt
     box-shadow: none;
@@ -77,11 +78,31 @@ $discord-purple: #7289DA;
 
 .post-excerpt
   color: $text-color;
-  background-color: rgba($container-bg,0.9);
-  border-radius: 15px;
-  margin: 15px 0px;
+  // background-color: rgba($container-bg,0.9);
+  // border-radius: 15px;
   padding: 25px;
-  box-shadow: 5px 10px 10px rgba(12,12,12,0.05);
+  // border-bottom: 1px solid #ddd;
+  // box-shadow: 5px 10px 10px rgba(12,12,12,0.05);
+  .post-featured-image
+    border-radius: 15px;
+    max-width: 450px;
+    width: 100%;
+    margin: 20px 0px;
+
+.pretty-code-divider
+  color: #ededed;
+  margin: 10px 0px;
+  padding: 0px 40px;
+  width: 100%;
+  text-align: center;
+
+  i
+    background-color: $light-bg
+    padding: 0px 10px;
+  
+  hr
+    border-top: 1px solid #ededed;
+    margin: -0.8em;
 
 .post-excerpt-meta
   font-style: italic;
@@ -89,11 +110,34 @@ $discord-purple: #7289DA;
 
 .post
   color: $text-color;
-  background-color: rgba($container-bg,0.9);
-  border-radius: 15px;
+  // background-color: rgba($container-bg,0.9);
+  // border-radius: 15px;
   margin: 15px 0px;
   padding: 25px;
+  // box-shadow: 5px 10px 10px rgba(12,12,12,0.05);
+
+  .post-featured-image
+    margin-bottom: 10px;
+    border-radius: 15px;
+
+.post-meta-widget
+  color: $text-color;
+  background-color: rgba($container-bg,0.9);
+  border-radius: 15px;
+  margin: 40px 0px;
+  padding: 25px;
   box-shadow: 5px 10px 10px rgba(12,12,12,0.05);
+
+  .formatted-date
+    font-style: italic;
+    color: #777
+
+  .pretty-code-divider
+    padding-bottom: 2em;
+
+    i
+      background-color: white // $light-bg
+
 
 .pagination
   padding-bottom: 15px;
@@ -110,5 +154,5 @@ $discord-purple: #7289DA;
   color: #777;
 
   .footer-content
-    border-top: 1px solid #ddd;
-    padding: 15px 0px;
+    // border-top: 1px solid #ddd;
+    padding: 15px;

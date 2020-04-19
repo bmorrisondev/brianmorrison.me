@@ -6,7 +6,8 @@ $bmme-light-blue: #12b8f2
 
 // Theme
 // $light-bg: #eaeaea;
-$light-bg: #f1f2f7;
+// $light-bg: #f1f2f7; This is the first of the blues used
+$light-bg: #fafbff;
 // $light-container: #efefef;
 $light-container: #ffffff;
 
@@ -44,12 +45,22 @@ body
     text-shadow: none;
     border-radius: 4px;
 
+  blockquote
+    border-left: 2px solid $bmme-light-blue
+    padding: 10px 20px;
+
+  cite
+    color: #777;
+    font-weight: bold;
+    font-size: 12px;
+    font-style: normal;
+
   // Nav
   .nav-wrapper-bg 
     background: url('/img/hero-bg.jpg')
 
   .navbar
-    margin-top: 10px;
+    margin: 10px 0px;
     max-width: 1140px;
     color: white;
     text-transform: uppercase;
@@ -103,6 +114,10 @@ body
   .nav 
     padding: 15px 10px;
 
+  .logo
+    max-width: 269px;
+    width: 100%;
+
   .hero-wrapper
     background: url('/img/hero-bg.jpg')
 
@@ -131,3 +146,29 @@ body
   .post-list
     padding-top: 15px;
   
+  .author-panel
+    margin-top: 10px;
+
+    .author-image
+      padding: 2px 0px;
+
+    .author-description
+      padding-top: 4px;
+
+    .author-link
+      padding-top: 4px;
+
+  .categories-panel
+    padding: 10px;
+
+  .tags-panel
+    padding: 10px;
+
+.callout
+  color: $text-color;
+  background-color: rgba($container-bg,0.9);
+  border-radius: 15px;
+  margin: 40px 0px;
+  padding: 25px;
+  box-shadow: 5px 10px 10px rgba(12,12,12,0.05);
+  max-width: 90%;
