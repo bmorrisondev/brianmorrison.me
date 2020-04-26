@@ -141,10 +141,60 @@ const generatePostPages = async function(createPageFn, graphql) {
   });
 }
 
+const generateCategoryPages = async function(createPageFn, graphql) {
+  const categoriesQuery = `
+    {
+      wpgraphql {
+        categories{
+          nodes{
+              id
+              name
+              slug
+              posts {
+                nodes {
+                    id
+                    title
+                    excerpt
+                    slug
+                }
+              }
+          }
+        }
+      }
+    }
+  `
+
+  const queryResult = await graphql(categoriesQuery);
+
+  if (queryResult.errors) {
+    // eslint-disable-next-line no-console
+    queryResult.errors.forEach(e => console.error(e.toString()))
+    throw queryResult.errors
+  }
+
+  const pageTemplate = path.resolve(`./src/templates/category.js`)
+
+  let categories = queryResult.data.wpgraphql.categories.nodes
+  categories = JSON.parse(JSON.stringify(categories))
+ 
+  categories.forEach(c => {
+    createPageFn({
+      path: `/blog/categories/${c.slug}/`,
+      component: pageTemplate,
+      context: {
+        id: c.id,
+        name: c.name,
+        posts: c.posts
+      },
+    })
+  })
+}
+
 exports.createPages = async ({ actions, graphql }) => {
   const { createPage } = actions
 
   await generatePostPages(createPage, graphql)
+  await generateCategoryPages(createPage, graphql)
 }
 
 exports.onCreateNode = ({ node, actions, getNode }) => {
