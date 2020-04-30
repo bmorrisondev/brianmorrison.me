@@ -1,46 +1,46 @@
-// import React from 'react'
-// import Helmet from 'react-helmet'
-// import { graphql } from 'gatsby'
-// import Layout from '../components/Layout'
-// import PostList from '../components/PostList'
+/* eslint-disable react/jsx-closing-bracket-location */
+import React from 'react'
+import Helmet from 'react-helmet'
+// import { graphql, Link } from 'gatsby'
+import Layout from '../components/Layout'
 
-// const Category = props => {
-//   const { data, pageContext } = props
-//   const { edges: posts, totalCount } = data.allWordpressPost
-//   const { title: siteTitle } = data.site.siteMetadata
-//   const { name: category } = pageContext
-//   const title = `${totalCount} post${
-//     totalCount === 1 ? '' : 's'
-//   } in the “${category}” category`
+export const CategoryTemplate = ({
+  name,
+  posts
+}) => {
+  return (
+    <section className="section">
+      <div className="container content">
+        <div className="row">
+          <div className="col-md-8 post">
+            <h1 className="title is-size-2 has-text-weight-bold is-bold-light">
+              {name}
+            </h1>
+            <p>This is where the post list will go</p>
+            {/* <div dangerouslySetInnerHTML={{ __html: content }} /> */}
+          </div>
+          <div className="col-md-4">
+            This is category info will go, including random other articles from this category. Maybe related categories.
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
 
-//   return (
-//     <Layout>
-//       <Helmet title={`${category} | ${siteTitle}`} />
-//       <PostList posts={posts} title={title} />
-//     </Layout>
-//   )
-// }
+const Category = ({
+  pageContext
+}) => {
+  return (
+    <Layout>
+      <Helmet title={`${pageContext.name} | Blog`} />
+      
+      <CategoryTemplate
+        title={pageContext.name}
+        tags={pageContext.posts}
+      />
+    </Layout>
+  )
+}
 
-// export default Category
-
-// export const pageQuery = graphql`
-//   query CategoryPage($slug: String!) {
-//     site {
-//       siteMetadata {
-//         title
-//       }
-//     }
-//     wpgraphql {
-//       posts(
-//         where: { categories: { elemMatch: { slug: { eq: $slug } } } }
-//       ) {
-//         totalCount
-//         edges {
-//           node {
-//             ...PostListFields
-//           }
-//         }
-//       }
-//     }
-//   }
-// `
+export default Category
