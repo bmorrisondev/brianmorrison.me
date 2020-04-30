@@ -7,10 +7,16 @@ const SocialWidget = ({shouldIncludeDiscord}) => (
       {/* <div className="col-12">
         <h4>Main Channel</h4>
       </div> */}
-      <span>
+      {/* <span>
         <img alt="twitch-logo" src='/img/social/twitch-logo.png' />
         <a href={socials.twitch} target="_blank" rel="noopener noreferrer">
           Twitch Channel
+        </a>
+      </span> */}
+      <span>
+        <img alt="mixer-logo" src='/img/social/mixer-logo.png' />
+        <a href={socials.mixer} target="_blank" rel="noopener noreferrer">
+          Mixer Channel
         </a>
       </span>
       <span>    

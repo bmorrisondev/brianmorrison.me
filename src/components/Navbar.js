@@ -42,9 +42,12 @@ export default function Navbar({
                   </Link>
                 </li>
                 <li className="nav-item nav-social-items">
-                  <a className="nav-link nav-link-twitch" href={socials.twitch} target="_blank" rel="noopener noreferrer">
-                    <i className="fab fa-twitch" />
+                  <a className="nav-link nav-link-mixer" href={socials.mixer} target="_blank" rel="noopener noreferrer">
+                    <i className="fab fa-mixer" />
                   </a>
+                  {/* <a className="nav-link nav-link-twitch" href={socials.twitch} target="_blank" rel="noopener noreferrer">
+                    <i className="fab fa-twitch" />
+                  </a> */}
                   <a className="nav-link nav-link-twitter" href={socials.twitter} target="_blank" rel="noopener noreferrer">
                     <i className="fab fa-twitter" />
                   </a>
