@@ -17,6 +17,7 @@ steps:
 
 - script: |
     npm install
+    NODE_TLS_REJECT_UNAUTHORIZED=0
     npm run build
   displayName: 'npm install and build'
   
