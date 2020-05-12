@@ -11,7 +11,7 @@ pool: 'Default'
 steps:    
 - task: FileTransform@2
   inputs:
-    folderPath: '$(Pipeline.Workspace)/s/*'
+    folderPath: '$(Pipeline.Workspace)/s'
     xmlTransformationRules: 
     jsonTargetFiles: 'app.config.json'
 
