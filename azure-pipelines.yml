@@ -6,14 +6,14 @@
 trigger:
 - master
 
-pool:
-  vmImage: 'ubuntu-latest'
+pool: 'Default'
 
 steps:    
-- task: NodeTool@0
+- task: FileTransform@2
   inputs:
-    versionSpec: '12.x'
-  displayName: 'Install Node.js'
+    folderPath: '$(Pipeline.Workspace)/**'
+    xmlTransformationRules: 
+    jsonTargetFiles: 'app.config.json'
 
 - script: |
     npm install
