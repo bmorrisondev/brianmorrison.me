@@ -14,7 +14,7 @@ module.exports = {
       options: {
         typeName: "wpgraphql",
         fieldName: "wpgraphql",
-        url: config.wpSourceUrl,
+        url: config.graphQlSource,
         headers: {
           Authorization: `Basic ${config.wpBasicToken}`
         }
