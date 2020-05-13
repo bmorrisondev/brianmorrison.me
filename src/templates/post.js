@@ -24,10 +24,11 @@ export const BlogPostTemplate = ({
               <div>
                 <img src={featuredImage.azureFeaturedImageUrl} alt={featuredImage.altText} className="img-fluid post-featured-image" />
               </div>
-            )}
-            <h1 className="title is-size-2 has-text-weight-bold is-bold-light">
-              {title}
-            </h1>
+            )}            
+            <h1 className="title is-size-2 has-text-weight-bold is-bold-light"
+              dangerouslySetInnerHTML={{
+                __html: title
+              }} />
             <div dangerouslySetInnerHTML={{ __html: content }} />
           </div>
           <div className="col-md-4">

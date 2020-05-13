@@ -17,6 +17,8 @@ const getOnlyPublished = function(edges) {
 
 const highlightCode = function(content) {
   const dom = new jsdom.JSDOM(content);
+
+  // Transform prismatic blocks from WordPress
   dom.window.document.querySelectorAll("code").forEach(c => {
     const code = c.textContent;
     const name = c.className
@@ -28,6 +30,23 @@ const highlightCode = function(content) {
       c.parentNode.className = `${c.parentNode.className} language-${name}`
     }
   });
+  
+  // Transform inline code
+  dom.window.document.querySelectorAll("p").forEach(p => {
+    const regex = /`([^`]*?)`/gm;
+    const matches = p.innerHTML.match(regex);
+    if(matches) {
+      matches.forEach(m => {
+        const originalMatch = m;
+        // m = m.replace('`', '<code class=\'language-bash\'>')
+        m = m.replace('`', '<code class=\'language-bash\'>')
+        m = m.replace('`', '</code>')
+        // m = `<pre class='inline language-bash'>${m}</pre>`
+        p.innerHTML = p.innerHTML.replace(originalMatch, m);
+      })
+    }
+  })
+
   return dom.window.document.body.innerHTML;
 }
 
@@ -60,7 +79,15 @@ const generatePostPages = async function(createPageFn, graphql) {
   const postsQuery = `
     {
       wpgraphql {
-        posts(first: 100) {
+        posts(
+          first: 100, 
+          where:{
+            stati: [
+              FUTURE,
+              PUBLISH
+            ]
+          }
+        ) {
           nodes {
             id
             slug
@@ -115,9 +142,10 @@ const generatePostPages = async function(createPageFn, graphql) {
 
   let posts = queryResult.data.wpgraphql.posts.nodes
   posts = JSON.parse(JSON.stringify(posts))
-  if(!(config.env === 'dev' || config.env === 'test')) {
-    posts = getOnlyPublished(posts)
-  }
+  // console.log("posts", posts[0])
+  // if(!(config.env === 'dev' || config.env === 'test')) {
+  //   posts = getOnlyPublished(posts)
+  // }
       
   posts.forEach(p => {
     let transformedContent = highlightCode(p.content)

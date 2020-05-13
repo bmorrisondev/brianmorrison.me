@@ -20,7 +20,10 @@ export default class IndexPage extends React.Component {
       <section className="section post-list">
         <div className="container">
           <div className="content">
-            <h1 className="has-text-weight-bold is-size-2 blog-title">{title}</h1>
+            <h1 className="has-text-weight-bold is-size-2 blog-title"
+              dangerouslySetInnerHTML={{
+                __html: title
+              }} />
           </div>
           {posts.map(({ node: post }, index) => (
             <div className="row">
