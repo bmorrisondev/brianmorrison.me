@@ -6,18 +6,18 @@
 trigger:
 - master
 
-pool:
-  vmImage: 'ubuntu-latest'
+pool: 'Default'
 
 steps:    
-- task: NodeTool@0
+- task: FileTransform@2
   inputs:
-    versionSpec: '12.x'
-  displayName: 'Install Node.js'
+    folderPath: '$(Pipeline.Workspace)/s'
+    xmlTransformationRules: 
+    jsonTargetFiles: 'app.config.json'
 
 - script: |
     npm install
-    npm run build
+    NODE_TLS_REJECT_UNAUTHORIZED=0 npm run build
   displayName: 'npm install and build'
   
 - task: PublishBuildArtifacts@1

@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-one-expression-per-line */
 import React from 'react'
 import Navbar from "./Navbar"
 import socials from "../data/social-links.json"
@@ -9,7 +10,7 @@ const HeroComponent = () => (
       <div className="row">
         <div className="col-12">
           <h1 className="hero-header">Hi, my name is Brian.</h1>
-          <div className="hero-content">I'm a software engineer and live coder on <a href={socials.twitch}>Twitch</a>.</div>
+          <div className="hero-content">I'm a software engineer and live coder on <a href={socials.mixer}>Mixer</a>.</div>
         </div>
       </div>
     </div>
