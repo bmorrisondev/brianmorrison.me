@@ -3,11 +3,15 @@ const { createFilePath } = require('gatsby-source-filesystem')
 const Prism = require('prismjs')
 const jsdom = require('jsdom')
 const loadLanguages = require('prismjs/components/index.js');
+const config = require('./app.config')
+
+console.info(`Building with config:`, config);
 
 loadLanguages()
 // const { paginate } = require('gatsby-awesome-pagination')
 
 const getOnlyPublished = function(edges) {
+  console.info("Getting published items only...")
   return edges.filter(e => e.status === 'publish');
 }
 
@@ -111,7 +115,7 @@ const generatePostPages = async function(createPageFn, graphql) {
 
   let posts = queryResult.data.wpgraphql.posts.nodes
   posts = JSON.parse(JSON.stringify(posts))
-  if(process.env.NODE_ENV === 'production') {
+  if(!(config.env === 'dev' || config.env === 'test')) {
     posts = getOnlyPublished(posts)
   }
       

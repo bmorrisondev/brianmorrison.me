@@ -1,4 +1,5 @@
 {
+  "env": "production",
   "wpsourceurl": "",
-  "googleAnalyticsTrackingId": "UA-42677762-1"
+  "googleAnalyticsTrackingId": ""
 }

@@ -1,4 +1,4 @@
-const config = require('./app.config.json')
+const config = require('./app.config.js')
 
 module.exports = {
   siteMetadata: {
@@ -14,7 +14,10 @@ module.exports = {
       options: {
         typeName: "wpgraphql",
         fieldName: "wpgraphql",
-        url: config.wpsourceurl
+        url: config.wpSourceUrl,
+        headers: {
+          Authorization: `Basic ${config.wpBasicToken}`
+        }
       },
     },
     {
