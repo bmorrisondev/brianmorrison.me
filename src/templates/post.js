@@ -13,7 +13,9 @@ export const BlogPostTemplate = ({
   author,
   featuredImage,
   categories,
-  tags
+  tags,
+  series,
+  repoLink
 }) => {
   return (
     <section className="section">
@@ -34,7 +36,9 @@ export const BlogPostTemplate = ({
           <div className="col-md-4">
             <PostMetaWidget 
               date={date}
-              author={author} />
+              author={author}
+              series={series}
+              repoLink={repoLink} />
           </div>
         </div>
       </div>
@@ -58,6 +62,7 @@ const BlogPost = ({
         featuredImage={pageContext.featuredImage}
         categories={pageContext.categories}
         tags={pageContext.tags}
+        repoLink={pageContext.repoLink}
       />
     </Layout>
   )

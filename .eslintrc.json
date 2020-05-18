@@ -6,7 +6,8 @@
     "react/prefer-stateless-function": "off",
     "react/require-default-props": "off",
     "react/prop-types": "off",
-    "react/no-danger": "off"
+    "react/no-danger": "off",
+    "no-param-reassign": "off"
   },
   "settings": {
     "import/core-modules": []

@@ -10,10 +10,10 @@ console.info(`Building with config:`, config);
 loadLanguages()
 // const { paginate } = require('gatsby-awesome-pagination')
 
-const getOnlyPublished = function(edges) {
-  console.info("Getting published items only...")
-  return edges.filter(e => e.status === 'publish');
-}
+// const getOnlyPublished = function(edges) {
+//   console.info("Getting published items only...")
+//   return edges.filter(e => e.status === 'publish');
+// }
 
 const highlightCode = function(content) {
   const dom = new jsdom.JSDOM(content);
@@ -124,6 +124,18 @@ const generatePostPages = async function(createPageFn, graphql) {
                 slug
               }
             }
+            gatsbyMeta {
+              githubRepo
+            }
+            series {
+              nodes {
+                name
+                slug
+              }
+            }
+            seriesMeta {
+              order
+            }
           }
         }
       }
@@ -156,19 +168,36 @@ const generatePostPages = async function(createPageFn, graphql) {
       p.featuredImage.azureFeaturedImageUrl = p.featuredImage.mediaItemUrl.replace("https://wp2.brianmorrison.me/wp-content/uploads", "https://cdn.brianmorrison.me/images")
     }
 
+    const context = {
+      id: p.id,
+      content: transformedContent,
+      title: p.title,
+      date: p.date,
+      author: p.author,
+      featuredImage: p.featuredImage,
+      categories: p.categories,
+      tags: p.tags
+    }
+
+    // Fixup Series Meta
+    if(p.series && p.series.nodes && p.series.nodes.length === 1) { 
+      context.series = {
+        name: p.series.nodes[0].name,
+        slug: p.series.nodes[0].slug
+      }
+      if(p.seriesMeta) {
+        context.series.order = p.seriesMeta.order
+      }
+    }
+
+    if(p.gatsbyMeta) {
+      context.repoLink = p.gatsbyMeta.githubRepo
+    }
+
     createPageFn({
       path: `/blog/${p.slug}/`,
       component: pageTemplate,
-      context: {
-        id: p.id,
-        content: transformedContent,
-        title: p.title,
-        date: p.date,
-        author: p.author,
-        featuredImage: p.featuredImage,
-        categories: p.categories,
-        tags: p.tags
-      },
+      context
     })
   });
 }

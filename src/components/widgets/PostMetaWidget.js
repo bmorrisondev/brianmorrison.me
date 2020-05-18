@@ -6,9 +6,11 @@ import PrettyCodeDivider from '../PrettyCodeDivider'
 const PostMetaWidget = ({
   date,
   author,
+  repoLink,
   categories,
-  tags
+  tags,
 }) => {
+  console.log(repoLink)
   return (
     <div className="post-meta-widget">
       <DateFormatter className="post-meta-date" date={date} />
@@ -28,6 +30,16 @@ const PostMetaWidget = ({
           </Link>
         </div> */}
       </div>
+      {repoLink && (
+        <div>
+          <PrettyCodeDivider />
+          <div className="row repo-link-panel">
+            <h4><i className="fab fa-github"></i> Git Repo</h4>
+            <p>Code for this article found here:</p>
+            <a href={repoLink}>{repoLink}</a>
+          </div>
+        </div>
+      )}
       {/* {categories && categories.length > 0 && ( */}
       {false && (
         <div>
