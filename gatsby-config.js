@@ -1,52 +1,52 @@
-const config = require('./app.config.js')
+/**
+ * Configure your Gatsby site with this file.
+ *
+ * See: https://www.gatsbyjs.com/docs/gatsby-config/
+ */
+
+const buildConfig = require("./build-config.json")
 
 module.exports = {
   siteMetadata: {
-    title: 'Brian Morrison II, Software Engineer & Developer Advocate',
+    title: `Brian Morrison II`,
+    siteUrl: `https://brianmorrison.me`
   },
   plugins: [
-    'gatsby-plugin-react-helmet',
-    'gatsby-plugin-sass',
-    'gatsby-plugin-sharp',
-    'gatsby-transformer-sharp',
     {
-      resolve: "gatsby-source-graphql-universal",
+      resolve: 'gatsby-source-wordpress',
       options: {
-        typeName: "wpgraphql",
-        fieldName: "wpgraphql",
-        url: config.graphQlSource,
-        headers: {
-          Authorization: `Basic ${config.wpBasicToken}`
-        }
-      },
+        "url": buildConfig.url,
+        auth: {
+          htaccess: {
+            username: buildConfig.username,
+            password: buildConfig.password
+          }
+        },
+        html: {
+          useGatsbyImage: false,
+        },
+        develop: {
+          hardCacheMediaFiles: true,
+        },
+      }
     },
+    "gatsby-plugin-styled-components",
     {
       resolve: 'gatsby-plugin-google-analytics',
       options: {
-        trackingId: config.googleAnalyticsTrackingId,
+        "trackingId": buildConfig.trackingId
       }
     },
-    // TODO: Figure out how to get this working with headers only - https://github.com/typekit/webfontloader
-    // {
-    //   resolve: 'gatsby-plugin-web-font-loader',
-    //   options: {
-    //     google: {
-    //       families: ['Montserrat']
-    //     }
-    //   }
-    // },
-    // {
-    //   resolve: `gatsby-source-filesystem`,
-    //   options: {
-    //     path: `${__dirname}/src/img/`,
-    //   },
-    // },
+    "gatsby-plugin-image",
+    "gatsby-plugin-sharp",
+    "gatsby-transformer-sharp",
     {
-      resolve:'gatsby-plugin-purgecss',
+      resolve: 'gatsby-source-filesystem',
       options: {
-        develop: true,
-        purgeOnly: ['/all.sass'],
+        "name": "images",
+        "path": "./src/images/"
       },
-    },
-  ],
+      __key: "images"
+    }
+  ]
 }
