@@ -5,6 +5,10 @@ import colors from '../colors'
 const Wrapper = styled.ul`
   padding: 0;
 
+  li:first-child {
+    margin-left: 0px;
+  }
+
   li {
     display: inline-block;
     background-color: ${colors.light.backgroundAccent};
