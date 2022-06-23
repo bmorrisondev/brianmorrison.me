@@ -5,4 +5,4 @@
   functions = "/functions"
 
 [context.production]
-  publish = "/dist"
+  publish = "/public"
