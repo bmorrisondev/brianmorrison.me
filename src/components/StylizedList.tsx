@@ -16,6 +16,7 @@ const Wrapper = styled.ul`
   }
 
   a {
+    color: inherit;
     text-decoration: none;
 
     &:hover {

@@ -24,10 +24,11 @@ const GlobalStyle = createGlobalStyle`
   }
 
   h1 {
+    display: inline-block;
     font-size: calc(2rem + 1.5vw) !important;
     margin-top: 3rem !important;
     padding-bottom: 1.3rem !important;
-    background: -webkit-linear-gradient(45deg, ${colors.global.gradientPurple}, ${colors.global.gradientBlue} 10%);
+    background: -webkit-linear-gradient(45deg, ${colors.global.gradientPurple}, ${colors.global.gradientBlue} 50%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     text-shadow: 2px 2px 15px rgba(0,0,0,0.2);
@@ -51,6 +52,11 @@ const Wrapper = styled.div`
     height: 100%;
     padding-bottom: 2.5rem;
     min-height: calc(100vh - 106px);
+
+    img {
+      border-radius: 5px;
+      border: 1px solid ${colors.light.backgroundAccent};
+    }
   }
 `
 

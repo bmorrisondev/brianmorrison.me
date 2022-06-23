@@ -2,6 +2,7 @@ import { Link } from 'gatsby'
 import React from 'react'
 import { Nav, Navbar, Container } from "react-bootstrap"
 import styled from 'styled-components'
+import colors from '../colors'
 // @ts-ignore
 import SiteLogo from '../images/logo.png'
 
@@ -16,6 +17,14 @@ const Wrapper = styled(Navbar)`
       margin-right: 10px;
     }
     /* font-weight: bold; */
+  }
+
+  .navbar-collapse.show {
+    z-index: 1000;
+    background-color: ${colors.light.background};
+    border-bottom: 2px solid ${colors.light.backgroundAccent};
+    padding: 0px 10px;
+    border-radius: 5px;
   }
 `
 

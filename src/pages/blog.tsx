@@ -42,7 +42,6 @@ function Blog() {
   `)
 
   const posts = data.allWpPost.edges.map(el => el.node)
-  // posts.forEach(p => p.content = highlightCode(p.content))
 
   return (
     <DefaultLayout>
