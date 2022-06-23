@@ -11,15 +11,15 @@ const Wrapper = styled(Container)`
   }
 
   .dev-li {
-    list-style-image: url('../assets/images/emoji/dev.png');
+    list-style-image: url('/img/emoji/dev.png');
   }
 
   .cloud-li {
-    list-style-image: url('../assets/images/emoji/clouds.png');
+    list-style-image: url('/img/emoji/clouds.png');
   }
 
   .video-li {
-    list-style-image: url('../assets/images/emoji/camera.png');
+    list-style-image: url('/img/emoji/camera.png');
   }
 `
 
