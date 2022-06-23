@@ -11,6 +11,16 @@ const Wrapper = styled(Form)`
     font-weight: bold
   }
 
+  .form-check {
+    display: flex;
+    align-items: center;
+
+    label {
+      margin-top: 2px;
+      margin-left: 5px;
+    }
+  }
+
   .button-row {
     margin-top: 10px;
     display: flex;
