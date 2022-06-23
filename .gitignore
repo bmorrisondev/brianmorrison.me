@@ -9,3 +9,5 @@ static/admin/*.bundle.*
 yarn-error.log
 app.config.local.json
 build-config.json
+.wordpress-cache/
+.env

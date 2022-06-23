@@ -1,10 +1,4 @@
-/**
- * Configure your Gatsby site with this file.
- *
- * See: https://www.gatsbyjs.com/docs/gatsby-config/
- */
-
-const buildConfig = require("./build-config.json")
+require("dotenv").config()
 
 module.exports = {
   siteMetadata: {
@@ -15,11 +9,11 @@ module.exports = {
     {
       resolve: 'gatsby-source-wordpress',
       options: {
-        "url": buildConfig.url,
+        "url": process.env.WP_URL,
         auth: {
           htaccess: {
-            username: buildConfig.username,
-            password: buildConfig.password
+            username: process.env.WP_USERNAME,
+            password: process.env.WP_PASSWORD
           }
         },
         html: {
@@ -34,7 +28,7 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-google-analytics',
       options: {
-        "trackingId": buildConfig.trackingId
+        "trackingId": process.env.GA_TRACKINGID
       }
     },
     "gatsby-plugin-image",

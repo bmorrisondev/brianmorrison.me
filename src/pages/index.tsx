@@ -5,7 +5,6 @@ import colors from "../colors"
 import DefaultLayout from "../layouts/DefaultLayout"
 
 const Wrapper = styled(Container)`
-  height: 80%;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -17,6 +16,7 @@ const Wrapper = styled(Container)`
   }
 
   .intro-main {
+    margin-top: 200px;
     font-weight: bold;
     font-size: 6.5em;
     line-height: 1em;
@@ -24,6 +24,7 @@ const Wrapper = styled(Container)`
     background: -webkit-linear-gradient(45deg, ${colors.global.gradientPurple}, ${colors.global.gradientBlue} 50%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    text-shadow: 2px 2px 15px rgba(0,0,0,0.2);
   }
 
   .intro-sub {

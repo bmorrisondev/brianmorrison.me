@@ -1,13 +1,78 @@
 import { Link } from 'gatsby'
+import { StaticImage } from 'gatsby-plugin-image'
 import React from 'react'
-// import StylizedList from '../components/StylizedList'
+import { Container } from 'react-bootstrap'
+import styled from 'styled-components'
+import colors from '../colors'
+import StylizedList from '../components/StylizedList'
 import DefaultLayout from '../layouts/DefaultLayout'
 import socials from '../socials'
+
+const Wrapper = styled(Container)`
+  .more-icon {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  .cert-block {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+
+    img {
+      height: 120px
+      width: 120px
+    }
+
+    span {
+      font-weight: bold;
+    }
+
+    &:hover {
+      span {
+        background: linear-gradient(45deg, ${colors.global.gradientPurple}, ${colors.global.gradientBlue} 50%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+    }
+  }
+
+  .cert-block-ccna {
+    img {
+      background-color: white;
+      border: 1px solid ${colors.light.backgroundAccent};
+      border-radius: 20px;
+    }
+  }
+
+  .proficiencies {
+    .subheader {
+      font-style: italic;
+    }
+  }
+
+  .work-history {
+    .work-years {
+      font-style: italic;
+      font-size: 1.2rem;
+    }
+
+    .employer-logo {
+      margin: 20px 0px;
+      max-width: 300px;
+    }
+  }
+
+`
 
 function About() {
   return (
     <DefaultLayout>
-      <div className="about">
+      <Wrapper>
         <div>
           <h1>About Me</h1>
           <div>
@@ -15,23 +80,23 @@ function About() {
           </div>
           <div className="certifications">
             <h2>Certifications</h2>
-            {/* <a href="https://www.youracclaim.com/badges/885db61f-cf70-4922-bbbe-d66cb02a6336/public_url" className="cert-block" target="_blank">
-              <img src="@/assets/images/cert-badges/aws-dev-assoc.png" />
+            <a href="https://www.youracclaim.com/badges/885db61f-cf70-4922-bbbe-d66cb02a6336/public_url" className="cert-block" target="_blank">
+              <StaticImage src="../images/cert-badges/aws-dev-assoc.png" alt="AWS Dev Assoc Image" />
               <span>2019 - 2022</span>
             </a>
             <a href="https://www.youracclaim.com/badges/0740ed31-39a7-4515-b3df-1a51478ddbc7/public_url" className="cert-block" target="_blank">
-              <img src="@/assets/images/cert-badges/aws-sa-assoc.png" />
+              <StaticImage src="../images/cert-badges/aws-sa-assoc.png" alt="AWS Solutions Architect Assoc Image" />
               <span>2019 - 2022</span>
             </a>
             <a href="https://www.youracclaim.com/badges/f24caf74-41fc-4cdb-a032-dcf9c20c9b4b/public_url" className="cert-block cert-block-ccna" target="_blank">
-              <img src="@/assets/images/cert-badges/ccna-rs.png" />
+              <StaticImage src="../images/cert-badges/ccna-rs.png" alt="CCNA Routing and Switching" />
               <span>2015 - 2018</span>
-            </a> */}
+            </a>
           </div>
           <div className="proficiencies">
             <h2>Proficiencies</h2>
             <h3>Languages:</h3>
-            {/* <StylizedList>
+            <StylizedList>
               <li>JavaScript</li>
               <li>C#</li>
             </StylizedList>
@@ -58,25 +123,25 @@ function About() {
               <li>Azure DevOps</li>
               <li>Jenkins</li>
               <li>Octopus</li>
-            </StylizedList> */}
+            </StylizedList>
           </div>
-          <h1>More</h1>
+          <h2>More</h2>
           <p>I have a great passion for technology and simply love working with it to help solve problems. While most of my jobs have started with a focus on systems & networking, I have always found ways to build tools and automations for the companies I've worked with over the years as a means to both exercise my love for software development and provide more value to the company.</p>
           <p>Outside of tech, I love spending time with my wife and three sons, playing Destiny 2 on Google Stadia (@brianmm02), and moving heavy things 9-12 times for sets (as in, I love to workout 💪). </p>
 
           <div className="work-history">
             {/* <a name="work-history" /> */}
-            <h1>Work History</h1>
+            <h2>Work History</h2>
             <p>I've been working in the tech industry since 2008. Below is a chronological order of my work history.</p>
 
-            {/* <img src="@/assets/images/logos/onyx.png" className="employer-logo"  /> */}
+            <StaticImage src="../images/logos/onyx.png" className="employer-logo" alt="onyx computer repair logo"  />
             <h3>Onyx Computer Repair</h3>
             <span className="work-years">2009 - 2013</span>
             <hr />
             <p>I started working at a big box retailer as a computer repair specialist before leaving to start my own company focusing on computer repair, networking, and general systems configuration. I worked with individuals as well as business to help solve computer-related issues, regardless of the scale. I also built several websites and applications, including <Link to="/portfolio/proposals-app">Proposals App</Link> & <Link to="/portfolio/contact-notebooks">Contact Notebooks</Link> detailed in my portfolio.</p>
             <p>In 2013, my now wife and I were getting serious about starting a life together, so I made the decision to move away from being a solopreneur to getting a job for more steady income.</p>
 
-            {/* <img src="@/assets/images/logos/systech.png" className="employer-logo"  /> */}
+            <StaticImage src="../images/logos/systech.png" className="employer-logo" alt="systech logo" />
             <h3>Systech Information Services</h3>
             <span className="work-years">2013 - 2015</span>
             <hr />
@@ -96,7 +161,7 @@ function About() {
               <li><Link to="/portfolio/quoting-pro">Quoting Pro</Link></li>
             </ul>
 
-            {/* <img src="@/assets/images/logos/lesaint.png" className="employer-logo"  /> */}
+            <StaticImage src="../images/logos/lesaint.png" className="employer-logo" alt="lesaint logo" />
             <h3>LeSaint Logistics</h3>
             <span className="work-years">2013 - 2015</span>
             <hr />
@@ -115,7 +180,7 @@ function About() {
             <p>In early 2018, our in-house developer left the company and I was offered the position of Software Engineer due to my successful side-projects in the organization. I was given the responsibility of onboarding new integration customers, facilitating a successful integration and extending the functionality of our .NET API as needed, all while retaining my responsibilities as a Senior Systems Engineer while a my replacement could be found.</p>
             <p>In 2019, I decided I wanted to focus my career on software development & cloud infrastructure, so I obtained my AWS certifications as a Solutions Architect & Developer, both Associate level certifications.</p>
 
-            {/* <img src="@/assets/images/logos/temeda.png" className="employer-logo" /> */}
+            <StaticImage src="../images/logos/temeda.png" className="employer-logo" alt="temeda logo"/>
             <h3>Temeda</h3>
             <span className="work-years">2019 - Current</span>
             <hr />
@@ -129,7 +194,7 @@ function About() {
             </ul>
           </div>
         </div>
-      </div>
+      </Wrapper>
     </DefaultLayout>
   )
 }

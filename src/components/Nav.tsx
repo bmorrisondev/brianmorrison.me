@@ -6,6 +6,8 @@ import styled from 'styled-components'
 import SiteLogo from '../images/logo.png'
 
 const Wrapper = styled(Navbar)`
+  height: 66px;
+
   .navbar-brand {
     display: flex;
     align-items: center;

@@ -7,7 +7,7 @@ const Wrapper = styled.ul`
 
   li {
     display: inline-block;
-    background-color: $background-accent;
+    background-color: ${colors.light.backgroundAccent};
     padding: 3px 15px;
     margin: 5px;
     border-radius: 5px;
