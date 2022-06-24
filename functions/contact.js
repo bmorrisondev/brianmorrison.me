@@ -53,7 +53,7 @@ exports.handler = async function (event, context) {
       response.statusCode = 200
     }
   } catch (err) {
-    console.log(err)
+    console.error(err)
     response.statusCode = 500
   }
   return response

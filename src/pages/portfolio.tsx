@@ -64,7 +64,6 @@ function Portfolio() {
 
 
   const posts = data.allWpPortfolioItem.edges.map(el => el.node)
-  console.log(posts)
   return (
     <DefaultLayout>
       <Wrapper>

@@ -11,6 +11,23 @@ const Wrapper = styled.div`
   width: 100%;
   height: 2.5rem;
 
+  @media screen and (max-width: 500px) {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    .footer-left, .footer-right {
+      margin-bottom: 10px;
+    }
+
+    .footer-right {
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      padding-bottom: 20px;
+    }
+  }
+
   a {
     color: inherit;
     text-decoration: none;

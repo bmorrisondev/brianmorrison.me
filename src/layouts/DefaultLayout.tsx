@@ -52,11 +52,6 @@ const Wrapper = styled.div`
     height: 100%;
     padding-bottom: 2.5rem;
     min-height: calc(100vh - 106px);
-
-    img {
-      border-radius: 5px;
-      border: 1px solid ${colors.light.backgroundAccent};
-    }
   }
 `
 
