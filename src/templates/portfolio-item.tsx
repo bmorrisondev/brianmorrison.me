@@ -29,7 +29,6 @@ function PostCode({ language, children }) {
 }
 
 const getLanguage = node => {
-  console.log(node.children[0].attribs.class)
   if(node.children && node.children.length > 0 && node.children[0].attribs.class && node.children[0].attribs.class.startsWith("language-")) {
     return node.children[0].attribs.class.replace("language-", "")
   }

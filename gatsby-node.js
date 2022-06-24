@@ -9,7 +9,6 @@ exports.createPages = async gatsbyUtilities => {
   await createIndividualBlogPostPages({ posts, gatsbyUtilities })
 
   const portfolioItems = await getPortfolioItems(gatsbyUtilities)
-  console.log(portfolioItems)
   if (!portfolioItems.length) {
     return
   }

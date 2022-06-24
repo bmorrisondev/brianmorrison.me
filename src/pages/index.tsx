@@ -16,19 +16,26 @@ const Wrapper = styled(Container)`
   }
 
   .intro-main {
-    margin-top: 200px;
+    margin-top: 4rem;
     font-weight: bold;
-    font-size: 6.5em;
-    line-height: 1em;
-    padding-bottom: 16px;
+    font-size: 4rem;
+    line-height: 4.2rem;
+    padding-bottom: 1rem;
     background: -webkit-linear-gradient(45deg, ${colors.global.gradientPurple}, ${colors.global.gradientBlue} 50%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     text-shadow: 2px 2px 15px rgba(0,0,0,0.2);
+
+    @media screen and (min-width: 600px) {
+      font-size: 6rem;
+      padding-bottom: 2rem;
+      margin-top: 200px !important;
+    }
   }
 
   .intro-sub {
-    font-size: 2.5em;
+    font-size: 2rem;
+    line-height: 2.5rem;
   }
 `
 

@@ -1,6 +1,6 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { Link, graphql, navigate } from "gatsby"
-import { GatsbyImage } from "gatsby-plugin-image"
+import { GatsbyImage, StaticImage } from "gatsby-plugin-image"
 import parse, {domToReact} from "html-react-parser"
 // import "../css/@wordpress/block-library/build-style/style.css"
 // import "../css/@wordpress/block-library/build-style/theme.css"
@@ -17,6 +17,9 @@ import colors from "../colors"
 // import Seo from "../components/seo"
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { atomDark as theme } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import YouTubeEmbed from "../components/YouTubeEmbed"
+import StylizedList from "../components/StylizedList"
+import GitHub from "../components/svgs/GitHub"
 
 function PostCode({ language, children }) {
   return (
@@ -29,7 +32,6 @@ function PostCode({ language, children }) {
 }
 
 const getLanguage = node => {
-  console.log(node.children[0].attribs.class)
   if(node.children && node.children.length > 0 && node.children[0].attribs.class && node.children[0].attribs.class.startsWith("language-")) {
     return node.children[0].attribs.class.replace("language-", "")
   }
@@ -61,7 +63,20 @@ const Wrapper = styled(Container)`
     }
   }
 
+  .post-meta {
+    svg {
+      height: 25px;
+      width: 25px;
+
+      &:hover {
+        fill: inherit;
+      }
+    }
+  }
+
   .post-content {
+    word-wrap: break-word;
+
     h2 {
       margin-top: 30px;
     }
@@ -75,7 +90,7 @@ const Wrapper = styled(Container)`
     }
   }
 
-  .callout {
+  .callout, blockquote {
     border-radius: 5px;
     background-color: ${colors.light.backgroundAccent};
     padding: 10px;
@@ -108,6 +123,33 @@ export const pageQuery = graphql`
       content
       title
       date(formatString: "MMMM DD, YYYY")
+      series {
+        nodes {
+          name
+          description
+          seriesFields {
+            icon {
+              altText
+              gatsbyImage(width: 25, height: 25)
+            }
+          }
+          posts {
+            nodes {
+              slug
+              title
+              blogPostFields {
+                seriesOrder
+              }
+            }
+          }
+        }
+      }
+      blogPostFields {
+        seriesOrder
+        videoUrl
+        githubUrl
+        hideFeaturedImage
+      }
       featuredImage {
         node {
           altText
@@ -139,11 +181,43 @@ type Props = {
 }
 
 const BlogPostTemplate = (props: Props) => {
+  const [hideFeaturedImage, setHideFeaturedImage] = useState(false)
+  const [seriesName, setSeriesName] = useState("")
+  const [githubUrl, setGithubUrl] = useState("")
+  const [seriesPosts, setSeriesPosts] = useState([])
   const { data: { previous, next, post } } = props
 
   const featuredImage = {
     data: post.featuredImage?.node?.localFile?.childImageSharp?.gatsbyImageData,
     alt: post.featuredImage?.node?.alt || ``,
+  }
+
+  useEffect(() => {
+    if(post.blogPostFields && post.blogPostFields.hideFeaturedImage) {
+      setHideFeaturedImage(true)
+    }
+
+    if(post.blogPostFields && post.blogPostFields.githubUrl) {
+      setGithubUrl(post.blogPostFields.githubUrl)
+    }
+
+    if(post.series && post.series.nodes && post.series.nodes.length) {
+      setSeriesName(post.series.nodes[0].name)
+      let sp: any = []
+      post.series.nodes[0].posts.nodes.forEach(p => {
+        sp.push({
+          order: p.blogPostFields.seriesOrder,
+          slug: p.slug,
+          title: p.title
+        })
+      })
+      sp.sort((a, b) => a.order < b.order ? -1 : 1)
+      setSeriesPosts(sp)
+    }
+  }, [])
+
+  function scrollToSeriesListing() {
+
   }
 
   return (
@@ -159,18 +233,47 @@ const BlogPostTemplate = (props: Props) => {
           <header>
             {/* <small className="post-date"><FontAwesomeIcon icon={faCalendar} />{post.date}</small> */}
             <h1 itemProp="headline">{parse(post.title)}</h1>
-            {featuredImage?.data && (
+            {(seriesName !== "" || githubUrl !== "") && (
+            <div className="post-meta">
+              <StylizedList>
+                {seriesName && (
+                  <a href="#" onClick={() => scrollToSeriesListing()}>
+                    <li className="tag-link">
+                      <StaticImage className="list-icon" src="../images/emoji/series.png" alt="series icon" /> Series: {seriesName}
+                    </li>
+                  </a>
+                )}
+                {githubUrl && (
+                  <a href={githubUrl} target="_blank">
+                    <li className="tag-link">
+                      <GitHub /> Visit GitHub Repo
+                    </li>
+                  </a>
+
+                )}
+              </StylizedList>
+            </div>
+
+            )}
+            {!hideFeaturedImage && featuredImage?.data && (
               <GatsbyImage
                 image={featuredImage.data}
                 alt={featuredImage.alt}
                 style={{ marginBottom: 50 }}
               />
             )}
+            {post.blogPostFields && post.blogPostFields.videoUrl && (
+              <YouTubeEmbed url={post.blogPostFields.videoUrl} />
+            )}
           </header>
 
           {!!post.content && (
             <div className="post-content">{parse(post.content, { replace: replaceCode })}</div>
           )}
+
+          {seriesPosts.map(sp => (
+            <div>{sp.order} | {sp.title} | {sp.slug} </div>
+          ))}
 
           <hr />
 

@@ -8,15 +8,19 @@ import DefaultLayout from '../layouts/DefaultLayout'
 const BlogLink = styled(Link)`
   display: flex;
   font-weight: bold;
-  font-size: 25px;
   text-decoration: none;
   color: inherit;
-  height: 25px;
   align-items: center;
-  margin-bottom: 20px;
+  font-size: 20px;
+  padding-bottom: 20px;
+
+  span {
+    margin-left: 10px;
+  }
 
   .post-icon {
-    margin-right: 10px;
+    min-width: 25px;
+    min-height: 25px;
   }
 `
 
@@ -32,7 +36,18 @@ function Blog() {
             title
             blogPostFields {
               icon {
+                altText
                 gatsbyImage(width: 25, height: 25)
+              }
+            }
+            series {
+              nodes {
+                seriesFields {
+                  icon {
+                    altText
+                    gatsbyImage(width: 25, height: 25)
+                  }
+                }
               }
             }
           }
@@ -42,6 +57,7 @@ function Blog() {
   `)
 
   const posts = data.allWpPost.edges.map(el => el.node)
+  console.log(posts)
 
   return (
     <DefaultLayout>
@@ -49,11 +65,13 @@ function Blog() {
         <h1>Blog</h1>
         {posts.map(p => (
           <BlogLink to={`/blog/${p.slug}`}>
-            {p.blogPostFields && p.blogPostFields.icon
+            {p.series && p.series.nodes && p.series.nodes.length && p.series.nodes[0].seriesFields && p.series.nodes[0].seriesFields.icon ? (
+              <GatsbyImage className="post-icon" image={p.series.nodes[0].seriesFields.icon.gatsbyImage} alt={p.series.nodes[0].seriesFields.icon.altText} />
+            ) : p.blogPostFields && p.blogPostFields.icon
               ? <GatsbyImage className="post-icon" image={p.blogPostFields.icon.gatsbyImage} alt={p.blogPostFields.icon.altText} />
               : <StaticImage className="post-icon" src="../images/emoji/memo.png" alt="default post icon" />
             }
-            {p.title}
+            <span>{p.title}</span>
           </BlogLink>
         ))}
       </Container>

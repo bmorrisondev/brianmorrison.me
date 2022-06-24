@@ -13,7 +13,7 @@ const Wrapper = styled.ul`
     display: inline-block;
     background-color: ${colors.light.backgroundAccent};
     padding: 3px 15px;
-    margin: 5px;
+    margin: 5px 10px 5px 0px;
     border-radius: 5px;
     font-size: 1rem;
     line-height: 1.4rem;
