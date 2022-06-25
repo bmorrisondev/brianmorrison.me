@@ -11,3 +11,5 @@ app.config.local.json
 build-config.json
 .wordpress-cache/
 .env
+**/.env
+temp/
