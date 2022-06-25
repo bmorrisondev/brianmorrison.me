@@ -41,7 +41,7 @@ function PortfolioListItem({item}) {
   )
 }
 
-function Portfolio() {
+function Portfolio({ location }) {
   const data = useStaticQuery(graphql`
     {
       allWpPortfolioItem(sort: {fields: [date], order: DESC}) {
@@ -65,7 +65,7 @@ function Portfolio() {
 
   const posts = data.allWpPortfolioItem.edges.map(el => el.node)
   return (
-    <DefaultLayout>
+    <DefaultLayout location={location} pageTitle="Portfolio">
       <Wrapper>
         <h1>Portfolio</h1>
         <div>

@@ -4,7 +4,7 @@ import StylizedList from '../components/StylizedList'
 import { StaticImage } from 'gatsby-plugin-image'
 import { Container } from 'react-bootstrap'
 
-function Uses() {
+function Uses({ location }) {
   const rig = [
     { "item": "CoolerMaster MB511", "url": "https://amzn.to/2AZfPUc" },
     { "item": "GIGABYTE X570 AORUS Elite Wifi", "url": "https://amzn.to/2AZijlt" },
@@ -23,7 +23,7 @@ function Uses() {
     { "item": "Audio-Technica AT2005USB", "url": "https://amzn.to/3ajIuRh" },
   ]
   return (
-    <DefaultLayout>
+    <DefaultLayout location={location} pageTitle="Uses">
       <Container>
         <h1>Uses</h1>
         <p>Here is a list of the various tech I use on a daily basis.</p>

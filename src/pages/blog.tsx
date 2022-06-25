@@ -24,7 +24,7 @@ const BlogLink = styled(Link)`
   }
 `
 
-function Blog() {
+function Blog({ location }) {
   const data = useStaticQuery(graphql`
     {
       allWpPost(sort: {fields: [date], order: DESC}) {
@@ -57,10 +57,9 @@ function Blog() {
   `)
 
   const posts = data.allWpPost.edges.map(el => el.node)
-  console.log(posts)
 
   return (
-    <DefaultLayout>
+    <DefaultLayout location={location} pageTitle="Blog">
       <Container>
         <h1>Blog</h1>
         {posts.map(p => (

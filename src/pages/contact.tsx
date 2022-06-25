@@ -23,9 +23,9 @@ const Wrapper = styled(Container)`
   }
 `
 
-function Contact() {
+function Contact({ location }) {
   return (
-    <DefaultLayout>
+    <DefaultLayout location={location} pageTitle="Contact Me">
       <Wrapper>
         <h1>Contact Me</h1>
         <div>

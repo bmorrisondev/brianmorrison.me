@@ -127,8 +127,8 @@ type Props = {
   data: any
 }
 
-const BlogPostTemplate = (props: Props) => {
-  const { data: { previous, next, post } } = props
+const BlogPostTemplate = ({ data, location }) => {
+  const { previous, next, post } = data
 
   const featuredImage = {
     data: post.featuredImage?.node?.localFile?.childImageSharp?.gatsbyImageData,
@@ -136,7 +136,7 @@ const BlogPostTemplate = (props: Props) => {
   }
 
   return (
-    <DefaultLayout>
+    <DefaultLayout location={location} pageTitle={post.title}>
       <Wrapper>
         {/* <Seo title={post.title} description={post.excerpt} /> */}
 

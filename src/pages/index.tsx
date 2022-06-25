@@ -39,9 +39,9 @@ const Wrapper = styled(Container)`
   }
 `
 
-export default function Home() {
+export default function Home({ location }) {
   return (
-    <DefaultLayout>
+    <DefaultLayout location={location}>
       <Wrapper>
         <div className="intro-main">Hi, my name is Brian</div>
         <div className="intro-sub">I'm a freelance software developer & content creator.</div>

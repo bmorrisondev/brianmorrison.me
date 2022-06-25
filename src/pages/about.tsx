@@ -69,9 +69,9 @@ const Wrapper = styled(Container)`
 
 `
 
-function About() {
+function About({ location }) {
   return (
-    <DefaultLayout>
+    <DefaultLayout location={location} pageTitle="About Me">
       <Wrapper>
         <div>
           <h1>About Me</h1>
