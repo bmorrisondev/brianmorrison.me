@@ -20,6 +20,8 @@ import { atomDark as theme } from 'react-syntax-highlighter/dist/esm/styles/pris
 import YouTubeEmbed from "../components/YouTubeEmbed"
 import StylizedList from "../components/StylizedList"
 import GitHub from "../components/svgs/GitHub"
+import { SeriesCollection, SeriesEntry } from "../models"
+import BlogFooter from "../components/BlogFooter"
 
 function PostCode({ language, children }) {
   return (
@@ -64,6 +66,10 @@ const Wrapper = styled(Container)`
   }
 
   .post-meta {
+    a:hover {
+      cursor: pointer;
+    }
+
     svg {
       height: 25px;
       width: 25px;
@@ -182,9 +188,8 @@ type Props = {
 
 const BlogPostTemplate = (props: Props) => {
   const [hideFeaturedImage, setHideFeaturedImage] = useState(false)
-  const [seriesName, setSeriesName] = useState("")
   const [githubUrl, setGithubUrl] = useState("")
-  const [seriesPosts, setSeriesPosts] = useState([])
+  const [series, setSeries] = useState<SeriesCollection>()
   const { data: { previous, next, post } } = props
 
   const featuredImage = {
@@ -202,29 +207,41 @@ const BlogPostTemplate = (props: Props) => {
     }
 
     if(post.series && post.series.nodes && post.series.nodes.length) {
-      setSeriesName(post.series.nodes[0].name)
-      let sp: any = []
+      const sc: SeriesCollection = {
+        entries: []
+      }
+      sc.name = post.series.nodes[0].name
+      let sp: SeriesEntry[] = []
       post.series.nodes[0].posts.nodes.forEach(p => {
-        sp.push({
+        let entry: SeriesEntry = {
           order: p.blogPostFields.seriesOrder,
           slug: p.slug,
           title: p.title
-        })
+        }
+        sp.push(entry)
       })
-      sp.sort((a, b) => a.order < b.order ? -1 : 1)
-      setSeriesPosts(sp)
+      sp.sort((a: SeriesEntry, b: SeriesEntry) => Number(a.order) < Number(b.order) ? -1 : 1)
+      sc.entries = sp
+      if(post.series.nodes[0].seriesFields?.icon) {
+        sc.icon = post.series.nodes[0].seriesFields.icon
+      }
+      setSeries(sc)
     }
   }, [])
 
   function scrollToSeriesListing() {
-
+    let el = document.querySelector(".series-meta")
+    if(el) {
+      el.scrollIntoView({
+        behavior: 'smooth'
+      });
+    }
   }
 
   return (
     <DefaultLayout>
       <Wrapper>
         {/* <Seo title={post.title} description={post.excerpt} /> */}
-
         <article
           className="blog-post"
           itemScope
@@ -233,13 +250,13 @@ const BlogPostTemplate = (props: Props) => {
           <header>
             {/* <small className="post-date"><FontAwesomeIcon icon={faCalendar} />{post.date}</small> */}
             <h1 itemProp="headline">{parse(post.title)}</h1>
-            {(seriesName !== "" || githubUrl !== "") && (
+            {(series || githubUrl !== "") && (
             <div className="post-meta">
               <StylizedList>
-                {seriesName && (
-                  <a href="#" onClick={() => scrollToSeriesListing()}>
+                {series && series.name && (
+                  <a onClick={() => scrollToSeriesListing()}>
                     <li className="tag-link">
-                      <StaticImage className="list-icon" src="../images/emoji/series.png" alt="series icon" /> Series: {seriesName}
+                      <StaticImage className="list-icon" src="../images/emoji/series.png" alt="series icon" /> Series: {series.name}
                     </li>
                   </a>
                 )}
@@ -271,9 +288,7 @@ const BlogPostTemplate = (props: Props) => {
             <div className="post-content">{parse(post.content, { replace: replaceCode })}</div>
           )}
 
-          {seriesPosts.map(sp => (
-            <div>{sp.order} | {sp.title} | {sp.slug} </div>
-          ))}
+          <BlogFooter seriesCollection={series} />
 
           <hr />
 
