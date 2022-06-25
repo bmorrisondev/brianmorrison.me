@@ -238,7 +238,7 @@ const BlogPostTemplate = ({ data, location }) => {
   }
 
   return (
-    <DefaultLayout location={location} pageTitle={post.title} ogImageUrl={featuredImage && featuredImage.url ? `${location.origin + featuredImage.url}` : undefined} >
+    <DefaultLayout location={location} pageTitle={post.title} ogImageUrl={featuredImage && featuredImage.url ? featuredImage.url : undefined} description={post.excerpt} >
       <Wrapper>
         {/* <Seo title={post.title} description={post.excerpt} /> */}
         <article

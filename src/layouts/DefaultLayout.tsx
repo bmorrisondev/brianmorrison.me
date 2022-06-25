@@ -55,7 +55,7 @@ const Wrapper = styled.div`
     min-height: calc(100vh - 106px);
   }
 
-  .container {
+  .container:not(.home-container) {
     max-width: 960px !important;
     padding-left: 1.5rem !important;
     padding-right: 1.5rem !important;
@@ -65,30 +65,32 @@ const Wrapper = styled.div`
 type Props = {
   children: ReactNode
   location: any
+  description?: string
   ogImageUrl?: string
   pageTitle?: string
 }
 
 function DefaultLayout(props: Props) {
-  const { children, location, pageTitle, ogImageUrl } = props
+  const { children, pageTitle, location, ogImageUrl, description } = props
 
-  const description = "Personal blog of Brian Morrison II, full stack developer & content creator."
+  const origin = "https://brianmorrison.me"
+  const defaultDescription = "Personal blog of Brian Morrison II, full stack developer & content creator."
 
   return (
     <Wrapper>
       <Helmet>
         <title>{pageTitle ? `${pageTitle} - ` : ""}Brian Morrison II</title>
-        <meta property="og:image" content={ogImageUrl ? ogImageUrl : `${location.origin}/img/social.png`} />
+        <meta property="og:image" content={ogImageUrl ? origin + ogImageUrl  : `${origin}/img/social.png`} />
         <meta property="og:type" content="website" />
         <meta property="og:title" content="Brian Morrison II" />
-        <meta property="og:description" content={description} />
-        <meta property="og:url" content={location.href} />
+        <meta property="og:description" content={description ? description : defaultDescription} />
+        <meta property="og:url" content={origin + location.path} />
         <meta property="og:site_name" content="Brian Morrison II" />
         <meta property="twitter:card" content="summary_large_image" />
         <meta property="twitter:title" content="Brian Morrison II" />
         <meta property="twitter:site" content="@brianmmdev" />
         <meta property="twitter:creator" content="@brianmmdev" />
-        <meta property="twitter:description" content={description} />
+        <meta property="twitter:description" content={description ? description : defaultDescription} />
       </Helmet>
       <GlobalStyle />
       <Navigation />

@@ -28,6 +28,7 @@ const Wrapper = styled(Container)`
 
     @media screen and (min-width: 600px) {
       font-size: 6rem;
+      line-height: 6.3rem;
       padding-bottom: 2rem;
       margin-top: 200px !important;
     }
@@ -42,7 +43,7 @@ const Wrapper = styled(Container)`
 export default function Home({ location }) {
   return (
     <DefaultLayout location={location}>
-      <Wrapper>
+      <Wrapper className="home-container">
         <div className="intro-main">Hi, my name is Brian</div>
         <div className="intro-sub">I'm a freelance software developer & content creator.</div>
       </Wrapper>
