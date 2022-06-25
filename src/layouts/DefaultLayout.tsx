@@ -1,4 +1,5 @@
 import React, { ReactNode } from 'react'
+import Helmet from 'react-helmet'
 import styled, { createGlobalStyle } from 'styled-components'
 import colors from '../colors'
 import Footer from '../components/Footer'
@@ -57,13 +58,32 @@ const Wrapper = styled.div`
 
 type Props = {
   children: ReactNode
+  location: any
+  ogImageUrl?: string
+  pageTitle?: string
 }
 
 function DefaultLayout(props: Props) {
-  const { children } = props
+  const { children, location, pageTitle } = props
+
+  const description = "Personal blog of Brian Morrison II, full stack developer & content creator."
 
   return (
     <Wrapper>
+      <Helmet>
+        <title>{pageTitle ? `${pageTitle} - ` : ""}Brian Morrison II</title>
+        <meta property="og:image" content={`${location.origin}/img/social.png`} />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Brian Morrison II" />
+        <meta property="og:description" content={description} />
+        <meta property="og:url" content={location.href} />
+        <meta property="og:site_name" content="Brian Morrison II" />
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:title" content="Brian Morrison II" />
+        <meta property="twitter:site" content="@brianmmdev" />
+        <meta property="twitter:creator" content="@brianmmdev" />
+        <meta property="twitter:description" content={description} />
+      </Helmet>
       <GlobalStyle />
       <Navigation />
       <div className="main">

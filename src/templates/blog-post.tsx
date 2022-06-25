@@ -182,15 +182,11 @@ export const pageQuery = graphql`
   }
 `
 
-type Props = {
-  data: any
-}
-
-const BlogPostTemplate = (props: Props) => {
+const BlogPostTemplate = ({ data, location }) => {
   const [hideFeaturedImage, setHideFeaturedImage] = useState(false)
   const [githubUrl, setGithubUrl] = useState("")
   const [series, setSeries] = useState<SeriesCollection>()
-  const { data: { previous, next, post } } = props
+  const { previous, next, post } = data
 
   const featuredImage = {
     data: post.featuredImage?.node?.localFile?.childImageSharp?.gatsbyImageData,
@@ -239,7 +235,7 @@ const BlogPostTemplate = (props: Props) => {
   }
 
   return (
-    <DefaultLayout>
+    <DefaultLayout location={location} pageTitle={post.title} >
       <Wrapper>
         {/* <Seo title={post.title} description={post.excerpt} /> */}
         <article
