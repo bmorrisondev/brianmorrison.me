@@ -193,6 +193,8 @@ const BlogPostTemplate = ({ data, location }) => {
     alt: post.featuredImage?.node?.alt || ``,
   }
 
+  console.log()
+
   useEffect(() => {
     if(post.blogPostFields && post.blogPostFields.hideFeaturedImage) {
       setHideFeaturedImage(true)
@@ -235,7 +237,7 @@ const BlogPostTemplate = ({ data, location }) => {
   }
 
   return (
-    <DefaultLayout location={location} pageTitle={post.title} >
+    <DefaultLayout location={location} pageTitle={post.title} ogImageUrl={featuredImage ? `${location.origin + featuredImage.data.images.fallback.src}` : undefined} >
       <Wrapper>
         {/* <Seo title={post.title} description={post.excerpt} /> */}
         <article

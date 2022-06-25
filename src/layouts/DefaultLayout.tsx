@@ -54,6 +54,12 @@ const Wrapper = styled.div`
     padding-bottom: 2.5rem;
     min-height: calc(100vh - 106px);
   }
+
+  .container {
+    max-width: 960px !important;
+    padding-left: 1.5rem !important;
+    padding-right: 1.5rem !important;
+  }
 `
 
 type Props = {
@@ -64,7 +70,7 @@ type Props = {
 }
 
 function DefaultLayout(props: Props) {
-  const { children, location, pageTitle } = props
+  const { children, location, pageTitle, ogImageUrl } = props
 
   const description = "Personal blog of Brian Morrison II, full stack developer & content creator."
 
@@ -72,7 +78,7 @@ function DefaultLayout(props: Props) {
     <Wrapper>
       <Helmet>
         <title>{pageTitle ? `${pageTitle} - ` : ""}Brian Morrison II</title>
-        <meta property="og:image" content={`${location.origin}/img/social.png`} />
+        <meta property="og:image" content={ogImageUrl ? ogImageUrl : `${location.origin}/img/social.png`} />
         <meta property="og:type" content="website" />
         <meta property="og:title" content="Brian Morrison II" />
         <meta property="og:description" content={description} />
