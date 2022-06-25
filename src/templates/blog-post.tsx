@@ -190,6 +190,7 @@ const BlogPostTemplate = ({ data, location }) => {
 
   const featuredImage = {
     data: post.featuredImage?.node?.localFile?.childImageSharp?.gatsbyImageData,
+    url: post.featuredImage?.node?.localFile?.childImageSharp?.gatsbyImageData?.images?.fallback?.src,
     alt: post.featuredImage?.node?.alt || ``,
   }
 
@@ -237,7 +238,7 @@ const BlogPostTemplate = ({ data, location }) => {
   }
 
   return (
-    <DefaultLayout location={location} pageTitle={post.title} ogImageUrl={featuredImage ? `${location.origin + featuredImage.data.images.fallback.src}` : undefined} >
+    <DefaultLayout location={location} pageTitle={post.title} ogImageUrl={featuredImage && featuredImage.url ? `${location.origin + featuredImage.url}` : undefined} >
       <Wrapper>
         {/* <Seo title={post.title} description={post.excerpt} /> */}
         <article
