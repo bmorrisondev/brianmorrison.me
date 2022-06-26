@@ -8,7 +8,7 @@ const socials = {
   "messenger": "https://m.me/brianmm02/",
   "whatsapp": "https://wa.me/17083412229",
   "linkedin": "https://www.linkedin.com/in/brianmorrison2",
-  "discord": "https://fullstack.chat",
+  "discord": "https://www.learnbuildteach.com",
   "dev_to": "https://dev.to/brianmmdev",
   "hashnode": "https://hashnode.com/@brianmmdev/joinme"
 }
