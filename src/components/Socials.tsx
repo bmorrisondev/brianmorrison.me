@@ -9,12 +9,19 @@ import Instagram from './svgs/Instagram'
 import Twitter from './svgs/Twitter'
 import YouTube from './svgs/YouTube'
 import LinkedIn from './svgs/LinkedIn'
+import breakpoints from '../breakpoints'
 
 const Wrapper = styled.div`
   width: 150px;
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
+
+  @media screen and (max-width: ${breakpoints.sm}) {
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+  }
 
   a {
     color: inherit;
