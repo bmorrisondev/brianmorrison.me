@@ -163,7 +163,7 @@ function About({ location }) {
 
             <StaticImage src="../images/logos/lesaint.png" className="employer-logo" alt="lesaint logo" />
             <h3>LeSaint Logistics</h3>
-            <span className="work-years">2013 - 2015</span>
+            <span className="work-years">2015 - 2019</span>
             <hr />
             <p>In 2015, I joined LeSaint Logistics as a Systems Engineer with a focus with assisting help desk support, as well as maintaining a datacenter & network of 20 warehouses across the US. I was quickly promoted to Senior Systems Engineer where I was put in charge of managing projects as related to the IT Operations department and ensuring successful execution of these projects in a timely manner. Some of my notable systems projects are;</p>
             <ul>
