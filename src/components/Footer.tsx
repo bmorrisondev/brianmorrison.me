@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { Link } from 'gatsby'
 import Socials from './Socials'
+import breakpoints from "../breakpoints"
 
 const Wrapper = styled.div`
   display: flex;
@@ -11,10 +12,11 @@ const Wrapper = styled.div`
   width: 100%;
   height: 2.5rem;
 
-  @media screen and (max-width: 500px) {
+  @media screen and (max-width: ${breakpoints.sm}) {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    margin-bottom: 20px;
 
     .footer-left, .footer-right {
       margin-bottom: 10px;
@@ -24,7 +26,6 @@ const Wrapper = styled.div`
       justify-content: center;
       align-items: center;
       width: 100%;
-      padding-bottom: 20px;
     }
   }
 

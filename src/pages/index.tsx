@@ -1,6 +1,7 @@
 import React from "react"
 import { Container } from "react-bootstrap"
 import styled from "styled-components"
+import breakpoints from "../breakpoints"
 import colors from "../colors"
 import DefaultLayout from "../layouts/DefaultLayout"
 
@@ -26,7 +27,7 @@ const Wrapper = styled(Container)`
     -webkit-text-fill-color: transparent;
     text-shadow: 2px 2px 15px rgba(0,0,0,0.2);
 
-    @media screen and (min-width: 600px) {
+    @media screen and (min-width: ${breakpoints.xl}) {
       font-size: 6rem;
       line-height: 6.3rem;
       padding-bottom: 2rem;

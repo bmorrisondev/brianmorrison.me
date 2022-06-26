@@ -87,7 +87,7 @@ function DefaultLayout(props: Props) {
         <meta property="og:url" content={origin + location.path} />
         <meta property="og:site_name" content="Brian Morrison II" />
         <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:title" content="Brian Morrison II" />
+        <meta property="twitter:title" content={`${pageTitle ? `${pageTitle} - ` : ""}Brian Morrison II`} />
         <meta property="twitter:site" content="@brianmmdev" />
         <meta property="twitter:creator" content="@brianmmdev" />
         <meta property="twitter:description" content={description ? description : defaultDescription} />

@@ -42,6 +42,12 @@ module.exports = {
         "path": "./src/images/"
       },
       __key: "images"
-    }
+    },
+    {
+      resolve: `gatsby-plugin-google-adsense`,
+      options: {
+        publisherId: `ca-pub-7070984643674033`
+      },
+    },
   ]
 }
