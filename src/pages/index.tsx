@@ -46,7 +46,7 @@ export default function Home({ location }) {
     <DefaultLayout location={location}>
       <Wrapper className="home-container">
         <div className="intro-main">Hi, my name is Brian</div>
-        <div className="intro-sub">I'm a freelance software developer & content creator.</div>
+        <div className="intro-sub">I'm a full stack developer & content creator.</div>
       </Wrapper>
     </DefaultLayout>
   )
