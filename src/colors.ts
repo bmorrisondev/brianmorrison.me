@@ -16,7 +16,7 @@ const colors = {
     background: "#F7FDFF",
     backgroundAccent: "#e0e8ee",
     text: "#111",
-
+    textAccent: "#777"
   },
   dark: {
 

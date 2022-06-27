@@ -80,6 +80,12 @@ const Wrapper = styled(Container)`
     }
   }
 
+  .featured-image {
+    margin-bottom: 50px;
+    border-radius: 5px;
+    border: 1px solid ${colors.light.backgroundAccent};
+  }
+
   .post-content {
     word-wrap: break-word;
 
@@ -275,7 +281,7 @@ const BlogPostTemplate = ({ data, location }) => {
               <GatsbyImage
                 image={featuredImage.data}
                 alt={featuredImage.alt}
-                style={{ marginBottom: 50 }}
+                className="featured-image"
               />
             )}
             {post.blogPostFields && post.blogPostFields.videoUrl && (

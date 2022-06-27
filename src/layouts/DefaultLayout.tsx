@@ -60,6 +60,12 @@ const Wrapper = styled.div`
     padding-left: 1.5rem !important;
     padding-right: 1.5rem !important;
   }
+
+  figcaption {
+    color: ${colors.light.textAccent};
+    text-align: center;
+    font-style: italic;
+  }
 `
 
 type Props = {
