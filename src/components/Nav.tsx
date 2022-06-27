@@ -19,9 +19,12 @@ const Wrapper = styled(Navbar)`
     /* font-weight: bold; */
   }
 
+  .navbar-collapse {
+    background-color: ${colors.light.background};
+  }
+
   .navbar-collapse.show {
     z-index: 1000;
-    background-color: ${colors.light.background};
     border-bottom: 2px solid ${colors.light.backgroundAccent};
     padding: 0px 10px;
     border-radius: 5px;
