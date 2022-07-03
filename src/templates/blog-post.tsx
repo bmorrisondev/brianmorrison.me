@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react"
 import { Link, graphql, navigate } from "gatsby"
 import { GatsbyImage, StaticImage } from "gatsby-plugin-image"
 import parse, {domToReact} from "html-react-parser"
+import { DataNode } from 'domhandler'
 // import "../css/@wordpress/block-library/build-style/style.css"
 // import "../css/@wordpress/block-library/build-style/theme.css"
 // import { colors, ForgeButton } from 'shared'
@@ -22,6 +23,7 @@ import StylizedList from "../components/StylizedList"
 import GitHub from "../components/svgs/GitHub"
 import { SeriesCollection, SeriesEntry } from "../models"
 import BlogFooter from "../components/BlogFooter"
+import { ElementType } from "htmlparser2"
 
 function PostCode({ language, children }) {
   return (
@@ -34,7 +36,17 @@ function PostCode({ language, children }) {
 }
 
 const getLanguage = node => {
-  if(node.children && node.children.length > 0 && node.children[0].attribs.class && node.children[0].attribs.class.startsWith("language-")) {
+  if(node.attribs["data-enlighter-language"]) {
+    if(node.attribs["data-enlighter-language"] == "golang") {
+      return "go"
+    }
+    return node.attribs["data-enlighter-language"]
+  }
+  if(node.children &&
+    node.children.length > 0 &&
+    node.children[0].attribs &&
+    node.children[0].attribs.class &&
+    node.children[0].attribs.class.startsWith("language-")) {
     return node.children[0].attribs.class.replace("language-", "")
   }
   if (node.attribs.class != null) {
@@ -44,10 +56,26 @@ const getLanguage = node => {
 };
 
 const getCode = node => {
-  if (node.children.length > 0 && node.children[0].name === 'code') {
+  let content = ""
+  console.log(node)
+  if (node.children && node.children.length == 1 && node.children[0].name === 'code') {
     return node.children[0].children;
   } else {
-    return node.children;
+    node.children.forEach(c => {
+      console.log(c)
+      if(c.name == "code" && c.children.length) {
+        content += c.children[0].data
+      } else {
+        content += c.data
+      }
+    })
+  }
+  if(content) {
+    let el = new DataNode(ElementType.Text, content)
+    console.log(el)
+    return [el]
+  } else {
+    return node.children
   }
 };
 
@@ -96,7 +124,9 @@ const Wrapper = styled(Container)`
     img {
       height: auto;
       max-width: 100%;
-      margin: 10px 0px;
+      margin: 10px auto;
+      text-align: center;
+      display: flex;
       border-radius: 5px;
       border: 1px solid ${colors.light.backgroundAccent};
     }
@@ -200,8 +230,6 @@ const BlogPostTemplate = ({ data, location }) => {
     alt: post.featuredImage?.node?.alt || ``,
   }
 
-  console.log()
-
   useEffect(() => {
     if(post.blogPostFields && post.blogPostFields.hideFeaturedImage) {
       setHideFeaturedImage(true)
@@ -290,6 +318,7 @@ const BlogPostTemplate = ({ data, location }) => {
           </header>
 
           {!!post.content && (
+            // <div className="post-content">{parse(post.content)}</div>
             <div className="post-content">{parse(post.content, { replace: replaceCode })}</div>
           )}
 

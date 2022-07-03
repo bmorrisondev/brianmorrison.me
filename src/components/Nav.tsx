@@ -20,13 +20,13 @@ const Wrapper = styled(Navbar)`
   }
 
   .navbar-collapse {
+    padding: 0px 10px;
     background-color: ${colors.light.background};
   }
 
   .navbar-collapse.show {
     z-index: 1000;
     border-bottom: 2px solid ${colors.light.backgroundAccent};
-    padding: 0px 10px;
     border-radius: 5px;
   }
 `
