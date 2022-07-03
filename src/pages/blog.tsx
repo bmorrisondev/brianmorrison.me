@@ -21,6 +21,7 @@ const BlogLink = styled(Link)`
   .post-icon {
     min-width: 25px;
     min-height: 25px;
+    border-radius: 5px;
   }
 `
 
