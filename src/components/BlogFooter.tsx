@@ -29,8 +29,8 @@ const Wrapper = styled.div`
 
   .share-section {
     svg {
-      height: 30px;
-      width: 30px;
+      height: 40px;
+      width: 40px;
     }
   }
 

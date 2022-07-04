@@ -16,7 +16,6 @@ const Wrapper = styled(Navbar)`
     img {
       margin-right: 10px;
     }
-    /* font-weight: bold; */
   }
 
   .navbar-collapse {
