@@ -1,89 +1,17 @@
 import React, { useEffect, useState } from "react"
-import { Link, graphql, navigate } from "gatsby"
+import { graphql, navigate } from "gatsby"
 import { GatsbyImage, StaticImage } from "gatsby-plugin-image"
-import parse, {domToReact} from "html-react-parser"
-import { DataNode } from 'domhandler'
-// import "../css/@wordpress/block-library/build-style/style.css"
-// import "../css/@wordpress/block-library/build-style/theme.css"
-// import { colors, ForgeButton } from 'shared'
+import parse from "html-react-parser"
 import styled from 'styled-components'
 import { Button, Container } from "react-bootstrap"
 import DefaultLayout from "../layouts/DefaultLayout"
 import colors from "../colors"
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-// import { faCalendar } from '@fortawesome/free-solid-svg-icons'
-
-// import Bio from "../components/Bio"
-// import Layout from "../components/layout"
-// import Seo from "../components/seo"
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { atomDark as theme } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import YouTubeEmbed from "../components/YouTubeEmbed"
 import StylizedList from "../components/StylizedList"
 import GitHub from "../components/svgs/GitHub"
 import { SeriesCollection, SeriesEntry } from "../models"
 import BlogFooter from "../components/BlogFooter"
-import { ElementType } from "htmlparser2"
-
-function PostCode({ language, children }) {
-  return (
-    <SyntaxHighlighter
-      style={theme}
-      language={language}>
-      {children}
-    </SyntaxHighlighter>
-  )
-}
-
-const getLanguage = node => {
-  if(node.attribs["data-enlighter-language"]) {
-    if(node.attribs["data-enlighter-language"] == "golang") {
-      return "go"
-    }
-    return node.attribs["data-enlighter-language"]
-  }
-  if(node.children &&
-    node.children.length > 0 &&
-    node.children[0].attribs &&
-    node.children[0].attribs.class &&
-    node.children[0].attribs.class.startsWith("language-")) {
-    return node.children[0].attribs.class.replace("language-", "")
-  }
-  if (node.attribs.class != null) {
-    return node.attribs.class;
-  }
-  return null;
-};
-
-const getCode = node => {
-  let content = ""
-  console.log(node)
-  if (node.children && node.children.length == 1 && node.children[0].name === 'code') {
-    return node.children[0].children;
-  } else {
-    node.children.forEach(c => {
-      console.log(c)
-      if(c.name == "code" && c.children.length) {
-        content += c.children[0].data
-      } else {
-        content += c.data
-      }
-    })
-  }
-  if(content) {
-    let el = new DataNode(ElementType.Text, content)
-    console.log(el)
-    return [el]
-  } else {
-    return node.children
-  }
-};
-
-const replaceCode = node => {
-  if (node.name === 'pre') {
-    return node.children.length > 0 && <PostCode language={getLanguage(node)}>{domToReact(getCode(node))}</PostCode>;
-  }
-};
+import { replaceCode } from "../components/PostCode"
 
 const Wrapper = styled(Container)`
   .post-date {
@@ -227,6 +155,7 @@ const BlogPostTemplate = ({ data, location }) => {
   const featuredImage = {
     data: post.featuredImage?.node?.localFile?.childImageSharp?.gatsbyImageData,
     url: post.featuredImage?.node?.localFile?.childImageSharp?.gatsbyImageData?.images?.fallback?.src,
+    hide: post.blogPostFields.hideFeaturedImage ? true : false,
     alt: post.featuredImage?.node?.alt || ``,
   }
 
@@ -299,7 +228,6 @@ const BlogPostTemplate = ({ data, location }) => {
                       <GitHub /> Visit GitHub Repo
                     </li>
                   </a>
-
                 )}
               </StylizedList>
             </div>
