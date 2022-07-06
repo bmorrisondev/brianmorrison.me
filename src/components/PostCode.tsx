@@ -27,12 +27,10 @@ const getLanguage = node => {
 
 const getCode = node => {
   let content = ""
-  console.log(node)
   if (node.children && node.children.length == 1 && node.children[0].name === 'code') {
     return node.children[0].children;
   } else {
     node.children.forEach(c => {
-      console.log(c)
       if(c.name == "code" && c.children.length) {
         content += c.children[0].data
       } else {
@@ -42,7 +40,6 @@ const getCode = node => {
   }
   if(content) {
     let el = new DataNode(ElementType.Text, content)
-    console.log(el)
     return [el]
   } else {
     return node.children

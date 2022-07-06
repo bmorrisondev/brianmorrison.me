@@ -9,7 +9,7 @@
     "dev": "gatsby clean&&gatsby develop",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
     "start": "gatsby develop",
-    "serve": "gatsby serve",
+    "serve": "gatsby build&&gatsby serve",
     "clean": "gatsby clean",
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
   },
@@ -20,6 +20,7 @@
     "bootstrap": "^5.1.3",
     "dotenv": "^16.0.1",
     "gatsby": "^4.17.0",
+    "gatsby-plugin-feed": "^4.17.0",
     "gatsby-plugin-google-adsense": "^1.1.3",
     "gatsby-plugin-google-analytics": "^4.17.0",
     "gatsby-plugin-image": "^2.17.0",

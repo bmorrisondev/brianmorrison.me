@@ -3,7 +3,8 @@ require("dotenv").config()
 module.exports = {
   siteMetadata: {
     title: `Brian Morrison II`,
-    siteUrl: `https://brianmorrison.me`
+    siteUrl: `https://brianmorrison.me`,
+    description: "Personal blog of Brian Morrison II, full stack developer & content creator."
   },
   plugins: [
     {
@@ -49,5 +50,56 @@ module.exports = {
         publisherId: `ca-pub-7070984643674033`
       },
     },
+    {
+      resolve: 'gatsby-plugin-feed',
+      options: {
+        query: `
+          {
+            site {
+              siteMetadata {
+                title
+                description
+                siteUrl
+                site_url: siteUrl
+              }
+            }
+          }
+        `,
+        feeds: [
+          {
+            title: "Brian Morrison II Blog RSS Feed",
+            output: "rss.xml",
+            query: `
+              {
+                allWpPost(sort: {fields: [date], order: DESC}) {
+                  edges {
+                    node {
+                      id
+                      slug
+                      uri
+                      title
+                      excerpt
+                    }
+                  }
+                }
+              }
+            `,
+            // serialize: ({ query: { site, allWpPost } }) => {
+            serialize: (input) => {
+              const { query: { site, allWpPost } } = input
+              console.log(allWpPost.edges)
+              return allWpPost.edges.map(({ node }) => {
+                return Object.assign({}, {
+                  url: `${site.siteMetadata.siteUrl}/blog/${node.slug}`,
+                  guid: node.id,
+                  title: node.title,
+                  description: node.excerpt
+                })
+              })
+            },
+          }
+        ]
+      }
+    }
   ]
 }
