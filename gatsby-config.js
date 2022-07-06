@@ -79,6 +79,7 @@ module.exports = {
                       uri
                       title
                       excerpt
+                      content
                     }
                   }
                 }
@@ -87,13 +88,13 @@ module.exports = {
             // serialize: ({ query: { site, allWpPost } }) => {
             serialize: (input) => {
               const { query: { site, allWpPost } } = input
-              console.log(allWpPost.edges)
               return allWpPost.edges.map(({ node }) => {
                 return Object.assign({}, {
                   url: `${site.siteMetadata.siteUrl}/blog/${node.slug}`,
                   guid: node.id,
                   title: node.title,
-                  description: node.excerpt
+                  description: node.excerpt,
+                  custom_elements: [{ "content:encoded": node.content }],
                 })
               })
             },
