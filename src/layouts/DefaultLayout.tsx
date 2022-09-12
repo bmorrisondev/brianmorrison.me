@@ -89,14 +89,14 @@ function DefaultLayout(props: Props) {
         <meta property="og:image" content={ogImageUrl ? origin + ogImageUrl  : `${origin}/img/social.png`} />
         <meta property="og:type" content="website" />
         <meta property="og:title" content="Brian Morrison II" />
-        <meta property="og:description" content={description ? description : defaultDescription} />
+        <meta property="og:description" content={description ? description.replace(/(<([^>]+)>)/ig, '') : defaultDescription} />
         <meta property="og:url" content={origin + location.path} />
         <meta property="og:site_name" content="Brian Morrison II" />
         <meta property="twitter:card" content="summary_large_image" />
         <meta property="twitter:title" content={`${pageTitle ? `${pageTitle} - ` : ""}Brian Morrison II`} />
         <meta property="twitter:site" content="@brianmmdev" />
         <meta property="twitter:creator" content="@brianmmdev" />
-        <meta property="twitter:description" content={description ? description : defaultDescription} />
+        <meta property="twitter:description" content={description ? description.replace(/(<([^>]+)>)/ig, '') : defaultDescription} />
       </Helmet>
       <GlobalStyle />
       <Navigation />
