@@ -13,3 +13,4 @@ build-config.json
 .env
 **/.env
 temp/
+.wordpress-cache
