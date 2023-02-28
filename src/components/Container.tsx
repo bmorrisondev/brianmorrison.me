@@ -2,11 +2,12 @@ import React, { ReactNode } from 'react'
 
 type Props = {
   children: ReactNode
+  className?: string
 }
 
-function Container({ children }: Props) {
+function Container({ children, className }: Props) {
   return (
-    <div>
+    <div className={className}>
       { children }
     </div>
   )

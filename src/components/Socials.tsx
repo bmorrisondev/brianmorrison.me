@@ -10,6 +10,7 @@ import Twitter from './svgs/Twitter'
 import YouTube from './svgs/YouTube'
 import LinkedIn from './svgs/LinkedIn'
 import breakpoints from '../breakpoints'
+import SocialIconLink from './SocialIconLink'
 
 // const Wrapper = styled.div`
 //   width: 150px;
@@ -37,13 +38,13 @@ import breakpoints from '../breakpoints'
 
 function Socials() {
   return (
-    <div>
-      <a href={socials.youtube} target="_blank"><YouTube /></a>
-      <a href={socials.discord} target="_blank"><Discord /></a>
-      <a href={socials.twitter} target="_blank"><Twitter /></a>
-      <a href={socials.instagram} target="_blank"><Instagram /></a>
-      <a href={socials.github} target="_blank"><GitHub /></a>
-      <a href={socials.linkedin} target="_blank"><LinkedIn /></a>
+    <div className='w-[150px] flex justify-end'>
+      <SocialIconLink href={socials.youtube}><YouTube /></SocialIconLink>
+      <SocialIconLink href={socials.discord}><Discord /></SocialIconLink>
+      <SocialIconLink href={socials.twitter}><Twitter /></SocialIconLink>
+      <SocialIconLink href={socials.instagram}><Instagram /></SocialIconLink>
+      <SocialIconLink href={socials.github}><GitHub /></SocialIconLink>
+      <SocialIconLink href={socials.linkedin}><LinkedIn /></SocialIconLink>
     </div>
   )
 }

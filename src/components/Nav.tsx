@@ -1,70 +1,25 @@
-import { Link } from 'gatsby'
 import React from 'react'
-// import { Nav, Navbar, Container } from "react-bootstrap"
-// import styled from 'styled-components'
-import colors from '../colors'
 // @ts-ignore
 import SiteLogo from '../images/logo.png'
 import Container from './Container'
-
-// const Wrapper = styled(Navbar)`
-//   height: 66px;
-
-//   .navbar-brand {
-//     display: flex;
-//     align-items: center;
-
-//     img {
-//       margin-right: 10px;
-//     }
-//   }
-
-//   .navbar-collapse {
-//     padding: 0px 10px;
-//     background-color: ${colors.light.background};
-//   }
-
-//   .navbar-collapse.show {
-//     z-index: 1000;
-//     border-bottom: 2px solid ${colors.light.backgroundAccent};
-//     border-radius: 5px;
-//   }
-// `
+import NavLink from './NavLink'
 
 function Navigation() {
   return (
-    <div expand="lg">
-      <Container fluid>
-        {/* <Nav.Link as="div" href="#" style={{ padding: "0" }}>
-          <Link className="navbar-brand" to="/">
-            <img src={SiteLogo} alt="BrianMorrison.me Logo" height="40" width="40" /> Brian Morrison II
-          </Link>
-        </Nav.Link>
-        <Navbar.Toggle aria-controls="responsive-navnav" />
-        <Navbar.Collapse className="justify-content-end">
-          <Nav className="justify-content-end" as="ul">
-            <Nav.Item>
-              <Nav.Link as={Link} to="/">Home</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link as={Link} to="/about">About</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link as={Link} to="/uses">Uses</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link as={Link} to="/portfolio">Portfolio</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link as={Link} to="/blog">Blog</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link as={Link} to="/contact">Contact</Nav.Link>
-            </Nav.Item>
-          </Nav>
-        </Navbar.Collapse> */}
-      </Container>
-    </div>
+    <Container className='h-[66px] flex justify-between p-2'>
+      <div className='flex space-x-2 text-xl items-center'>
+        <img src={SiteLogo} alt="BrianMorrison.me Logo" className='w-[40px]' />
+        <span>Brian Morrison II</span>
+      </div>
+      <div className='flex space-x-2 items-center'>
+        <NavLink to="/">Home</NavLink>
+        <NavLink to="/about">About</NavLink>
+        <NavLink to="/uses">Uses</NavLink>
+        <NavLink to="/portfolio">Portfolio</NavLink>
+        <NavLink to="/blog">Blog</NavLink>
+        <NavLink to="/contact">Contact</NavLink>
+      </div>
+    </Container>
   )
 }
 
