@@ -26,12 +26,6 @@ module.exports = {
       }
     },
     "gatsby-plugin-styled-components",
-    {
-      resolve: 'gatsby-plugin-google-analytics',
-      options: {
-        "trackingId": process.env.GA_TRACKINGID
-      }
-    },
     "gatsby-plugin-image",
     "gatsby-plugin-sharp",
     "gatsby-plugin-react-helmet",
