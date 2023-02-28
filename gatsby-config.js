@@ -7,6 +7,7 @@ module.exports = {
     description: "Personal blog of Brian Morrison II, full stack developer & content creator."
   },
   plugins: [
+    'gatsby-plugin-postcss',
     {
       resolve: 'gatsby-source-wordpress',
       options: {
