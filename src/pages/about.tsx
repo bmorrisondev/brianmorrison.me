@@ -62,7 +62,7 @@ import socials from '../socials'
 //       font-size: 1.2rem;
 //     }
 
-//     .employer-logo {
+//     .max-w-[300px] {
 //       margin: 20px 0px;
 //       max-width: 300px;
 //     }
@@ -75,7 +75,7 @@ function About({ location }) {
     <DefaultLayout location={location} pageTitle="About Me">
       <Container>
         <div>
-          <h1>About Me</h1>
+          <h1 className='gradient-header'>About Me</h1>
           <div>
             <p>I'm a full stack software developer currently working in the IoT space. I also develop technical content for <a href={socials.youtube} target="_blank">YouTube</a> and my <Link to="/blog">blog</Link>.</p>
           </div>
@@ -135,14 +135,14 @@ function About({ location }) {
             <h2>Work History</h2>
             <p>I've been working in the tech industry since 2008. Below is a chronological order of my work history.</p>
 
-            <StaticImage src="../images/logos/onyx.png" className="employer-logo" alt="onyx computer repair logo"  />
+            <StaticImage src="../images/logos/onyx.png" className="max-w-[300px]" alt="onyx computer repair logo"  />
             <h3>Onyx Computer Repair</h3>
             <span className="work-years">2009 - 2013</span>
             <hr />
             <p>I started working at a big box retailer as a computer repair specialist before leaving to start my own company focusing on computer repair, networking, and general systems configuration. I worked with individuals as well as business to help solve computer-related issues, regardless of the scale. I also built several websites and applications, including <Link to="/portfolio/proposals-app">Proposals App</Link> & <Link to="/portfolio/contact-notebooks">Contact Notebooks</Link> detailed in my portfolio.</p>
             <p>In 2013, my now wife and I were getting serious about starting a life together, so I made the decision to move away from being a solopreneur to getting a job for more steady income.</p>
 
-            <StaticImage src="../images/logos/systech.png" className="employer-logo" alt="systech logo" />
+            <StaticImage src="../images/logos/systech.png" className="max-w-[300px]" alt="systech logo" />
             <h3>Systech Information Services</h3>
             <span className="work-years">2013 - 2015</span>
             <hr />
@@ -162,7 +162,7 @@ function About({ location }) {
               <li><Link to="/portfolio/quoting-pro">Quoting Pro</Link></li>
             </ul>
 
-            <StaticImage src="../images/logos/lesaint.png" className="employer-logo" alt="lesaint logo" />
+            <StaticImage src="../images/logos/lesaint.png" className="max-w-[300px]" alt="lesaint logo" />
             <h3>LeSaint Logistics</h3>
             <span className="work-years">2015 - 2019</span>
             <hr />
@@ -181,7 +181,7 @@ function About({ location }) {
             <p>In early 2018, our in-house developer left the company and I was offered the position of Software Engineer due to my successful side-projects in the organization. I was given the responsibility of onboarding new integration customers, facilitating a successful integration and extending the functionality of our .NET API as needed, all while retaining my responsibilities as a Senior Systems Engineer while a my replacement could be found.</p>
             <p>In 2019, I decided I wanted to focus my career on software development & cloud infrastructure, so I obtained my AWS certifications as a Solutions Architect & Developer, both Associate level certifications.</p>
 
-            <StaticImage src="../images/logos/temeda.png" className="employer-logo" alt="temeda logo"/>
+            <StaticImage src="../images/logos/temeda.png" className="max-w-[300px]" alt="temeda logo"/>
             <h3>Temeda</h3>
             <span className="work-years">2019 - Current</span>
             <hr />

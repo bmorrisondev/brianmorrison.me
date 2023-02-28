@@ -49,9 +49,11 @@ h1 {
 
 h2 {
   margin-top: 2rem !important;
+  @apply text-xl font-bold;
 }
 
 h3 {
   margin-top: 1.3rem !important;
   font-weight: 400 !important;
+  @apply text-lg font-bold;
 }
