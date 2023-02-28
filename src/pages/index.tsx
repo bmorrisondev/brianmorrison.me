@@ -43,9 +43,9 @@ import DefaultLayout from "../layouts/DefaultLayout"
 export default function Home({ location }) {
   return (
     <DefaultLayout location={location}>
-      <Container className="home-container">
-        <div className="intro-main">Hi, my name is Brian</div>
-        <div className="intro-sub">I'm a full stack developer & content creator.</div>
+      <Container className="home-container w-[80%] flex flex-col">
+        <div className='text-[6rem] font-bold mb-4 leading-[6rem] xl:leading-[7rem] mt-28 gradient-header'>Hi, my name is Brian</div>
+        <div className="text-4xl">I'm a full stack developer & content creator.</div>
       </Container>
     </DefaultLayout>
   )
