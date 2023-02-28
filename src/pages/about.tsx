@@ -1,5 +1,6 @@
 import { Link } from 'gatsby'
 import { StaticImage } from 'gatsby-plugin-image'
+import Container from '../components/Container'
 import React from 'react'
 // import { Container } from 'react-bootstrap'
 // import styled from 'styled-components'
@@ -72,7 +73,7 @@ import socials from '../socials'
 function About({ location }) {
   return (
     <DefaultLayout location={location} pageTitle="About Me">
-      <div>
+      <Container>
         <div>
           <h1>About Me</h1>
           <div>
@@ -194,7 +195,7 @@ function About({ location }) {
             </ul>
           </div>
         </div>
-      </div>
+      </Container>
     </DefaultLayout>
   )
 }

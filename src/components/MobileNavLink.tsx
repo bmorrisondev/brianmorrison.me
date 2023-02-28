@@ -7,12 +7,12 @@ type Props = {
   className?: string
 }
 
-function NavLink({ children, to, className}: Props) {
+function MobileNavLink({ children, to, className }: Props) {
   return (
-    <Link to={to} className={`text-black text-opacity-70 hover:text-opacity-100 ${className}`}>
+    <Link to={to} className={`text-white text-xl px-8 py-4 ${className}`}>
       { children }
     </Link>
   )
 }
 
-export default NavLink
+export default MobileNavLink
