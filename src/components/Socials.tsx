@@ -38,7 +38,7 @@ import SocialIconLink from './SocialIconLink'
 
 function Socials() {
   return (
-    <div className='w-[150px] flex justify-end'>
+    <div className='flex justify-end'>
       <SocialIconLink href={socials.youtube}><YouTube /></SocialIconLink>
       <SocialIconLink href={socials.discord}><Discord /></SocialIconLink>
       <SocialIconLink href={socials.twitter}><Twitter /></SocialIconLink>

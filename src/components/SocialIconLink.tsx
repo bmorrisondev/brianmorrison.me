@@ -7,7 +7,11 @@ type Props = {
 
 function SocialIconLink({ children, href }: Props) {
   return (
-    <a href={href} target="_blank" className='w-[25px] h-[25px]'>{ children }</a>
+    <span className='w-[25px] h-[25px]'>
+      <a href={href} target="_blank">
+        { children }
+      </a>
+    </span>
   )
 }
 
