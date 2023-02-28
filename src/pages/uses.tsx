@@ -2,7 +2,7 @@ import React from 'react'
 import DefaultLayout from '../layouts/DefaultLayout'
 import StylizedList from '../components/StylizedList'
 import { StaticImage } from 'gatsby-plugin-image'
-import { Container } from 'react-bootstrap'
+import Container from '../components/Container'
 
 function Uses({ location }) {
   const rig = [

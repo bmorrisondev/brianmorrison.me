@@ -1,21 +1,16 @@
 import React from 'react'
-import { Container } from 'react-bootstrap'
-import styled from 'styled-components'
 import DefaultLayout from '../layouts/DefaultLayout'
 import { useStaticQuery, graphql, Link } from 'gatsby'
 import parse from "html-react-parser"
 import StylizedList from "../components/StylizedList"
+import Container from '../components/Container'
 
-const Wrapper = styled(Container)`
-
-`
-
-const PortfolioListItemWrapper = styled.div`
-  a {
-    text-decoration: none;
-    color: inherit;
-  }
-`
+// const PortfolioListItemWrapper = styled.div`
+//   a {
+//     text-decoration: none;
+//     color: inherit;
+//   }
+// `
 
 function PortfolioListItem({item}) {
   let tags: string[] = []
@@ -25,7 +20,7 @@ function PortfolioListItem({item}) {
   }
 
   return (
-    <PortfolioListItemWrapper>
+    <div>
       <Link to={`/portfolio/${item.slug}`}>
         <h2>{parse(item.title)}</h2>
         <span className="excerpt">{ parse(item.excerpt)} </span>
@@ -37,7 +32,7 @@ function PortfolioListItem({item}) {
           ))}
         </StylizedList>
       )}
-    </PortfolioListItemWrapper>
+    </div>
   )
 }
 
@@ -66,12 +61,12 @@ function Portfolio({ location }) {
   const posts = data.allWpPortfolioItem.edges.map(el => el.node)
   return (
     <DefaultLayout location={location} pageTitle="Portfolio">
-      <Wrapper>
+      <Container>
         <h1>Portfolio</h1>
         <div>
           {posts.map(p => <PortfolioListItem key={posts.id} item={p} />)}
         </div>
-      </Wrapper>
+      </Container>
     </DefaultLayout>
   )
 }

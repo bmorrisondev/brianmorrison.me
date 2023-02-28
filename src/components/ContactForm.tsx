@@ -1,48 +1,45 @@
 import React from 'react'
 import { useState } from 'react'
-import { Button, Form, Spinner } from 'react-bootstrap'
-import styled from 'styled-components'
-import colors from '../colors'
-import Loading from './Loading'
+import Button from './Button'
 
-const Wrapper = styled(Form)`
-  label {
-    margin-top: 5px;
-    font-weight: bold
-  }
+// const Wrapper = styled(Form)`
+//   label {
+//     margin-top: 5px;
+//     font-weight: bold
+//   }
 
-  .form-check {
-    display: flex;
-    align-items: center;
+//   .form-check {
+//     display: flex;
+//     align-items: center;
 
-    label {
-      margin-top: 2px;
-      margin-left: 5px;
-    }
-  }
+//     label {
+//       margin-top: 2px;
+//       margin-left: 5px;
+//     }
+//   }
 
-  .button-row {
-    margin-top: 10px;
-    display: flex;
-    align-items: center;
+//   .button-row {
+//     margin-top: 10px;
+//     display: flex;
+//     align-items: center;
 
-    span {
-      margin-left: 10px;
-    }
+//     span {
+//       margin-left: 10px;
+//     }
 
-    .spinner-grow {
-      background: ${colors.global.gradientBlue};
-    }
+//     .spinner-grow {
+//       background: ${colors.global.gradientBlue};
+//     }
 
-    .success::before {
-      content: "✅ "
-    }
+//     .success::before {
+//       content: "✅ "
+//     }
 
-    .error::before {
-      content: "🔴 "
-    }
-  }
-`
+//     .error::before {
+//       content: "🔴 "
+//     }
+//   }
+// `
 
 enum FormState {
   None,
@@ -86,8 +83,8 @@ function ContactForm() {
   }
 
   return (
-    <Wrapper>
-      <Form.Group>
+    <div>
+      {/* <Form.Group>
         <Form.Label>Name</Form.Label>
         <Form.Control type="text" value={name} onChange={e => setName(e.target.value)} placeholder="What's your name?" />
       </Form.Group>
@@ -104,7 +101,7 @@ function ContactForm() {
         label="Opt In to Newsletter"
         checked={optInToNewsletter}
         onChange={e => setOptInToNewsletter(e.target.checked)}
-      />
+      /> */}
       <div className="button-row">
         <Button onClick={() => submit()} disabled={formState !== FormState.None}>
           Send
@@ -113,7 +110,7 @@ function ContactForm() {
         {formState == FormState.Success && <span className="form-response-message success">You're info has been received!</span>}
         {formState == FormState.Error && <span className="form-response-message error">An error occurred, please try again later.</span>}
       </div>
-    </Wrapper>
+    </div>
   )
 }
 

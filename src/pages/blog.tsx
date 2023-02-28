@@ -1,29 +1,28 @@
 import { graphql, useStaticQuery, Link } from 'gatsby'
 import { GatsbyImage, StaticImage } from 'gatsby-plugin-image'
 import React from 'react'
-import { Container } from 'react-bootstrap'
-import styled from 'styled-components'
+import Container from '../components/Container'
 import DefaultLayout from '../layouts/DefaultLayout'
 
-const BlogLink = styled(Link)`
-  display: flex;
-  font-weight: bold;
-  text-decoration: none;
-  color: inherit;
-  align-items: center;
-  font-size: 20px;
-  padding-bottom: 20px;
+// const BlogLink = styled(Link)`
+//   display: flex;
+//   font-weight: bold;
+//   text-decoration: none;
+//   color: inherit;
+//   align-items: center;
+//   font-size: 20px;
+//   padding-bottom: 20px;
 
-  span {
-    margin-left: 10px;
-  }
+//   span {
+//     margin-left: 10px;
+//   }
 
-  .post-icon {
-    min-width: 25px;
-    min-height: 25px;
-    border-radius: 5px;
-  }
-`
+//   .post-icon {
+//     min-width: 25px;
+//     min-height: 25px;
+//     border-radius: 5px;
+//   }
+// `
 
 function Blog({ location }) {
   const data = useStaticQuery(graphql`
@@ -64,7 +63,7 @@ function Blog({ location }) {
       <Container>
         <h1>Blog</h1>
         {posts.map(p => (
-          <BlogLink to={`/blog/${p.slug}`}>
+          <Link to={`/blog/${p.slug}`}>
             {p.series && p.series.nodes && p.series.nodes.length && p.series.nodes[0].seriesFields && p.series.nodes[0].seriesFields.icon ? (
               <GatsbyImage className="post-icon" image={p.series.nodes[0].seriesFields.icon.gatsbyImage} alt={p.series.nodes[0].seriesFields.icon.altText} />
             ) : p.blogPostFields && p.blogPostFields.icon
@@ -72,7 +71,7 @@ function Blog({ location }) {
               : <StaticImage className="post-icon" src="../images/emoji/memo.png" alt="default post icon" />
             }
             <span>{p.title}</span>
-          </BlogLink>
+          </Link>
         ))}
       </Container>
     </DefaultLayout>

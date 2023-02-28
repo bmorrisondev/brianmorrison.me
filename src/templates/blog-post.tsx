@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react"
 import { graphql, navigate } from "gatsby"
 import { GatsbyImage, StaticImage } from "gatsby-plugin-image"
 import parse from "html-react-parser"
-import styled from 'styled-components'
-import { Button, Container } from "react-bootstrap"
 import DefaultLayout from "../layouts/DefaultLayout"
 import colors from "../colors"
 import YouTubeEmbed from "../components/YouTubeEmbed"
@@ -12,64 +10,8 @@ import GitHub from "../components/svgs/GitHub"
 import { SeriesCollection, SeriesEntry } from "../models"
 import BlogFooter from "../components/BlogFooter"
 import { replaceCode } from "../components/PostCode"
-
-const Wrapper = styled(Container)`
-  .post-date {
-    font-style: italic;
-    svg {
-      margin-right: 5px;
-    }
-  }
-
-  .post-meta {
-    a:hover {
-      cursor: pointer;
-    }
-
-    svg {
-      height: 25px;
-      width: 25px;
-
-      &:hover {
-        fill: inherit;
-      }
-    }
-  }
-
-  .featured-image {
-    margin-bottom: 50px;
-    border-radius: 5px;
-    border: 1px solid ${colors.light.backgroundAccent};
-  }
-
-  .post-content {
-    word-wrap: break-word;
-
-    h2 {
-      margin-top: 30px;
-    }
-
-    img {
-      height: auto;
-      max-width: 100%;
-      margin: 10px auto;
-      text-align: center;
-      display: flex;
-      border-radius: 5px;
-      border: 1px solid ${colors.light.backgroundAccent};
-    }
-  }
-
-  .callout, blockquote {
-    border-radius: 5px;
-    background-color: ${colors.light.backgroundAccent};
-    padding: 10px;
-  }
-
-  code {
-    font-size: 16px !important;
-  }
-`
+import Container from "../components/Container"
+import Button from "../components/Button"
 
 export const pageQuery = graphql`
   query BlogPostById(
@@ -202,7 +144,7 @@ const BlogPostTemplate = ({ data, location }) => {
 
   return (
     <DefaultLayout location={location} pageTitle={post.title} ogImageUrl={featuredImage && featuredImage.url ? featuredImage.url : undefined} description={post.excerpt} >
-      <Wrapper>
+      <Container>
         {/* <Seo title={post.title} description={post.excerpt} /> */}
         <article
           className="blog-post"
@@ -286,7 +228,7 @@ const BlogPostTemplate = ({ data, location }) => {
             </li>
           </ul>
         </nav>
-      </Wrapper>
+      </Container>
 
     </DefaultLayout>
   )

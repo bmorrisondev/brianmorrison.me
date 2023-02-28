@@ -1,50 +1,49 @@
 import { Link } from 'gatsby'
 import { GatsbyImage } from 'gatsby-plugin-image'
 import React, { useState, useEffect } from 'react'
-import styled from 'styled-components'
 import colors from '../colors'
 import { SeriesCollection } from '../models'
 import Twitter from './svgs/Twitter'
 
-const Wrapper = styled.div`
-  background-color: ${colors.light.backgroundAccent};
-  border-radius: 5px;
-  padding: 10px;
+// const Wrapper = styled.div`
+//   background-color: ${colors.light.backgroundAccent};
+//   border-radius: 5px;
+//   padding: 10px;
 
-  .section {
-    margin-bottom: 15px;
-  }
+//   .section {
+//     margin-bottom: 15px;
+//   }
 
-  .section-header {
-    display: flex;
-    align-items: center;
-    font-weight: bold;
-    font-size: 18px;
-    margin: 5px 0px;
+//   .section-header {
+//     display: flex;
+//     align-items: center;
+//     font-weight: bold;
+//     font-size: 18px;
+//     margin: 5px 0px;
 
-    .icon {
-      margin-right: 5px;
-    }
-  }
+//     .icon {
+//       margin-right: 5px;
+//     }
+//   }
 
-  .share-section {
-    svg {
-      height: 40px;
-      width: 40px;
-    }
-  }
+//   .share-section {
+//     svg {
+//       height: 40px;
+//       width: 40px;
+//     }
+//   }
 
-  .series-section {
-    .entries {
-      display: flex;
-      flex-direction: column;
+//   .series-section {
+//     .entries {
+//       display: flex;
+//       flex-direction: column;
 
-      .active {
-        font-weight: bold;
-      }
-    }
-  }
-`
+//       .active {
+//         font-weight: bold;
+//       }
+//     }
+//   }
+// `
 
 type Props = {
   seriesCollection?: SeriesCollection
@@ -69,7 +68,7 @@ function BlogFooter(props: Props) {
   }, [])
 
   return (
-    <Wrapper>
+    <div>
       <div className="section share-section">
         <span className="section-header">
           Share this article
@@ -95,7 +94,7 @@ function BlogFooter(props: Props) {
           </div>
         </div>
       )}
-    </Wrapper>
+    </div>
   )
 }
 

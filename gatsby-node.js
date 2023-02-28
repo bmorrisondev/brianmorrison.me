@@ -1,5 +1,4 @@
 const path = require(`path`)
-const chunk = require(`lodash/chunk`)
 
 exports.createPages = async gatsbyUtilities => {
   const posts = await getPosts(gatsbyUtilities)

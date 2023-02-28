@@ -1,78 +1,78 @@
 import { Link } from 'gatsby'
 import { StaticImage } from 'gatsby-plugin-image'
 import React from 'react'
-import { Container } from 'react-bootstrap'
-import styled from 'styled-components'
+// import { Container } from 'react-bootstrap'
+// import styled from 'styled-components'
 import colors from '../colors'
 import StylizedList from '../components/StylizedList'
 import DefaultLayout from '../layouts/DefaultLayout'
 import socials from '../socials'
 
-const Wrapper = styled(Container)`
-  .more-icon {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-  }
+// const Wrapper = styled(Container)`
+//   .more-icon {
+//     display: flex;
+//     flex-direction: row;
+//     justify-content: center;
+//   }
 
-  .cert-block {
-    display: inline-flex;
-    flex-direction: column;
-    align-items: center;
-    text-decoration: none;
-    color: inherit;
+//   .cert-block {
+//     display: inline-flex;
+//     flex-direction: column;
+//     align-items: center;
+//     text-decoration: none;
+//     color: inherit;
 
-    img {
-      height: 120px
-      width: 120px
-    }
+//     img {
+//       height: 120px
+//       width: 120px
+//     }
 
-    span {
-      font-weight: bold;
-    }
+//     span {
+//       font-weight: bold;
+//     }
 
-    &:hover {
-      span {
-        background: linear-gradient(45deg, ${colors.global.gradientPurple}, ${colors.global.gradientBlue} 50%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-      }
+//     &:hover {
+//       span {
+//         background: linear-gradient(45deg, ${colors.global.gradientPurple}, ${colors.global.gradientBlue} 50%);
+//         -webkit-background-clip: text;
+//         -webkit-text-fill-color: transparent;
+//       }
 
-    }
-  }
+//     }
+//   }
 
-  .cert-block-ccna {
-    img {
-      background-color: white;
-      border: 1px solid ${colors.light.backgroundAccent};
-      border-radius: 20px;
-    }
-  }
+//   .cert-block-ccna {
+//     img {
+//       background-color: white;
+//       border: 1px solid ${colors.light.backgroundAccent};
+//       border-radius: 20px;
+//     }
+//   }
 
-  .proficiencies {
-    .subheader {
-      font-style: italic;
-    }
-  }
+//   .proficiencies {
+//     .subheader {
+//       font-style: italic;
+//     }
+//   }
 
-  .work-history {
-    .work-years {
-      font-style: italic;
-      font-size: 1.2rem;
-    }
+//   .work-history {
+//     .work-years {
+//       font-style: italic;
+//       font-size: 1.2rem;
+//     }
 
-    .employer-logo {
-      margin: 20px 0px;
-      max-width: 300px;
-    }
-  }
+//     .employer-logo {
+//       margin: 20px 0px;
+//       max-width: 300px;
+//     }
+//   }
 
-`
+// `
 
 function About({ location }) {
   return (
     <DefaultLayout location={location} pageTitle="About Me">
-      <Wrapper>
+      <div>
         <div>
           <h1>About Me</h1>
           <div>
@@ -194,7 +194,7 @@ function About({ location }) {
             </ul>
           </div>
         </div>
-      </Wrapper>
+      </div>
     </DefaultLayout>
   )
 }
