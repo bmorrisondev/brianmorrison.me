@@ -43,7 +43,7 @@ function Navigation() {
           <img src={SiteLogo} alt="BrianMorrison.me Logo" className='w-[40px]' />
           <span>Brian Morrison II</span>
         </div>
-        <div className='space-x-2 items-center hidden sm:flex'>
+        <div className='space-x-4 items-center hidden sm:flex'>
           {menuItems.map((el) => (
             <NavLink to={el.to}>{el.title}</NavLink>
           ))}

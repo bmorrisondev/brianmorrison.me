@@ -7,7 +7,7 @@ type Props = {
 
 function BlockQuote({ children, citation }: Props) {
   return (
-    <blockquote className='my-2 p-4 bg-background-accent rounded-lg'>
+    <blockquote className='my-2 p-4 border-accent-2 bg-accent-1 border-1 border rounded-lg'>
       <div className='mb-2'>{ children }</div>
       {citation && <cite>- {citation}</cite>}
     </blockquote>
