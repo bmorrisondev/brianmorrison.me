@@ -4,13 +4,7 @@ import { useStaticQuery, graphql, Link } from 'gatsby'
 import parse from "html-react-parser"
 import StylizedList from "../components/StylizedList"
 import Container from '../components/Container'
-
-// const PortfolioListItemWrapper = styled.div`
-//   a {
-//     text-decoration: none;
-//     color: inherit;
-//   }
-// `
+import StylizedListItem from '../components/StylizedListItem'
 
 function PortfolioListItem({item}) {
   let tags: string[] = []
@@ -21,14 +15,14 @@ function PortfolioListItem({item}) {
 
   return (
     <div>
-      <Link to={`/portfolio/${item.slug}`}>
+      <Link to={`/portfolio/${item.slug}`} className="text-black">
         <h2>{parse(item.title)}</h2>
         <span className="excerpt">{ parse(item.excerpt)} </span>
       </Link>
       {tags.length > 0 && (
         <StylizedList>
           {tags.map(t => (
-            <li key={`${item.id}-${t}`}>{t}</li>
+            <StylizedListItem key={`${item.id}-${t}`}>{t}</StylizedListItem>
           ))}
         </StylizedList>
       )}

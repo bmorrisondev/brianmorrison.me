@@ -68,7 +68,7 @@ function BlogFooter(props: Props) {
   }, [])
 
   return (
-    <div>
+    <div className='bg-accent-1 border-accent-2 border mb-2 p-4 rounded'>
       <div className="section share-section">
         <span className="section-header">
           Share this article

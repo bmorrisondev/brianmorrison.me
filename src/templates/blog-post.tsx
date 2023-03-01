@@ -12,6 +12,7 @@ import BlogFooter from "../components/BlogFooter"
 import { replaceCode } from "../components/PostCode"
 import Container from "../components/Container"
 import Button from "../components/Button"
+import StylizedListItem from "../components/StylizedListItem"
 
 export const pageQuery = graphql`
   query BlogPostById(
@@ -158,18 +159,14 @@ const BlogPostTemplate = ({ data, location }) => {
             <div className="post-meta">
               <StylizedList>
                 {series && series.name && (
-                  <a onClick={() => scrollToSeriesListing()}>
-                    <li className="tag-link">
-                      <StaticImage className="list-icon" src="../images/emoji/series.png" alt="series icon" /> Series: {series.name}
-                    </li>
-                  </a>
+                  <StylizedListItem>
+                    <StaticImage className="list-icon" src="../images/emoji/series.png" alt="series icon" /> Series: {series.name}
+                  </StylizedListItem>
                 )}
                 {githubUrl && (
-                  <a href={githubUrl} target="_blank">
-                    <li className="tag-link">
-                      <GitHub /> Visit GitHub Repo
-                    </li>
-                  </a>
+                  <StylizedListItem to={githubUrl}>
+                    <GitHub /> Visit GitHub Repo
+                  </StylizedListItem>
                 )}
               </StylizedList>
             </div>
@@ -179,7 +176,7 @@ const BlogPostTemplate = ({ data, location }) => {
               <GatsbyImage
                 image={featuredImage.data}
                 alt={featuredImage.alt}
-                className="featured-image"
+                className="rounded border-accent-2 border mb-2"
               />
             )}
             {post.blogPostFields && post.blogPostFields.videoUrl && (
@@ -193,8 +190,6 @@ const BlogPostTemplate = ({ data, location }) => {
           )}
 
           <BlogFooter location={location} articleTitle={parse(post.title) as string} seriesCollection={series} />
-
-          <hr />
 
           <footer>
             {/* <Bio author={post.author.node} /> */}

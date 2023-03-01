@@ -59,3 +59,7 @@ p {
 a {
   @apply text-gradientBlue;
 }
+
+.blog-post img {
+  @apply border border-accent-2 rounded mb-2;
+}

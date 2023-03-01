@@ -9,16 +9,16 @@ type Props = {
 
 function StylizedListItemBase({ children, className }: Props) {
   return (
-    <li className={`inline-block bg-background-accent py-[3px] px-[15px] mr-2 mb-2 rounded ${className}`}>
+    <div className={`flex bg-background-accent py-[3px] px-[15px] mr-2 mb-2 rounded space-x-2 ${className}`}>
       { children }
-    </li>
+    </div>
   )
 }
 
-function StylizedListItem({ children, to }: Props) {
+function StylizedListItem({ children, to, className }: Props) {
   if(to && to.startsWith("http")) {
     return <a href={to} target="_blank">
-      <StylizedListItemBase className="text-black hover:bg-gradient-to-r from-gradientPurple to-gradientBlue hover:text-white">
+      <StylizedListItemBase className={`text-black hover:bg-gradient-to-r from-gradientPurple to-gradientBlue hover:text-white ${className}`}>
         { children }
       </StylizedListItemBase>
     </a>
@@ -26,13 +26,13 @@ function StylizedListItem({ children, to }: Props) {
 
   if(to && to.startsWith("/")) {
     return <Link to={to}>
-      <StylizedListItemBase className="text-black hover:bg-gradient-to-r from-gradientPurple to-gradientBlue hover:text-white">
+      <StylizedListItemBase className={`text-black hover:bg-gradient-to-r from-gradientPurple to-gradientBlue hover:text-white ${className}`}>
         { children }
       </StylizedListItemBase>
     </Link>
   }
 
-  return <StylizedListItemBase>{ children }</StylizedListItemBase>
+  return <StylizedListItemBase className={className}>{ children }</StylizedListItemBase>
 }
 
 export default StylizedListItem

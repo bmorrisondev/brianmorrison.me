@@ -43,7 +43,7 @@ function StylizedList(props: Props) {
   const { children } = props
 
   return (
-    <div className='p-0 mt-2'>
+    <div className='p-0 mt-2 flex items-start flex-wrap'>
       { children }
     </div>
   )
