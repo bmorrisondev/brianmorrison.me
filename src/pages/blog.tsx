@@ -62,17 +62,25 @@ function Blog({ location }) {
     <DefaultLayout location={location} pageTitle="Blog">
       <Container>
         <h1>Blog</h1>
-        {posts.map(p => (
-          <Link to={`/blog/${p.slug}`}>
-            {p.series && p.series.nodes && p.series.nodes.length && p.series.nodes[0].seriesFields && p.series.nodes[0].seriesFields.icon ? (
-              <GatsbyImage className="post-icon" image={p.series.nodes[0].seriesFields.icon.gatsbyImage} alt={p.series.nodes[0].seriesFields.icon.altText} />
-            ) : p.blogPostFields && p.blogPostFields.icon
-              ? <GatsbyImage className="post-icon" image={p.blogPostFields.icon.gatsbyImage} alt={p.blogPostFields.icon.altText} />
-              : <StaticImage className="post-icon" src="../images/emoji/memo.png" alt="default post icon" />
-            }
-            <span>{p.title}</span>
-          </Link>
-        ))}
+        <div className='flex flex-col space-y-4 text-lg font-bold'>
+          {posts.map(p => (
+            <Link to={`/blog/${p.slug}`} className='text-black hover:text-gradientBlue flex items-center'>
+              {p.series && p.series.nodes && p.series.nodes.length && p.series.nodes[0].seriesFields && p.series.nodes[0].seriesFields.icon ? (
+                <GatsbyImage className="w-[25px] h-[25px] mr-2 rounded"
+                  image={p.series.nodes[0].seriesFields.icon.gatsbyImage}
+                  alt={p.series.nodes[0].seriesFields.icon.altText} />
+                ) : p.blogPostFields && p.blogPostFields.icon
+                ? <GatsbyImage className="w-[25px] h-[25px] mr-2 rounded"
+                    image={p.blogPostFields.icon.gatsbyImage}
+                    alt={p.blogPostFields.icon.altText} />
+                : <StaticImage className="w-[25px] h-[25px] mr-2 rounded"
+                    src="../images/emoji/memo.png"
+                    alt="default post icon" />
+              }
+              <span>{p.title}</span>
+            </Link>
+          ))}
+        </div>
       </Container>
     </DefaultLayout>
   )
