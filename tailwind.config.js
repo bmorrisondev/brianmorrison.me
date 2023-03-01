@@ -18,6 +18,7 @@ module.exports = {
         discordPurple: "#7289DA",
         linkedinBlue: "#0077B5",
         hashnodeBlue: "#2962FF",
+        "background-accent": "#e0e8ee"
       },
       minHeight: {
         "main-standard": "calc(100vh - 106px)",

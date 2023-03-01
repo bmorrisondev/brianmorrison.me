@@ -1,3 +1,4 @@
+
 import React, { ReactNode } from 'react'
 // import styled from 'styled-components'
 import colors from '../colors'
@@ -42,7 +43,7 @@ function StylizedList(props: Props) {
   const { children } = props
 
   return (
-    <div>
+    <div className='p-0 mt-2'>
       { children }
     </div>
   )
