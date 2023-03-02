@@ -69,8 +69,8 @@ function BlogFooter(props: Props) {
 
   return (
     <div className='bg-accent-1 border-accent-2 border mb-2 p-4 rounded'>
-      <div className="section share-section">
-        <span className="section-header">
+      <div className="mb-2">
+        <span className="text-xl font-bold">
           Share this article
         </span>
         <div>
@@ -80,15 +80,14 @@ function BlogFooter(props: Props) {
         </div>
       </div>
       {seriesCollection && (
-        <div className="section series-section">
-          <span className="section-header">
-            {seriesCollection.icon && <GatsbyImage className="icon" image={seriesCollection.icon.gatsbyImage} alt={seriesCollection.icon.altText} />}
+        <div>
+          <span className="text-xl font-bold">
             Series: { seriesCollection.name }
           </span>
-          <div className="entries">
+          <div className="flex flex-col">
             {seriesCollection.entries && seriesCollection.entries.map(e => (
               <Link key={e.slug}
-                className={e.slug == activeSlug ? "active" : ""}
+                className={e.slug == activeSlug ? "font-bold" : ""}
                 to={`/blog/${e.slug}`}>{e.order}: {e.title}</Link>
             ))}
           </div>

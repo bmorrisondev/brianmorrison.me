@@ -197,16 +197,8 @@ const BlogPostTemplate = ({ data, location }) => {
         </article>
 
         <nav className="blog-post-nav">
-          <ul
-            style={{
-              display: `flex`,
-              flexWrap: `wrap`,
-              justifyContent: `space-between`,
-              listStyle: `none`,
-              padding: 0,
-            }}
-          >
-            <li>
+          <ul className="flex justify-between space-x-2">
+            <li className="flex-1">
               {previous && (
                 <Button onClick={() => navigate(`/blog/${previous.slug}`)}>
                   ← {parse(previous.title)}
@@ -214,7 +206,7 @@ const BlogPostTemplate = ({ data, location }) => {
               )}
             </li>
 
-            <li>
+            <li className="flex-1">
               {next && (
                 <Button onClick={() => navigate(`/blog/${next.slug}`)}>
                   {parse(next.title)} →

@@ -28,13 +28,7 @@ function Contact({ location }) {
       <Container>
         <h1>Contact Me</h1>
         <div>
-          <p>I currently freelance in the following services:</p>
-          <ul>
-            <li className="dev-li">Web & Desktop Software Development</li>
-            <li className="cloud-li">Cloud Computing (AWS, Azure, etc)</li>
-            <li className="video-li">Technical Video Production</li>
-          </ul>
-          <p>I'm always willing to have a conversation if you're interested in something else, please feel free to contact me:</p>
+          <p>Interested in working with or collaborating with me? Feel free to drop me a note below!</p>
         </div>
         <ContactForm />
       </Container>
