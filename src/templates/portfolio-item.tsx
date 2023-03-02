@@ -1,11 +1,10 @@
 import React from "react"
-import { Link, graphql, navigate } from "gatsby"
+import { graphql, navigate } from "gatsby"
 import { GatsbyImage } from "gatsby-plugin-image"
 import Container from '../components/Container'
 import Button from '../components/Button'
 import parse, {domToReact} from "html-react-parser"
 import DefaultLayout from "../layouts/DefaultLayout"
-import colors from "../colors"
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { atomDark as theme } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
@@ -42,39 +41,6 @@ const replaceCode = node => {
     return node.children.length > 0 && <PostCode language={getLanguage(node)}>{domToReact(getCode(node))}</PostCode>;
   }
 };
-
-// const Wrapper = styled(Container)`
-//   .post-date {
-//     font-style: italic;
-//     svg {
-//       margin-right: 5px;
-//     }
-//   }
-
-//   .post-content {
-//     h2 {
-//       margin-top: 30px;
-//     }
-
-//     img {
-//       height: auto;
-//       max-width: 100%;
-//       margin: 10px 0px;
-//       border-radius: 5px;
-//       border: 1px solid ${colors.light.backgroundAccent};
-//     }
-//   }
-
-//   .callout {
-//     border-radius: 5px;
-//     background-color: ${colors.light.backgroundAccent};
-//     padding: 10px;
-//   }
-
-//   code {
-//     font-size: 16px !important;
-//   }
-// `
 
 export const pageQuery = graphql`
   query PortfolioItemtById(

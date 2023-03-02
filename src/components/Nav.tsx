@@ -38,7 +38,7 @@ function Navigation() {
 
   return (
     <>
-      <div className='h-[66px] flex justify-between p-2'>
+      <div className='h-[66px] flex justify-between py-2 px-4'>
         <div className='flex space-x-2 text-xl items-center'>
           <img src={SiteLogo} alt="BrianMorrison.me Logo" className='w-[40px]' />
           <span>Brian Morrison II</span>

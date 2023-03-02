@@ -3,7 +3,6 @@ import { graphql, navigate } from "gatsby"
 import { GatsbyImage, StaticImage } from "gatsby-plugin-image"
 import parse from "html-react-parser"
 import DefaultLayout from "../layouts/DefaultLayout"
-import colors from "../colors"
 import YouTubeEmbed from "../components/YouTubeEmbed"
 import StylizedList from "../components/StylizedList"
 import GitHub from "../components/svgs/GitHub"
@@ -13,6 +12,7 @@ import { replaceCode } from "../components/PostCode"
 import Container from "../components/Container"
 import Button from "../components/Button"
 import StylizedListItem from "../components/StylizedListItem"
+import Series from "../components/svgs/Series"
 
 export const pageQuery = graphql`
   query BlogPostById(
@@ -147,11 +147,7 @@ const BlogPostTemplate = ({ data, location }) => {
     <DefaultLayout location={location} pageTitle={post.title} ogImageUrl={featuredImage && featuredImage.url ? featuredImage.url : undefined} description={post.excerpt} >
       <Container>
         {/* <Seo title={post.title} description={post.excerpt} /> */}
-        <article
-          className="blog-post"
-          itemScope
-          itemType="http://schema.org/Article"
-        >
+        <article className="blog-post" itemScope itemType="http://schema.org/Article" >
           <header>
             {/* <small className="post-date"><FontAwesomeIcon icon={faCalendar} />{post.date}</small> */}
             <h1 itemProp="headline">{parse(post.title)}</h1>
@@ -159,8 +155,8 @@ const BlogPostTemplate = ({ data, location }) => {
             <div className="post-meta">
               <StylizedList>
                 {series && series.name && (
-                  <StylizedListItem>
-                    <StaticImage className="list-icon" src="../images/emoji/series.png" alt="series icon" /> Series: {series.name}
+                  <StylizedListItem onClick={() => scrollToSeriesListing()}>
+                    <Series /> Series: {series.name}
                   </StylizedListItem>
                 )}
                 {githubUrl && (

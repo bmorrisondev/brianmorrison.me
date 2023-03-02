@@ -3,26 +3,7 @@ import { GatsbyImage, StaticImage } from 'gatsby-plugin-image'
 import React from 'react'
 import Container from '../components/Container'
 import DefaultLayout from '../layouts/DefaultLayout'
-
-// const BlogLink = styled(Link)`
-//   display: flex;
-//   font-weight: bold;
-//   text-decoration: none;
-//   color: inherit;
-//   align-items: center;
-//   font-size: 20px;
-//   padding-bottom: 20px;
-
-//   span {
-//     margin-left: 10px;
-//   }
-
-//   .post-icon {
-//     min-width: 25px;
-//     min-height: 25px;
-//     border-radius: 5px;
-//   }
-// `
+import Paper from '../components/svgs/Paper'
 
 function Blog({ location }) {
   const data = useStaticQuery(graphql`
@@ -73,9 +54,7 @@ function Blog({ location }) {
                 ? <GatsbyImage className="w-[25px] h-[25px] mr-2 rounded"
                     image={p.blogPostFields.icon.gatsbyImage}
                     alt={p.blogPostFields.icon.altText} />
-                : <StaticImage className="w-[25px] h-[25px] mr-2 rounded"
-                    src="../images/emoji/memo.png"
-                    alt="default post icon" />
+                : <Paper className="mr-2 text-slate-700" />
               }
               <span>{p.title}</span>
             </Link>

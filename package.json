@@ -11,7 +11,8 @@
     "start": "gatsby develop",
     "serve": "gatsby build&&gatsby serve",
     "clean": "gatsby clean",
-    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
+    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1",
+    "deploy": "netlify build && netlify deploy"
   },
   "dependencies": {
     "@types/react-helmet": "^6.1.6",

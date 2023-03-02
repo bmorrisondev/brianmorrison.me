@@ -5,6 +5,7 @@ type Props = {
   children: ReactNode
   to?: string
   className?: string
+  onClick?: Function
 }
 
 function StylizedListItemBase({ children, className }: Props) {
@@ -15,7 +16,7 @@ function StylizedListItemBase({ children, className }: Props) {
   )
 }
 
-function StylizedListItem({ children, to, className }: Props) {
+function StylizedListItem({ children, to, className, onClick }: Props) {
   if(to && to.startsWith("http")) {
     return <a href={to} target="_blank">
       <StylizedListItemBase className={`text-black hover:bg-gradient-to-r from-gradientPurple to-gradientBlue hover:text-white ${className}`}>
@@ -30,6 +31,16 @@ function StylizedListItem({ children, to, className }: Props) {
         { children }
       </StylizedListItemBase>
     </Link>
+  }
+
+  if(onClick) {
+    return (
+      <button onClick={() => onClick()}>
+        <StylizedListItemBase className={`text-black hover:bg-gradient-to-r from-gradientPurple to-gradientBlue hover:text-white ${className}`}>
+          { children }
+        </StylizedListItemBase>
+      </button>
+    )
   }
 
   return <StylizedListItemBase className={className}>{ children }</StylizedListItemBase>

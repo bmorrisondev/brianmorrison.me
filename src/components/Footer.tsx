@@ -11,11 +11,11 @@ import YouTube from './svgs/YouTube'
 
 function Footer() {
   return (
-    <div className='flex mx-auto justify-center items-center sm:justify-between h-[40px] px-2 sm:flex-row flex-col-reverse'>
+    <div className='flex mx-auto justify-center items-center sm:justify-between h-[40px] p-4 sm:flex-row flex-col-reverse'>
       <div className='flex space-x-2 md:mb-0 mb-2'>
         <span>© {new Date().getFullYear()}</span>
         <div>•</div>
-        <Link to="/about-this-site">About this site</Link>
+        <Link to="/about-this-site" className="text-black">About this site</Link>
       </div>
       <div className="flex space-x-2 md:mb-0 mb-2">
         <SocialIconLink href={socials.youtube}><YouTube /></SocialIconLink>
