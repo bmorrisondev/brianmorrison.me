@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import './YouTubeEmbed.css'
 
 type Props = {
   url: string

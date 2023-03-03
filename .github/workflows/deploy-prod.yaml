@@ -1,12 +1,12 @@
-name: Deploy dev
+name: Deploy prod
 
 on:
   workflow_dispatch:
   pull_request:
     types:
-      - opened
+      - closed
     branches:
-      - dev
+      - main
 
 jobs:
   deploy:
@@ -21,7 +21,7 @@ jobs:
       - name: Install deps
         run: npm install
       - name: Deploy
-        run: npm run deploy:dev
+        run: npm run deploy:prod
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
