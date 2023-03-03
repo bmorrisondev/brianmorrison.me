@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react"
 import { graphql, navigate } from "gatsby"
-import { GatsbyImage, StaticImage } from "gatsby-plugin-image"
 import parse from "html-react-parser"
 import DefaultLayout from "../layouts/DefaultLayout"
 import YouTubeEmbed from "../components/YouTubeEmbed"
@@ -13,6 +12,7 @@ import Container from "../components/Container"
 import Button from "../components/Button"
 import StylizedListItem from "../components/StylizedListItem"
 import Series from "../components/svgs/Series"
+import Calendar from "../components/svgs/Calendar"
 
 export const pageQuery = graphql`
   query BlogPostById(
@@ -90,7 +90,6 @@ export const pageQuery = graphql`
 `
 
 const BlogPostTemplate = ({ data, location }) => {
-  const [hideFeaturedImage, setHideFeaturedImage] = useState(false)
   const [githubUrl, setGithubUrl] = useState("")
   const [series, setSeries] = useState<SeriesCollection>()
   const { previous, next, post } = data
@@ -103,10 +102,6 @@ const BlogPostTemplate = ({ data, location }) => {
   }
 
   useEffect(() => {
-    if(post.blogPostFields && post.blogPostFields.hideFeaturedImage) {
-      setHideFeaturedImage(true)
-    }
-
     if(post.blogPostFields && post.blogPostFields.githubUrl) {
       setGithubUrl(post.blogPostFields.githubUrl)
     }
@@ -146,35 +141,24 @@ const BlogPostTemplate = ({ data, location }) => {
   return (
     <DefaultLayout location={location} pageTitle={post.title} ogImageUrl={featuredImage && featuredImage.url ? featuredImage.url : undefined} description={post.excerpt} >
       <Container>
-        {/* <Seo title={post.title} description={post.excerpt} /> */}
         <article className="blog-post" itemScope itemType="http://schema.org/Article" >
           <header>
-            {/* <small className="post-date"><FontAwesomeIcon icon={faCalendar} />{post.date}</small> */}
-            <h1 itemProp="headline">{parse(post.title)}</h1>
-            {(series || githubUrl !== "") && (
+            <h1 itemProp="headline" className="my-0 py-0">{parse(post.title)}</h1>
             <div className="post-meta">
               <StylizedList>
+                <StylizedListItem><Calendar />{post.date}</StylizedListItem>
                 {series && series.name && (
                   <StylizedListItem onClick={() => scrollToSeriesListing()}>
                     <Series /> Series: {series.name}
                   </StylizedListItem>
                 )}
-                {githubUrl && (
+                {githubUrl && githubUrl !== "" && (
                   <StylizedListItem to={githubUrl}>
                     <GitHub /> Visit GitHub Repo
                   </StylizedListItem>
                 )}
               </StylizedList>
             </div>
-
-            )}
-            {!hideFeaturedImage && featuredImage?.data && (
-              <GatsbyImage
-                image={featuredImage.data}
-                alt={featuredImage.alt}
-                className="rounded border-accent-2 border mb-2"
-              />
-            )}
             {post.blogPostFields && post.blogPostFields.videoUrl && (
               <YouTubeEmbed url={post.blogPostFields.videoUrl} />
             )}
@@ -186,10 +170,6 @@ const BlogPostTemplate = ({ data, location }) => {
           )}
 
           <BlogFooter location={location} articleTitle={parse(post.title) as string} seriesCollection={series} />
-
-          <footer>
-            {/* <Bio author={post.author.node} /> */}
-          </footer>
         </article>
 
         <nav className="blog-post-nav">
