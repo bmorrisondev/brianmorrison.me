@@ -39,10 +39,10 @@ function Navigation() {
   return (
     <>
       <div className='h-[66px] flex justify-between py-2 px-4'>
-        <div className='flex space-x-2 text-xl items-center'>
+        <NavLink to="/" className='flex space-x-2 text-xl items-center text-black'>
           <img src={SiteLogo} alt="BrianMorrison.me Logo" className='w-[40px]' />
           <span>Brian Morrison II</span>
-        </div>
+        </NavLink>
         <div className='space-x-4 items-center hidden sm:flex'>
           {menuItems.map((el) => (
             <NavLink to={el.to}>{el.title}</NavLink>
