@@ -13,6 +13,7 @@
     "clean": "gatsby clean",
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1",
     "deploy": "netlify build && netlify deploy",
+    "deploy:dev": "netlify build && netlify deploy --alias dev",
     "deploy:prod": "netlify build && netlify deploy --prod"
   },
   "dependencies": {
