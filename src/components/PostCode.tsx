@@ -1,17 +1,23 @@
 import React from 'react'
-import {domToReact} from "html-react-parser"
-import { DataNode } from 'domhandler'
+import { domToReact } from "html-react-parser"
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { atomDark as theme } from 'react-syntax-highlighter/dist/esm/styles/prism';
-import { ElementType } from "htmlparser2"
 
-const getLanguage = node => {
+function getLanguage(node) {
+  // TODO: Default code block
+  if(node.attribs.class === "wp-block-code") {
+
+  }
+
+  // Data enlighter block
   if(node.attribs["data-enlighter-language"]) {
     if(node.attribs["data-enlighter-language"] == "golang") {
       return "go"
     }
     return node.attribs["data-enlighter-language"]
   }
+
+  // legacy
   if(node.children &&
     node.children.length > 0 &&
     node.children[0].attribs &&
@@ -25,28 +31,19 @@ const getLanguage = node => {
   return null;
 };
 
-const getCode = node => {
-  let content = ""
-  if (node.children && node.children.length == 1 && node.children[0].name === 'code') {
-    return node.children[0].children;
-  } else {
-    node.children.forEach(c => {
-      if(c.name == "code" && c.children.length) {
-        content += c.children[0].data
-      } else {
-        content += c.data
-      }
-    })
-  }
-  if(content) {
-    let el = new DataNode(ElementType.Text, content)
-    return [el]
-  } else {
-    return node.children
-  }
+function getCode(node: any) {
+  let nodes = []
+  node.children.forEach(el => {
+    if(el.children) {
+      nodes = nodes.concat(el.children)
+    } else {
+      nodes.push(el)
+    }
+  })
+  return nodes
 };
 
-export const replaceCode = node => {
+export function replaceCode(node) {
   if (node.name === 'pre') {
     return node.children.length > 0 && <PostCode language={getLanguage(node)}>{domToReact(getCode(node))}</PostCode>;
   }

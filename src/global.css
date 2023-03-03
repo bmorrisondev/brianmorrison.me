@@ -36,8 +36,8 @@ body {
 h1 {
   display: inline-block;
   font-size: calc(2rem + 1.5vw) !important;
-  margin-top: 1rem !important;
-  padding-bottom: 1.3rem !important;
+  /* margin-top: 1rem !important;
+  padding-bottom: 1.3rem !important; */
   text-shadow: 2px 2px 15px rgba(0,0,0,0.2);
   @apply gradient-header font-bold;
 }
@@ -62,8 +62,26 @@ a {
   @apply text-gradientBlue;
 }
 
+p code {
+  color: red;
+  /* background-color: rgb(29, 31, 33); */
+  /* @apply py-1 px-2 rounded; */
+}
+
+.blog-post .callout, .blog-post blockquote {
+  @apply my-2 p-4 border bg-accent-1 border-accent-2 rounded-lg mb-2 mx-auto;
+}
+
+.blog-post figure {
+  @apply flex items-center italic flex-col text-gray-500;
+}
+
 .blog-post img {
   @apply border border-accent-2 rounded mb-2 mx-auto;
+}
+
+.blog-post ul, .blog-post ol {
+  @apply list-disc ml-4 mb-4;
 }
 
 .youtube-embed {
