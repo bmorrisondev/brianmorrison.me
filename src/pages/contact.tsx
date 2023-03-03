@@ -3,25 +3,6 @@ import ContactForm from '../components/ContactForm'
 import Container from '../components/Container'
 import DefaultLayout from '../layouts/DefaultLayout'
 
-// const Wrapper = styled(Container)`
-//   li {
-//     font-size: 1.5rem;
-//     line-height: 2.5rem;
-//   }
-
-//   .dev-li {
-//     list-style-image: url('/img/emoji/dev.png');
-//   }
-
-//   .cloud-li {
-//     list-style-image: url('/img/emoji/clouds.png');
-//   }
-
-//   .video-li {
-//     list-style-image: url('/img/emoji/camera.png');
-//   }
-// `
-
 function Contact({ location }) {
   return (
     <DefaultLayout location={location} pageTitle="Contact Me">

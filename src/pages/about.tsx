@@ -2,76 +2,12 @@ import { Link } from 'gatsby'
 import { StaticImage } from 'gatsby-plugin-image'
 import Container from '../components/Container'
 import React from 'react'
-// import { Container } from 'react-bootstrap'
-// import styled from 'styled-components'
-import colors from '../colors'
 import StylizedList from '../components/StylizedList'
 import DefaultLayout from '../layouts/DefaultLayout'
 import socials from '../socials'
 import StylizedListItem from '../components/StylizedListItem'
 import BlockQuote from '../components/BlockQuote'
 import List from '../components/List'
-
-// const Wrapper = styled(Container)`
-//   .more-icon {
-//     display: flex;
-//     flex-direction: row;
-//     justify-content: center;
-//   }
-
-//   .cert-block {
-//     display: inline-flex;
-//     flex-direction: column;
-//     align-items: center;
-//     text-decoration: none;
-//     color: inherit;
-
-//     img {
-//       height: 120px
-//       width: 120px
-//     }
-
-//     span {
-//       font-weight: bold;
-//     }
-
-//     &:hover {
-//       span {
-//         background: linear-gradient(45deg, ${colors.global.gradientPurple}, ${colors.global.gradientBlue} 50%);
-//         -webkit-background-clip: text;
-//         -webkit-text-fill-color: transparent;
-//       }
-
-//     }
-//   }
-
-//   .cert-block-ccna {
-//     img {
-//       background-color: white;
-//       border: 1px solid ${colors.light.backgroundAccent};
-//       border-radius: 20px;
-//     }
-//   }
-
-//   .proficiencies {
-//     .subheader {
-//       font-style: italic;
-//     }
-//   }
-
-//   .work-history {
-//     .italic {
-//       font-style: italic;
-//       font-size: 1.2rem;
-//     }
-
-//     .max-w-[300px] {
-//       margin: 20px 0px;
-//       max-width: 300px;
-//     }
-//   }
-
-// `
 
 function About({ location }) {
   return (

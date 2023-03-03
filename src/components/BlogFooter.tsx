@@ -1,49 +1,7 @@
 import { Link } from 'gatsby'
-import { GatsbyImage } from 'gatsby-plugin-image'
 import React, { useState, useEffect } from 'react'
-import colors from '../colors'
 import { SeriesCollection } from '../models'
 import Twitter from './svgs/Twitter'
-
-// const Wrapper = styled.div`
-//   background-color: ${colors.light.backgroundAccent};
-//   border-radius: 5px;
-//   padding: 10px;
-
-//   .section {
-//     margin-bottom: 15px;
-//   }
-
-//   .section-header {
-//     display: flex;
-//     align-items: center;
-//     font-weight: bold;
-//     font-size: 18px;
-//     margin: 5px 0px;
-
-//     .icon {
-//       margin-right: 5px;
-//     }
-//   }
-
-//   .share-section {
-//     svg {
-//       height: 40px;
-//       width: 40px;
-//     }
-//   }
-
-//   .series-section {
-//     .entries {
-//       display: flex;
-//       flex-direction: column;
-
-//       .active {
-//         font-weight: bold;
-//       }
-//     }
-//   }
-// `
 
 type Props = {
   seriesCollection?: SeriesCollection
@@ -57,8 +15,13 @@ function BlogFooter(props: Props) {
   const [twitterHref, setTwitterHref] = useState("")
 
   useEffect(() => {
+    console.log(location)
     if(location && location.pathname) {
-      let as = location.pathname.split("/")[location.pathname.split("/").length - 1]
+      let idx = location.pathname.split("/").length - 1
+      if(location.pathname.endsWith("/")) {
+        idx = location.pathname.split("/").length - 2
+      }
+      let as = location.pathname.split("/")[idx]
       setActiveSlug(as)
     }
 
@@ -80,15 +43,19 @@ function BlogFooter(props: Props) {
         </div>
       </div>
       {seriesCollection && (
-        <div>
+        <div className='series-meta'>
           <span className="text-xl font-bold">
             Series: { seriesCollection.name }
           </span>
           <div className="flex flex-col">
             {seriesCollection.entries && seriesCollection.entries.map(e => (
-              <Link key={e.slug}
-                className={e.slug == activeSlug ? "font-bold" : ""}
-                to={`/blog/${e.slug}`}>{e.order}: {e.title}</Link>
+              <span key={e.slug}>
+                {e.slug === activeSlug ? (
+                  <div className='italic'> {e.order}: {e.title} </div>
+                ) : (
+                  <Link to={`/blog/${e.slug}`}>{e.order}: {e.title} </Link>
+                )}
+              </span>
             ))}
           </div>
         </div>

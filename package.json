@@ -5,13 +5,16 @@
   "version": "0.1.0",
   "license": "0BSD",
   "scripts": {
-    "build": "gatsby build",
+    "build": "gatsby clean&&gatsby build",
     "dev": "gatsby clean&&gatsby develop",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
     "start": "gatsby develop",
     "serve": "gatsby build&&gatsby serve",
     "clean": "gatsby clean",
-    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
+    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1",
+    "deploy": "netlify build && netlify deploy",
+    "deploy:dev": "netlify build && netlify deploy --alias dev",
+    "deploy:prod": "netlify build && netlify deploy --prod"
   },
   "dependencies": {
     "@types/react-helmet": "^6.1.6",
