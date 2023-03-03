@@ -1,48 +1,7 @@
 import React from 'react'
 import { useState } from 'react'
-import { Button, Form, Spinner } from 'react-bootstrap'
-import styled from 'styled-components'
-import colors from '../colors'
-import Loading from './Loading'
-
-const Wrapper = styled(Form)`
-  label {
-    margin-top: 5px;
-    font-weight: bold
-  }
-
-  .form-check {
-    display: flex;
-    align-items: center;
-
-    label {
-      margin-top: 2px;
-      margin-left: 5px;
-    }
-  }
-
-  .button-row {
-    margin-top: 10px;
-    display: flex;
-    align-items: center;
-
-    span {
-      margin-left: 10px;
-    }
-
-    .spinner-grow {
-      background: ${colors.global.gradientBlue};
-    }
-
-    .success::before {
-      content: "✅ "
-    }
-
-    .error::before {
-      content: "🔴 "
-    }
-  }
-`
+import Button from './Button'
+import Spinner from './svgs/Spinner'
 
 enum FormState {
   None,
@@ -86,34 +45,54 @@ function ContactForm() {
   }
 
   return (
-    <Wrapper>
-      <Form.Group>
-        <Form.Label>Name</Form.Label>
-        <Form.Control type="text" value={name} onChange={e => setName(e.target.value)} placeholder="What's your name?" />
-      </Form.Group>
-      <Form.Group>
-        <Form.Label>Email Address</Form.Label>
-        <Form.Control type="text" value={emailAddress} onChange={e => setEmailAddress(e.target.value)} placeholder="What's your email address?" />
-      </Form.Group>
-      <Form.Group>
-        <Form.Label>Message</Form.Label>
-        <Form.Control as="textarea" rows={5} value={message} onChange={e => setMessage(e.target.value)} placeholder="What can I help with?" />
-      </Form.Group>
-      <Form.Check
-        type="switch"
-        label="Opt In to Newsletter"
-        checked={optInToNewsletter}
-        onChange={e => setOptInToNewsletter(e.target.checked)}
-      />
-      <div className="button-row">
+    <form className='rounded border border-accent-2 bg-accent-1 p-4'>
+      <div className="mb-2">
+        <label className="block text-gray-700 text-sm font-bold mb-2">
+          Name
+        </label>
+        <input
+          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          value={name}
+          onChange={e => setName(e.target.value)}
+          type="text" />
+      </div>
+      <div className="mb-2">
+        <label className="block text-gray-700 text-sm font-bold mb-2">
+          Email address
+        </label>
+        <input
+          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+          value={emailAddress}
+          onChange={e => setEmailAddress(e.target.value)}
+          type="text"  />
+      </div>
+      <div>
+        <label className="block text-gray-700 text-sm font-bold mb-2">
+          Message
+        </label>
+        <textarea
+          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+          value={message}
+          onChange={e => setMessage(e.target.value)}
+          rows={4}  />
+      </div>
+      <div className='flex space-x-2 items-center mb-2'>
+        <input
+          type="checkbox"
+          checked={optInToNewsletter}
+          onChange={() => setOptInToNewsletter(!optInToNewsletter)}
+          />
+        <span>Opt in to newsletter</span>
+      </div>
+      <div className="flex items-center space-x-2">
         <Button onClick={() => submit()} disabled={formState !== FormState.None}>
           Send
         </Button>
-        {formState == FormState.Submitting && <span className="form-response-message loading-icon"><Spinner animation="grow" /></span>}
-        {formState == FormState.Success && <span className="form-response-message success">You're info has been received!</span>}
-        {formState == FormState.Error && <span className="form-response-message error">An error occurred, please try again later.</span>}
+        {formState == FormState.Submitting && <span className="form-response-message loading-icon"><Spinner /></span>}
+        {formState == FormState.Success && <span className="form-response-message text-gray-700">✅ You're info has been received!</span>}
+        {formState == FormState.Error && <span className="form-response-message text-gray-700">❌ An error occurred, please try again later.</span>}
       </div>
-    </Wrapper>
+    </form>
   )
 }
 

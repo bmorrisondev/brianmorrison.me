@@ -1,20 +1,11 @@
 import React from "react"
 import { Link, graphql, navigate } from "gatsby"
 import { GatsbyImage } from "gatsby-plugin-image"
+import Container from '../components/Container'
+import Button from '../components/Button'
 import parse, {domToReact} from "html-react-parser"
-// import "../css/@wordpress/block-library/build-style/style.css"
-// import "../css/@wordpress/block-library/build-style/theme.css"
-// import { colors, ForgeButton } from 'shared'
-import styled from 'styled-components'
-import { Button, Container } from "react-bootstrap"
 import DefaultLayout from "../layouts/DefaultLayout"
 import colors from "../colors"
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-// import { faCalendar } from '@fortawesome/free-solid-svg-icons'
-
-// import Bio from "../components/Bio"
-// import Layout from "../components/layout"
-// import Seo from "../components/seo"
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { atomDark as theme } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
@@ -52,38 +43,38 @@ const replaceCode = node => {
   }
 };
 
-const Wrapper = styled(Container)`
-  .post-date {
-    font-style: italic;
-    svg {
-      margin-right: 5px;
-    }
-  }
+// const Wrapper = styled(Container)`
+//   .post-date {
+//     font-style: italic;
+//     svg {
+//       margin-right: 5px;
+//     }
+//   }
 
-  .post-content {
-    h2 {
-      margin-top: 30px;
-    }
+//   .post-content {
+//     h2 {
+//       margin-top: 30px;
+//     }
 
-    img {
-      height: auto;
-      max-width: 100%;
-      margin: 10px 0px;
-      border-radius: 5px;
-      border: 1px solid ${colors.light.backgroundAccent};
-    }
-  }
+//     img {
+//       height: auto;
+//       max-width: 100%;
+//       margin: 10px 0px;
+//       border-radius: 5px;
+//       border: 1px solid ${colors.light.backgroundAccent};
+//     }
+//   }
 
-  .callout {
-    border-radius: 5px;
-    background-color: ${colors.light.backgroundAccent};
-    padding: 10px;
-  }
+//   .callout {
+//     border-radius: 5px;
+//     background-color: ${colors.light.backgroundAccent};
+//     padding: 10px;
+//   }
 
-  code {
-    font-size: 16px !important;
-  }
-`
+//   code {
+//     font-size: 16px !important;
+//   }
+// `
 
 export const pageQuery = graphql`
   query PortfolioItemtById(
@@ -123,10 +114,6 @@ export const pageQuery = graphql`
   }
 `
 
-type Props = {
-  data: any
-}
-
 const BlogPostTemplate = ({ data, location }) => {
   const { previous, next, post } = data
 
@@ -137,7 +124,7 @@ const BlogPostTemplate = ({ data, location }) => {
 
   return (
     <DefaultLayout location={location} pageTitle={post.title}>
-      <Wrapper>
+      <Container>
         {/* <Seo title={post.title} description={post.excerpt} /> */}
 
         <article
@@ -195,7 +182,7 @@ const BlogPostTemplate = ({ data, location }) => {
             </li>
           </ul>
         </nav>
-      </Wrapper>
+      </Container>
 
     </DefaultLayout>
   )

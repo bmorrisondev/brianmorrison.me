@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react"
 import { graphql, navigate } from "gatsby"
 import { GatsbyImage, StaticImage } from "gatsby-plugin-image"
 import parse from "html-react-parser"
-import styled from 'styled-components'
-import { Button, Container } from "react-bootstrap"
 import DefaultLayout from "../layouts/DefaultLayout"
 import colors from "../colors"
 import YouTubeEmbed from "../components/YouTubeEmbed"
@@ -12,64 +10,9 @@ import GitHub from "../components/svgs/GitHub"
 import { SeriesCollection, SeriesEntry } from "../models"
 import BlogFooter from "../components/BlogFooter"
 import { replaceCode } from "../components/PostCode"
-
-const Wrapper = styled(Container)`
-  .post-date {
-    font-style: italic;
-    svg {
-      margin-right: 5px;
-    }
-  }
-
-  .post-meta {
-    a:hover {
-      cursor: pointer;
-    }
-
-    svg {
-      height: 25px;
-      width: 25px;
-
-      &:hover {
-        fill: inherit;
-      }
-    }
-  }
-
-  .featured-image {
-    margin-bottom: 50px;
-    border-radius: 5px;
-    border: 1px solid ${colors.light.backgroundAccent};
-  }
-
-  .post-content {
-    word-wrap: break-word;
-
-    h2 {
-      margin-top: 30px;
-    }
-
-    img {
-      height: auto;
-      max-width: 100%;
-      margin: 10px auto;
-      text-align: center;
-      display: flex;
-      border-radius: 5px;
-      border: 1px solid ${colors.light.backgroundAccent};
-    }
-  }
-
-  .callout, blockquote {
-    border-radius: 5px;
-    background-color: ${colors.light.backgroundAccent};
-    padding: 10px;
-  }
-
-  code {
-    font-size: 16px !important;
-  }
-`
+import Container from "../components/Container"
+import Button from "../components/Button"
+import StylizedListItem from "../components/StylizedListItem"
 
 export const pageQuery = graphql`
   query BlogPostById(
@@ -202,7 +145,7 @@ const BlogPostTemplate = ({ data, location }) => {
 
   return (
     <DefaultLayout location={location} pageTitle={post.title} ogImageUrl={featuredImage && featuredImage.url ? featuredImage.url : undefined} description={post.excerpt} >
-      <Wrapper>
+      <Container>
         {/* <Seo title={post.title} description={post.excerpt} /> */}
         <article
           className="blog-post"
@@ -216,18 +159,14 @@ const BlogPostTemplate = ({ data, location }) => {
             <div className="post-meta">
               <StylizedList>
                 {series && series.name && (
-                  <a onClick={() => scrollToSeriesListing()}>
-                    <li className="tag-link">
-                      <StaticImage className="list-icon" src="../images/emoji/series.png" alt="series icon" /> Series: {series.name}
-                    </li>
-                  </a>
+                  <StylizedListItem>
+                    <StaticImage className="list-icon" src="../images/emoji/series.png" alt="series icon" /> Series: {series.name}
+                  </StylizedListItem>
                 )}
                 {githubUrl && (
-                  <a href={githubUrl} target="_blank">
-                    <li className="tag-link">
-                      <GitHub /> Visit GitHub Repo
-                    </li>
-                  </a>
+                  <StylizedListItem to={githubUrl}>
+                    <GitHub /> Visit GitHub Repo
+                  </StylizedListItem>
                 )}
               </StylizedList>
             </div>
@@ -237,7 +176,7 @@ const BlogPostTemplate = ({ data, location }) => {
               <GatsbyImage
                 image={featuredImage.data}
                 alt={featuredImage.alt}
-                className="featured-image"
+                className="rounded border-accent-2 border mb-2"
               />
             )}
             {post.blogPostFields && post.blogPostFields.videoUrl && (
@@ -252,24 +191,14 @@ const BlogPostTemplate = ({ data, location }) => {
 
           <BlogFooter location={location} articleTitle={parse(post.title) as string} seriesCollection={series} />
 
-          <hr />
-
           <footer>
             {/* <Bio author={post.author.node} /> */}
           </footer>
         </article>
 
         <nav className="blog-post-nav">
-          <ul
-            style={{
-              display: `flex`,
-              flexWrap: `wrap`,
-              justifyContent: `space-between`,
-              listStyle: `none`,
-              padding: 0,
-            }}
-          >
-            <li>
+          <ul className="flex justify-between space-x-2">
+            <li className="flex-1">
               {previous && (
                 <Button onClick={() => navigate(`/blog/${previous.slug}`)}>
                   ← {parse(previous.title)}
@@ -277,7 +206,7 @@ const BlogPostTemplate = ({ data, location }) => {
               )}
             </li>
 
-            <li>
+            <li className="flex-1">
               {next && (
                 <Button onClick={() => navigate(`/blog/${next.slug}`)}>
                   {parse(next.title)} →
@@ -286,7 +215,7 @@ const BlogPostTemplate = ({ data, location }) => {
             </li>
           </ul>
         </nav>
-      </Wrapper>
+      </Container>
 
     </DefaultLayout>
   )

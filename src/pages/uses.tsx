@@ -2,7 +2,8 @@ import React from 'react'
 import DefaultLayout from '../layouts/DefaultLayout'
 import StylizedList from '../components/StylizedList'
 import { StaticImage } from 'gatsby-plugin-image'
-import { Container } from 'react-bootstrap'
+import Container from '../components/Container'
+import StylizedListItem from '../components/StylizedListItem'
 
 function Uses({ location }) {
   const rig = [
@@ -29,35 +30,35 @@ function Uses({ location }) {
         <p>Here is a list of the various tech I use on a daily basis.</p>
         <h2>Software</h2>
         <StylizedList>
-          <li>VS Code</li>
-          <li>Visual Studio</li>
-          <li>Sublime Text</li>
-          <li>Postman</li>
-          <li>Adobe CS6</li>
-          <li>Affinity Designer</li>
-          <li>Notion</li>
-          <li>Trello</li>
-          <li>Todoist</li>
-          <li>Streamlabs OBS</li>
-          <li>Office 365</li>
-          <li>Windows</li>
+          <StylizedListItem>VS Code</StylizedListItem>
+          <StylizedListItem>Visual Studio</StylizedListItem>
+          <StylizedListItem>Sublime Text</StylizedListItem>
+          <StylizedListItem>Postman</StylizedListItem>
+          <StylizedListItem>Adobe CS6</StylizedListItem>
+          <StylizedListItem>Affinity Designer</StylizedListItem>
+          <StylizedListItem>Notion</StylizedListItem>
+          <StylizedListItem>Trello</StylizedListItem>
+          <StylizedListItem>Todoist</StylizedListItem>
+          <StylizedListItem>Streamlabs OBS</StylizedListItem>
+          <StylizedListItem>Office 365</StylizedListItem>
+          <StylizedListItem>Windows</StylizedListItem>
         </StylizedList>
         <h2>Hardware</h2>
         <p>All items below are clickable Amazon Affiliate links.</p>
         <h3>My Rig</h3>
         <StylizedList>
           {rig.map(item => (
-            <a key={item.url} href={item.url} target="_blank">
-              <li>{ item.item }</li>
-            </a>
+            <StylizedListItem key={item.url} to={item.url}>
+              { item.item }
+            </StylizedListItem>
           ))}
         </StylizedList>
         <h3>Streaming Gear</h3>
         <StylizedList>
           {streamGear.map(item => (
-            <a key={item.url} href={item.url} target="_blank">
-              <li>{ item.item }</li>
-            </a>
+            <StylizedListItem key={item.url} to={item.url}>
+              { item.item }
+            </StylizedListItem>
           ))}
         </StylizedList>
         <h2>Pics</h2>

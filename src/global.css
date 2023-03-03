@@ -1,0 +1,67 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --light-bg: #F7FDFF;
+  --light-text: #111;
+  --gradient-purple: #BC00BC;
+  --gradient-blue: #0381FF;
+  --accent-1: #EEF6F9;
+  --accent-2: #e0e8ee;
+}
+
+body {
+  background-image: url('/img/bg.png');
+  background-position: right bottom;
+  background-repeat: no-repeat;
+  background-color: var(--light-bg) !important;
+  color: var(--light-text);
+  min-height: 100vh;
+  font-family: system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans","Liberation Sans",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+}
+
+.main {
+  min-height: calc(100vh - 106px);
+}
+
+.gradient-header {
+  background: -webkit-linear-gradient(45deg, var(--gradient-purple), var(--gradient-blue) 50%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 2px 2px 15px rgba(0,0,0,0.2);
+}
+
+h1 {
+  display: inline-block;
+  font-size: calc(2rem + 1.5vw) !important;
+  margin-top: 1rem !important;
+  padding-bottom: 1.3rem !important;
+  text-shadow: 2px 2px 15px rgba(0,0,0,0.2);
+  @apply gradient-header font-bold;
+}
+
+h2 {
+  margin-top: 2rem !important;
+  @apply text-xl font-bold;
+}
+
+h3 {
+  margin-top: 1.3rem !important;
+  font-weight: 400 !important;
+  @apply text-lg font-bold;
+}
+
+p {
+  font-size: 18px;
+  @apply mb-4;
+}
+
+a {
+  @apply text-gradientBlue;
+}
+
+.blog-post img {
+  @apply border border-accent-2 rounded mb-2 mx-auto;
+}

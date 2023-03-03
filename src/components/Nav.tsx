@@ -1,91 +1,83 @@
-import { Link } from 'gatsby'
-import React from 'react'
-import { Nav, Navbar, Container } from "react-bootstrap"
-import styled from 'styled-components'
-import colors from '../colors'
+import React, { useState } from 'react'
 // @ts-ignore
 import SiteLogo from '../images/logo.png'
-
-const Wrapper = styled(Navbar)`
-  height: 66px;
-
-  .navbar-brand {
-    display: flex;
-    align-items: center;
-
-    img {
-      margin-right: 10px;
-    }
-  }
-
-  .navbar-collapse {
-    padding: 0px 10px;
-    background-color: ${colors.light.background};
-  }
-
-  .navbar-collapse.show {
-    z-index: 1000;
-    border-bottom: 2px solid ${colors.light.backgroundAccent};
-    border-radius: 5px;
-  }
-`
+import MobileNavLink from './MobileNavLink'
+import NavLink from './NavLink'
+import Close from './svgs/Close'
+import Menu from './svgs/Menu'
 
 function Navigation() {
+  const [isMobileMenuShown, setIsMobileMenuShown] = useState(false)
+
+  const menuItems = [
+    {
+      title: "Home",
+      to: "/"
+    },
+    {
+      title: "About",
+      to: "/about"
+    },
+    {
+      title: "Uses",
+      to: "/uses"
+    },
+    {
+      title: "Portfolio",
+      to: "/portfolio"
+    },
+    {
+      title: "Blog",
+      to: "/blog"
+    },
+    {
+      title: "Contact",
+      to: "/contact"
+    },
+  ]
+
   return (
-    <Wrapper expand="lg">
-      <Container fluid>
-        <Nav.Link as="div" href="#" style={{ padding: "0" }}>
-          <Link className="navbar-brand" to="/">
-            <img src={SiteLogo} alt="BrianMorrison.me Logo" height="40" width="40" /> Brian Morrison II
-          </Link>
-        </Nav.Link>
-        <Navbar.Toggle aria-controls="responsive-navnav" />
-        <Navbar.Collapse className="justify-content-end">
-          <Nav className="justify-content-end" as="ul">
-            <Nav.Item>
-              <Nav.Link as={Link} to="/">Home</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link as={Link} to="/about">About</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link as={Link} to="/uses">Uses</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link as={Link} to="/portfolio">Portfolio</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link as={Link} to="/blog">Blog</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link as={Link} to="/contact">Contact</Nav.Link>
-            </Nav.Item>
-          </Nav>
-        </Navbar.Collapse>
-      </Container>
-    </Wrapper>
-  )
-  return (
-    <Nav>
-      <Nav.Item>
-        <Nav.Link as={Link} to="/">Home</Nav.Link>
-      </Nav.Item>
-      <Nav.Item>
-        <Nav.Link as={Link} to="/about">About</Nav.Link>
-      </Nav.Item>
-      <Nav.Item>
-        <Nav.Link as={Link} to="/uses">Uses</Nav.Link>
-      </Nav.Item>
-      <Nav.Item>
-        <Nav.Link as={Link} to="/portfolio">Portfolio</Nav.Link>
-      </Nav.Item>
-      <Nav.Item>
-        <Nav.Link as={Link} to="/blog">Blog</Nav.Link>
-      </Nav.Item>
-      <Nav.Item>
-        <Nav.Link as={Link} to="/contact">Contact</Nav.Link>
-      </Nav.Item>
-    </Nav>
+    <>
+      <div className='h-[66px] flex justify-between p-2'>
+        <div className='flex space-x-2 text-xl items-center'>
+          <img src={SiteLogo} alt="BrianMorrison.me Logo" className='w-[40px]' />
+          <span>Brian Morrison II</span>
+        </div>
+        <div className='space-x-4 items-center hidden sm:flex'>
+          {menuItems.map((el) => (
+            <NavLink to={el.to}>{el.title}</NavLink>
+          ))}
+        </div>
+        <div className='flex items-center sm:hidden'>
+          {!isMobileMenuShown && (
+            <button onClick={() => setIsMobileMenuShown(true)}>
+              <Menu />
+            </button>
+          )}
+        </div>
+      </div>
+
+      {isMobileMenuShown && (
+        <div className='absolute top-0 h-screen w-screen bg-slate-900 bg-opacity-95 text-white z-50'>
+          <div className='h-[66px] flex justify-between p-2'>
+            <div className='flex space-x-2 text-xl items-center'>
+              <img src={SiteLogo} alt="BrianMorrison.me Logo" className='w-[40px]' />
+              <span>Brian Morrison II</span>
+            </div>
+            <div className='space-x-2 items-center flex'>
+              <button onClick={() => setIsMobileMenuShown(false)}>
+                <Close />
+              </button>
+            </div>
+          </div>
+          <div className='flex flex-col w-full'>
+            {menuItems.map((el) => (
+              <MobileNavLink to={el.to}>{el.title}</MobileNavLink>
+            ))}
+          </div>
+        </div>
+      )}
+    </>
   )
 }
 
