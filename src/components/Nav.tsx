@@ -59,11 +59,11 @@ function Navigation() {
 
       {isMobileMenuShown && (
         <div className='absolute top-0 h-screen w-screen bg-slate-900 bg-opacity-95 text-white z-50'>
-          <div className='h-[66px] flex justify-between p-2'>
-            <div className='flex space-x-2 text-xl items-center'>
+          <div className='h-[66px] flex justify-between py-2 px-4'>
+            <NavLink to="/" className='flex space-x-2 text-xl items-center text-white'>
               <img src={SiteLogo} alt="BrianMorrison.me Logo" className='w-[40px]' />
               <span>Brian Morrison II</span>
-            </div>
+            </NavLink>
             <div className='space-x-2 items-center flex'>
               <button onClick={() => setIsMobileMenuShown(false)}>
                 <Close />
