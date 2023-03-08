@@ -62,7 +62,7 @@ a {
   @apply text-gradientBlue;
 }
 
-p code {
+p code, li code {
   color: red;
   /* background-color: rgb(29, 31, 33); */
   /* @apply py-1 px-2 rounded; */
