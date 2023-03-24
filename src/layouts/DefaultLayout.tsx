@@ -81,7 +81,7 @@ function DefaultLayout(props: Props) {
 
   const origin = "https://brianmorrison.me"
   const defaultDescription = "Personal blog of Brian Morrison II, full stack developer & content creator."
-  const titleHeader = `${pageTitle ? `${pageTitle} - ` : ""}Brian Morrison II`
+  const titleHeader = pageTitle ? pageTitle : "Brian Morrison II"
 
   return (
     <div>
