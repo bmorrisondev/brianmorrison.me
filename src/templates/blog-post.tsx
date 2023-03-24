@@ -106,8 +106,21 @@ const BlogPostTemplate = ({ data, location }) => {
     if(post.blogPostFields && post.blogPostFields.githubUrl) {
       setGithubUrl(post.blogPostFields.githubUrl)
     }
+
+    // TODO: Move this into a utils file of sorts
     if(post.excerpt) {
-	    setExcerpt(post.excerpt.slice(0,100))
+      let temp = ""
+      let spl = post.excerpt.split(" ")
+      for(let i = 0; temp.length < 100 && i - 1 < spl.length; i++) {
+        temp += spl[i]
+        if(temp.length < 100) {
+          temp += " "
+        }
+      }
+      if(temp.length >= 100) {
+        temp += "..."
+      }
+      setExcerpt(temp)
     }
 
     if(post.series && post.series.nodes && post.series.nodes.length) {
