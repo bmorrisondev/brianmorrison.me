@@ -92,6 +92,7 @@ export const pageQuery = graphql`
 const BlogPostTemplate = ({ data, location }) => {
   const [githubUrl, setGithubUrl] = useState("")
   const [series, setSeries] = useState<SeriesCollection>()
+  const [excerpt, setExcerpt] = useState<string>("")
   const { previous, next, post } = data
 
   const featuredImage = {
@@ -104,6 +105,9 @@ const BlogPostTemplate = ({ data, location }) => {
   useEffect(() => {
     if(post.blogPostFields && post.blogPostFields.githubUrl) {
       setGithubUrl(post.blogPostFields.githubUrl)
+    }
+    if(post.excerpt) {
+	    setExcerpt(post.excerpt.slice(0,100))
     }
 
     if(post.series && post.series.nodes && post.series.nodes.length) {
@@ -139,7 +143,7 @@ const BlogPostTemplate = ({ data, location }) => {
   }
 
   return (
-    <DefaultLayout location={location} pageTitle={post.title} ogImageUrl={featuredImage && featuredImage.url ? featuredImage.url : undefined} description={post.excerpt} >
+    <DefaultLayout location={location} pageTitle={post.title} ogImageUrl={featuredImage && featuredImage.url ? featuredImage.url : undefined} description={excerpt} >
       <Container>
         <article className="blog-post" itemScope itemType="http://schema.org/Article" >
           <header>
