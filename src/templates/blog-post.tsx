@@ -170,7 +170,7 @@ const BlogPostTemplate = ({ data, location }) => {
 
           {!!post.content && (
             // <div className="post-content">{parse(post.content)}</div>
-            <div className="post-content">{parse(post.content, { replace: replaceCode })}</div>
+            <div className="post-content mb-4">{parse(post.content, { replace: replaceCode })}</div>
           )}
 
           <BlogFooter location={location} articleTitle={parse(post.title) as string} seriesCollection={series} />
