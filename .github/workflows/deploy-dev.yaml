@@ -5,6 +5,8 @@ on:
   push:
     branches:
       - dev
+    paths:
+      - website/**.*
 
 jobs:
   deploy:
@@ -17,14 +19,20 @@ jobs:
       - name: Install Netlify CLI
         run: npm install -g netlify-cli
       - name: Install deps
-        run: npm install
+        run: |
+          cd website
+          npm install
       - name: Build
-        run: netlify build
+        run: |
+          cd website
+          netlify build
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
       - name: Deploy
-        run: netlify deploy --alias dev
+        run: |
+          cd website
+          netlify deploy --alias dev
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
