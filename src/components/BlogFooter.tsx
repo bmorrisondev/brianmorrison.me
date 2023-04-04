@@ -2,6 +2,7 @@ import { Link } from 'gatsby'
 import React, { useState, useEffect } from 'react'
 import { SeriesCollection } from '../models'
 import Twitter from './svgs/Twitter'
+import Button from './Button'
 
 type Props = {
   seriesCollection?: SeriesCollection
@@ -29,21 +30,36 @@ function BlogFooter(props: Props) {
     }
   }, [])
 
+  function openFsc(): void {
+    window.open("https://fullstack.chat", "_blank")
+  }
+
   return (
-    <div className='bg-accent-1 border-accent-2 border mb-2 p-4 rounded'>
-      <div className="mb-2">
-        <span className="text-xl font-bold">
-          Share this article
-        </span>
-        <div>
-          <a href={twitterHref} target="_blank">
-            <Twitter />
-          </a>
+    <div className='mb-2 '>
+      <div className="grid md:grid-cols-2 md:gap-2">
+        <div className='bg-accent-1 border-accent-2 border mb-2 p-4 rounded'>
+          <div className="text-lg font-bold">
+            Join my Discord
+          </div>
+          <div className='mb-2'>
+            Interested in joining an open and welcoming community of developers?
+          </div>
+          <Button onClick={openFsc}>Join fullstack.chat</Button>
+        </div>
+        <div className='bg-accent-1 border-accent-2 border mb-2 p-4 rounded'>
+          <div className="text-lg font-bold">
+            Share this article
+          </div>
+          <div>
+            <a href={twitterHref} target="_blank">
+              <Twitter />
+            </a>
+          </div>
         </div>
       </div>
       {seriesCollection && (
-        <div className='series-meta'>
-          <span className="text-xl font-bold">
+        <div className='bg-accent-1 border-accent-2 border mb-2 p-4 rounded'>
+          <span className="text-lg font-bold">
             Series: { seriesCollection.name }
           </span>
           <div className="flex flex-col">
