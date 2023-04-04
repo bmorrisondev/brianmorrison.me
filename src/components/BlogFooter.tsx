@@ -35,30 +35,31 @@ function BlogFooter(props: Props) {
   }
 
   return (
-    <div className='mb-2 '>
-      <div className="grid md:grid-cols-2 md:gap-2">
-        <div className='bg-accent-1 border-accent-2 border mb-2 p-4 rounded'>
-          <div className="text-lg font-bold">
-            Join my Discord
-          </div>
-          <div className='mb-2'>
-            Interested in joining an open and welcoming community of developers?
-          </div>
-          <Button onClick={openFsc}>Join fullstack.chat</Button>
+    <div className="grid md:grid-cols-2 gap-2 mb-2">
+
+      <div className='bg-accent-1 border-accent-2 border p-4 rounded'>
+        <div className="text-lg font-bold">
+          Join my Discord
         </div>
-        <div className='bg-accent-1 border-accent-2 border mb-2 p-4 rounded'>
-          <div className="text-lg font-bold">
-            Share this article
-          </div>
-          <div>
-            <a href={twitterHref} target="_blank">
-              <Twitter />
-            </a>
-          </div>
+        <div className='mb-2'>
+          Interested in joining an open and welcoming community of developers?
+        </div>
+        <Button onClick={openFsc}>Join fullstack.chat</Button>
+      </div>
+
+      <div className='bg-accent-1 border-accent-2 border p-4 rounded'>
+        <div className="text-lg font-bold">
+          Share this article
+        </div>
+        <div>
+          <a href={twitterHref} target="_blank">
+            <Twitter lg />
+          </a>
         </div>
       </div>
+
       {seriesCollection && (
-        <div className='bg-accent-1 border-accent-2 border mb-2 p-4 rounded'>
+        <div className='bg-accent-1 border-accent-2 border p-4 rounded'>
           <span className="text-lg font-bold">
             Series: { seriesCollection.name }
           </span>
@@ -75,6 +76,14 @@ function BlogFooter(props: Props) {
           </div>
         </div>
       )}
+
+      <div className='md:col-span-2 border-accent-2 border rounded'>
+        <iframe src="https://embeds.beehiiv.com/f324bd59-4031-423c-878a-96cf95501893"
+          data-test-id="beehiiv-embed"
+          width="100%"
+          height="320"
+          className="rounded m-0 bg-transparent"></iframe>
+      </div>
     </div>
   )
 }

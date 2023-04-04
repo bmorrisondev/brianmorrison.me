@@ -13,7 +13,6 @@ import Button from "../components/Button"
 import StylizedListItem from "../components/StylizedListItem"
 import Series from "../components/svgs/Series"
 import Calendar from "../components/svgs/Calendar"
-import NewsletterSubForm from "../components/NewsletterSubForm"
 
 export const pageQuery = graphql`
   query BlogPostById(
@@ -175,7 +174,6 @@ const BlogPostTemplate = ({ data, location }) => {
           )}
 
           <BlogFooter location={location} articleTitle={parse(post.title) as string} seriesCollection={series} />
-          <NewsletterSubForm />
         </article>
 
         <nav className="blog-post-nav">
