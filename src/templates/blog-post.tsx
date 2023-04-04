@@ -139,7 +139,11 @@ const BlogPostTemplate = ({ data, location }) => {
   }
 
   return (
-    <DefaultLayout location={location} pageTitle={post.title} ogImageUrl={featuredImage && featuredImage.url ? featuredImage.url : undefined} description={post.excerpt} >
+    <DefaultLayout
+      location={location}
+      pageTitle={post.title}
+      ogImageUrl={featuredImage && featuredImage.url ? featuredImage.url : undefined}
+      description={post.excerpt} >
       <Container>
         <article className="blog-post" itemScope itemType="http://schema.org/Article" >
           <header>

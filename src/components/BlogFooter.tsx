@@ -15,7 +15,6 @@ function BlogFooter(props: Props) {
   const [twitterHref, setTwitterHref] = useState("")
 
   useEffect(() => {
-    console.log(location)
     if(location && location.pathname) {
       let idx = location.pathname.split("/").length - 1
       if(location.pathname.endsWith("/")) {

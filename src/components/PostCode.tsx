@@ -6,7 +6,6 @@ import { atomDark as theme } from 'react-syntax-highlighter/dist/esm/styles/pris
 function getLanguage(node) {
   // Manually set class
   if(node.attribs && node.attribs.class && node.attribs.class.includes("language-")) {
-    console.log("found", node.attribs.class)
     let lang = ""
     let spl = node.attribs.class.split(" ")
     spl.forEach(el => {
@@ -27,7 +26,7 @@ function getLanguage(node) {
     if(lang === "json") {
       return "javascript"
     }
-    
+
     return lang
   }
 
@@ -44,7 +43,7 @@ function getLanguage(node) {
     }
     return lang
   }
-  
+
   return null;
 };
 
@@ -75,7 +74,7 @@ function getCode(node: any) {
         if(idx !== 0) {
           n.data = `\`${n.data}`
         }
-        
+
         // Add ` if its not the last block
         if(idx !== nodes.length - 1) {
           n.data += "`"
