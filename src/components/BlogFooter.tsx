@@ -59,7 +59,7 @@ function BlogFooter(props: Props) {
       </div>
 
       {seriesCollection && (
-        <div className='bg-accent-1 border-accent-2 border p-4 rounded'>
+        <div className='bg-accent-1 border-accent-2 border p-4 rounded md:col-span-2'>
           <span className="text-lg font-bold">
             Series: { seriesCollection.name }
           </span>
