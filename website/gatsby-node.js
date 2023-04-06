@@ -131,12 +131,6 @@ async function normalizePosts(notionPosts) {
   return normalized
 }
 
-function parseNotionPost(post) {
-  let n = {
-    id: p.id
-  }
-}
-
 function camelize(str) {
   return str.replace(/(?:^\w|[A-Z]|\b\w)/g, function(word, index) {
     return index === 0 ? word.toLowerCase() : word.toUpperCase();
