@@ -110,7 +110,17 @@ module.exports = class NotionToHtmlClient {
 
 
   makeImg(block) {
-    return `<img src="${block.image.file.url}" />`
+    let fig = "<figure>"
+    fig += `<img src="${block.image.file.url}" />`
+    if(block.image.caption) {
+      fig += "<figcaption>"
+      block.image.caption.forEach(c => {
+        fig += c.text.content
+      })
+      fig += "</figcaption>"
+    }
+    fig += "</figure>"
+    return fig
   }
 
   makeListItem(block) {
@@ -134,6 +144,37 @@ module.exports = class NotionToHtmlClient {
     }
   }
 
+  makeCode(block) {
+    let code = `<pre class="language-${block.code.language}"><code>`
+    block.code.text.forEach(t => {
+      code += t.text.content
+    })
+    code += "</code></pre>"
+    return code
+  }
+
+  makeBlockQuote(block) {
+    let bq = "<blockquote>"
+    block.quote.text.forEach(t => {
+      bq += t.text.content
+    })
+    bq += "</blockquote>"
+    return bq
+  }
+
+  makeCallout(block) {
+    let callout = '<div class="callout">'
+    // TODO: handle other icon types
+    if(block.callout.icon.type === "emoji") {
+      callout += `<div class="callout-icon">${block.callout.icon.emoji}</div>`
+    }
+    block.callout.text.forEach(t => {
+      callout += t.text.content
+    })
+    callout += "</div>"
+    return callout
+  }
+
   makeHtml(block) {
     if(block.type === "paragraph") {
       return this.makeParagraph(block)
@@ -149,6 +190,18 @@ module.exports = class NotionToHtmlClient {
 
     if(block.type.startsWith("heading_")) {
       return this.makeHeading(block)
+    }
+
+    if(block.type === "code") {
+      return this.makeCode(block)
+    }
+
+    if(block.type === "quote") {
+      return this.makeBlockQuote(block)
+    }
+
+    if(block.type === "callout") {
+      return this.makeCallout(block)
     }
 
     return ""
