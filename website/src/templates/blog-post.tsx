@@ -36,6 +36,7 @@ export const pageQuery = graphql`
       html
       title
       publishOn(formatString: "MMMM DD, YYYY")
+      featuredImage
       # series {
       #   nodes {
       #     name
@@ -135,7 +136,7 @@ const BlogPostTemplate = ({ data, location }) => {
     <DefaultLayout
       location={location}
       pageTitle={post.title}
-      // ogImageUrl={featuredImage && featuredImage.url ? featuredImage.url : undefined}
+      ogImageUrl={post.featuredImage ? post.featuredImage : undefined}
       description={post.excerpt} >
       <Container>
         <article className="blog-post" itemScope itemType="http://schema.org/Article" >

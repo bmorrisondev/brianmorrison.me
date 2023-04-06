@@ -72,6 +72,10 @@ p code, li code {
   @apply my-2 p-4 border bg-accent-1 border-accent-2 rounded-lg mb-2 mx-auto;
 }
 
+.callout {
+  @apply flex gap-2;
+}
+
 .blog-post figure {
   @apply flex items-center italic flex-col text-gray-500;
 }

@@ -1,4 +1,5 @@
 require('dotenv').config()
+const fs = require('fs')
 const path = require(`path`)
 const slugify = require('slugify')
 const { Client } = require("@notionhq/client")
@@ -16,11 +17,15 @@ exports.sourceNodes = async ({ actions, createNodeId, createContentDigest }) => 
 };
 
 exports.createPages = async gatsbyUtilities => {
-  const notionPosts = await getNotionPosts(gatsbyUtilities)
-  if (!notionPosts.length) {
-    return
+  try {
+    const notionPosts = await getNotionPosts(gatsbyUtilities)
+    if (!notionPosts.length) {
+      return
+    }
+    await createIndividualBlogPostPages({ posts: notionPosts, gatsbyUtilities })
+  } catch (err) {
+    console.error(err)
   }
-  await createIndividualBlogPostPages({ posts: notionPosts, gatsbyUtilities })
 
   // const posts = await getPosts(gatsbyUtilities)
   // if (!posts.length) {
@@ -41,7 +46,6 @@ async function loadNotionPosts(actions, createNodeId, createContentDigest) {
   })
 
   let normalized = await normalizePosts(results)
-
   normalized.forEach(n => {
     actions.createNode({
       ...n,
@@ -67,13 +71,13 @@ async function normalizePosts(notionPosts) {
       let prop = p.properties[k]
       let fieldName = camelize(k)
       if(prop.type === "title" && prop.title.length > 0) {
-        n[fieldName] = ""
+        n.title = ""
         prop.title.forEach(t => {
           n[fieldName] += t.text.content
         })
       }
 
-      if(prop.type === "date") {
+      if(prop.type === "date" && prop.date) {
         if(prop.date.end) {
           n[fieldName] = {
             start: new Date(prop.date.start),
@@ -94,32 +98,12 @@ async function normalizePosts(notionPosts) {
 
         }
       }
-
-
     })
-
-    // Flatten title
-    // if(p.properties.Title) {
-    //   p.properties.Title.title.forEach(t => {
-    //     n.title += t.text.content
-    //   })
-    // }
-
-    // if(p.properties["Publish on"]) {
-    //   n.publishOn = new Date(p.properties["Publish on"].date.start)
-    // }
-
-    // if(p.properties["Slug"] && p.properties["Slug"].rich_text) {
-    //   console.log(p.properties["Slug"])
-    //   // TODO: figure out how to grab this one
-    // } else {
-    //   n.slug = slugify(n.title)
-    // }
 
     // Setup slug
     if(!n.title) {
       console.warn("post does not have title:", n)
-      return
+      continue
     }
 
     if(!n.slug) {
@@ -131,6 +115,14 @@ async function normalizePosts(notionPosts) {
 
     // Get page
     n.html = await converter.generateHtmlFromPage(p.id)
+
+    // Cache images
+    n.html = await cacheImagesAndUpdateHtml(n.slug, n.html)
+
+    // Cache featured image
+    if(p.cover?.file?.url) {
+      n.featuredImage = await cacheImage(n.slug, p.cover?.file?.url)
+    }
 
     // Add to putput
     normalized.push(n)
@@ -149,6 +141,52 @@ function camelize(str) {
   return str.replace(/(?:^\w|[A-Z]|\b\w)/g, function(word, index) {
     return index === 0 ? word.toLowerCase() : word.toUpperCase();
   }).replace(/\s+/g, '');
+}
+
+async function cacheImagesAndUpdateHtml(slug, html) {
+  const regexp = /<img.*?src=['"](.*?)['"].*?>/g;
+  const matches = [...html.matchAll(regexp)];
+  const imgUrls = []
+  matches.forEach(m => {
+    if(m[1]) {
+      imgUrls.push(m[1])
+    }
+  })
+
+  for(let i = 0; i < imgUrls.length; i++) {
+    let imageUrl = imgUrls[i]
+
+    // Cache images and replace img url in the html
+    let src = await cacheImage(slug, imageUrl)
+    html = html.replace(imageUrl, src)
+  }
+
+  return html
+}
+
+async function cacheImage(slug, imageUrl) {
+  let spl = imageUrl.split("/")
+  let fileName = spl[spl.length - 1].split("?")[0]
+  let imagePath = `/img/n/${slug}`
+  let downloadPath = "./static" + imagePath
+  let filePath = downloadPath + `/${fileName}`
+
+  // If the file doesnt exist, make the dir & download the file
+  if(!fs.existsSync(downloadPath)) {
+    await fs.promises.mkdir(downloadPath, { recursive: true })
+    await downloadImage(imageUrl, filePath)
+  }
+
+  // Return the value to use in `src`
+  return imagePath += `/${fileName}`
+}
+
+const downloadImage = async (url, path) => {
+  const response = await fetch(url);
+  const blob = await response.blob();
+  const arrayBuffer = await blob.arrayBuffer();
+  const buffer = Buffer.from(arrayBuffer);
+  await fs.promises.writeFile(path, buffer);
 }
 
 const createIndividualBlogPostPages = async function ({ posts, gatsbyUtilities }) {
