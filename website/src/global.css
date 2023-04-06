@@ -81,7 +81,15 @@ p code, li code {
 }
 
 .blog-post ul, .blog-post ol {
-  @apply list-disc ml-4 mb-4;
+  @apply ml-4 mb-4;
+}
+
+.blog-post ul {
+  @apply list-disc;
+}
+
+.blog-post ol {
+  @apply list-decimal;
 }
 
 .youtube-embed {

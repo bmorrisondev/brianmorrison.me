@@ -8,36 +8,36 @@ import Paper from '../components/svgs/Paper'
 function Blog({ location }) {
   const data = useStaticQuery(graphql`
     {
-      allWpPost(sort: {fields: [date], order: DESC}) {
+      allNotionPost(sort: {publishOn: DESC}) {
         edges {
           node {
             id
             slug
-            uri
+            # uri
             title
-            blogPostFields {
-              icon {
-                altText
-                gatsbyImage(width: 25, height: 25)
-              }
-            }
-            series {
-              nodes {
-                seriesFields {
-                  icon {
-                    altText
-                    gatsbyImage(width: 25, height: 25)
-                  }
-                }
-              }
-            }
+            # blogPostFields {
+            #   icon {
+            #     altText
+            #     gatsbyImage(width: 25, height: 25)
+            #   }
+            # }
+            # series {
+            #   nodes {
+            #     seriesFields {
+            #       icon {
+            #         altText
+            #         gatsbyImage(width: 25, height: 25)
+            #       }
+            #     }
+            #   }
+            # }
           }
         }
       }
     }
   `)
 
-  const posts = data.allWpPost.edges.map(el => el.node)
+  const posts = data.allNotionPost.edges.map(el => el.node)
 
   return (
     <DefaultLayout location={location} pageTitle="Blog">
@@ -45,7 +45,8 @@ function Blog({ location }) {
         <h1>Blog</h1>
         <div className='flex flex-col space-y-4 text-lg font-bold'>
           {posts.map(p => (
-            <Link to={`/blog/${p.slug}`} className='text-black hover:text-gradientBlue flex items-center'>
+            <Link to={`/blog/${p.slug}`}
+              className='text-black hover:text-gradientBlue flex items-center'>
               {p.series && p.series.nodes && p.series.nodes.length && p.series.nodes[0].seriesFields && p.series.nodes[0].seriesFields.icon ? (
                 <GatsbyImage className="w-[25px] h-[25px] mr-2 rounded"
                   image={p.series.nodes[0].seriesFields.icon.gatsbyImage}

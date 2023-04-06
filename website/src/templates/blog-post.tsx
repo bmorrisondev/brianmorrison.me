@@ -20,69 +20,69 @@ export const pageQuery = graphql`
     $previousPostId: String
     $nextPostId: String
   ) {
-    post: wpPost(id: { eq: $id }) {
+    post: notionPost(id: { eq: $id }) {
       id
-      author {
-				node {
-					name
-          firstName
-          description
-          avatar {
-						url
-          }
-        }
-      }
-      excerpt
-      content
+      # author {
+			# 	node {
+			# 		name
+      #     firstName
+      #     description
+      #     avatar {
+			# 			url
+      #     }
+      #   }
+      # }
+      # excerpt
+      html
       title
-      date(formatString: "MMMM DD, YYYY")
-      series {
-        nodes {
-          name
-          description
-          seriesFields {
-            icon {
-              altText
-              gatsbyImage(width: 25, height: 25)
-            }
-          }
-          posts {
-            nodes {
-              slug
-              title
-              blogPostFields {
-                seriesOrder
-              }
-            }
-          }
-        }
-      }
-      blogPostFields {
-        seriesOrder
-        videoUrl
-        githubUrl
-        hideFeaturedImage
-      }
-      featuredImage {
-        node {
-          altText
-          localFile {
-            childImageSharp {
-              gatsbyImageData(
-                quality: 100
-                placeholder: TRACED_SVG
-                layout: FULL_WIDTH
-              )
-            }
-          }
-        }
-      }
+      publishOn(formatString: "MMMM DD, YYYY")
+      # series {
+      #   nodes {
+      #     name
+      #     description
+      #     seriesFields {
+      #       icon {
+      #         altText
+      #         gatsbyImage(width: 25, height: 25)
+      #       }
+      #     }
+      #     posts {
+      #       nodes {
+      #         slug
+      #         title
+      #         blogPostFields {
+      #           seriesOrder
+      #         }
+      #       }
+      #     }
+      #   }
+      # }
+      # blogPostFields {
+      #   seriesOrder
+      #   videoUrl
+      #   githubUrl
+      #   hideFeaturedImage
+      # }
+      # featuredImage {
+      #   node {
+      #     altText
+      #     localFile {
+      #       childImageSharp {
+      #         gatsbyImageData(
+      #           quality: 100
+      #           placeholder: TRACED_SVG
+      #           layout: FULL_WIDTH
+      #         )
+      #       }
+      #     }
+      #   }
+      # }
     }
-    previous: wpPost(id: { eq: $previousPostId }) {
+    previous: notionPost(id: { eq: $previousPostId }) {
       slug
       title
     }
-    next: wpPost(id: { eq: $nextPostId }) {
+    next: notionPost(id: { eq: $nextPostId }) {
       slug
       title
     }
@@ -90,44 +90,37 @@ export const pageQuery = graphql`
 `
 
 const BlogPostTemplate = ({ data, location }) => {
-  const [githubUrl, setGithubUrl] = useState("")
+  // const [githubUrl, setGithubUrl] = useState("")
   const [series, setSeries] = useState<SeriesCollection>()
   const { previous, next, post } = data
 
-  const featuredImage = {
-    data: post.featuredImage?.node?.localFile?.childImageSharp?.gatsbyImageData,
-    url: post.featuredImage?.node?.localFile?.childImageSharp?.gatsbyImageData?.images?.fallback?.src,
-    hide: post.blogPostFields.hideFeaturedImage ? true : false,
-    alt: post.featuredImage?.node?.alt || ``,
-  }
+  // useEffect(() => {
+  //   if(post.blogPostFields && post.blogPostFields.githubUrl) {
+  //     setGithubUrl(post.blogPostFields.githubUrl)
+  //   }
 
-  useEffect(() => {
-    if(post.blogPostFields && post.blogPostFields.githubUrl) {
-      setGithubUrl(post.blogPostFields.githubUrl)
-    }
-
-    if(post.series && post.series.nodes && post.series.nodes.length) {
-      const sc: SeriesCollection = {
-        entries: []
-      }
-      sc.name = post.series.nodes[0].name
-      let sp: SeriesEntry[] = []
-      post.series.nodes[0].posts.nodes.forEach(p => {
-        let entry: SeriesEntry = {
-          order: p.blogPostFields.seriesOrder,
-          slug: p.slug,
-          title: p.title
-        }
-        sp.push(entry)
-      })
-      sp.sort((a: SeriesEntry, b: SeriesEntry) => Number(a.order) < Number(b.order) ? -1 : 1)
-      sc.entries = sp
-      if(post.series.nodes[0].seriesFields?.icon) {
-        sc.icon = post.series.nodes[0].seriesFields.icon
-      }
-      setSeries(sc)
-    }
-  }, [])
+  //   if(post.series && post.series.nodes && post.series.nodes.length) {
+  //     const sc: SeriesCollection = {
+  //       entries: []
+  //     }
+  //     sc.name = post.series.nodes[0].name
+  //     let sp: SeriesEntry[] = []
+  //     post.series.nodes[0].posts.nodes.forEach(p => {
+  //       let entry: SeriesEntry = {
+  //         order: p.blogPostFields.seriesOrder,
+  //         slug: p.slug,
+  //         title: p.title
+  //       }
+  //       sp.push(entry)
+  //     })
+  //     sp.sort((a: SeriesEntry, b: SeriesEntry) => Number(a.order) < Number(b.order) ? -1 : 1)
+  //     sc.entries = sp
+  //     if(post.series.nodes[0].seriesFields?.icon) {
+  //       sc.icon = post.series.nodes[0].seriesFields.icon
+  //     }
+  //     setSeries(sc)
+  //   }
+  // }, [])
 
   function scrollToSeriesListing() {
     let el = document.querySelector(".series-meta")
@@ -142,14 +135,14 @@ const BlogPostTemplate = ({ data, location }) => {
     <DefaultLayout
       location={location}
       pageTitle={post.title}
-      ogImageUrl={featuredImage && featuredImage.url ? featuredImage.url : undefined}
+      // ogImageUrl={featuredImage && featuredImage.url ? featuredImage.url : undefined}
       description={post.excerpt} >
       <Container>
         <article className="blog-post" itemScope itemType="http://schema.org/Article" >
           <header>
             <h1 itemProp="headline" className="my-0 py-0">{parse(post.title)}</h1>
             <div className="post-meta">
-              <StylizedList>
+              {/* <StylizedList>
                 <StylizedListItem><Calendar />{post.date}</StylizedListItem>
                 {series && series.name && (
                   <StylizedListItem onClick={() => scrollToSeriesListing()}>
@@ -161,16 +154,16 @@ const BlogPostTemplate = ({ data, location }) => {
                     <GitHub /> Visit GitHub Repo
                   </StylizedListItem>
                 )}
-              </StylizedList>
+              </StylizedList> */}
             </div>
             {post.blogPostFields && post.blogPostFields.videoUrl && (
               <YouTubeEmbed url={post.blogPostFields.videoUrl} />
             )}
           </header>
 
-          {!!post.content && (
+          {!!post.html && (
             // <div className="post-content">{parse(post.content)}</div>
-            <div className="post-content mb-4">{parse(post.content, { replace: replaceCode })}</div>
+            <div className="post-content mb-4">{parse(post.html, { replace: replaceCode })}</div>
           )}
 
           <BlogFooter location={location} articleTitle={parse(post.title) as string} seriesCollection={series} />
