@@ -89,25 +89,26 @@ module.exports = class NotionToHtmlClient {
 
   makeParagraph(block) {
     let p = "<p>"
-    block.paragraph.text.forEach(el => {
-      let content = el.text.content
-      if(el.annotations.bold) {
-        content = `<strong>${content}</strong>`
-      }
+    p += this.parseTextArray(block.paragraph.text)
+    // block.paragraph.text.forEach(el => {
+    //   let content = el.text.content
+    //   if(el.annotations.bold) {
+    //     content = `<strong>${content}</strong>`
+    //   }
 
-      if(el.annotations.italic) {
-        content = `<em>${content}</em>`
-      }
+    //   if(el.annotations.italic) {
+    //     content = `<em>${content}</em>`
+    //   }
 
-      if(el.annotations.code) {
-        content = `<code>${content}</code>`
-      }
+    //   if(el.annotations.code) {
+    //     content = `<code>${content}</code>`
+    //   }
 
-      if(el.text?.link?.url) {
-        content = `<a href="${el.text.link.url}" target="_blank">${content}</a>`
-      }
-      p += content
-    })
+    //   if(el.text?.link?.url) {
+    //     content = `<a href="${el.text.link.url}" target="_blank">${content}</a>`
+    //   }
+    //   p += content
+    // })
     p += "</p>"
     return p
   }
@@ -131,12 +132,39 @@ module.exports = class NotionToHtmlClient {
   }
 
   makeListItem(block) {
-    if(block.numbered_list_item) {
-      return `<li>${block.numbered_list_item.text[0].text.content}</li>`
+    let li = "<li>"
+    if(block?.numbered_list_item?.text) {
+      li += this.parseTextArray(block.numbered_list_item.text)
     }
-    if(block.bulleted_list_item) {
-      return `<li>${block.bulleted_list_item.text[0].text.content}</li>`
+    if(block?.bulleted_list_item?.text) {
+      li += this.parseTextArray(block.bulleted_list_item.text)
     }
+    li += "</li>"
+    return li
+  }
+
+  parseTextArray(textArray) {
+    let text = ""
+    textArray.forEach(el => {
+      let content = el.text.content
+      if(el?.annotations?.bold) {
+        content = `<strong>${content}</strong>`
+      }
+
+      if(el?.annotations?.italic) {
+        content = `<em>${content}</em>`
+      }
+
+      if(el?.annotations?.code) {
+        content = `<code>${content}</code>`
+      }
+
+      if(el.text?.link?.url) {
+        content = `<a href="${el.text.link.url}" target="_blank">${content}</a>`
+      }
+      text += content
+    })
+    return text
   }
 
   makeHeading(block) {
@@ -154,7 +182,10 @@ module.exports = class NotionToHtmlClient {
   makeCode(block) {
     let code = `<pre class="language-${block.code.language}"><code>`
     block.code.text.forEach(t => {
-      code += t.text.content
+      let content = t.text.content
+      content = content.replace(/\</g, "&lt;")
+      content = content.replace(/\>/g, "&gt;")
+      code += content
     })
     code += "</code></pre>"
     return code
@@ -162,9 +193,7 @@ module.exports = class NotionToHtmlClient {
 
   makeBlockQuote(block) {
     let bq = "<blockquote>"
-    block.quote.text.forEach(t => {
-      bq += t.text.content
-    })
+    bq += this.parseTextArray(block.quote.text)
     bq += "</blockquote>"
     return bq
   }
@@ -175,9 +204,7 @@ module.exports = class NotionToHtmlClient {
     if(block.callout.icon.type === "emoji") {
       callout += `<div class="callout-icon">${block.callout.icon.emoji}</div>`
     }
-    block.callout.text.forEach(t => {
-      callout += t.text.content
-    })
+    callout += this.parseTextArray(block.callout.text)
     callout += "</div>"
     return callout
   }

@@ -47,7 +47,16 @@ function getLanguage(node) {
   return null;
 };
 
-function getCode(node: any) {
+const getCode = node => {
+  console.log(node)
+  if (node.children.length > 0 && node.children[0].name === 'code') {
+    return node.children[0].children;
+  } else {
+    return node.children;
+  }
+};
+
+function getCodeOld(node: any) {
   if (node.children && node.children.length == 1 && node.children[0].name === 'code') {
     return node.children[0].children;
   } else {
