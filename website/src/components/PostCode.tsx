@@ -65,7 +65,7 @@ function getCode(node: any) {
 
     let mainNode = [nodes[0]]
     nodes.forEach((n, idx)=> {
-      if(n.data.includes("<code>") || n.data.includes("</code>")) {
+      if(n?.data?.includes("<code>") || n?.data?.includes("</code>")) {
         n.data = n.data.replace("<code>", "`")
         n.data = n.data.replace("</code>", "`")
       }

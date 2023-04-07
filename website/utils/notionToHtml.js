@@ -102,25 +102,32 @@ module.exports = class NotionToHtmlClient {
       if(el.annotations.code) {
         content = `<code>${content}</code>`
       }
+
+      if(el.text?.link?.url) {
+        content = `<a href="${el.text.link.url}" target="_blank">${content}</a>`
+      }
       p += content
     })
     p += "</p>"
     return p
   }
 
-
   makeImg(block) {
-    let fig = "<figure>"
-    fig += `<img src="${block.image.file.url}" />`
-    if(block.image.caption) {
-      fig += "<figcaption>"
-      block.image.caption.forEach(c => {
-        fig += c.text.content
-      })
-      fig += "</figcaption>"
+    if(block?.image?.file?.url) {
+      let fig = "<figure>"
+      fig += `<img src="${block.image.file.url}" />`
+      if(block.image.caption) {
+        fig += "<figcaption>"
+        block.image.caption.forEach(c => {
+          fig += c.text.content
+        })
+        fig += "</figcaption>"
+      }
+      fig += "</figure>"
+      return fig
     }
-    fig += "</figure>"
-    return fig
+
+    return ""
   }
 
   makeListItem(block) {

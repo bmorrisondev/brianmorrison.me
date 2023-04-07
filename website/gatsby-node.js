@@ -98,6 +98,14 @@ async function normalizePosts(notionPosts) {
 
         }
       }
+
+      if(prop.type === "url") {
+        n[fieldName] = prop.url
+      }
+
+      if(prop.type === "select" && prop.select?.name) {
+        n[fieldName] = prop.select.name.toLowerCase()
+      }
     })
 
     // Setup slug
@@ -122,6 +130,11 @@ async function normalizePosts(notionPosts) {
     // Cache featured image
     if(p.cover?.file?.url) {
       n.featuredImage = await cacheImage(n.slug, p.cover?.file?.url)
+    }
+
+    // Cache post icon
+    if(p.icon?.file?.url) {
+      n.icon = await cacheImage(n.slug, p.icon?.file?.url)
     }
 
     // Add to putput
@@ -160,13 +173,13 @@ async function cacheImagesAndUpdateHtml(slug, html) {
 
 async function cacheImage(slug, imageUrl) {
   let spl = imageUrl.split("/")
-  let fileName = spl[spl.length - 1].split("?")[0]
+  let fileName = `${spl[spl.length-2]}-${spl[spl.length - 1].split("?")[0]}`
   let imagePath = `/img/n/${slug}`
   let downloadPath = "./static" + imagePath
   let filePath = downloadPath + `/${fileName}`
 
   // If the file doesnt exist, make the dir & download the file
-  if(!fs.existsSync(downloadPath)) {
+  if(!fs.existsSync(filePath)) {
     await fs.promises.mkdir(downloadPath, { recursive: true })
     await downloadImage(imageUrl, filePath)
   }

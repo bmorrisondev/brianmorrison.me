@@ -37,6 +37,7 @@ export const pageQuery = graphql`
       title
       publishOn(formatString: "MMMM DD, YYYY")
       featuredImage
+      codeURL
       # series {
       #   nodes {
       #     name
@@ -63,20 +64,6 @@ export const pageQuery = graphql`
       #   videoUrl
       #   githubUrl
       #   hideFeaturedImage
-      # }
-      # featuredImage {
-      #   node {
-      #     altText
-      #     localFile {
-      #       childImageSharp {
-      #         gatsbyImageData(
-      #           quality: 100
-      #           placeholder: TRACED_SVG
-      #           layout: FULL_WIDTH
-      #         )
-      #       }
-      #     }
-      #   }
       # }
     }
     previous: notionPost(id: { eq: $previousPostId }) {
@@ -143,19 +130,19 @@ const BlogPostTemplate = ({ data, location }) => {
           <header>
             <h1 itemProp="headline" className="my-0 py-0">{parse(post.title)}</h1>
             <div className="post-meta">
-              {/* <StylizedList>
-                <StylizedListItem><Calendar />{post.date}</StylizedListItem>
+              <StylizedList>
+                <StylizedListItem><Calendar />{post.publishOn}</StylizedListItem>
                 {series && series.name && (
                   <StylizedListItem onClick={() => scrollToSeriesListing()}>
                     <Series /> Series: {series.name}
                   </StylizedListItem>
                 )}
-                {githubUrl && githubUrl !== "" && (
-                  <StylizedListItem to={githubUrl}>
+                {post.codeURL && (
+                  <StylizedListItem to={post.codeURL}>
                     <GitHub /> Visit GitHub Repo
                   </StylizedListItem>
                 )}
-              </StylizedList> */}
+              </StylizedList>
             </div>
             {post.blogPostFields && post.blogPostFields.videoUrl && (
               <YouTubeEmbed url={post.blogPostFields.videoUrl} />
