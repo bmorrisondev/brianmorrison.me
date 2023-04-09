@@ -112,6 +112,11 @@ async function normalizePosts(notionPosts) {
     }
 
     if(!n.slug) {
+      console.warn("post does not have slug:", n)
+      continue
+    }
+
+    if(!n.slug) {
       n.slug = slugify(n.title, {
         lower: true,
         strict: true
