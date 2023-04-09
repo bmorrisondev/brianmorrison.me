@@ -88,7 +88,7 @@ async function normalizePosts(notionPosts) {
         n[fieldName] = ""
         if(fieldName === "slug") {
           if(prop.rich_text.length > 0) {
-            n.slug = prop.rich_text[0]
+            n.slug = prop.rich_text[0].text.content
           }
         } else {
           // TODO:
