@@ -14,30 +14,22 @@ let converter = new NotionToHtmlClient(process.env.NOTION_TOKEN)
 
 exports.sourceNodes = async ({ actions, createNodeId, createContentDigest }) => {
   await loadNotionPosts(actions, createNodeId, createContentDigest)
+  // await loadNotionPostSeries(actions, createNodeId, createContentDigest)
 };
 
 exports.createPages = async gatsbyUtilities => {
   try {
+    console.log("start")
     const notionPosts = await getNotionPosts(gatsbyUtilities)
     if (!notionPosts.length) {
       return
     }
+    console.log("pages:", notionPosts.length)
     await createIndividualBlogPostPages({ posts: notionPosts, gatsbyUtilities })
+    console.log("done!")
   } catch (err) {
     console.error(err)
   }
-
-  // const posts = await getPosts(gatsbyUtilities)
-  // if (!posts.length) {
-  //   return
-  // }
-  // await createIndividualBlogPostPages({ posts, gatsbyUtilities })
-
-  // const portfolioItems = await getPortfolioItems(gatsbyUtilities)
-  // if (!portfolioItems.length) {
-  //   return
-  // }
-  // await createIndividualPortfolioItemPages({ portfolioItems, gatsbyUtilities })
 }
 
 async function loadNotionPosts(actions, createNodeId, createContentDigest) {
@@ -56,6 +48,10 @@ async function loadNotionPosts(actions, createNodeId, createContentDigest) {
       }
     })
   })
+}
+
+async function loadNotionPostSeries(actions, createNodeId, createContentDigest) {
+
 }
 
 async function normalizePosts(notionPosts) {
@@ -92,10 +88,11 @@ async function normalizePosts(notionPosts) {
         n[fieldName] = ""
         if(fieldName === "slug") {
           if(prop.rich_text.length > 0) {
-            console.log(fieldName, prop)
+            n.slug = prop.rich_text[0]
           }
         } else {
-
+          // TODO:
+          console.log("rich_text:", JSON.stringify(prop))
         }
       }
 
@@ -275,7 +272,6 @@ async function getNotionPosts({ graphql, reporter }) {
 
   return graphqlResult.data.allNotionPost.edges
 }
-
 
 const createIndividualPortfolioItemPages = async ({ portfolioItems, gatsbyUtilities }) => {
   await Promise.all(

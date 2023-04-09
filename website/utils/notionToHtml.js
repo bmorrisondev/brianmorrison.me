@@ -90,25 +90,6 @@ module.exports = class NotionToHtmlClient {
   makeParagraph(block) {
     let p = "<p>"
     p += this.parseTextArray(block.paragraph.text)
-    // block.paragraph.text.forEach(el => {
-    //   let content = el.text.content
-    //   if(el.annotations.bold) {
-    //     content = `<strong>${content}</strong>`
-    //   }
-
-    //   if(el.annotations.italic) {
-    //     content = `<em>${content}</em>`
-    //   }
-
-    //   if(el.annotations.code) {
-    //     content = `<code>${content}</code>`
-    //   }
-
-    //   if(el.text?.link?.url) {
-    //     content = `<a href="${el.text.link.url}" target="_blank">${content}</a>`
-    //   }
-    //   p += content
-    // })
     p += "</p>"
     return p
   }
