@@ -19,14 +19,17 @@ exports.sourceNodes = async ({ actions, createNodeId, createContentDigest }) => 
 
 exports.createPages = async gatsbyUtilities => {
   try {
-    console.log("start")
     const notionPosts = await getNotionPosts(gatsbyUtilities)
     if (!notionPosts.length) {
       return
     }
-    console.log("pages:", notionPosts.length)
     await createIndividualBlogPostPages({ posts: notionPosts, gatsbyUtilities })
-    console.log("done!")
+
+    const portfolioItems = await getPortfolioItems(gatsbyUtilities)
+    if (!portfolioItems.length) {
+      return
+    }
+    await createIndividualPortfolioItemPages({ portfolioItems, gatsbyUtilities })
   } catch (err) {
     console.error(err)
   }
@@ -38,6 +41,7 @@ async function loadNotionPosts(actions, createNodeId, createContentDigest) {
   })
 
   let normalized = await normalizePosts(results)
+
   normalized.forEach(n => {
     actions.createNode({
       ...n,
@@ -93,6 +97,13 @@ async function normalizePosts(notionPosts) {
         } else {
           // TODO:
           console.log("rich_text:", JSON.stringify(prop))
+        }
+      }
+
+      if(prop.type === "status") {
+        n[fieldName] = ""
+        if(prop?.status?.name) {
+          n[fieldName] = prop.status.name
         }
       }
 

@@ -8,7 +8,7 @@ import Paper from '../components/svgs/Paper'
 function Blog({ location }) {
   const data = useStaticQuery(graphql`
     {
-      allNotionPost(sort: {publishOn: DESC}) {
+      allNotionPost(sort: {publishOn: DESC}, filter: {status:{ eq:"Published"}}) {
         edges {
           node {
             id
@@ -45,8 +45,8 @@ function Blog({ location }) {
               {/* Meta stuff */}
               <div className='flex text-sm'>
                 {p.publishOn}
-                {p.category ? (
-                  <> in&nbsp;<Link className='border-b border-b-gray-300 text-black hover:border-b-black transition' to="">{p.category}</Link></>) : ""}
+                {/* {p.category ? (
+                  <> in&nbsp;<Link className='border-b border-b-gray-300 text-black hover:border-b-black transition' to="">{p.category}</Link></>) : ""} */}
               </div>
 
               {/* Main link */}

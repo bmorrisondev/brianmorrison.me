@@ -8,24 +8,24 @@ module.exports = {
   },
   plugins: [
     'gatsby-plugin-postcss',
-    // {
-    //   resolve: 'gatsby-source-wordpress',
-    //   options: {
-    //     "url": process.env.WP_URL,
-    //     auth: {
-    //       htaccess: {
-    //         username: process.env.WP_USERNAME,
-    //         password: process.env.WP_PASSWORD
-    //       }
-    //     },
-    //     html: {
-    //       useGatsbyImage: false,
-    //     },
-    //     develop: {
-    //       hardCacheMediaFiles: true,
-    //     },
-    //   }
-    // },
+    {
+      resolve: 'gatsby-source-wordpress',
+      options: {
+        "url": process.env.WP_URL,
+        auth: {
+          htaccess: {
+            username: process.env.WP_USERNAME,
+            password: process.env.WP_PASSWORD
+          }
+        },
+        html: {
+          useGatsbyImage: false,
+        },
+        develop: {
+          hardCacheMediaFiles: true,
+        },
+      }
+    },
     "gatsby-plugin-styled-components",
     "gatsby-plugin-image",
     "gatsby-plugin-sharp",
