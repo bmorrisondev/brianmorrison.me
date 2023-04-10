@@ -121,6 +121,10 @@ async function normalizePosts(notionPosts) {
     // Get page
     n.html = await converter.generateHtmlFromPage(p.id)
 
+    if(n.html.includes("wpms.brianmorrison.me")) {
+      console.log("might have an external image:", n.title)
+    }
+
     // Cache images
     n.html = await cacheImagesAndUpdateHtml(n.slug, n.html)
 

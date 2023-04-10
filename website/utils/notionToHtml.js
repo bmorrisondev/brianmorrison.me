@@ -108,6 +108,19 @@ module.exports = class NotionToHtmlClient {
       fig += "</figure>"
       return fig
     }
+    if(block?.image?.external?.url) {
+      let fig = "<figure>"
+      fig += `<img src="${block.image.external.url}" />`
+      if(block.image.caption) {
+        fig += "<figcaption>"
+        block.image.caption.forEach(c => {
+          fig += c.text.content
+        })
+        fig += "</figcaption>"
+      }
+      fig += "</figure>"
+      return fig
+    }
 
     return ""
   }

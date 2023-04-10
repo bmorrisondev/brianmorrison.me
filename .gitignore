@@ -16,4 +16,5 @@ temp/
 .wordpress-cache
 # Local Netlify folder
 .netlify
-website/static/img/n
+
+# website/static/img/n
