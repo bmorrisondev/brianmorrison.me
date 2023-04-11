@@ -12,7 +12,6 @@ type Props = {
 }
 
 const defaultDescription = "Personal blog of Brian Morrison II, full stack developer & content creator."
-const origin = "https://brianmorrison.me"
 
 function fixupDescription(description: string): string {
   let temp = ""
@@ -33,6 +32,7 @@ function fixupDescription(description: string): string {
 function DefaultLayout(props: Props) {
   const { children, pageTitle, location, ogImageUrl, description } = props
 
+  const origin = location && location.origin ? location.origin : "https://brianmorrison.me"
   const titleHeader = pageTitle ? pageTitle : "Brian Morrison II"
   const desc = description ? fixupDescription(description) : defaultDescription;
 

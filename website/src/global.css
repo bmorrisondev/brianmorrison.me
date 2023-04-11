@@ -72,6 +72,10 @@ p code, li code {
   @apply my-2 p-4 border bg-accent-1 border-accent-2 rounded-lg mb-2 mx-auto;
 }
 
+.callout {
+  @apply flex gap-2;
+}
+
 .blog-post figure {
   @apply flex items-center italic flex-col text-gray-500;
 }
@@ -81,7 +85,15 @@ p code, li code {
 }
 
 .blog-post ul, .blog-post ol {
-  @apply list-disc ml-4 mb-4;
+  @apply ml-4 mb-4;
+}
+
+.blog-post ul {
+  @apply list-disc;
+}
+
+.blog-post ol {
+  @apply list-decimal;
 }
 
 .youtube-embed {
