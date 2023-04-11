@@ -13,27 +13,9 @@ const notion = new Client({
 let converter = new NotionToHtmlClient(process.env.NOTION_TOKEN)
 
 exports.sourceNodes = async ({ actions, createNodeId, createContentDigest }) => {
-  await loadNotionPosts(actions, createNodeId, createContentDigest)
-  // await loadNotionPostSeries(actions, createNodeId, createContentDigest)
+  // await loadNotionPosts(actions, createNodeId, createContentDigest)
+  await loadNotionPortfolioItems(actions, createNodeId, createContentDigest)
 };
-
-exports.createPages = async gatsbyUtilities => {
-  try {
-    const notionPosts = await getNotionPosts(gatsbyUtilities)
-    if (!notionPosts.length) {
-      return
-    }
-    await createIndividualBlogPostPages({ posts: notionPosts, gatsbyUtilities })
-
-    const portfolioItems = await getPortfolioItems(gatsbyUtilities)
-    if (!portfolioItems.length) {
-      return
-    }
-    await createIndividualPortfolioItemPages({ portfolioItems, gatsbyUtilities })
-  } catch (err) {
-    console.error(err)
-  }
-}
 
 async function loadNotionPosts(actions, createNodeId, createContentDigest) {
   const { results } = await notion.databases.query({
@@ -56,6 +38,27 @@ async function loadNotionPosts(actions, createNodeId, createContentDigest) {
 
 async function loadNotionPostSeries(actions, createNodeId, createContentDigest) {
 
+}
+
+async function loadNotionPortfolioItems(actions, createNodeId, createContentDigest) {
+  const { results } = await notion.databases.query({
+    database_id: process.env.NOTION_PORTFOLIOITEMS_DBID
+  })
+
+  console.log(results)
+
+  let normalized = await normalizePosts(results)
+
+  normalized.forEach(n => {
+    actions.createNode({
+      ...n,
+      id: createNodeId(n.id),
+      internal: {
+        type: 'notionPortfolioItem',
+        contentDigest: createContentDigest(n)
+      }
+    })
+  })
 }
 
 async function normalizePosts(notionPosts) {
@@ -95,8 +98,8 @@ async function normalizePosts(notionPosts) {
             n.slug = prop.rich_text[0].text.content
           }
         } else {
-          // TODO:
-          console.log("rich_text:", JSON.stringify(prop))
+          // TODO: Flatten this
+          n[fieldName] = prop.rich_text[0].text.content
         }
       }
 
@@ -113,6 +116,11 @@ async function normalizePosts(notionPosts) {
 
       if(prop.type === "select" && prop.select?.name) {
         n[fieldName] = prop.select.name.toLowerCase()
+      }
+
+      if(prop.type === "multi_select") {
+        n[fieldName] = []
+        prop.multi_select.forEach(el => n[fieldName].push(el.name))
       }
     })
 
@@ -208,27 +216,28 @@ const downloadImage = async (url, path) => {
   await fs.promises.writeFile(path, buffer);
 }
 
-const createIndividualBlogPostPages = async function ({ posts, gatsbyUtilities }) {
-    await Promise.all(
-      posts.map(({ previous, post, next }) =>
-        gatsbyUtilities.actions.createPage({
-          path: `/blog/${post.slug}`,
-          component: path.resolve(`./src/templates/blog-post.tsx`),
-          context: {
-            id: post.id,
-            previousPostId: previous ? previous.id : null,
-            nextPostId: next ? next.id : null,
-          },
-        }
-      )
-    )
-  )
+exports.createPages = async gatsbyUtilities => {
+  try {
+    // const notionPosts = await getNotionPosts(gatsbyUtilities)
+    // if (!notionPosts.length) {
+    //   return
+    // }
+    // await createIndividualBlogPostPages({ posts: notionPosts, gatsbyUtilities })
+
+    // const portfolioItems = await getPortfolioItems(gatsbyUtilities)
+    // if (!portfolioItems.length) {
+    //   return
+    // }
+    // await createIndividualPortfolioItemPages({ portfolioItems, gatsbyUtilities })
+  } catch (err) {
+    console.error(err)
+  }
 }
 
-async function getPosts({ graphql, reporter }) {
+async function getNotionPosts({ graphql, reporter }) {
   const graphqlResult = await graphql(`
-    query WpPosts {
-      allWpPost(sort: { fields: [date], order: DESC }) {
+    query NotionPosts {
+      allNotionPost(sort: {publishOn: DESC}) {
         edges {
           previous {
             id
@@ -236,7 +245,6 @@ async function getPosts({ graphql, reporter }) {
           post: node {
             id
             slug
-            uri
           }
           next {
             id
@@ -254,7 +262,24 @@ async function getPosts({ graphql, reporter }) {
     return
   }
 
-  return graphqlResult.data.allWpPost.edges
+  return graphqlResult.data.allNotionPost.edges
+}
+
+const createIndividualBlogPostPages = async function ({ posts, gatsbyUtilities }) {
+    await Promise.all(
+      posts.map(({ previous, post, next }) =>
+        gatsbyUtilities.actions.createPage({
+          path: `/blog/${post.slug}`,
+          component: path.resolve(`./src/templates/blog-post.tsx`),
+          context: {
+            id: post.id,
+            previousPostId: previous ? previous.id : null,
+            nextPostId: next ? next.id : null,
+          },
+        }
+      )
+    )
+  )
 }
 
 async function getNotionPosts({ graphql, reporter }) {
