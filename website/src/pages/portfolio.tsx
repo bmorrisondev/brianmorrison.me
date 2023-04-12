@@ -1,50 +1,20 @@
 import React from 'react'
 import DefaultLayout from '../layouts/DefaultLayout'
-import { useStaticQuery, graphql, Link } from 'gatsby'
-import parse from "html-react-parser"
-import StylizedList from "../components/StylizedList"
+import { useStaticQuery, graphql } from 'gatsby'
 import Container from '../components/Container'
-import StylizedListItem from '../components/StylizedListItem'
-
-function PortfolioListItem({item}) {
-  let tags: string[] = []
-
-  if(item.tags && item.tags.nodes && item.tags.nodes.length > 0) {
-    item.tags.nodes.forEach((t: any) => tags.push(t.name))
-  }
-
-  return (
-    <div>
-      <Link to={`/portfolio/${item.slug}`} className="text-black">
-        <h2>{parse(item.title)}</h2>
-        <span className="excerpt">{ parse(item.excerpt)} </span>
-      </Link>
-      {tags.length > 0 && (
-        <StylizedList>
-          {tags.map(t => (
-            <StylizedListItem key={`${item.id}-${t}`}>{t}</StylizedListItem>
-          ))}
-        </StylizedList>
-      )}
-    </div>
-  )
-}
+import PortfolioListItem from "../components/PortfolioListItem"
 
 function Portfolio({ location }) {
   const data = useStaticQuery(graphql`
     {
-      allWpPortfolioItem(sort:{date: DESC}) {
+      allNotionPortfolioItem(sort:{date: DESC}) {
         edges {
           node {
             id
             slug
-            excerpt
             title
-            tags {
-              nodes {
-                name
-              }
-            }
+            excerpt
+            tags
           }
         }
       }
@@ -53,7 +23,7 @@ function Portfolio({ location }) {
 
   console.log(data)
 
-  const posts = data.allWpPortfolioItem.edges.map(el => el.node)
+  const posts = data.allNotionPortfolioItem.edges.map(el => el.node)
 
   return (
     <DefaultLayout location={location} pageTitle="Portfolio">

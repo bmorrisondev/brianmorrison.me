@@ -6,6 +6,57 @@ module.exports = class NotionToHtmlClient {
     this.key = key
   }
 
+  async generate(pageId, options) {
+    let page = await this.getPage(pageId)
+    let blocks = await this.getBlockChildren(page.id)
+
+    let retval = {}
+
+    if(!options.html && !options.raw) {
+      throw new Error("Must set `html` or `raw` to true.")
+    }
+
+    if(options.html) {
+      let html = "<div>"
+
+      let isMakingUl = false
+      let isMakingOl = false
+
+      blocks.results.forEach(el => {
+        if(el.type !== "bulleted_list_item" && isMakingUl) {
+          html += "</ul>"
+          isMakingUl = false
+        }
+        if(el.type !== "numbered_list_item" && isMakingOl) {
+          html += "</ol>"
+          isMakingOl = false
+        }
+        if(el.type === "bulleted_list_item" && !isMakingUl) {
+          html += "<ul>"
+          isMakingUl = true
+        }
+        if(el.type === "numbered_list_item" && !isMakingOl) {
+          html += "<ol>"
+          isMakingOl = true
+        }
+        html += this.makeHtml(el)
+      })
+
+      html += "</div>"
+      retval.html = html
+    }
+
+    if(options.raw) {
+      let raw = ""
+      blocks.results.forEach(el => {
+        raw += this.makeRaw(el)
+      })
+      retval.raw = raw
+    }
+
+    return retval
+  }
+
   async generateHtmlFromPage(pageId) {
     let html = "<div>"
 
@@ -232,6 +283,19 @@ module.exports = class NotionToHtmlClient {
       return this.makeCallout(block)
     }
 
+    return ""
+  }
+
+  makeRaw(block) {
+    if(block.type === "paragraph") {
+      let content = ""
+      block.paragraph.text.forEach(el => {
+        content += el.text.content + " "
+      })
+      return content
+    }
+
+    // TODO: other block types
     return ""
   }
 }

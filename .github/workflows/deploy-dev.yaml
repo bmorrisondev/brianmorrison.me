@@ -2,11 +2,11 @@ name: Deploy dev
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - dev
-    paths:
-      - website/**.*
+  # push:
+  #   branches:
+  #     - dev
+  #   paths:
+  #     - website/**.*
 
 jobs:
   deploy:
