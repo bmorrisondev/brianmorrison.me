@@ -138,7 +138,8 @@ async function normalizePosts(notionPosts) {
     }
 
     // Get page
-    n.html = await converter.generateHtmlFromPage(p.id)
+    let { html, raw } = await converter.generate(p.id, { html: true, raw: true})
+    n.html = html
 
     if(n.html.includes("wpms.brianmorrison.me")) {
       console.log("might have an external image:", n.title)
@@ -155,6 +156,10 @@ async function normalizePosts(notionPosts) {
     // Cache post icon
     if(p.icon?.file?.url) {
       n.icon = await cacheImage(n.slug, p.icon?.file?.url)
+    }
+
+    if(!n.excerpt) {
+      n.excerpt = raw.slice(0, 120) + "..."
     }
 
     // Add to putput
