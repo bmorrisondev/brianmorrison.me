@@ -13,58 +13,65 @@ const notion = new Client({
 let converter = new NotionToHtmlClient(process.env.NOTION_TOKEN)
 
 exports.sourceNodes = async ({ actions, createNodeId, createContentDigest }) => {
-  await loadNotionPosts(actions, createNodeId, createContentDigest)
-  await loadNotionPortfolioItems(actions, createNodeId, createContentDigest)
+  await loadNotionContent('notionPost', process.env.NOTION_CMS_DBID, actions, createNodeId, createContentDigest)
+  await loadNotionContent('notionPortfolioItem', process.env.NOTION_PORTFOLIOITEMS_DBID, actions, createNodeId, createContentDigest)
 };
 
-async function loadNotionPosts(actions, createNodeId, createContentDigest) {
+async function loadNotionContent(type, dbid, actions, createNodeId, createContentDigest) {
   const { results } = await notion.databases.query({
-    database_id: process.env.NOTION_CMS_DBID
+    database_id: dbid
   })
 
-  let normalized = await normalizePosts(results)
+  let normalized = await processNotionContent(type, results)
 
   normalized.forEach(n => {
     actions.createNode({
       ...n,
       id: createNodeId(n.id),
       internal: {
-        type: 'notionPost',
+        type,
         contentDigest: createContentDigest(n)
       }
     })
   })
 }
 
-async function loadNotionPostSeries(actions, createNodeId, createContentDigest) {
+function loadCachedContent(type) {
+  const path = `./content/${type}.json`
 
+  try {
+    if (fs.existsSync(path)) {
+      let str = fs.readFileSync(path)
+      return JSON.parse(str)
+    }
+  } catch(err) {
+    console.error(err)
+  }
+
+  return []
 }
 
-async function loadNotionPortfolioItems(actions, createNodeId, createContentDigest) {
-  const { results } = await notion.databases.query({
-    database_id: process.env.NOTION_PORTFOLIOITEMS_DBID
-  })
-
-  console.log(results)
-
-  let normalized = await normalizePosts(results)
-
-  normalized.forEach(n => {
-    actions.createNode({
-      ...n,
-      id: createNodeId(n.id),
-      internal: {
-        type: 'notionPortfolioItem',
-        contentDigest: createContentDigest(n)
-      }
-    })
-  })
+function saveCachedContent(type, content) {
+  const path = `./content/${type}.json`
+  fs.writeFileSync(path, JSON.stringify(content), 'utf8');
 }
 
-async function normalizePosts(notionPosts) {
+async function processNotionContent(type, notionPosts) {
+  // load cach
+  let needsRecache = false
+  let cached = loadCachedContent(type)
   let normalized = []
+
   for(let i = 0; i < notionPosts.length; i++) {
     let p = notionPosts[i]
+
+    // get last edited time
+    let lastEdited = Math.floor(new Date(p.last_edited_time).getTime() / 1000)
+    let cachedItem = cached.find(c => c.id === p.id)
+    if(cachedItem && cachedItem.cachedOn >= lastEdited) {
+      normalized.push(cachedItem)
+      continue
+    }
 
     let n = {
       id: p.id
@@ -167,8 +174,17 @@ async function normalizePosts(notionPosts) {
       }
     }
 
+    n.cachedOn = Math.floor(new Date().getTime() / 1000)
+
     // Add to putput
     normalized.push(n)
+
+    // If we got to this point, it needs to be recached
+    needsRecache = true
+  }
+
+  if(needsRecache) {
+    saveCachedContent(type, normalized)
   }
 
   return normalized
@@ -292,20 +308,14 @@ const createIndividualBlogPostPages = async function ({ posts, gatsbyUtilities }
   )
 }
 
-async function getNotionPosts({ graphql, reporter }) {
+async function getPortfolioItems({ graphql, reporter }) {
   const graphqlResult = await graphql(`
-    query NotionPosts {
-      allNotionPost(sort: {publishOn: DESC}) {
+    query NotionPortfolioItems {
+      allNotionPortfolioItem(sort: {date: DESC}) {
         edges {
-          previous {
-            id
-          }
           post: node {
             id
             slug
-          }
-          next {
-            id
           }
         }
       }
@@ -320,7 +330,7 @@ async function getNotionPosts({ graphql, reporter }) {
     return
   }
 
-  return graphqlResult.data.allNotionPost.edges
+  return graphqlResult.data.allNotionPortfolioItem.edges
 }
 
 const createIndividualPortfolioItemPages = async ({ portfolioItems, gatsbyUtilities }) => {
