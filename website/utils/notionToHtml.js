@@ -290,7 +290,7 @@ module.exports = class NotionToHtmlClient {
     if(block.type === "paragraph") {
       let content = ""
       block.paragraph.text.forEach(el => {
-        content += el.text.content
+        content += el.text.content + " "
       })
       return content
     }

@@ -13,7 +13,7 @@ const notion = new Client({
 let converter = new NotionToHtmlClient(process.env.NOTION_TOKEN)
 
 exports.sourceNodes = async ({ actions, createNodeId, createContentDigest }) => {
-  // await loadNotionPosts(actions, createNodeId, createContentDigest)
+  await loadNotionPosts(actions, createNodeId, createContentDigest)
   await loadNotionPortfolioItems(actions, createNodeId, createContentDigest)
 };
 
@@ -97,8 +97,9 @@ async function normalizePosts(notionPosts) {
           if(prop.rich_text.length > 0) {
             n.slug = prop.rich_text[0].text.content
           }
-        } else {
+        } else if(prop.rich_text.length > 0) {
           // TODO: Flatten this
+          console.log(prop)
           n[fieldName] = prop.rich_text[0].text.content
         }
       }
@@ -159,7 +160,11 @@ async function normalizePosts(notionPosts) {
     }
 
     if(!n.excerpt) {
-      n.excerpt = raw.slice(0, 120) + "..."
+      if (raw.length > 120) {
+        n.excerpt = raw.slice(0, 117) + "..."
+      } else {
+        n.excerpt = raw
+      }
     }
 
     // Add to putput
@@ -223,17 +228,17 @@ const downloadImage = async (url, path) => {
 
 exports.createPages = async gatsbyUtilities => {
   try {
-    // const notionPosts = await getNotionPosts(gatsbyUtilities)
-    // if (!notionPosts.length) {
-    //   return
-    // }
-    // await createIndividualBlogPostPages({ posts: notionPosts, gatsbyUtilities })
+    const notionPosts = await getNotionPosts(gatsbyUtilities)
+    if (!notionPosts.length) {
+      return
+    }
+    await createIndividualBlogPostPages({ posts: notionPosts, gatsbyUtilities })
 
-    // const portfolioItems = await getPortfolioItems(gatsbyUtilities)
-    // if (!portfolioItems.length) {
-    //   return
-    // }
-    // await createIndividualPortfolioItemPages({ portfolioItems, gatsbyUtilities })
+    const portfolioItems = await getPortfolioItems(gatsbyUtilities)
+    if (!portfolioItems.length) {
+      return
+    }
+    await createIndividualPortfolioItemPages({ portfolioItems, gatsbyUtilities })
   } catch (err) {
     console.error(err)
   }
@@ -325,9 +330,7 @@ const createIndividualPortfolioItemPages = async ({ portfolioItems, gatsbyUtilit
         path: `/portfolio/${post.slug}`,
         component: path.resolve(`./src/templates/portfolio-item.tsx`),
         context: {
-          id: post.id,
-          previousPostId: previous ? previous.id : null,
-          nextPostId: next ? next.id : null,
+          id: post.id
         },
       })
     )
@@ -336,19 +339,12 @@ const createIndividualPortfolioItemPages = async ({ portfolioItems, gatsbyUtilit
 
 async function getPortfolioItems({ graphql, reporter }) {
   const graphqlResult = await graphql(`
-    query WpPortfolioItems {
-      allWpPortfolioItem(sort: { fields: [date], order: DESC }) {
+    query NotionPortfolioItems {
+      allNotionPortfolioItem(sort: {date: DESC}) {
         edges {
-          previous {
-            id
-          }
           post: node {
             id
             slug
-            uri
-          }
-          next {
-            id
           }
         }
       }
@@ -363,5 +359,5 @@ async function getPortfolioItems({ graphql, reporter }) {
     return
   }
 
-  return graphqlResult.data.allWpPortfolioItem.edges
+  return graphqlResult.data.allNotionPortfolioItem.edges
 }

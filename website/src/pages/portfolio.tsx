@@ -1,28 +1,8 @@
 import React from 'react'
 import DefaultLayout from '../layouts/DefaultLayout'
-import { useStaticQuery, graphql, Link } from 'gatsby'
-import parse from "html-react-parser"
-import StylizedList from "../components/StylizedList"
+import { useStaticQuery, graphql } from 'gatsby'
 import Container from '../components/Container'
-import StylizedListItem from '../components/StylizedListItem'
-
-function PortfolioListItem({item}) {
-  return (
-    <div>
-      <Link to={`/portfolio/${item.slug}`} className="text-black">
-        <h2>{parse(item.title)}</h2>
-        <span className="excerpt">{ item.excerpt } </span>
-      </Link>
-      {item.tags && item.tags.length > 0 && (
-        <StylizedList>
-          {item.tags.map(t => (
-            <StylizedListItem key={`${item.id}-${t}`}>{t}</StylizedListItem>
-          ))}
-        </StylizedList>
-      )}
-    </div>
-  )
-}
+import PortfolioListItem from "../components/PortfolioListItem"
 
 function Portfolio({ location }) {
   const data = useStaticQuery(graphql`
