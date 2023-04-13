@@ -16,16 +16,12 @@ exports.createSchemaCustomization = ({ actions }) => {
   let { createTypes } = actions
   const typeDefs = `
     type notionPost implements Node {
-      rel_series: notionSeries @link(by: "series.id")
+      series: [notionSeries] @link(by: "notion_id", from: "relation_series")
+    }
+    type notionSeries implements Node {
+      posts: [notionPost] @link(by: "notion_id", from: "relation_posts")
     }
   `
-  // const typeDefs = `
-  //   type NotionPost implements Node {
-  //     series: NotionSeries @link(by: "id")
-  //   }
-  //   // implement this soon
-  //   // Author implements Node {}
-  // `
   createTypes(typeDefs)
 }
 
@@ -72,7 +68,8 @@ async function processNotionContent(type, notionPosts) {
     }
 
     let n = {
-      id: p.id
+      id: p.id,
+      notion_id: p.id
     }
 
     Object.keys(p.properties).forEach(k => {
@@ -104,7 +101,6 @@ async function processNotionContent(type, notionPosts) {
           }
         } else if(prop.rich_text.length > 0) {
           // TODO: Flatten this
-          console.log(prop)
           n[fieldName] = prop.rich_text[0].text.content
         }
       }
@@ -133,7 +129,10 @@ async function processNotionContent(type, notionPosts) {
         fieldName = `relation_${fieldName}`
         n[fieldName] = []
         prop.relation.forEach(el => n[fieldName].push(el.id))
-        console.log(n)
+      }
+
+      if(prop.type === "number") {
+        n[fieldName] = prop.number
       }
 
     }) // end loop

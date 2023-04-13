@@ -22,49 +22,21 @@ export const pageQuery = graphql`
   ) {
     post: notionPost(id: { eq: $id }) {
       id
-      # author {
-			# 	node {
-			# 		name
-      #     firstName
-      #     description
-      #     avatar {
-			# 			url
-      #     }
-      #   }
-      # }
-      # excerpt
+      excerpt
       html
       title
       publishOn(formatString: "MMMM DD, YYYY")
       featuredImage
       codeURL
-      # series {
-      #   nodes {
-      #     name
-      #     description
-      #     seriesFields {
-      #       icon {
-      #         altText
-      #         gatsbyImage(width: 25, height: 25)
-      #       }
-      #     }
-      #     posts {
-      #       nodes {
-      #         slug
-      #         title
-      #         blogPostFields {
-      #           seriesOrder
-      #         }
-      #       }
-      #     }
-      #   }
-      # }
-      # blogPostFields {
-      #   seriesOrder
-      #   videoUrl
-      #   githubUrl
-      #   hideFeaturedImage
-      # }
+      series {
+        title
+        slug 
+        posts {
+          slug
+          title
+          seriesOrder
+        }
+      }
     }
     previous: notionPost(id: { eq: $previousPostId }) {
       slug
@@ -78,40 +50,37 @@ export const pageQuery = graphql`
 `
 
 const BlogPostTemplate = ({ data, location }) => {
-  // const [githubUrl, setGithubUrl] = useState("")
   const [series, setSeries] = useState<SeriesCollection>()
   const { previous, next, post } = data
 
-  // useEffect(() => {
-  //   if(post.blogPostFields && post.blogPostFields.githubUrl) {
-  //     setGithubUrl(post.blogPostFields.githubUrl)
-  //   }
-
-  //   if(post.series && post.series.nodes && post.series.nodes.length) {
-  //     const sc: SeriesCollection = {
-  //       entries: []
-  //     }
-  //     sc.name = post.series.nodes[0].name
-  //     let sp: SeriesEntry[] = []
-  //     post.series.nodes[0].posts.nodes.forEach(p => {
-  //       let entry: SeriesEntry = {
-  //         order: p.blogPostFields.seriesOrder,
-  //         slug: p.slug,
-  //         title: p.title
-  //       }
-  //       sp.push(entry)
-  //     })
-  //     sp.sort((a: SeriesEntry, b: SeriesEntry) => Number(a.order) < Number(b.order) ? -1 : 1)
-  //     sc.entries = sp
-  //     if(post.series.nodes[0].seriesFields?.icon) {
-  //       sc.icon = post.series.nodes[0].seriesFields.icon
-  //     }
-  //     setSeries(sc)
-  //   }
-  // }, [])
+  useEffect(() => {
+    if(post?.series?.length > 0) {
+      const sc: SeriesCollection = {
+        entries: []
+      }
+      sc.name = post.series[0].title
+      let sp: SeriesEntry[] = []
+      post.series[0].posts.forEach(p => {
+        let entry: SeriesEntry = {
+          order: p.seriesOrder,
+          slug: p.slug,
+          title: p.title
+        }
+        sp.push(entry)
+      })
+      sp.sort((a: SeriesEntry, b: SeriesEntry) => Number(a.order) < Number(b.order) ? -1 : 1)
+      sc.entries = sp
+      if(post.series[0].icon) {
+        sc.icon = post.series[0].icon
+      }
+      console.log(post.series)
+      console.log(sc)
+      setSeries(sc)
+    }
+  }, [])
 
   function scrollToSeriesListing() {
-    let el = document.querySelector(".series-meta")
+    let el = document.querySelector("#series_collection")
     if(el) {
       el.scrollIntoView({
         behavior: 'smooth'
@@ -132,11 +101,13 @@ const BlogPostTemplate = ({ data, location }) => {
             <div className="post-meta">
               <StylizedList>
                 <StylizedListItem><Calendar />{post.publishOn}</StylizedListItem>
-                {series && series.name && (
+
+                {series?.name && (
                   <StylizedListItem onClick={() => scrollToSeriesListing()}>
                     <Series /> Series: {series.name}
                   </StylizedListItem>
                 )}
+
                 {post.codeURL && (
                   <StylizedListItem to={post.codeURL}>
                     <GitHub /> Visit GitHub Repo
@@ -150,11 +121,13 @@ const BlogPostTemplate = ({ data, location }) => {
           </header>
 
           {!!post.html && (
-            // <div className="post-content">{parse(post.content)}</div>
             <div className="post-content mb-4">{parse(post.html, { replace: replaceCode })}</div>
           )}
 
-          <BlogFooter location={location} articleTitle={parse(post.title) as string} seriesCollection={series} />
+          <BlogFooter 
+            location={location} 
+            articleTitle={parse(post.title) as string} 
+            seriesCollection={series} />
         </article>
 
         <nav className="blog-post-nav">

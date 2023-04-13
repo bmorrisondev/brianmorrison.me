@@ -59,7 +59,7 @@ function BlogFooter(props: Props) {
       </div>
 
       {seriesCollection && (
-        <div className='bg-accent-1 border-accent-2 border p-4 rounded md:col-span-2'>
+        <div id="series_collection" className='bg-accent-1 border-accent-2 border p-4 rounded md:col-span-2'>
           <span className="text-lg font-bold">
             Series: { seriesCollection.name }
           </span>
@@ -67,7 +67,7 @@ function BlogFooter(props: Props) {
             {seriesCollection.entries && seriesCollection.entries.map(e => (
               <span key={e.slug}>
                 {e.slug === activeSlug ? (
-                  <div className='italic'> {e.order}: {e.title} </div>
+                  <div> {e.order}: {e.title} </div>
                 ) : (
                   <Link to={`/blog/${e.slug}`}>{e.order}: {e.title} </Link>
                 )}
