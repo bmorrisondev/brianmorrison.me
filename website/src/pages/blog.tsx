@@ -1,9 +1,8 @@
 import { graphql, useStaticQuery, Link } from 'gatsby'
-import { GatsbyImage } from 'gatsby-plugin-image'
 import React from 'react'
 import Container from '../components/Container'
 import DefaultLayout from '../layouts/DefaultLayout'
-import Paper from '../components/svgs/Paper'
+import PostIcon from '../components/PostIcon'
 
 function Blog({ location }) {
   const data = useStaticQuery(graphql`
@@ -17,16 +16,9 @@ function Blog({ location }) {
             title
             category
             publishOn(formatString: "MMMM DD, YYYY")
-            # series {
-            #   nodes {
-            #     seriesFields {
-            #       icon {
-            #         altText
-            #         gatsbyImage(width: 25, height: 25)
-            #       }
-            #     }
-            #   }
-            # }
+            series {
+              icon
+            }
           }
         }
       }
@@ -52,16 +44,7 @@ function Blog({ location }) {
               {/* Main link */}
               <Link to={`/blog/${p.slug}`}
                 className='text-black text-lg font-bold transition hover:text-gradientBlue flex items-center'>
-                {p.series && p.series.nodes && p.series.nodes.length && p.series.nodes[0].seriesFields && p.series.nodes[0].seriesFields.icon ? (
-                  <img className="max-w-[25px] max-h-[25px] mr-2 rounded"
-                    src={p.series.nodes[0].seriesFields.icon.gatsbyImage}
-                    alt={p.series.nodes[0].seriesFields.icon.altText} />
-                  ) : p.icon
-                  ? <img className="max-w-[25px] max-h-[25px] mr-2 rounded"
-                    src={p.icon}
-                    alt="blog-post-icon" />
-                  : <Paper className="mr-2 text-slate-700" />
-                }
+                <PostIcon post={p} />
                 <span>{p.title}</span>
               </Link>
             </div>

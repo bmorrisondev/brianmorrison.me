@@ -62,6 +62,10 @@ a {
   @apply text-gradientBlue;
 }
 
+article a {
+  @apply border-b border-b-gray-300 text-gray-700 hover:border-b-black hover:text-black transition;
+}
+
 p code, li code {
   color: red;
   /* background-color: rgb(29, 31, 33); */

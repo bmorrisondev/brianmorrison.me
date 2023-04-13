@@ -249,7 +249,7 @@ module.exports = class NotionToHtmlClient {
     if(block.callout.icon.type === "emoji") {
       callout += `<div class="callout-icon">${block.callout.icon.emoji}</div>`
     }
-    callout += this.parseTextArray(block.callout.text)
+    callout += `<div class="callout-content">${this.parseTextArray(block.callout.text)}</div>`
     callout += "</div>"
     return callout
   }
