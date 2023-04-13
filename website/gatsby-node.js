@@ -12,9 +12,27 @@ const notion = new Client({
 
 let converter = new NotionToHtmlClient(process.env.NOTION_TOKEN)
 
+exports.createSchemaCustomization = ({ actions }) => {
+  let { createTypes } = actions
+  const typeDefs = `
+    type notionPost implements Node {
+      rel_series: notionSeries @link(by: "series.id")
+    }
+  `
+  // const typeDefs = `
+  //   type NotionPost implements Node {
+  //     series: NotionSeries @link(by: "id")
+  //   }
+  //   // implement this soon
+  //   // Author implements Node {}
+  // `
+  createTypes(typeDefs)
+}
+
 exports.sourceNodes = async ({ actions, createNodeId, createContentDigest }) => {
   await loadNotionContent('notionPost', process.env.NOTION_CMS_DBID, actions, createNodeId, createContentDigest)
   await loadNotionContent('notionPortfolioItem', process.env.NOTION_PORTFOLIOITEMS_DBID, actions, createNodeId, createContentDigest)
+  await loadNotionContent('notionSeries', process.env.NOTION_SERIES_DBID, actions, createNodeId, createContentDigest)
 };
 
 async function loadNotionContent(type, dbid, actions, createNodeId, createContentDigest) {
@@ -34,26 +52,6 @@ async function loadNotionContent(type, dbid, actions, createNodeId, createConten
       }
     })
   })
-}
-
-function loadCachedContent(type) {
-  const path = `./content/${type}.json`
-
-  try {
-    if (fs.existsSync(path)) {
-      let str = fs.readFileSync(path)
-      return JSON.parse(str)
-    }
-  } catch(err) {
-    console.error(err)
-  }
-
-  return []
-}
-
-function saveCachedContent(type, content) {
-  const path = `./content/${type}.json`
-  fs.writeFileSync(path, JSON.stringify(content), 'utf8');
 }
 
 async function processNotionContent(type, notionPosts) {
@@ -130,7 +128,15 @@ async function processNotionContent(type, notionPosts) {
         n[fieldName] = []
         prop.multi_select.forEach(el => n[fieldName].push(el.name))
       }
-    })
+
+      if(prop.type === "relation") {
+        fieldName = `relation_${fieldName}`
+        n[fieldName] = []
+        prop.relation.forEach(el => n[fieldName].push(el.id))
+        console.log(n)
+      }
+
+    }) // end loop
 
     // Setup slug
     if(!n.title) {
@@ -188,58 +194,6 @@ async function processNotionContent(type, notionPosts) {
   }
 
   return normalized
-}
-
-function camelize(str) {
-  return str.replace(/(?:^\w|[A-Z]|\b\w)/g, function(word, index) {
-    return index === 0 ? word.toLowerCase() : word.toUpperCase();
-  }).replace(/\s+/g, '');
-}
-
-async function cacheImagesAndUpdateHtml(slug, html) {
-  const regexp = /<img.*?src=['"](.*?)['"].*?>/g;
-  const matches = [...html.matchAll(regexp)];
-  const imgUrls = []
-  matches.forEach(m => {
-    if(m[1]) {
-      imgUrls.push(m[1])
-    }
-  })
-
-  for(let i = 0; i < imgUrls.length; i++) {
-    let imageUrl = imgUrls[i]
-
-    // Cache images and replace img url in the html
-    let src = await cacheImage(slug, imageUrl)
-    html = html.replace(imageUrl, src)
-  }
-
-  return html
-}
-
-async function cacheImage(slug, imageUrl) {
-  let spl = imageUrl.split("/")
-  let fileName = `${spl[spl.length-2]}-${spl[spl.length - 1].split("?")[0]}`
-  let imagePath = `/img/n/${slug}`
-  let downloadPath = "./static" + imagePath
-  let filePath = downloadPath + `/${fileName}`
-
-  // If the file doesnt exist, make the dir & download the file
-  if(!fs.existsSync(filePath)) {
-    await fs.promises.mkdir(downloadPath, { recursive: true })
-    await downloadImage(imageUrl, filePath)
-  }
-
-  // Return the value to use in `src`
-  return imagePath += `/${fileName}`
-}
-
-const downloadImage = async (url, path) => {
-  const response = await fetch(url);
-  const blob = await response.blob();
-  const arrayBuffer = await blob.arrayBuffer();
-  const buffer = Buffer.from(arrayBuffer);
-  await fs.promises.writeFile(path, buffer);
 }
 
 exports.createPages = async gatsbyUtilities => {
@@ -371,3 +325,85 @@ async function getPortfolioItems({ graphql, reporter }) {
 
   return graphqlResult.data.allNotionPortfolioItem.edges
 }
+
+// TODO: Export this
+// #region Utils
+
+function camelize(str) {
+  return str.replace(/(?:^\w|[A-Z]|\b\w)/g, function(word, index) {
+    return index === 0 ? word.toLowerCase() : word.toUpperCase();
+  }).replace(/\s+/g, '');
+}
+
+// #endregion
+
+// TODO: Export this into a new file
+// #region Caching
+
+function loadCachedContent(type) {
+  const path = `./content/${type}.json`
+
+  try {
+    if (fs.existsSync(path)) {
+      let str = fs.readFileSync(path)
+      return JSON.parse(str)
+    }
+  } catch(err) {
+    console.error(err)
+  }
+
+  return []
+}
+
+function saveCachedContent(type, content) {
+  const path = `./content/${type}.json`
+  fs.writeFileSync(path, JSON.stringify(content), 'utf8');
+}
+
+async function cacheImagesAndUpdateHtml(slug, html) {
+  const regexp = /<img.*?src=['"](.*?)['"].*?>/g;
+  const matches = [...html.matchAll(regexp)];
+  const imgUrls = []
+  matches.forEach(m => {
+    if(m[1]) {
+      imgUrls.push(m[1])
+    }
+  })
+
+  for(let i = 0; i < imgUrls.length; i++) {
+    let imageUrl = imgUrls[i]
+
+    // Cache images and replace img url in the html
+    let src = await cacheImage(slug, imageUrl)
+    html = html.replace(imageUrl, src)
+  }
+
+  return html
+}
+
+async function cacheImage(slug, imageUrl) {
+  let spl = imageUrl.split("/")
+  let fileName = `${spl[spl.length-2]}-${spl[spl.length - 1].split("?")[0]}`
+  let imagePath = `/img/n/${slug}`
+  let downloadPath = "./static" + imagePath
+  let filePath = downloadPath + `/${fileName}`
+
+  // If the file doesnt exist, make the dir & download the file
+  if(!fs.existsSync(filePath)) {
+    await fs.promises.mkdir(downloadPath, { recursive: true })
+    await downloadImage(imageUrl, filePath)
+  }
+
+  // Return the value to use in `src`
+  return imagePath += `/${fileName}`
+}
+
+const downloadImage = async (url, path) => {
+  const response = await fetch(url);
+  const blob = await response.blob();
+  const arrayBuffer = await blob.arrayBuffer();
+  const buffer = Buffer.from(arrayBuffer);
+  await fs.promises.writeFile(path, buffer);
+}
+
+// #endregion
