@@ -25,7 +25,8 @@ function Blog({ location }) {
     }
   `)
 
-  const posts = data.allNotionPost.edges.map(el => el.node)
+  let posts = data.allNotionPost.edges.map(el => el.node)
+  posts.sort((a, b) => new Date(a.publishOn) < new Date(b.publishOn))
 
   return (
     <DefaultLayout location={location} pageTitle="Blog">
