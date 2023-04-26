@@ -18,7 +18,7 @@ function StylizedListItemBase({ children, className }: Props) {
 
 function StylizedListItem({ children, to, className, onClick }: Props) {
   if(to && to.startsWith("http")) {
-    return <a href={to} target="_blank">
+    return <a className="stylized-li" href={to} target="_blank">
       <StylizedListItemBase className={`text-black hover:bg-gradient-to-r from-gradientPurple to-gradientBlue hover:text-white ${className}`}>
         { children }
       </StylizedListItemBase>
