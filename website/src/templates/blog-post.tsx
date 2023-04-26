@@ -28,6 +28,7 @@ export const pageQuery = graphql`
       publishOn(formatString: "MMMM DD, YYYY")
       featuredImage
       codeURL
+      blogHeader
       series {
         title
         slug 
@@ -73,8 +74,6 @@ const BlogPostTemplate = ({ data, location }) => {
       if(post.series[0].icon) {
         sc.icon = post.series[0].icon
       }
-      console.log(post.series)
-      console.log(sc)
       setSeries(sc)
     }
   }, [])
@@ -96,6 +95,13 @@ const BlogPostTemplate = ({ data, location }) => {
       description={post.excerpt} >
       <Container>
         <article className="blog-post" itemScope itemType="http://schema.org/Article" >
+
+
+
+          {post.blogHeader && post.blogHeader.length > 0 && (
+            <img src={post.blogHeader[0]} alt="Blog post header" className="header-img" />
+          )}
+          
           <header>
             <h1 itemProp="headline" className="my-0 py-0">{parse(post.title)}</h1>
             <div className="post-meta">

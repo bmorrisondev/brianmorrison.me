@@ -88,6 +88,10 @@ p code, li code {
   @apply border border-accent-2 rounded mb-2 mx-auto;
 }
 
+.blog-post .header-img {
+  @apply rounded-3xl;
+}
+
 .blog-post ul, .blog-post ol {
   @apply ml-4 mb-4;
 }
