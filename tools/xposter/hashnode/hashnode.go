@@ -3,14 +3,13 @@ package hashnode
 import (
 	"context"
 	"fmt"
-	"log"
 	"os"
-	"xposter/wordpress"
+	"xposter/localdata"
 
 	"github.com/machinebox/graphql"
 )
 
-func PublishPost(post wordpress.Post) {
+func PublishPost(post localdata.CachedPost) error {
 	baseQuery := `
 		mutation {
 			createStory(input: {
@@ -33,13 +32,14 @@ func PublishPost(post wordpress.Post) {
 		}
 	`
 
-	originalUrl := fmt.Sprintf("https://brianmorrison.me/blog/%v", post.Slug)
+	body := post.MarkdownBody(true)
+
 	query := fmt.Sprintf(baseQuery,
-		post.Title.Rendered,
+		post.Title,
 		os.Getenv("HASHNODE_PUB_ID"),
-		post.MarkdownBody(),
-		post.JetpackFeaturedMediaURL,
-		originalUrl)
+		body,
+		post.FeaturedImageUrl(),
+		post.CanonicalUrl())
 
 	client := graphql.NewClient("https://api.hashnode.com")
 	request := graphql.NewRequest(query)
@@ -47,6 +47,7 @@ func PublishPost(post wordpress.Post) {
 	var response interface{}
 	err := client.Run(context.Background(), request, &response)
 	if err != nil {
-		log.Fatal(err)
+		return err
 	}
+	return nil
 }
