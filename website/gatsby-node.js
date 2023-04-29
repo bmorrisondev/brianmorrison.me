@@ -82,6 +82,7 @@ async function processNotionContent(type, notionPosts) {
       lower: true,
       strict: true
     }
+    let filesProps = []
 
     Object.keys(p.properties).forEach(k => {
       let prop = p.properties[k]
@@ -149,16 +150,29 @@ async function processNotionContent(type, notionPosts) {
         n[fieldName] = prop.number
       }
 
+      // This is deferred to make sure the slug is set first
+      if(prop.type === "files" && prop?.files?.length > 0) {
+        filesProps.push({
+          fieldName,
+          prop
+        })
+      }
     }) // end loop
 
-    // Setup slug
     if(!n.title) {
       console.warn("post does not have title:", n)
       continue
     }
 
+    // Setup slug
     if(!n.slug) {
       n.slug = slugify(n.title, slugOpts)
+    }
+
+    // Now that the slug is set, cache files
+    for(let j = 0; j < filesProps.length; j++) {
+      let { fieldName, prop } = filesProps[j]
+      n[fieldName] = await cacheFilesProp(n.slug, prop)
     }
 
     // Get page
@@ -204,6 +218,18 @@ async function processNotionContent(type, notionPosts) {
   }
 
   return normalized
+}
+
+async function cacheFilesProp(slug, prop) {
+  let srcs = []
+  for(let i = 0; i < prop.files.length; i++) {
+    let file = prop.files[i]
+    if(file?.file?.url) {
+      let src = await cacheImage(slug, file.file.url)
+      srcs.push(src)
+    }
+  }
+  return srcs
 }
 
 exports.createPages = async gatsbyUtilities => {

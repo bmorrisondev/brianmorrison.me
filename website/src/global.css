@@ -62,7 +62,7 @@ a {
   @apply text-gradientBlue;
 }
 
-article a {
+article a:not(.stylized-li) {
   @apply border-b border-b-gray-300 text-gray-700 hover:border-b-black hover:text-black transition;
 }
 
@@ -86,6 +86,10 @@ p code, li code {
 
 .blog-post img {
   @apply border border-accent-2 rounded mb-2 mx-auto;
+}
+
+.blog-post .header-img {
+  @apply rounded-3xl;
 }
 
 .blog-post ul, .blog-post ol {
