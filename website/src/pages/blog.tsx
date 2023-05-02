@@ -14,7 +14,6 @@ function Blog({ location }) {
             slug
             icon
             title
-            category
             publishOn(formatString: "MMMM DD, YYYY")
             series {
               icon

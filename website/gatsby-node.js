@@ -30,7 +30,7 @@ exports.sourceNodes = async ({ actions, createNodeId, createContentDigest }) => 
   await loadNotionContent('notionPortfolioItem', process.env.NOTION_PORTFOLIOITEMS_DBID, actions, createNodeId, createContentDigest)
   await loadNotionContent('notionSeries', process.env.NOTION_SERIES_DBID, actions, createNodeId, createContentDigest)
 
-  await loadCategories()
+  // await loadCategories()
 };
 
 async function loadCategories({ graphql, reporter }) {
@@ -245,12 +245,12 @@ exports.createPages = async gatsbyUtilities => {
       return
     }
     await createIndividualPortfolioItemPages({ portfolioItems, gatsbyUtilities })
-
-    const postCategories = await getNotionPostCategories(gatsbyUtilities)
-    if (!portfolioItems.length) {
-      return
-    }
-    await createCategoryPages({ postCategories, gatsbyUtilities })
+`
+    // const postCategories = await getNotionPostCategories(gatsbyUtilities)
+    // if (!portfolioItems.length) {
+    //   return
+    // }
+    // await createCategoryPages({ postCategories, gatsbyUtilities })`
   } catch (err) {
     console.error(err)
   }
