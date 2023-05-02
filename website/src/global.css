@@ -62,7 +62,7 @@ a {
   @apply text-gradientBlue;
 }
 
-article a {
+article a:not(.stylized-li) {
   @apply border-b border-b-gray-300 text-gray-700 hover:border-b-black hover:text-black transition;
 }
 

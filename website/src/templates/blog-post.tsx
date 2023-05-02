@@ -96,12 +96,10 @@ const BlogPostTemplate = ({ data, location }) => {
       <Container>
         <article className="blog-post" itemScope itemType="http://schema.org/Article" >
 
-
-
           {post.blogHeader && post.blogHeader.length > 0 && (
             <img src={post.blogHeader[0]} alt="Blog post header" className="header-img" />
           )}
-          
+
           <header>
             <h1 itemProp="headline" className="my-0 py-0">{parse(post.title)}</h1>
             <div className="post-meta">

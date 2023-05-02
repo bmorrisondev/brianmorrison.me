@@ -29,7 +29,13 @@ exports.sourceNodes = async ({ actions, createNodeId, createContentDigest }) => 
   await loadNotionContent('notionPost', process.env.NOTION_CMS_DBID, actions, createNodeId, createContentDigest)
   await loadNotionContent('notionPortfolioItem', process.env.NOTION_PORTFOLIOITEMS_DBID, actions, createNodeId, createContentDigest)
   await loadNotionContent('notionSeries', process.env.NOTION_SERIES_DBID, actions, createNodeId, createContentDigest)
+
+  await loadCategories()
 };
+
+async function loadCategories({ graphql, reporter }) {
+  let categories = await getNotionPostCategories()
+}
 
 async function loadNotionContent(type, dbid, actions, createNodeId, createContentDigest) {
   const { results } = await notion.databases.query({
@@ -72,6 +78,10 @@ async function processNotionContent(type, notionPosts) {
       notion_id: p.id
     }
 
+    let slugOpts = {
+      lower: true,
+      strict: true
+    }
     let filesProps = []
 
     Object.keys(p.properties).forEach(k => {
@@ -119,7 +129,10 @@ async function processNotionContent(type, notionPosts) {
       }
 
       if(prop.type === "select" && prop.select?.name) {
-        n[fieldName] = prop.select.name.toLowerCase()
+        n[fieldName] = {
+          slug: slugify(prop.select.name, slugOpts),
+          name: prop.select.name
+        }
       }
 
       if(prop.type === "multi_select") {
@@ -150,13 +163,10 @@ async function processNotionContent(type, notionPosts) {
       console.warn("post does not have title:", n)
       continue
     }
-    
+
     // Setup slug
     if(!n.slug) {
-      n.slug = slugify(n.title, {
-        lower: true,
-        strict: true
-      })
+      n.slug = slugify(n.title, slugOpts)
     }
 
     // Now that the slug is set, cache files
@@ -235,6 +245,12 @@ exports.createPages = async gatsbyUtilities => {
       return
     }
     await createIndividualPortfolioItemPages({ portfolioItems, gatsbyUtilities })
+
+    const postCategories = await getNotionPostCategories(gatsbyUtilities)
+    if (!portfolioItems.length) {
+      return
+    }
+    await createCategoryPages({ postCategories, gatsbyUtilities })
   } catch (err) {
     console.error(err)
   }
@@ -269,6 +285,43 @@ async function getNotionPosts({ graphql, reporter }) {
   }
 
   return graphqlResult.data.allNotionPost.edges
+}
+
+async function getNotionPostCategories({ graphql, reporter }) {
+  const graphqlResult = await graphql(`
+    query NotionPostCategories {
+      allNotionPost {
+        edges {
+          post: node {
+            category {
+              name
+              slug
+            }
+          }
+        }
+      }
+    }
+  `)
+
+  if (graphqlResult.errors) {
+    reporter.panicOnBuild(
+      `There was an error loading your blog posts`,
+      graphqlResult.errors
+    )
+    return
+  }
+
+  let categories = []
+  graphqlResult.data.allNotionPost.edges.forEach(edge => {
+    let { post } = edge
+    if(post.category) {
+      let existing = categories.find(c => c.slug === post.category.slug)
+      if(!existing) {
+        categories.push(post.category)
+      }
+    }
+  })
+  return categories
 }
 
 const createIndividualBlogPostPages = async function ({ posts, gatsbyUtilities }) {

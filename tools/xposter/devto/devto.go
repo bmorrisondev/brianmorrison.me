@@ -3,20 +3,25 @@ package devto
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
-	"xposter/wordpress"
+	"xposter/localdata"
+
+	"github.com/pkg/errors"
 )
 
-func PublishPost(post wordpress.Post) {
+func PublishPost(post localdata.CachedPost) error {
+	bodyMarkdown := post.MarkdownBody(true)
+
 	body := PublishPostRequestBody{
 		Article: Article{
-			Title:        post.Title.Rendered,
+			Title:        post.Title,
 			Published:    true,
-			BodyMarkdown: post.MarkdownBody(),
-			MainImage:    post.JetpackFeaturedMediaURL,
+			BodyMarkdown: bodyMarkdown,
+			MainImage:    post.FeaturedImageUrl(),
 			CanonicalUrl: post.CanonicalUrl(),
 		},
 	}
@@ -35,17 +40,20 @@ func PublishPost(post wordpress.Post) {
 	c := http.Client{}
 	res, err := c.Do(req)
 	if err != nil {
-		log.Fatal(err)
+		return err
 	}
 	defer res.Body.Close()
 
-	bbytes, err := ioutil.ReadAll(res.Body)
-	if err != nil {
-		log.Panic(err)
-	}
-	log.Println(string(bbytes))
+	if res.StatusCode < 200 || res.StatusCode > 299 {
+		jbytes, err := ioutil.ReadAll(res.Body)
+		if err != nil {
+			return err
+		}
 
-	log.Println("done!")
+		return errors.New(fmt.Sprintf("non success code %v returned: %v", res.StatusCode, string(jbytes)))
+	}
+
+	return nil
 }
 
 type PublishPostRequestBody struct {
