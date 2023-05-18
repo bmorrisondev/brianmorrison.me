@@ -16,11 +16,12 @@ function YouTubeEmbed(props: Props) {
   }, [])
 
   return (
-    <div className='youtube-embed'>
+    <div className='youtube-embed shadow-lg'>
       <iframe
         src={`https://www.youtube.com/embed/${videoId}`}
         frameBorder="0"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        className="border-4 border-accent2"
         allowFullScreen>
       </iframe>
     </div>

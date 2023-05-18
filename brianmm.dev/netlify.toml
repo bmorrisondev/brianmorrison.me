@@ -1,0 +1,10 @@
+[build]
+  base = "/brianmm.dev"
+  publish = "/dist"
+  command = "npm run build"
+
+[context.production]
+  publish = "/dist"
+
+[[plugins]]
+package = "@netlify/plugin-nextjs"

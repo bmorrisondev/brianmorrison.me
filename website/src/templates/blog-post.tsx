@@ -29,6 +29,7 @@ export const pageQuery = graphql`
       featuredImage
       codeURL
       blogHeader
+      youTubeURL
       series {
         title
         slug 
@@ -119,8 +120,8 @@ const BlogPostTemplate = ({ data, location }) => {
                 )}
               </StylizedList>
             </div>
-            {post.blogPostFields && post.blogPostFields.videoUrl && (
-              <YouTubeEmbed url={post.blogPostFields.videoUrl} />
+            {post.youTubeURL && (
+              <YouTubeEmbed url={post.youTubeURL} />
             )}
           </header>
 
