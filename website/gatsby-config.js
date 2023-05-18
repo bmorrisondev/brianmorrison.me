@@ -8,25 +8,6 @@ module.exports = {
   },
   plugins: [
     'gatsby-plugin-postcss',
-    // {
-    //   resolve: 'gatsby-source-wordpress',
-    //   options: {
-    //     "url": process.env.WP_URL,
-    //     auth: {
-    //       htaccess: {
-    //         username: process.env.WP_USERNAME,
-    //         password: process.env.WP_PASSWORD
-    //       }
-    //     },
-    //     html: {
-    //       useGatsbyImage: false,
-    //     },
-    //     develop: {
-    //       hardCacheMediaFiles: true,
-    //     },
-    //   }
-    // },
-    "gatsby-plugin-styled-components",
     "gatsby-plugin-image",
     "gatsby-plugin-sharp",
     "gatsby-plugin-react-helmet",
@@ -38,12 +19,6 @@ module.exports = {
         "path": "./src/images/"
       },
       __key: "images"
-    },
-    {
-      resolve: `gatsby-plugin-google-adsense`,
-      options: {
-        publisherId: `ca-pub-7070984643674033`
-      },
     },
     // {
     //   resolve: 'gatsby-plugin-feed',
