@@ -21,6 +21,9 @@ exports.createSchemaCustomization = ({ actions }) => {
     type notionSeries implements Node {
       posts: [notionPost] @link(by: "notion_id", from: "relation_posts")
     }
+    type notionEmploymentHistoryItem implements Node {
+      notableProjects: [notionPortfolioItem] @link(by: "notion_id", from: "relation_notableProjects")
+    }
   `
   createTypes(typeDefs)
 }
@@ -29,6 +32,7 @@ exports.sourceNodes = async ({ actions, createNodeId, createContentDigest }) => 
   await loadNotionContent('notionPost', process.env.NOTION_CMS_DBID, actions, createNodeId, createContentDigest)
   await loadNotionContent('notionPortfolioItem', process.env.NOTION_PORTFOLIOITEMS_DBID, actions, createNodeId, createContentDigest)
   await loadNotionContent('notionSeries', process.env.NOTION_SERIES_DBID, actions, createNodeId, createContentDigest)
+  await loadNotionContent('notionEmploymentHistoryItem', process.env.NOTION_EMP_HIST_DBID, actions, createNodeId, createContentDigest)
 
   // await loadCategories()
 };
