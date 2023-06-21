@@ -133,15 +133,16 @@ function About({ location }) {
                 {j.notableProjects && j.notableProjects.length > 0 && (
                   <div>
                     <p className="italic">Notable projects:</p>
-                    <ul>
+                    <div className="grid md:grid-cols-3 gap-2">
                       {j.notableProjects.map(el => (
-                        <li>
-                          <Link to={`/portfolio/${el.slug}`}>
-                            { el.title }
-                          </Link>
-                        </li>
+                        <Link to={`/portfolio/${el.slug}`}>
+                          <div className="bg-white rounded border-2 border-accent-1 p-2 text-[#010101] hover:shadow-xl transition-all">
+                            <div className="font-bold">{ el.title }</div>
+                            <div>{ el.excerpt }</div>
+                          </div>
+                        </Link>
                       ))}
-                    </ul>
+                    </div>
                   </div>
                 )}
               </div>
