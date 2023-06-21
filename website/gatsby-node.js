@@ -42,6 +42,7 @@ async function loadCategories({ graphql, reporter }) {
 }
 
 async function loadNotionContent(type, dbid, actions, createNodeId, createContentDigest) {
+  console.log('loading type:', type)
   const { results } = await notion.databases.query({
     database_id: dbid
   })
