@@ -38,6 +38,7 @@ function About({ location }) {
               slug
               title
               excerpt
+              status
             }
           }
         }
@@ -46,7 +47,6 @@ function About({ location }) {
   `)
 
   const jobs = data.allNotionEmploymentHistoryItem.edges.map(el => el.node)
-  console.log(jobs)
 
   return (
     <DefaultLayout location={location} pageTitle="About Me">
@@ -130,11 +130,11 @@ function About({ location }) {
                   </BlockQuote>
                 )}
                 <div dangerouslySetInnerHTML={{__html: j.html}}></div>
-                {j.notableProjects && j.notableProjects.length > 0 && (
+                {j.notableProjects && j.notableProjects.length > 0 && j.notableProjects.filter(p => p.status === "Published").length > 0 && (
                   <div>
                     <p className="italic">Notable projects:</p>
                     <div className="grid md:grid-cols-3 gap-2">
-                      {j.notableProjects.map(el => (
+                      {j.notableProjects.filter(p => p.status === "Published").map(el => (
                         <Link to={`/portfolio/${el.slug}`}>
                           <div className="bg-white rounded border-2 border-accent-1 p-2 text-[#010101] hover:shadow-xl transition-all">
                             <div className="font-bold">{ el.title }</div>
