@@ -7,7 +7,16 @@ import PortfolioListItem from "../components/PortfolioListItem"
 function Portfolio({ location }) {
   const data = useStaticQuery(graphql`
     {
-      allNotionPortfolioItem(sort:{date: DESC}) {
+      allNotionPortfolioItem(
+        filter: {
+          status: {
+            eq: "Published"
+          }
+        }
+        sort: {
+          date: DESC
+        }
+      ) {
         edges {
           node {
             id
@@ -15,13 +24,19 @@ function Portfolio({ location }) {
             title
             excerpt
             tags
+            date
+            skillsUsed {
+              icon
+              name
+            }
+            job {
+              companyName
+            }
           }
         }
       }
     }
   `)
-
-  console.log(data)
 
   const posts = data.allNotionPortfolioItem.edges.map(el => el.node)
 
@@ -29,7 +44,7 @@ function Portfolio({ location }) {
     <DefaultLayout location={location} pageTitle="Portfolio">
       <Container>
         <h1>Portfolio</h1>
-        <div>
+        <div className="grid md:grid-cols-3 gap-2">
           {posts.map(p => <PortfolioListItem key={posts.id} item={p} />)}
         </div>
       </Container>

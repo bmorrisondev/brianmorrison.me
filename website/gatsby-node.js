@@ -24,6 +24,10 @@ exports.createSchemaCustomization = ({ actions }) => {
     type notionEmploymentHistoryItem implements Node {
       notableProjects: [notionPortfolioItem] @link(by: "notion_id", from: "relation_notableProjects")
     }
+    type notionPortfolioItem implements Node {
+      skillsUsed: [notionTag] @link(by: "notion_id", from: "relation_skillsUsed")
+      job: [notionEmploymentHistoryItem] @link(by: "notion_id", from: "relation_job")
+    }
   `
   createTypes(typeDefs)
 }
@@ -33,6 +37,7 @@ exports.sourceNodes = async ({ actions, createNodeId, createContentDigest }) => 
   await loadNotionContent('notionPortfolioItem', process.env.NOTION_PORTFOLIOITEMS_DBID, actions, createNodeId, createContentDigest)
   await loadNotionContent('notionSeries', process.env.NOTION_SERIES_DBID, actions, createNodeId, createContentDigest)
   await loadNotionContent('notionEmploymentHistoryItem', process.env.NOTION_EMP_HIST_DBID, actions, createNodeId, createContentDigest)
+  await loadNotionContent('notionTag', process.env.NOTION_TAGS_DBID, actions, createNodeId, createContentDigest)
 
   // await loadCategories()
 };
@@ -94,8 +99,15 @@ async function processNotionContent(type, notionPosts) {
       let fieldName = camelize(k)
       if(prop.type === "title" && prop.title.length > 0) {
         n.title = ""
+        if(fieldName !== "title") {
+          n[fieldName] = ""
+        }
+        n[fieldName] = ""
         prop.title.forEach(t => {
-          n[fieldName] += t.text.content
+          if(fieldName !== "title") {
+            n[fieldName] += t.text.content
+          }
+          n["title"] += t.text.content
         })
       }
 
