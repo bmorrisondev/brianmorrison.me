@@ -7,6 +7,7 @@ import DefaultLayout from '../layouts/DefaultLayout'
 import socials from '../socials'
 import StylizedListItem from '../components/StylizedListItem'
 import BlockQuote from '../components/BlockQuote'
+import PortfolioListItem from '../components/PortfolioListItem'
 
 function About({ location }) {
   const data = useStaticQuery(graphql`
@@ -39,6 +40,10 @@ function About({ location }) {
               title
               excerpt
               status
+              skillsUsed {
+                icon
+                name
+              }
             }
           }
         }
@@ -135,12 +140,7 @@ function About({ location }) {
                     <p className="italic">Notable projects:</p>
                     <div className="grid md:grid-cols-3 gap-2">
                       {j.notableProjects.filter(p => p.status === "Published").map(el => (
-                        <Link to={`/portfolio/${el.slug}`}>
-                          <div className="bg-white rounded border-2 border-accent-1 p-2 text-[#010101] hover:shadow-xl transition-all">
-                            <div className="font-bold">{ el.title }</div>
-                            <div>{ el.excerpt }</div>
-                          </div>
-                        </Link>
+                        <PortfolioListItem item={el} />
                       ))}
                     </div>
                   </div>
