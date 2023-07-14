@@ -76,14 +76,6 @@ function ContactForm() {
           onChange={e => setMessage(e.target.value)}
           rows={4}  />
       </div>
-      <div className='flex space-x-2 items-center mb-2'>
-        <input
-          type="checkbox"
-          checked={optInToNewsletter}
-          onChange={() => setOptInToNewsletter(!optInToNewsletter)}
-          />
-        <span>Opt in to newsletter</span>
-      </div>
       <div className="flex items-center space-x-2">
         <Button onClick={() => submit()} disabled={formState !== FormState.None}>
           Send
