@@ -38,6 +38,7 @@ exports.sourceNodes = async ({ actions, createNodeId, createContentDigest }) => 
   await loadNotionContent('notionSeries', process.env.NOTION_SERIES_DBID, actions, createNodeId, createContentDigest)
   await loadNotionContent('notionEmploymentHistoryItem', process.env.NOTION_EMP_HIST_DBID, actions, createNodeId, createContentDigest)
   await loadNotionContent('notionTag', process.env.NOTION_TAGS_DBID, actions, createNodeId, createContentDigest)
+  await loadNotionContent('notionPage', process.env.NOTION_PAGES_DBID, actions, createNodeId, createContentDigest)
 
   // await loadCategories()
 };
@@ -262,7 +263,13 @@ exports.createPages = async gatsbyUtilities => {
       return
     }
     await createIndividualPortfolioItemPages({ portfolioItems, gatsbyUtilities })
-`
+
+    const pages = await getNotionPages(gatsbyUtilities)
+    if (!pages.length) {
+      return
+    }
+    await createIndividualNotionPages({ pages, gatsbyUtilities })
+
     // const postCategories = await getNotionPostCategories(gatsbyUtilities)
     // if (!portfolioItems.length) {
     //   return
@@ -303,6 +310,7 @@ async function getNotionPosts({ graphql, reporter }) {
 
   return graphqlResult.data.allNotionPost.edges
 }
+
 
 async function getNotionPostCategories({ graphql, reporter }) {
   const graphqlResult = await graphql(`
@@ -420,6 +428,45 @@ async function getPortfolioItems({ graphql, reporter }) {
   }
 
   return graphqlResult.data.allNotionPortfolioItem.edges
+}
+
+const createIndividualNotionPages = async ({ pages, gatsbyUtilities }) => {
+  await Promise.all(
+    pages.map(({ page }) =>
+      gatsbyUtilities.actions.createPage({
+        path: page.slug,
+        component: path.resolve(`./src/templates/page.tsx`),
+        context: {
+          id: page.id
+        },
+      })
+    )
+  )
+}
+
+async function getNotionPages({ graphql, reporter }) {
+  const graphqlResult = await graphql(`
+    query NotionPages {
+      allNotionPage {
+        edges {
+          page: node {
+            id
+            slug
+          }
+        }
+      }
+    }
+  `)
+
+  if (graphqlResult.errors) {
+    reporter.panicOnBuild(
+      `There was an error loading your blog posts`,
+      graphqlResult.errors
+    )
+    return
+  }
+
+  return graphqlResult.data.allNotionPage.edges
 }
 
 // TODO: Export this
