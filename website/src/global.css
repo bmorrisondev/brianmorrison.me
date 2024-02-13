@@ -9,13 +9,22 @@
   --gradient-blue: #0381FF;
   --accent-1: #EEF6F9;
   --accent-2: #e0e8ee;
+  --bg-light-upper-right: #EAF5FF;
+  --bg-light-lower-left: #F7ECFA;
 }
 
 body {
-  background-image: url('/img/bg.png');
-  background-position: right bottom;
+
+  background: var(--light-bg); /* fallback color */
+  background: linear-gradient(to bottom right, var(--bg-light-upper-right), var(--bg-light-lower-left));
   background-repeat: no-repeat;
-  background-color: var(--light-bg) !important;
+  background-size: cover;
+  width: 100%;
+  height: 100%;
+  /* background-image: url('/img/bg.png'); */
+  /* background-position: right bottom; */
+  /* background-repeat: no-repeat; */
+  /* background-color: var(--light-bg) !important; */
   color: var(--light-text);
   min-height: 100vh;
   font-family: system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans","Liberation Sans",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
