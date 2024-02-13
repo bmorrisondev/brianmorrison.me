@@ -29,6 +29,11 @@ export default function Home({ location }) {
           <BentoBlock>
             Sm
           </BentoBlock>
+          <div className="col-span-3 mt-2">
+            <a href="/about" className="text-sm bg-white py-2 px-3 rounded-full border hover:shadow hover:cursor-pointer text-gray-800 transition-all">
+              More about me <span className="opacity-30">&rarr;</span>
+            </a>
+          </div>
         </div>
         {/* <div className='text-[5.8rem] font-bold mb-4 leading-[5.5rem] md:leading-[6.4rem] xl:leading-[7rem] mt-8 sm:mt-28 gradient-header'>Hi, my name is Brian</div>
         <div className="text-4xl">I'm a full stack developer & content creator.</div> */}
