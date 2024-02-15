@@ -13,7 +13,7 @@ export default function Home({ location }) {
             <StaticImage src="../images/me.png" alt="Brian's face" className="rounded-lg mx-2 mt-2" />
             <div className="m-2">
               <div className="text-2xl height">Hello, my name is</div>
-              <div className="text-5xl font-bold gradient-header">Brian Morrison II</div>
+              <div className="text-5xl font-bold gradient-header">Brian</div>
             </div>
           </BentoBlock>
           <BentoBlock className="col-span-3">
