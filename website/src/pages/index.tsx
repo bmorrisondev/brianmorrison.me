@@ -17,10 +17,22 @@ export default function Home({ location }) {
             </div>
           </BentoBlock>
           <BentoBlock className="col-span-3">
-            Md
+            <div>img</div>
+            <div className="m-2">
+              <div>
+                <div className="font-bold">Full Stack Developer</div>
+                <div className="text-sm">I build web applications and websites using modern technologies like React, Go, and AWS.</div>
+              </div>
+            </div>
           </BentoBlock>
           <BentoBlock className="col-span-3">
-            Md
+            <StaticImage src="../images/planetscale.png" alt="PlanetScale logo" className="rounded-lg mx-2 mt-2" />
+            <div className="m-2">
+              <div>
+                <div className="font-bold">Developer Educator, PlanetScale</div>
+                <div className="text-sm">I teach developers how to use PlanetScale, as well as write about MySQL and all things databases.</div>
+              </div>
+            </div>
           </BentoBlock>
           <BentoBlock className="col-span-3">
             Md
