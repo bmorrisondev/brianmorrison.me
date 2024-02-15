@@ -2,6 +2,7 @@ import React from "react"
 import Container from "../components/Container"
 import DefaultLayout from "../layouts/DefaultLayout"
 import BentoBlock from "../components/BentoBlock"
+import { StaticImage } from "gatsby-plugin-image"
 
 export default function Home({ location }) {
   return (
@@ -9,7 +10,11 @@ export default function Home({ location }) {
       <Container className="home-container w-full flex flex-col items-center">
         <div className="grid grid-cols-9 gap-2 mt-8 sm:mt-28 lg:w-[900px] w-full">
           <BentoBlock className="row-span-2 col-span-3">
-            Lg
+            <StaticImage src="../images/me.png" alt="Brian's face" className="rounded-lg mx-2 mt-2" />
+            <div className="m-2">
+              <div className="text-2xl height">Hello, my name is</div>
+              <div className="text-5xl font-bold gradient-header">Brian Morrison II</div>
+            </div>
           </BentoBlock>
           <BentoBlock className="col-span-3">
             Md
