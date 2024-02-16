@@ -7,7 +7,7 @@ type Props = {
 
 function BentoBlock({ children, className }: Props) {
   return (
-    <div className={`bento-block bg-white shadow-sm border-b-1 border-b-gray-500 rounded p-1 ${className ? className : ""}`}>
+    <div className={`bento-block bg-white shadow border-b-1 border-b-gray-500 rounded ${className ? className : ""}`}>
       {children}
     </div>
   )

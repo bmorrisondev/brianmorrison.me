@@ -11,12 +11,13 @@
   --accent-2: #e0e8ee;
   --bg-light-upper-right: #EAF5FF;
   --bg-light-lower-left: #F7ECFA;
+  --bg-light-upper-right-2: #A7C7FF;
+  --bg-light-lower-left-2: #D2A2E7;
 }
 
 body {
-
   background: var(--light-bg); /* fallback color */
-  background: linear-gradient(to bottom right, var(--bg-light-upper-right), var(--bg-light-lower-left));
+  background: linear-gradient(to bottom left, var(--bg-light-upper-right), var(--bg-light-lower-left));
   background-repeat: no-repeat;
   background-size: cover;
   width: 100%;
@@ -134,4 +135,14 @@ p code, li code {
 
 .work-history ul {
   @apply list-disc ml-4 mb-4
+}
+
+.linear-grad-bg {
+  background: linear-gradient(to bottom left, var(--bg-light-lower-left-2), var(--bg-light-upper-right-2));
+}
+
+.textured-bg {
+  background-image: url('/img/texture.png');
+  /* background-size: 100%; */
+  background-repeat: repeat;
 }
