@@ -51,7 +51,7 @@ export default function Home() {
         <BentoBlock className="p-2 md:border-0 flex flex-col">
           <h3>Let{`'`}s chat!</h3>
           <div className="flex-1">
-            <p>My 2024 goal is to foster my existing relationships and build new ones! I've opened my calendar for specific timeslots to have quick chats about programming, life, or anything else you want to chat about.</p>
+            <p>My 2024 goal is to foster my existing relationships and build new ones! I{`'`}ve opened my calendar for specific timeslots to have quick chats about programming, life, or anything else you want to chat about.</p>
             <p>Feel free to schedule some time on my calendar, even if just for a quick 15 min intro:</p>
           </div>
           <div className="flex gap-2">
