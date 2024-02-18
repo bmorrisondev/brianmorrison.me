@@ -11,7 +11,7 @@ import BentoBlock from '@/components/BentoBlock'
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col lg:gap-4 lg:p-24 p-4 pt-24">
+    <main className="flex min-h-screen flex-col lg:gap-4 lg:p-24 p-4 pt-24 max-w-6xl mx-auto">
       <div className="z-10 w-full font-mono text-sm lg:flex">
         <p className="fixed left-0 top-0
           flex w-full items-center justify-center gap-2 border-b lg:border-0
@@ -48,7 +48,7 @@ export default function Home() {
       </div>
 
       <div className="mb-4 grid md:grid-cols-2 lg:justify-start gap-4">
-        <BentoBlock className="p-2 md:border-0 flex flex-col">
+        <BentoBlock className="p-4 md:border-0 flex flex-col">
           <h3>Let{`'`}s chat!</h3>
           <div className="flex-1">
             <p>My 2024 goal is to foster my existing relationships and build new ones! I{`'`}ve opened my calendar for specific timeslots to have quick chats about programming, life, or anything else you want to chat about.</p>
@@ -61,7 +61,7 @@ export default function Home() {
           </div>
         </BentoBlock>
 
-        <BentoBlock className="p-2 md:border-0">
+        <BentoBlock className="p-4 md:border-0">
           <h3>Let{`'`}s work together!</h3>
           <div>
             <p>I{`'`}m a seasoned backend developer with over a decade of experience in the tech industry ranging from managing services & networking equipment to building complex integration systems for an IoT platform.</p>
@@ -80,7 +80,7 @@ export default function Home() {
       </div>
 
 
-      <div className='md:col-span-2 border-accent-2 border rounded-lg bg-white'>
+      <div className='md:col-span-2 shadow border-b-1 border-b-gray-500 rounded-lg bg-white'>
         <iframe src="https://embeds.beehiiv.com/db8ca15b-ac1c-4aa3-9912-46fec9df6688"
           data-test-id="beehiiv-embed"
           width="100%"
