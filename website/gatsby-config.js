@@ -4,7 +4,7 @@ module.exports = {
   siteMetadata: {
     title: `Brian Morrison II`,
     siteUrl: `https://brianmorrison.me`,
-    description: "Personal blog of Brian Morrison II, full stack developer & content creator."
+    description: "Personal blog of Brian Morrison II, full stack developer & developer educator."
   },
   plugins: [
     'gatsby-plugin-postcss',
