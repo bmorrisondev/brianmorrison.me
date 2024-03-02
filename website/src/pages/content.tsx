@@ -3,14 +3,15 @@ import React from 'react'
 import Container from '../components/Container'
 import DefaultLayout from '../layouts/DefaultLayout'
 import PostIcon from '../components/PostIcon'
-import { PiArticleThin, PiMicrophoneThin, PiMicrophoneStageThin, PiVideoThin, PiCubeThin, PiArrowCircleUpRightThin } from "react-icons/pi";
+import { PiArticleThin, PiMicrophoneThin, PiMicrophoneStageThin, PiVideoThin, PiCubeThin, PiArrowCircleUpRightThin, PiChatsThin, PiArrowSquareUp, PiArrowSquareUpRightLight } from "react-icons/pi";
 
 enum ContentItemIconType {
   Default,
   Article,
   Podcast,
   Talk,
-  Video
+  Video,
+  Social
 }
 
 type ContentItem = {
@@ -33,6 +34,8 @@ function PostTypeIcon({ iconType }: { iconType: ContentItemIconType }) {
       return <span className='text-2xl mr-2 mt-[2px]'><PiMicrophoneStageThin /></span>
     case ContentItemIconType.Video:
       return <span className='text-2xl mr-2 mt-[2px]'><PiVideoThin /></span>
+    case ContentItemIconType.Social:
+      return <span className='text-2xl mr-2 mt-[2px]'><PiChatsThin /></span>
     default:
       return <span className='text-2xl mr-2 mt-[2px]'><PiCubeThin /></span>
   }
@@ -100,6 +103,9 @@ function Blog({ location }) {
       case 'talk':
         icon = ContentItemIconType.Talk
         break
+      case 'social-post':
+        icon = ContentItemIconType.Social
+        break
       case 'video':
         icon = ContentItemIconType.Video
         break
@@ -159,7 +165,7 @@ function Blog({ location }) {
                 <a href={p.url} target='_blank' rel='noreferrer' className='text-black transition hover:text-gradientBlue flex group'>
                   <PostTypeIcon iconType={p.icon} />
                   <div className='flex flex-col'>
-                    <span className='text-lg flex items-center'>{p.title}  <PiArrowCircleUpRightThin className='ml-1 opacity-0 group-hover:opacity-100' /></span>
+                    <span className='text-lg flex items-center'>{p.title}  <PiArrowSquareUpRightLight className='ml-1 opacity-0 group-hover:opacity-100' /></span>
                     <span className='italic text-sm text-gray-600'>{ p.subtitle } </span>
                   </div>
                 </a>
