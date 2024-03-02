@@ -6,7 +6,7 @@ import ArrowRight from "./svgs/ArrowRight";
 function PortfolioListItem({item}) {
   return (
     <Link to={`/portfolio/${item.slug}`}
-      className="group/portfolio-item text-black bg-white flex flex-col justify-between p-2 opacity-70 shadow-sm hover:opacity-100 hover:shadow-lg rounded-lg transition-all">
+      className="group/portfolio-item text-black bg-white flex flex-col justify-between p-2 shadow-sm hover:shadow-lg rounded transition-all">
       <div className="flex flex-col">
         {item.skillsUsed && item.skillsUsed.length > 0 && (
           <div className="flex gap-1 mt-1 mb-2">

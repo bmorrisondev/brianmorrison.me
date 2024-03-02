@@ -57,27 +57,27 @@ function About({ location }) {
     <DefaultLayout location={location} pageTitle="About Me">
       <Container>
         <div>
-          <h1 className='gradient-header'>About Me</h1>
+          <h1>About Me</h1>
           <div>
-            <p>I'm a full stack software developer with a passion for all things tech, from web development to cloud infrastructure. I also develop technical content for <a href={socials.youtube} target="_blank">YouTube</a> and my <Link to="/blog">blog</Link>.</p>
+            <p>I'm a full stack software developer with a passion for all things tech, from web development to cloud infrastructure. I also develop technical <Link to="/blog">content</Link> to help other developers learn new and interesting things in the tech space.</p>
           </div>
           <div className="certifications">
             <h2>Certifications</h2>
             <div className='flex space-x-2'>
               <a href="https://www.youracclaim.com/badges/885db61f-cf70-4922-bbbe-d66cb02a6336/public_url"
-                className='text-black flex flex-col items-center bg-white border-background-accent border-[1px] hover:border-gradientBlue rounded-lg p-1'
+                className='shadow-sm text-black flex flex-col items-center bg-white border-background-accent border-[1px] hover:shadow-lg rounded p-1 transition-all'
                 target="_blank">
                 <StaticImage src="../images/cert-badges/aws-dev-assoc.png" alt="AWS Dev Assoc Image" />
                 <span>2019 - 2022</span>
               </a>
               <a href="https://www.youracclaim.com/badges/0740ed31-39a7-4515-b3df-1a51478ddbc7/public_url"
-                className='text-black flex flex-col items-center bg-white border-background-accent border-[1px] hover:border-gradientBlue rounded-lg p-1'
+                className='shadow-sm text-black flex flex-col items-center bg-white border-background-accent border-[1px] hover:shadow-lg rounded p-1 transition-all'
                 target="_blank">
                 <StaticImage src="../images/cert-badges/aws-sa-assoc.png" alt="AWS Solutions Architect Assoc Image" />
                 <span>2019 - 2022</span>
               </a>
               <a href="https://www.youracclaim.com/badges/f24caf74-41fc-4cdb-a032-dcf9c20c9b4b/public_url"
-                className='text-black flex flex-col items-center bg-white border-background-accent border-[1px] hover:border-gradientBlue rounded-lg p-1'
+                className='shadow-sm text-black flex flex-col items-center bg-white border-background-accent border-[1px] hover:shadow-lg rounded p-1 transition-all'
                 target="_blank">
                 <StaticImage src="../images/cert-badges/ccna-rs.png" alt="CCNA Routing and Switching" />
                 <span>2015 - 2018</span>

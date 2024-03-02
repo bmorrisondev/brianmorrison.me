@@ -27,8 +27,8 @@ function Navigation() {
       to: "/portfolio"
     },
     {
-      title: "Blog",
-      to: "/blog"
+      title: "Content",
+      to: "/content"
     },
     {
       title: "Contact",

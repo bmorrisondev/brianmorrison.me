@@ -39,6 +39,7 @@ exports.sourceNodes = async ({ actions, createNodeId, createContentDigest }) => 
   await loadNotionContent('notionEmploymentHistoryItem', process.env.NOTION_EMP_HIST_DBID, actions, createNodeId, createContentDigest)
   await loadNotionContent('notionTag', process.env.NOTION_TAGS_DBID, actions, createNodeId, createContentDigest)
   await loadNotionContent('notionPage', process.env.NOTION_PAGES_DBID, actions, createNodeId, createContentDigest)
+  await loadNotionContent('notionExternalContent', process.env.NOTION_EXTCONTENT_DBID, actions, createNodeId, createContentDigest)
 
   // await loadCategories()
 };

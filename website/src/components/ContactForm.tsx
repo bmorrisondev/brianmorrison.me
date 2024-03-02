@@ -45,13 +45,13 @@ function ContactForm() {
   }
 
   return (
-    <form className='rounded border border-accent-2 bg-accent-1 p-4'>
+    <form className='rounded border bg-white shadow-sm border border-gray-100 p-4'>
       <div className="mb-2">
         <label className="block text-gray-700 text-sm font-bold mb-2">
           Name
         </label>
         <input
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          className="shadow-sm appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           value={name}
           onChange={e => setName(e.target.value)}
           type="text" />
@@ -61,7 +61,7 @@ function ContactForm() {
           Email address
         </label>
         <input
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+          className="shadow-sm appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
           value={emailAddress}
           onChange={e => setEmailAddress(e.target.value)}
           type="text"  />
@@ -71,7 +71,7 @@ function ContactForm() {
           Message
         </label>
         <textarea
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+          className="shadow-sm appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
           value={message}
           onChange={e => setMessage(e.target.value)}
           rows={4}  />
