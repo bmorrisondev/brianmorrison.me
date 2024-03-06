@@ -59,7 +59,7 @@ function About({ location }) {
         <div>
           <h1>About Me</h1>
           <div>
-            <p>I'm a full stack software developer with a passion for all things tech, from web development to cloud infrastructure. I also develop technical <Link to="/blog">content</Link> to help other developers learn new and interesting things in the tech space.</p>
+            <p>I'm a full stack software developer with a passion for all things tech, from web development to cloud infrastructure. I also create <Link to="/content">technical content</Link> to help other developers learn new and interesting things in the tech space.</p>
           </div>
           <div className="certifications">
             <h2>Certifications</h2>

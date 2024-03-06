@@ -32,7 +32,7 @@ export const pageQuery = graphql`
       youTubeURL
       series {
         title
-        slug 
+        slug
         posts {
           slug
           title
@@ -102,7 +102,7 @@ const BlogPostTemplate = ({ data, location }) => {
           )}
 
           <header>
-            <h1 itemProp="headline" className="my-0 py-0">{parse(post.title)}</h1>
+            <h1 className="my-0 py-0">{parse(post.title)}</h1>
             <div className="post-meta">
               <StylizedList>
                 <StylizedListItem><Calendar />{post.publishOn}</StylizedListItem>
@@ -129,13 +129,13 @@ const BlogPostTemplate = ({ data, location }) => {
             <div className="post-content mb-4">{parse(post.html, { replace: replaceCode })}</div>
           )}
 
-          <BlogFooter 
-            location={location} 
-            articleTitle={parse(post.title) as string} 
+          <BlogFooter
+            location={location}
+            articleTitle={parse(post.title) as string}
             seriesCollection={series} />
         </article>
 
-        <nav className="blog-post-nav">
+        {/* <nav className="blog-post-nav">
           <ul className="flex justify-between space-x-2">
             <li className="flex-1">
               {previous && (
@@ -153,7 +153,7 @@ const BlogPostTemplate = ({ data, location }) => {
               )}
             </li>
           </ul>
-        </nav>
+        </nav> */}
       </Container>
 
     </DefaultLayout>

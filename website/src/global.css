@@ -22,7 +22,25 @@ body {
   height: 100%;
   color: var(--light-text);
   min-height: 100vh;
-  font-family: system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans","Liberation Sans",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+  font-family: "Alice", serif;
+  font-weight: 400;
+  font-style: normal;
+  /* font-family: system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans","Liberation Sans",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji"; */
+}
+
+code {
+  font-family: "Fira Code", monospace !important;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
+p code {
+  background-color: white;
+  padding: 0.2rem 0.4rem;
+  border-radius: 0.3rem;
+  font-size: 0.9em;
+  color: #555 !important;
+  font-weight: 300;
 }
 
 .main {
@@ -37,9 +55,17 @@ body {
   text-shadow: 2px 2px 15px rgba(0,0,0,0.2);
 }
 
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Playfair Display", serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+}
+
 h1 {
   display: inline-block;
   font-size: calc(2rem + 1vw) !important;
+  line-height: 1.2;
   /* text-shadow: 2px 2px 15px rgba(0,0,0,0.2); */
   @apply font-bold;
 }
