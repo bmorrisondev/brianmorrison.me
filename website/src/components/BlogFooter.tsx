@@ -37,7 +37,7 @@ function BlogFooter(props: Props) {
   return (
     <div className="grid md:grid-cols-2 gap-2 mb-2">
 
-      <div className='bg-accent-1 border-accent-2 border p-4 rounded'>
+      <div className='bg-white border-accent-2 border p-4 rounded shadow-sm'>
         <div className="text-lg font-bold">
           Join my Discord
         </div>
@@ -47,7 +47,7 @@ function BlogFooter(props: Props) {
         <Button onClick={openFsc}>Join fullstack.chat</Button>
       </div>
 
-      <div className='bg-accent-1 border-accent-2 border p-4 rounded'>
+      <div className='bg-white border-accent-2 border p-4 rounded shadow-sm'>
         <div className="text-lg font-bold">
           Share this article
         </div>

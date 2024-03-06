@@ -20,6 +20,27 @@ module.exports = {
       },
       __key: "images"
     },
+    {
+      resolve: `gatsby-omni-font-loader`,
+      options: {
+        enableListener: true,
+        preconnect: [`https://fonts.googleapis.com`, `https://fonts.gstatic.com`],
+        web: [
+          {
+            name: `Playfair Display`,
+            file: `https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap`,
+          },
+          {
+            name: `Alice`,
+            file: `https://fonts.googleapis.com/css2?family=Alice&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap`,
+          },
+          {
+            name: `Fira Code`,
+            file: `https://fonts.googleapis.com/css2?family=Alice&family=Fira+Code:wght@300..700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap`,
+          },
+        ],
+      },
+    },
     // {
     //   resolve: 'gatsby-plugin-feed',
     //   options: {
