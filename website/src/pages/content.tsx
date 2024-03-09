@@ -2,8 +2,7 @@ import { graphql, useStaticQuery, Link } from 'gatsby'
 import React from 'react'
 import Container from '../components/Container'
 import DefaultLayout from '../layouts/DefaultLayout'
-import PostIcon from '../components/PostIcon'
-import { PiArticleThin, PiMicrophoneThin, PiMicrophoneStageThin, PiVideoThin, PiCubeThin, PiArrowCircleUpRightThin, PiChatsThin, PiArrowSquareUp, PiArrowSquareUpRightLight } from "react-icons/pi";
+import { PiArticleThin, PiMicrophoneThin, PiMicrophoneStageThin, PiVideoThin, PiCubeThin, PiChatsThin, PiArrowSquareUpRightLight } from "react-icons/pi";
 
 enum ContentItemIconType {
   Default,
@@ -22,6 +21,7 @@ type ContentItem = {
   date: Date
   url?: string
   subtitle?: string
+  img?: string
 }
 
 function PostTypeIcon({ iconType }: { iconType: ContentItemIconType }) {
