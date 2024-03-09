@@ -23,15 +23,12 @@ export default function Home() {
         </p>
       </div>
       <div className="mb-4 flex items-center justify-center lg:justify-start">
-        <span>Developer Educator @ <a href="https://planetscale.com" className="ml-1 border-b border-b-gray-400 hover:border-b-gray-700 transition">PlanetScale</a>.</span>
+        <span>Full Stack Developer & Content Creator.</span>
       </div>
 
       <div className="mb-4 grid lg:mb-0 xl:grid-cols-5 lg:grid-cols-4 grid-cols-2 text-left gap-4">
         <ButtonLink href="https://youtube.com/@brianmmdev">
           <BiLogoYoutube className="text-red-500 text-2xl" /> @brianmmdev
-        </ButtonLink>
-        <ButtonLink href="https://threads.net/@brianmmdev">
-          🧵 @brianmmdev
         </ButtonLink>
         <ButtonLink href="https://twitter.com/@brianmmdev">
           <BiLogoTwitter className="text-twitterBlue text-2xl" /> @brianmmdev
@@ -39,8 +36,8 @@ export default function Home() {
         <ButtonLink href="https://www.linkedin.com/in/brianmmdev">
           <BiLogoLinkedin className="text-linkedinBlue text-xl" /> @brianmmdev
         </ButtonLink>
-        <ButtonLink href="https://brianmorrison.me/blog">
-          <MdArticle className="text-2xl text-purple-800" /> Blog
+        <ButtonLink href="https://brianmorrison.me/content">
+          <MdArticle className="text-2xl text-purple-800" /> Content
         </ButtonLink>
         <ButtonLink href="https://brianmorrison.me/portfolio">
           <GrProjects className="text-xl text-purple-800" /> Portfolio
@@ -71,7 +68,7 @@ export default function Home() {
             <ButtonLink href="https://brianmorrison.me/contact">
               <MdOutlineOpenInNew /> Contact me
             </ButtonLink>
-            <ButtonLink href="/files/bmorrison-backend-2023.pdf">
+            <ButtonLink href="/files/bmorrison-fullstack-2024.pdf">
               <MdOutlineDownload /> Resume
             </ButtonLink>
           </div>
