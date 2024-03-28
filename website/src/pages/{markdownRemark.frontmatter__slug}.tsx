@@ -5,6 +5,7 @@ import Container from "../components/Container"
 
 export default function BlogPostTemplate({
   data, // this prop will be injected by the GraphQL query below.
+  location
 }) {
   const { markdownRemark } = data // data.markdownRemark holds your post data
   const { frontmatter, html } = markdownRemark
