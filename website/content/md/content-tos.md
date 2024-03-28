@@ -12,7 +12,7 @@ These Terms of Service ("Terms") govern your use of the services provided by Bri
 
 2. **Subcontracting**: Provider may choose to subcontract individuals to assist with aspects of any project, at Provider's discretion, with or without prior notice.
 
-3. **Asset Reuse**: Any assets produced during the project may be reused by Provider for marketing efforts without further consent.
+3. **Asset Reuse**: Any assets produced during the project may be reused by Provider for marketing efforts or for other projects without further consent.
 
 4. **Use of Media**: Provider may utilize stock photos, videos, audio, graphics, or other media during the creative process, with or without notification.
 
