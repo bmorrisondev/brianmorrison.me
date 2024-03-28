@@ -12,6 +12,7 @@ module.exports = {
     "gatsby-plugin-sharp",
     "gatsby-plugin-react-helmet",
     "gatsby-transformer-sharp",
+    'gatsby-transformer-remark',
     {
       resolve: 'gatsby-source-filesystem',
       options: {
@@ -19,6 +20,12 @@ module.exports = {
         "path": "./src/images/"
       },
       __key: "images"
+    },    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `mdcontent`,
+        path: `${__dirname}/content/md`,
+      },
     },
     {
       resolve: `gatsby-omni-font-loader`,
