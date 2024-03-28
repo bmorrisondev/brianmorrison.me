@@ -6,7 +6,7 @@ slug: '/services/tos'
 
 _Last updated: 3/28/2024_
 
-These Terms of Service ("Terms") govern your use of the services provided by [Your Name/Company Name] ("Provider") in relation to any project engagement. By engaging with Provider's services, you agree to abide by these Terms.
+These Terms of Service ("Terms") govern your use of the services provided by Brian Morrison II ("Provider") in relation to any project engagement. By engaging with Provider's services, you agree to abide by these Terms.
 
 1. **Code and Repositories**: Throughout the project, sample code and repositories may be produced. Provider reserves the right to reuse this code for other projects, with or without notice, and with or without clients.
 
