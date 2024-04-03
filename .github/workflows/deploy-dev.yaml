@@ -29,6 +29,7 @@ jobs:
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+          GATSBY_CLERK_PUBLISHABLE_KEY: ${{ secrets.DEV_GATSBY_CLERK_PUBLISHABLE_KEY }}
       - name: Deploy
         run: |
           cd website
