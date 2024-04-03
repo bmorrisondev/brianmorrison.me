@@ -45,7 +45,7 @@ function ContactForm() {
   }
 
   return (
-    <form className='rounded border bg-white shadow-sm border border-gray-100 p-4'>
+    <form className='rounded border bg-white shadow-sm border-gray-100 p-4'>
       <div className="mb-2">
         <label className="block text-gray-700 text-sm font-bold mb-2">
           Name

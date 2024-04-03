@@ -44,8 +44,8 @@ function Navigation() {
           <span>Brian Morrison II</span>
         </NavLink>
         <div className='space-x-4 items-center hidden sm:flex'>
-          {menuItems.map((el) => (
-            <NavLink to={el.to}>{el.title}</NavLink>
+          {menuItems.map((el, idx) => (
+            <NavLink key={`mainnav-${idx}`} to={el.to}>{el.title}</NavLink>
           ))}
         </div>
         <div className='flex items-center sm:hidden'>
@@ -71,8 +71,8 @@ function Navigation() {
             </div>
           </div>
           <div className='flex flex-col w-full'>
-            {menuItems.map((el) => (
-              <MobileNavLink to={el.to}>{el.title}</MobileNavLink>
+            {menuItems.map((el, idx) => (
+              <MobileNavLink key={`mob-${idx}`} to={el.to}>{el.title}</MobileNavLink>
             ))}
           </div>
         </div>

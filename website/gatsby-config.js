@@ -13,6 +13,7 @@ module.exports = {
     "gatsby-plugin-react-helmet",
     "gatsby-transformer-sharp",
     'gatsby-transformer-remark',
+    'gatsby-plugin-clerk',
     {
       resolve: 'gatsby-source-filesystem',
       options: {

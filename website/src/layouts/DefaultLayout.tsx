@@ -2,6 +2,7 @@ import React, { ReactNode, useState } from 'react'
 import Helmet from 'react-helmet'
 import Footer from '../components/Footer'
 import Navigation from '../components/Nav'
+import 'react-responsive-modal/styles.css';
 
 type Props = {
   children: ReactNode
