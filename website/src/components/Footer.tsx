@@ -11,7 +11,7 @@ import YouTube from './svgs/YouTube'
 
 function Footer() {
   return (
-    <div className='flex mx-auto justify-center items-center sm:justify-between h-[40px] p-4 sm:flex-row flex-col-reverse'>
+    <div className='flex mx-auto justify-center items-center sm:justify-between h-[40px] p-4 sm:flex-row flex-col-reverse mb-2'>
       <div className='flex space-x-2 md:mb-0 mb-2'>
         <span>© {new Date().getFullYear()}</span>
         <div>•</div>

@@ -14,23 +14,20 @@ import Button from '../../components/Button';
 import Box from '../../components/ui/Box';
 
 function AddToGuestbook({ location }) {
-  const { isSignedIn } = useUser()
   const [message, setMessage] = useState('')
-  const [showAlert, setShowAlert] = useState(false)
+  const [isMessageSubmitted, setIsMessageSubmitted] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
 
   const onSubmit = async () => {
+    setIsLoading(true)
     // Submit the form
-    let res = await fetch('/.netlify/functions/submit-guestbook-entry', {
+    await fetch('/.netlify/functions/submit-guestbook-entry', {
       method: 'POST',
       body: JSON.stringify({ message }),
     })
-    let json = await res.json()
-    console.log(json)
 
-    // clear localstorage
-    localStorage.removeItem('guestbookMessage')
-    setMessage('')
+    setIsLoading(false)
+    setIsMessageSubmitted(true)
   }
 
   return (
@@ -50,12 +47,17 @@ function AddToGuestbook({ location }) {
                 rows={4}  />
             </div>
             <div className="flex justify-between">
-              <Button onClick={() => onSubmit()}>
+              <Button onClick={() => onSubmit()} disabled={isLoading}>
                 Submit
               </Button>
-              {isSignedIn && <UserButton />}
+              <UserButton />
             </div>
           </Box>
+          {isMessageSubmitted && (
+            <Box className='mt-2'>
+              <span className="font-extrabold">✅ You've signed the guestbook!</span> I'll review and approve it when I have a free moment. Thanks!
+            </Box>
+          )}
         </SignedIn>
         <SignedOut>
           <RedirectToSignIn />

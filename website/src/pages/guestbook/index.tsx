@@ -2,19 +2,9 @@ import React, { useEffect, useState } from 'react'
 import DefaultLayout from '../../layouts/DefaultLayout'
 import Container from '../../components/Container'
 import Button from '../../components/Button'
-import Box from '../../components/ui/Box'
-import { Modal } from 'react-responsive-modal';
+import { GuestbookEntry } from '../../models'
 import { navigate } from 'gatsby'
-
-export type GuestbookEntry = {
-  id: number
-  userId: string
-  name: string
-  imageUrl: string
-  message: string
-  createdOn: Date
-  isApproved?: boolean
-}
+import GuestbookEntryRow from '../../components/GuestbookEntryRow'
 
 function Guestbook({ location }) {
   const [entries, setEntries] = useState<GuestbookEntry[]>([])
@@ -38,18 +28,7 @@ function Guestbook({ location }) {
           </Button>
         </div>
         <div className="flex flex-col gap-2">
-          {entries.map((entry, i) => (
-            <Box key={i} className="flex flex-row gap-4">
-              <div className='flex items-center mb-2 gap-2'>
-                <img src={entry.imageUrl} alt={entry.name} className="w-8 h-8 rounded-full" />
-                <div className="flex-1 flex flex-col">
-                  <span className="flex-1">{entry.name}</span>
-                  <span className="italic">{new Date(entry.createdOn).toLocaleDateString()}</span>
-                </div>
-              </div>
-              <div>{entry.message}</div>
-            </Box>
-          ))}
+          {entries.map((entry, i) => <GuestbookEntryRow key={i} entry={entry} />)}
         </div>
       </Container>
     </DefaultLayout>
