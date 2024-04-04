@@ -10,3 +10,12 @@ export type SeriesCollection = {
   entries?: SeriesEntry[]
 }
 
+export type GuestbookEntry = {
+  id: number
+  userId: string
+  name: string
+  imageUrl: string
+  message: string
+  createdOn: Date
+  isApproved?: boolean
+}
