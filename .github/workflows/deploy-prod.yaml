@@ -8,7 +8,6 @@ on:
     paths:
       - website/**.*
 
-
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -23,6 +22,12 @@ jobs:
         run: |
           cd website
           npm install
+      - name: Apply schema changes
+        run: |
+          cd website
+          npm run db:push
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
       - name: Deploy
         run: |
           cd website
@@ -30,6 +35,7 @@ jobs:
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+          GATSBY_CLERK_PUBLISHABLE_KEY: ${{ secrets.GATSBY_CLERK_PUBLISHABLE_KEY }}
       - name: Create PostHog annotations
         run: |
           cd tools/posthog-annotator

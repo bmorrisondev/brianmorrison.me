@@ -15,7 +15,7 @@
     "deploy": "netlify build && netlify deploy",
     "deploy:dev": "netlify build && netlify deploy --alias dev",
     "deploy:prod": "netlify build && netlify deploy --prod",
-    "db:push": "drizzle-kit push:pg --config drizzle.config.ts"
+    "db:push": "drizzle-kit push:pg --config drizzle.config.ts --confirm"
   },
   "dependencies": {
     "@clerk/clerk-sdk-node": "^4.13.11",
