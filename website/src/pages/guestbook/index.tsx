@@ -23,9 +23,11 @@ function Guestbook({ location }) {
       <Container>
         <div className="flex justify-between mb-2">
           <h1>Guestbook</h1>
-          <Button onClick={() => navigate("/guestbook/add")}>
-            Add a message
-          </Button>
+          <div className="flex items-center">
+            <Button onClick={() => navigate("/guestbook/add")}>
+              Add a message
+            </Button>
+          </div>
         </div>
         <div className="flex flex-col gap-2">
           {entries.map((entry, i) => <GuestbookEntryRow key={i} entry={entry} />)}

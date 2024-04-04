@@ -13,7 +13,7 @@ function GuestbookEntryRow({ entry, allowToggleApproval, onToggleApproval }: Pro
   return (
     <Box className="flex md:flex-row gap-4">
       <img src={entry.imageUrl} alt={entry.name} className="w-8 h-8 rounded-full mt-1" />
-      <div className='flex mb-2 gap-4 md:flex-row flex-col'>
+      <div className='flex mb-2 gap-2 md:gap-6 md:flex-row flex-col'>
         <div className="flex-1 flex flex-col">
           <span className="flex-1">{entry.name}</span>
           <span className="italic text-gray-700">{new Date(entry.createdOn).toLocaleDateString()}</span>
