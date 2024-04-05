@@ -26,10 +26,33 @@ export const handler = async (event) => {
       message,
     }).execute();
 
+    // Send Discord Webhook
+    let webhookMessage = {
+      username: "New Guestbook Submission",
+      "embeds": [{
+        "author": {
+          "name": validateTokenResponse.claims.name,
+          "icon_url": validateTokenResponse.claims.image_url
+        },
+        description: `${message}\n\n[Manage guestbook](https://brianmorrison.me/guestbook/manage)`,
+        "footer": {
+          "text": `userId: ${validateTokenResponse.claims.sub}`
+        }
+      }]
+    }
+    await fetch(process.env.CONTACT_WEBHOOK as string, {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(webhookMessage)
+    });
+
     return {
       statusCode: 200
     };
   } catch (error) {
+    console.log(error)
     return {
       statusCode: 500,
       body: JSON.stringify({ message: 'Internal Server Error' }),
