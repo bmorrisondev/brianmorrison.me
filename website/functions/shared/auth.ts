@@ -34,7 +34,6 @@ export async function validateSession(event): Promise<ValidateTokenResponse> {
       })
       let claims: jwt.JwtPayload = decoded as jwt.JwtPayload;
       let isAdmin = false
-      console.log(claims)
       if(claims["metadata"] && claims["metadata"]["is_admin"] === "true") {
         isAdmin = true
       }
