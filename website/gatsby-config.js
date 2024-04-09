@@ -40,11 +40,11 @@ module.exports = {
           },
           {
             name: `Alice`,
-            file: `https://fonts.googleapis.com/css2?family=Alice&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap`,
+            file: `https://fonts.googleapis.com/css2?family=Alice:ital,wght@0,400..900;1,400..900&display=swap`,
           },
           {
             name: `Fira Code`,
-            file: `https://fonts.googleapis.com/css2?family=Alice&family=Fira+Code:wght@300..700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap`,
+            file: `https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700`,
           },
         ],
       },

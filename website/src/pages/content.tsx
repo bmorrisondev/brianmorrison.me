@@ -165,16 +165,16 @@ function Blog({ location }) {
                 <a href={p.url} target='_blank' rel='noreferrer' className='text-black transition hover:text-gradientBlue flex group'>
                   <PostTypeIcon iconType={p.icon} />
                   <div className='flex flex-col'>
-                    <span className='text-lg flex items-center'>{p.title}  <PiArrowSquareUpRightLight className='ml-1 opacity-0 group-hover:opacity-100' /></span>
-                    <span className='italic text-sm text-gray-600'>{ p.subtitle } </span>
+                    <span className='text-xl flex items-center'>{p.title}  <PiArrowSquareUpRightLight className='ml-1 opacity-0 group-hover:opacity-100' /></span>
+                    <span className='italic text-gray-600'>{ p.subtitle } </span>
                   </div>
                 </a>
               ) : (
                 <Link to={`/blog/${p.slug}`} className='text-black transition hover:text-gradientBlue flex'>
                   <PostTypeIcon iconType={p.icon} />
                   <div className='flex flex-col'>
-                    <span className='text-lg'>{p.title}</span>
-                    <span className='italic text-sm text-gray-600'>brianmorrison.me</span>
+                    <span className='text-xl'>{p.title}</span>
+                    <span className='italic text-gray-600'>brianmorrison.me</span>
                   </div>
                 </Link>
               )}
