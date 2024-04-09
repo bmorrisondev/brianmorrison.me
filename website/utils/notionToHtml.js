@@ -22,7 +22,7 @@ module.exports = class NotionToHtmlClient {
       let isMakingUl = false
       let isMakingOl = false
 
-      blocks.results.forEach(el => {
+      blocks.forEach(el => {
         if(el.type !== "bulleted_list_item" && isMakingUl) {
           html += "</ul>"
           isMakingUl = false
@@ -48,7 +48,7 @@ module.exports = class NotionToHtmlClient {
 
     if(options.raw) {
       let raw = ""
-      blocks.results.forEach(el => {
+      blocks.forEach(el => {
         raw += this.makeRaw(el)
       })
       retval.raw = raw
@@ -66,7 +66,7 @@ module.exports = class NotionToHtmlClient {
     let page = await this.getPage(pageId)
     let blocks = await this.getBlockChildren(page.id)
 
-    blocks.results.forEach(el => {
+    blocks.forEach(el => {
       if(el.type !== "bulleted_list_item" && isMakingUl) {
         html += "</ul>"
         isMakingUl = false
@@ -127,6 +127,7 @@ module.exports = class NotionToHtmlClient {
   }
 
   async getBlockChildren(id) {
+    let results = []
     let res = await axios({
       method: "get",
       url: `https://api.notion.com/v1/blocks/${id}/children`,
@@ -135,7 +136,19 @@ module.exports = class NotionToHtmlClient {
         "Notion-Version": "2021-08-16"
       }
     })
-    return res.data
+    results = results.concat(res.data.results)
+    while(res.data.has_more) {
+      res = await axios({
+        method: "get",
+        url: `https://api.notion.com/v1/blocks/${id}/children?start_cursor=${res.data.next_cursor}`,
+        headers: {
+          "Authorization": `Bearer ${this.key}`,
+          "Notion-Version": "2021-08-16"
+        }
+      })
+      results = results.concat(res.data.results)
+    }
+    return results
   }
 
   makeParagraph(block) {

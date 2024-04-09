@@ -34,7 +34,7 @@ code {
   font-style: normal;
 }
 
-p code {
+p code, ol code, li code, ul code {
   background-color: white;
   padding: 0.2rem 0.4rem;
   border-radius: 0.3rem;
@@ -77,13 +77,17 @@ h2 {
 
 h3 {
   margin-top: 1.3rem !important;
-  font-weight: 400 !important;
   @apply text-lg font-bold;
 }
 
 p {
   font-size: 18px;
   @apply mb-4;
+}
+
+li {
+  font-size: 18px;
+  @apply mb-1
 }
 
 a {
@@ -94,14 +98,8 @@ article a:not(.stylized-li) {
   @apply border-b border-b-gray-300 text-gray-700 hover:border-b-black hover:text-black transition;
 }
 
-p code, li code {
-  color: red;
-  /* background-color: rgb(29, 31, 33); */
-  /* @apply py-1 px-2 rounded; */
-}
-
 .blog-post .callout, .blog-post blockquote {
-  @apply my-2 p-4 border bg-accent-1 border-accent-2 rounded-lg mb-2 mx-auto;
+  @apply my-2 p-4 border bg-white border-accent-2 rounded shadow-sm mb-2 mx-auto;
 }
 
 .callout {
