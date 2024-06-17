@@ -10,8 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     name: Send Telemetry
     steps:
-      - name: Send execution details to the Cronitor for Github Actions agent
-        uses: cronitorio/monitor-github-actions@v7
+      - name: Send execution details to the Cronitor for GitHub Actions agent
+        uses: cronitorio/monitor-github-actions@main
         with:
           event: ${{ toJSON(github.event) }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
