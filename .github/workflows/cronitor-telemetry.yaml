@@ -1,20 +1,20 @@
-name: Cronitor Monitoring Relay
+# name: Cronitor Monitoring Relay
 
-on:
-  workflow_run:
-    workflows: ['*']
-    types: [requested,completed]
+# on:
+#   workflow_run:
+#     workflows: ['*']
+#     types: [requested,completed]
 
-jobs:
-  send-telemetry:
-    runs-on: ubuntu-latest
-    name: Send Telemetry
-    steps:
-      - name: Send execution details to the Cronitor for GitHub Actions agent
-        uses: cronitorio/monitor-github-actions@main
-        with:
-          event: ${{ toJSON(github.event) }}
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          cronitor_key: ${{ secrets.CRONITOR_API_KEY }}
-          cronitor_group: actions
-          cronitor_notify: bmme-ci
+# jobs:
+#   send-telemetry:
+#     runs-on: ubuntu-latest
+#     name: Send Telemetry
+#     steps:
+#       - name: Send execution details to the Cronitor for GitHub Actions agent
+#         uses: cronitorio/monitor-github-actions@main
+#         with:
+#           event: ${{ toJSON(github.event) }}
+#           github_token: ${{ secrets.GITHUB_TOKEN }}
+#           cronitor_key: ${{ secrets.CRONITOR_API_KEY }}
+#           cronitor_group: actions
+#           cronitor_notify: bmme-ci
