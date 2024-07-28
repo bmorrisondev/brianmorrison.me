@@ -1,13 +1,19 @@
-import Image from 'next/image'
-import HomeCard from '../components/HomeCard'
-import ProfileImg from '../assets/profile.png'
-import YouTube from '@/components/svgs/YouTube'
-import Twitter from '@/components/svgs/Twitter'
-import LinkedIn from '@/components/svgs/LinkedIn'
-import Globe from '@/components/svgs/Globe'
-import Paper from '@/components/svgs/Paper'
+import type { MetaFunction } from "@remix-run/node";
+import HomeCard from "../components/HomeCard";
+import LinkedIn from "../components/svgs/LinkedIn";
+import Paper from "../components/svgs/Paper";
+import Twitter from "../components/svgs/Twitter";
+import YouTube from "../components/svgs/YouTube";
+import profile from "../img/profile.png"
 
-export default function Home() {
+export const meta: MetaFunction = () => {
+  return [
+    { title: "New Remix App" },
+    { name: "description", content: "Welcome to Remix!" },
+  ];
+};
+
+export default function Index() {
   return (
     <main className="flex min-h-screen flex-col lg:gap-4 lg:p-24 p-4 pt-24">
       <div className="z-10 w-full font-mono text-sm lg:flex">
@@ -17,7 +23,7 @@ export default function Home() {
           py-2 backdrop-blur-2xl lg:static lg:w-auto
           lg:rounded-xl lg:border lg:bg-gray-200 lg:p-2 lg:pr-3
           lg:dark:bg-zinc-800/30 text-lg">
-          <img src="/img/profile.png" alt="profile image" className="rounded-full h-[50px] w-auto" />
+          <img src={profile} alt="profile" className="rounded-full h-[50px] w-auto" />
           Brian Morrison II
         </p>
       </div>
@@ -41,12 +47,14 @@ export default function Home() {
       </div>
 
       <div className='md:col-span-2 border-accent-2 border rounded-lg'>
-        <iframe src="https://embeds.beehiiv.com/db8ca15b-ac1c-4aa3-9912-46fec9df6688"
+        <iframe
+          title="Newsletter subscribe form"
+          src="https://embeds.beehiiv.com/db8ca15b-ac1c-4aa3-9912-46fec9df6688"
           data-test-id="beehiiv-embed"
           width="100%"
           height="300"
           className="rounded m-0 bg-transparent"></iframe>
       </div>
     </main>
-  )
+  );
 }
