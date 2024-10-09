@@ -19,3 +19,38 @@ export type GuestbookEntry = {
   createdOn: Date
   isApproved?: boolean
 }
+
+export type Job = {
+  id: string;
+  notion_id: string;
+  jobType: {
+    slug: string;
+    name: string;
+  };
+  testimonialAuthor: string;
+  companyName: string;
+  relation_notableProjects: string[];
+  notableProjects: PortfolioItem[]
+  yearsActive: string;
+  testimonial: string;
+  title: string;
+  slug: string;
+  logo: string[];
+  html: string;
+  excerpt: string;
+  cachedOn: number;
+};
+
+export type PortfolioItem = {
+  id: string;
+  notion_id: string;
+  status: string;
+  relation_job: string[]; // Replace 'any' with a more specific type if known
+  relation_skillsUsed: string[]; // Replace 'any' with a more specific type if known
+  tags: string[]; // Replace 'any' with a more specific type if known
+  excerpt: string;
+  title: string;
+  slug: string;
+  html: string;
+  cachedOn: number;
+}
