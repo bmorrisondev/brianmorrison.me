@@ -12,7 +12,7 @@ import Series from '~/components/svgs/Series';
 import GitHub from '~/components/svgs/GitHub';
 import YouTubeEmbed from '~/components/YouTubeEmbed';
 import BlogFooter from '~/components/BlogFooter';
-import { replaceCode } from "../components/PostCode"
+import { replaceCode } from "../components/PostCode";
 
 export const loader = async ({ params }: LoaderFunctionArgs) => {
   const post = notionPost.find(el => el.slug === params.slug)
@@ -21,7 +21,6 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
     post
   });
 };
-
 
 function BlogPost() {
   const { post } = useLoaderData<typeof loader>()

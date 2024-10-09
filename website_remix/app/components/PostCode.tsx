@@ -44,7 +44,7 @@ function getLanguage(node) {
   }
 
   return null;
-};
+}
 
 const getCode = node => {
   console.log(node)
@@ -53,7 +53,7 @@ const getCode = node => {
   } else {
     return node.children;
   }
-};
+}
 
 function getCodeOld(node: any) {
   if (node.children && node.children.length == 1 && node.children[0].name === 'code') {
@@ -92,13 +92,14 @@ function getCodeOld(node: any) {
     });
     return mainNode
   }
-};
+}
 
 export function replaceCode(node) {
   if (node.name === 'pre') {
-    return node.children.length > 0 && <PostCode language={getLanguage(node)}>{domToReact(getCode(node))}</PostCode>;
+    return node.children.length > 0 &&
+      <PostCode language={getLanguage(node)}>{domToReact(getCode(node))}</PostCode>;
   }
-};
+}
 
 function PostCode({ language, children }) {
   return (
@@ -109,5 +110,3 @@ function PostCode({ language, children }) {
     </SyntaxHighlighter>
   )
 }
-
-export default PostCode
