@@ -18,7 +18,7 @@ import employmentHistory from '../content/notionEmploymentHistoryItem.json'
 import portfolioItems from '../content/notionPortfolioItem.json'
 
 export const loader = async () => {
-  const jobs: Job[] = employmentHistory
+  const jobs: Job[] = JSON.parse(JSON.stringify(employmentHistory))
   jobs.forEach(el => {
     el.notableProjects = []
     el.relation_notableProjects.forEach(rel => {
@@ -29,7 +29,7 @@ export const loader = async () => {
     })
   })
   return json({
-    jobs: employmentHistory as Job[]
+    jobs
   })
 }
 

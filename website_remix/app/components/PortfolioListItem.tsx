@@ -1,8 +1,13 @@
 import parse from "html-react-parser"
 import ArrowRight from "./svgs/ArrowRight";
 import { Link } from "@remix-run/react";
+import { PortfolioItem } from "~/models";
 
-function PortfolioListItem({ item }) {
+type Props = {
+  item: PortfolioItem
+}
+
+function PortfolioListItem({ item }: Props) {
   return (
     <Link to={`/portfolio/${item.slug}`}
       className="group/portfolio-item text-black bg-white flex flex-col justify-between p-2 shadow-sm hover:shadow-lg rounded transition-all">

@@ -19,9 +19,9 @@ function StylizedListItemBase({ children, className }: Props) {
 
 function StylizedListItem({ children, to, className, onClick }: Props) {
   if(to && to.startsWith("http")) {
-    return <a className="stylized-li" href={to} target="_blank">
+    return <a className="stylized-li" href={to} target="_blank" rel="noreferrer">
       <StylizedListItemBase className={`text-black transition-all hover:shadow-lg ${className}`}>
-        { children } <span className="ml-1"><LinkIcon /></span>
+        { children } <span className="ml-1 text-gray-300"><LinkIcon className="h-[16px] w-[16px]" /></span>
       </StylizedListItemBase>
     </a>
   }

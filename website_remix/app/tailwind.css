@@ -68,7 +68,7 @@ h1, h2, h3, h4, h5, h6 {
 
 h1 {
   display: inline-block;
-  font-size: calc(2rem + 1vw) !important;
+  font-size: calc(2rem + 1vw);
   line-height: 1.2;
   /* text-shadow: 2px 2px 15px rgba(0,0,0,0.2); */
   @apply font-bold;
