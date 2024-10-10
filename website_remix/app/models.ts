@@ -73,3 +73,24 @@ export type Tag = {
   excerpt: string;
   cachedOn: number;
 }
+
+
+export enum ContentItemIconType {
+  Default,
+  Article,
+  Podcast,
+  Talk,
+  Video,
+  Social
+}
+
+export type ContentItem = {
+  id: string
+  slug?: string
+  icon: ContentItemIconType
+  title: string
+  date: Date
+  url?: string
+  subtitle?: string
+  img?: string
+}
