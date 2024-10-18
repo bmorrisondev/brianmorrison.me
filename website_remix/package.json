@@ -6,12 +6,10 @@
   "scripts": {
     "cache": "tsx cache_content.ts",
     "build": "remix vite:build",
-    "dev": "netlify serve",
-    "dev:remix": "remix vite:dev",
+    "dev": "remix vite:dev",
     "lint": "eslint --ignore-path .gitignore --cache --cache-location ./node_modules/.cache/eslint .",
     "start": "remix-serve ./build/server/index.js",
-    "typecheck": "tsc",
-    "deploy": "npm run build&&netlify deploy"
+    "typecheck": "tsc"
   },
   "dependencies": {
     "@clerk/remix": "^4.2.36",

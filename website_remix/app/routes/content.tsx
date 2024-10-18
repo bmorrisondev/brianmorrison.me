@@ -34,13 +34,15 @@ export const loader = () => {
   const contentItemsMap: {number: {number: ContentItem}} = {}
 
   notionPosts.forEach(p => {
-    contentItems.push({
-      id: p.id,
-      slug: p.slug,
-      icon: ContentItemIconType.Article,
-      title: p.title,
-      date: new Date(p.publishOn as string),
-    })
+    if(p.status === "Published") {
+      contentItems.push({
+        id: p.id,
+        slug: p.slug,
+        icon: ContentItemIconType.Article,
+        title: p.title,
+        date: new Date(p.publishOn as string),
+      })
+    }
   })
 
   notionExternalContent.forEach(p => {
