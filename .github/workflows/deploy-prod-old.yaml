@@ -1,0 +1,48 @@
+name: Deploy prod
+
+on:
+  workflow_dispatch:
+  # push:
+  #   branches:
+  #     - main
+  #   paths:
+  #     - website/**.*
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - name: Install Netlify CLI
+        run: npm install -g netlify-cli
+      - name: Install deps
+        run: |
+          cd website
+          npm install
+      - name: Apply schema changes
+        run: |
+          cd website
+          npm run db:push
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      - name: Deploy
+        run: |
+          cd website
+          npm run deploy:prod
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+          GATSBY_CLERK_PUBLISHABLE_KEY: ${{ secrets.GATSBY_CLERK_PUBLISHABLE_KEY }}
+      - name: Create PostHog annotations
+        run: |
+          cd tools/posthog-annotator
+          go mod tidy
+          go run .
+        env:
+          PH_PROJECT_ID: ${{ secrets.PH_PROJECT_ID }}
+          PH_API_KEY: ${{ secrets.PH_API_KEY }}
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+          NOTION_CMS_DBID: ${{ secrets.NOTION_CMS_DBID }}

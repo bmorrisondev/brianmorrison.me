@@ -1,6 +1,5 @@
 import Container from '../components/Container'
 import StylizedList from '../components/StylizedList'
-import socials from '../socials'
 import StylizedListItem from '../components/StylizedListItem'
 import BlockQuote from '../components/BlockQuote'
 import PortfolioListItem from '../components/PortfolioListItem'
@@ -20,13 +19,15 @@ import portfolioItems from '../content/notion/notionPortfolioItem.json'
 export const loader = async () => {
   const jobs: Job[] = JSON.parse(JSON.stringify(employmentHistory))
   jobs.forEach(el => {
-    el.notableProjects = []
-    el.relation_notableProjects.forEach(rel => {
-      const proj = portfolioItems.find(pi => pi.id === rel)
-      if(proj) {
-        el.notableProjects.push(proj)
-      }
-    })
+    if(el.jobType.slug !== "contractor") {
+      el.notableProjects = []
+      el.relation_notableProjects.forEach(rel => {
+        const proj = portfolioItems.find(pi => pi.id === rel)
+        if(proj) {
+          el.notableProjects.push(proj)
+        }
+      })
+    }
   })
   return json({
     jobs
@@ -37,49 +38,6 @@ export const meta: MetaFunction = () => buildHeader("About me")
 
 function About() {
   const { jobs } = useLoaderData<typeof loader>()
-  // const data = useStaticQuery(graphql`
-  //   {
-  //     allNotionEmploymentHistoryItem(filter: {
-  //       jobType: {
-  //         slug: {
-  //           ne: "contractor"
-  //         }
-  //       }
-  //     }, sort:{
-  //       yearsActive: DESC
-  //     }) {
-  //       edges {
-  //         node {
-  //           id
-  //           title
-  //           jobType {
-  //             slug
-  //             name
-  //           }
-  //           companyName
-  //           yearsActive
-  //           html
-  //           logo
-  //           testimonial
-  //           testimonialAuthor
-  //           notableProjects {
-  //             slug
-  //             title
-  //             excerpt
-  //             status
-  //             skillsUsed {
-  //               icon
-  //               name
-  //             }
-  //           }
-  //         }
-  //       }
-  //     }
-  //   }
-  // `)
-
-  // const jobs = data.allNotionEmploymentHistoryItem.edges.map(el => el.node)
-
   return (
     <Container>
       <div>
