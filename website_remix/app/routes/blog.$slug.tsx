@@ -1,6 +1,6 @@
 import { LoaderFunctionArgs } from '@remix-run/node';
 import { json, useLoaderData } from '@remix-run/react';
-import notionPost from "../content/notionPost.json"
+import notionPost from "../content/notion/notionPost.json"
 import Container from '~/components/Container';
 import { SeriesCollection, SeriesEntry } from '~/models';
 import { useEffect, useState } from 'react';

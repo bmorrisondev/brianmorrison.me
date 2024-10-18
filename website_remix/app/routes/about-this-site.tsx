@@ -1,5 +1,6 @@
 import { buildHeader } from '~/utils'
 import Container from '../components/Container'
+import { MetaFunction } from '@remix-run/react'
 
 export const meta: MetaFunction = () => buildHeader("About this site")
 

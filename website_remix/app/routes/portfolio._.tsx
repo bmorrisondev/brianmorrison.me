@@ -4,9 +4,9 @@ import PortfolioListItem from "../components/PortfolioListItem"
 import { json, useLoaderData } from '@remix-run/react'
 
 // Data
-import portfolioItems from "../content/notionPortfolioItem.json"
-import employmentHistory from "../content/notionEmploymentHistoryItem.json"
-import tags from "../content/notionTag.json"
+import portfolioItems from "../content/notion/notionPortfolioItem.json"
+import employmentHistory from "../content/notion/notionEmploymentHistoryItem.json"
+import tags from "../content/notion/notionTag.json"
 
 export const loader = () => {
   const items: PortfolioItem[] = JSON.parse(JSON.stringify(portfolioItems.filter(i => i.status === "Published")))

@@ -1,9 +1,10 @@
 import Container from '../components/Container'
 import parse from "html-react-parser"
 import { replaceCode } from "../components/PostCode"
-import { json, LoaderFunctionArgs, useLoaderData } from 'react-router'
 import { PortfolioItem } from '~/models'
-import portfolioItems from '../content/notionPortfolioItem.json'
+import portfolioItems from '../content/notion/notionPortfolioItem.json'
+import { LoaderFunctionArgs } from '@remix-run/node'
+import { json, useLoaderData } from '@remix-run/react'
 
 export const loader = async ({ params }: LoaderFunctionArgs) => {
   const item: PortfolioItem = portfolioItems.find(el => el.slug === params.slug)

@@ -1,11 +1,14 @@
 import * as dotenv from 'dotenv'
 import fs from 'fs'
-import path from 'path'
 import slugify from 'slugify'
 import { Client } from '@notionhq/client'
 import NotionToHtmlClient from './utils/notionToHtml'
+import { DatabaseObjectResponse, PageObjectResponse, PartialDatabaseObjectResponse, PartialPageObjectResponse } from '@notionhq/client/build/src/api-endpoints'
 
 dotenv.config()
+
+const baseContentPath = './app/content/notion'
+const baseImagePath = './public'
 
 // Initializing a client
 const notion = new Client({
@@ -14,63 +17,28 @@ const notion = new Client({
 
 const converter = new NotionToHtmlClient(process.env.NOTION_TOKEN)
 
-exports.createSchemaCustomization = ({ actions }) => {
-  const { createTypes } = actions
-  const typeDefs = `
-    type notionPost implements Node {
-      series: [notionSeries] @link(by: "notion_id", from: "relation_series")
-    }
-    type notionSeries implements Node {
-      posts: [notionPost] @link(by: "notion_id", from: "relation_posts")
-    }
-    type notionEmploymentHistoryItem implements Node {
-      notableProjects: [notionPortfolioItem] @link(by: "notion_id", from: "relation_notableProjects")
-    }
-    type notionPortfolioItem implements Node {
-      skillsUsed: [notionTag] @link(by: "notion_id", from: "relation_skillsUsed")
-      job: [notionEmploymentHistoryItem] @link(by: "notion_id", from: "relation_job")
-    }
-  `
-  createTypes(typeDefs)
+export async function run() {
+  await loadNotionContent('notionPost', process.env.NOTION_CMS_DBID as string)
+  await loadNotionContent('notionPortfolioItem', process.env.NOTION_PORTFOLIOITEMS_DBID as string)
+  await loadNotionContent('notionSeries', process.env.NOTION_SERIES_DBID as string)
+  await loadNotionContent('notionEmploymentHistoryItem', process.env.NOTION_EMP_HIST_DBID as string)
+  await loadNotionContent('notionTag', process.env.NOTION_TAGS_DBID as string)
+  await loadNotionContent('notionPage', process.env.NOTION_PAGES_DBID as string)
+  await loadNotionContent('notionExternalContent', process.env.NOTION_EXTCONTENT_DBID as string)
 }
 
-exports.sourceNodes = async ({ actions, createNodeId, createContentDigest }) => {
-  await loadNotionContent('notionPost', process.env.NOTION_CMS_DBID, actions, createNodeId, createContentDigest)
-  await loadNotionContent('notionPortfolioItem', process.env.NOTION_PORTFOLIOITEMS_DBID, actions, createNodeId, createContentDigest)
-  await loadNotionContent('notionSeries', process.env.NOTION_SERIES_DBID, actions, createNodeId, createContentDigest)
-  await loadNotionContent('notionEmploymentHistoryItem', process.env.NOTION_EMP_HIST_DBID, actions, createNodeId, createContentDigest)
-  await loadNotionContent('notionTag', process.env.NOTION_TAGS_DBID, actions, createNodeId, createContentDigest)
-  await loadNotionContent('notionPage', process.env.NOTION_PAGES_DBID, actions, createNodeId, createContentDigest)
-  await loadNotionContent('notionExternalContent', process.env.NOTION_EXTCONTENT_DBID, actions, createNodeId, createContentDigest)
-
-  // await loadCategories()
-};
-
-// async function loadCategories({ graphql, reporter }) {
-//   let categories = await getNotionPostCategories()
-// }
-
-async function loadNotionContent(type, dbid, actions, createNodeId, createContentDigest) {
+async function loadNotionContent(type: string, dbid: string) {
   console.log('loading type:', type)
   const { results } = await notion.databases.query({
     database_id: dbid
   })
 
-  const normalized = await processNotionContent(type, results)
-
-  normalized.forEach(n => {
-    actions.createNode({
-      ...n,
-      id: createNodeId(n.id),
-      internal: {
-        type,
-        contentDigest: createContentDigest(n)
-      }
-    })
-  })
+  await processNotionContent(type, results)
 }
 
-async function processNotionContent(type, notionPosts) {
+type NotionPosts = (PageObjectResponse | PartialPageObjectResponse | PartialDatabaseObjectResponse | DatabaseObjectResponse)[]
+
+async function processNotionContent(type: string, notionPosts: NotionPosts) {
   // load cach
   let needsRecache = false
   const cached = loadCachedContent(type)
@@ -253,230 +221,11 @@ async function cacheFilesProp(slug, prop) {
   return srcs
 }
 
-exports.createPages = async gatsbyUtilities => {
-  try {
-    const notionPosts = await getNotionPosts(gatsbyUtilities)
-    if (!notionPosts.length) {
-      return
-    }
-    await createIndividualBlogPostPages({ posts: notionPosts, gatsbyUtilities })
-
-    const portfolioItems = await getPortfolioItems(gatsbyUtilities)
-    if (!portfolioItems.length) {
-      return
-    }
-    await createIndividualPortfolioItemPages({ portfolioItems, gatsbyUtilities })
-
-    const pages = await getNotionPages(gatsbyUtilities)
-    if (!pages.length) {
-      return
-    }
-    await createIndividualNotionPages({ pages, gatsbyUtilities })
-
-    // const postCategories = await getNotionPostCategories(gatsbyUtilities)
-    // if (!portfolioItems.length) {
-    //   return
-    // }
-    // await createCategoryPages({ postCategories, gatsbyUtilities })`
-  } catch (err) {
-    console.error(err)
-  }
-}
-
-async function getNotionPosts({ graphql, reporter }) {
-  const graphqlResult = await graphql(`
-    query NotionPosts {
-      allNotionPost(sort: {publishOn: DESC}) {
-        edges {
-          previous {
-            id
-          }
-          post: node {
-            id
-            slug
-          }
-          next {
-            id
-          }
-        }
-      }
-    }
-  `)
-
-  if (graphqlResult.errors) {
-    reporter.panicOnBuild(
-      `There was an error loading your blog posts`,
-      graphqlResult.errors
-    )
-    return
-  }
-
-  return graphqlResult.data.allNotionPost.edges
-}
-
-
-async function getNotionPostCategories({ graphql, reporter }) {
-  const graphqlResult = await graphql(`
-    query NotionPostCategories {
-      allNotionPost {
-        edges {
-          post: node {
-            category {
-              name
-              slug
-            }
-          }
-        }
-      }
-    }
-  `)
-
-  if (graphqlResult.errors) {
-    reporter.panicOnBuild(
-      `There was an error loading your blog posts`,
-      graphqlResult.errors
-    )
-    return
-  }
-
-  const categories = []
-  graphqlResult.data.allNotionPost.edges.forEach(edge => {
-    const { post } = edge
-    if(post.category) {
-      const existing = categories.find(c => c.slug === post.category.slug)
-      if(!existing) {
-        categories.push(post.category)
-      }
-    }
-  })
-  return categories
-}
-
-const createIndividualBlogPostPages = async function ({ posts, gatsbyUtilities }) {
-    await Promise.all(
-      posts.map(({ previous, post, next }) =>
-        gatsbyUtilities.actions.createPage({
-          path: `/blog/${post.slug}`,
-          component: path.resolve(`./src/templates/blog-post.tsx`),
-          context: {
-            id: post.id,
-            previousPostId: previous ? previous.id : null,
-            nextPostId: next ? next.id : null,
-          },
-        }
-      )
-    )
-  )
-}
-
-async function getPortfolioItems({ graphql, reporter }) {
-  const graphqlResult = await graphql(`
-    query NotionPortfolioItems {
-      allNotionPortfolioItem(sort: {date: DESC}) {
-        edges {
-          post: node {
-            id
-            slug
-          }
-        }
-      }
-    }
-  `)
-
-  if (graphqlResult.errors) {
-    reporter.panicOnBuild(
-      `There was an error loading your blog posts`,
-      graphqlResult.errors
-    )
-    return
-  }
-
-  return graphqlResult.data.allNotionPortfolioItem.edges
-}
-
-const createIndividualPortfolioItemPages = async ({ portfolioItems, gatsbyUtilities }) => {
-  await Promise.all(
-    portfolioItems.map(({ previous, post, next }) =>
-      gatsbyUtilities.actions.createPage({
-        path: `/portfolio/${post.slug}`,
-        component: path.resolve(`./src/templates/portfolio-item.tsx`),
-        context: {
-          id: post.id
-        },
-      })
-    )
-  )
-}
-
-async function getPortfolioItems({ graphql, reporter }) {
-  const graphqlResult = await graphql(`
-    query NotionPortfolioItems {
-      allNotionPortfolioItem(sort: {date: DESC}) {
-        edges {
-          post: node {
-            id
-            slug
-          }
-        }
-      }
-    }
-  `)
-
-  if (graphqlResult.errors) {
-    reporter.panicOnBuild(
-      `There was an error loading your blog posts`,
-      graphqlResult.errors
-    )
-    return
-  }
-
-  return graphqlResult.data.allNotionPortfolioItem.edges
-}
-
-const createIndividualNotionPages = async ({ pages, gatsbyUtilities }) => {
-  await Promise.all(
-    pages.map(({ page }) =>
-      gatsbyUtilities.actions.createPage({
-        path: page.slug,
-        component: path.resolve(`./src/templates/page.tsx`),
-        context: {
-          id: page.id
-        },
-      })
-    )
-  )
-}
-
-async function getNotionPages({ graphql, reporter }) {
-  const graphqlResult = await graphql(`
-    query NotionPages {
-      allNotionPage {
-        edges {
-          page: node {
-            id
-            slug
-          }
-        }
-      }
-    }
-  `)
-
-  if (graphqlResult.errors) {
-    reporter.panicOnBuild(
-      `There was an error loading your blog posts`,
-      graphqlResult.errors
-    )
-    return
-  }
-
-  return graphqlResult.data.allNotionPage.edges
-}
-
 // TODO: Export this
 // #region Utils
 
-function camelize(str) {
-  return str.replace(/(?:^\w|[A-Z]|\b\w)/g, function(word, index) {
+function camelize(str: string) {
+  return str.replace(/(?:^\w|[A-Z]|\b\w)/g, function(word: string, index: number) {
     return index === 0 ? word.toLowerCase() : word.toUpperCase();
   }).replace(/\s+/g, '');
 }
@@ -486,8 +235,8 @@ function camelize(str) {
 // TODO: Export this into a new file
 // #region Caching
 
-function loadCachedContent(type) {
-  const path = `./content/${type}.json`
+function loadCachedContent(type: string) {
+  const path = `${baseContentPath}/${type}.json`
 
   try {
     if (fs.existsSync(path)) {
@@ -501,15 +250,15 @@ function loadCachedContent(type) {
   return []
 }
 
-function saveCachedContent(type, content) {
-  const path = `./content/${type}.json`
+function saveCachedContent(type: string, content: object) {
+  const path = `${baseContentPath}/${type}.json`
   fs.writeFileSync(path, JSON.stringify(content), 'utf8');
 }
 
-async function cacheImagesAndUpdateHtml(slug, html) {
+async function cacheImagesAndUpdateHtml(slug: string, html: string) {
   const regexp = /<img.*?src=['"](.*?)['"].*?>/g;
   const matches = [...html.matchAll(regexp)];
-  const imgUrls = []
+  const imgUrls: string[] = []
   matches.forEach(m => {
     if(m[1]) {
       imgUrls.push(m[1])
@@ -527,11 +276,11 @@ async function cacheImagesAndUpdateHtml(slug, html) {
   return html
 }
 
-async function cacheImage(slug, imageUrl) {
+async function cacheImage(slug: string, imageUrl: string) {
   const spl = imageUrl.split("/")
   const fileName = `${spl[spl.length-2]}-${spl[spl.length - 1].split("?")[0]}`
   let imagePath = `/img/n/${slug}`
-  const downloadPath = "./static" + imagePath
+  const downloadPath = baseImagePath + imagePath
   const filePath = downloadPath + `/${fileName}`
 
   // If the file doesnt exist, make the dir & download the file
@@ -544,7 +293,7 @@ async function cacheImage(slug, imageUrl) {
   return imagePath += `/${fileName}`
 }
 
-const downloadImage = async (url, path) => {
+const downloadImage = async (url: string, path: string) => {
   const response = await fetch(url);
   const blob = await response.blob();
   const arrayBuffer = await blob.arrayBuffer();
@@ -553,3 +302,7 @@ const downloadImage = async (url, path) => {
 }
 
 // #endregion
+
+;(async() => {
+  await run()
+})()

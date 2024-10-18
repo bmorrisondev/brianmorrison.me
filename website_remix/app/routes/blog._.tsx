@@ -1,5 +1,5 @@
 import { json, Link, useLoaderData } from '@remix-run/react';
-import notionPost from "../content/notionPost.json"
+import notionPost from "../content/notion/notionPost.json"
 import Container from '~/components/Container';
 import PostIcon from '~/components/PostIcon';
 

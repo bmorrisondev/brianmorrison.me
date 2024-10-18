@@ -14,8 +14,8 @@ import sa from "../images/aws-sa-assoc.png"
 import awsdev from "../images/aws-dev-assoc.png"
 
 // Data
-import employmentHistory from '../content/notionEmploymentHistoryItem.json'
-import portfolioItems from '../content/notionPortfolioItem.json'
+import employmentHistory from '../content/notion/notionEmploymentHistoryItem.json'
+import portfolioItems from '../content/notion/notionPortfolioItem.json'
 
 export const loader = async () => {
   const jobs: Job[] = JSON.parse(JSON.stringify(employmentHistory))

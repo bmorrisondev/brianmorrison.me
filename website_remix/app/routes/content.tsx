@@ -3,9 +3,10 @@ import { PiArticleThin, PiMicrophoneThin, PiMicrophoneStageThin, PiVideoThin, Pi
 import { ContentItem, ContentItemIconType } from '~/models';
 
 // Data
-import notionPosts from '../content/notionPost.json'
-import notionExternalContent from '../content/notionExternalContent.json'
+import notionPosts from '../content/notion/notionPost.json'
+import notionExternalContent from '../content/notion/notionExternalContent.json'
 import { json, Link, useLoaderData } from '@remix-run/react';
+import { buildHeader } from '~/utils';
 
 
 function PostTypeIcon({ iconType }: { iconType: ContentItemIconType }) {
@@ -24,6 +25,8 @@ function PostTypeIcon({ iconType }: { iconType: ContentItemIconType }) {
       return <span className='text-2xl mr-2 mt-[2px]'><PiCubeThin /></span>
   }
 }
+
+export const meta = () => buildHeader("Content")
 
 export const loader = () => {
   // Year: Month: ContentItem

@@ -1,4 +1,3 @@
-import React from 'react'
 import { useState } from 'react'
 import Button from './Button'
 import Spinner from './svgs/Spinner'
@@ -18,24 +17,19 @@ function ContactForm() {
   const [optInToNewsletter, setOptInToNewsletter] = useState(false)
 
   async function submit() {
-    let contactInfo = {
-      name,
-      emailAddress,
-      message,
-      optInToNewsletter
-    }
-    let url = '/.netlify/functions/contact'
-    let opts = {
+    setFormState(FormState.Submitting)
+    const response = await fetch('/api/contact', {
       method: 'post',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(contactInfo)
-    }
-
-    setFormState(FormState.Submitting)
-
-    let response = await fetch(url, opts)
+      body: JSON.stringify({
+        name,
+        emailAddress,
+        message,
+        optInToNewsletter
+      })
+    })
 
     if(response.status === 200) {
       setFormState(FormState.Success)
@@ -47,43 +41,46 @@ function ContactForm() {
   return (
     <form className='rounded border bg-white shadow-sm border-gray-100 p-4'>
       <div className="mb-2">
-        <label className="block text-gray-700 text-sm font-bold mb-2">
+        <label htmlFor="name" className="block text-gray-700 text-sm font-bold mb-2">
           Name
         </label>
         <input
+          name='name'
           className="shadow-sm appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           value={name}
           onChange={e => setName(e.target.value)}
           type="text" />
       </div>
       <div className="mb-2">
-        <label className="block text-gray-700 text-sm font-bold mb-2">
+        <label htmlFor='email' className="block text-gray-700 text-sm font-bold mb-2">
           Email address
         </label>
         <input
+          name='email'
           className="shadow-sm appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
           value={emailAddress}
           onChange={e => setEmailAddress(e.target.value)}
           type="text"  />
       </div>
       <div>
-        <label className="block text-gray-700 text-sm font-bold mb-2">
+        <label htmlFor='message' className="block text-gray-700 text-sm font-bold mb-2">
           Message
         </label>
         <textarea
+          name='message'
           className="shadow-sm appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
           value={message}
           onChange={e => setMessage(e.target.value)}
           rows={4}  />
       </div>
-      <div className='flex space-x-2 items-center mb-2'>
+      {/* <div className='flex space-x-2 items-center mb-2'>
         <input
           type="checkbox"
           checked={optInToNewsletter}
           onChange={() => setOptInToNewsletter(!optInToNewsletter)}
           />
         <span>Opt in to newsletter</span>
-      </div>
+      </div> */}
       <div className="flex items-center space-x-2">
         <Button onClick={() => submit()} disabled={formState !== FormState.None}>
           Send

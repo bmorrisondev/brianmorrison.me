@@ -15,7 +15,7 @@ function PortfolioListItem({ item }: Props) {
         {item.skillsUsed && item.skillsUsed.length > 0 && (
           <div className="flex gap-1 mt-1 mb-2">
           {item.skillsUsed && item.skillsUsed.map(su =>
-            <img src={su.icon} alt={su.name} className="max-w-[20px] max-h-[20px]"/>)}
+            <img key={`${item.notion_id}-${item.slug}`} src={su.icon} alt={su.name} className="max-w-[20px] max-h-[20px]"/>)}
           </div>
         )}
         <div className="font-bold">{parse(item.title)}</div>
