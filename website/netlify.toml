@@ -1,8 +1,7 @@
 [build]
-  base = "/website"
-  publish = "/public"
-  command = "npm run build"
-  functions = "/functions"
+command = "npm run build"
+publish = "build/client"
 
-[context.production]
-  publish = "/public"
+[dev]
+command = "npm run dev"
+framework = "vite"

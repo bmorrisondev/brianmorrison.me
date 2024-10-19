@@ -1,6 +1,4 @@
-const { default: axios } = require("axios");
-
-module.exports = class NotionToHtmlClient {
+export default class NotionToHtmlClient {
   constructor(key) {
     this.apiBase = "https://api.notion.com/v1"
     this.key = key
@@ -91,62 +89,56 @@ module.exports = class NotionToHtmlClient {
   }
 
   async getDatabase(databaseId) {
-    let res = await axios({
+    let res = await fetch(`https://api.notion.com/v1/databases/${databaseId}`, {
       method: "get",
-      url: `https://api.notion.com/v1/databases/${databaseId}`,
       headers: {
         "Authorization": `Bearer ${this.key}`,
         "Notion-Version": "2021-08-16"
       }
     })
-    return res.data
+    return await res.json()
   }
 
   async queryDatabase(databaseId) {
-    let res = await axios({
+    let res = await fetch(`https://api.notion.com/v1/databases/${databaseId}/query`, {
       method: "post",
-      url: `https://api.notion.com/v1/databases/${databaseId}/query`,
       headers: {
         "Authorization": `Bearer ${this.key}`,
         "Notion-Version": "2021-08-16"
       }
     })
-    return res.data
+    return await res.json()
   }
 
   async getPage(pageId) {
-    let res = await axios({
-      method: "get",
-      url: `https://api.notion.com/v1/pages/${pageId}`,
+    let res = await fetch(`https://api.notion.com/v1/pages/${pageId}`, {
       headers: {
         "Authorization": `Bearer ${this.key}`,
         "Notion-Version": "2021-08-16"
       }
     })
-    return res.data
+    return res.json()
   }
 
   async getBlockChildren(id) {
     let results = []
-    let res = await axios({
-      method: "get",
-      url: `https://api.notion.com/v1/blocks/${id}/children`,
+    let res = await fetch(`https://api.notion.com/v1/blocks/${id}/children`, {
       headers: {
         "Authorization": `Bearer ${this.key}`,
         "Notion-Version": "2021-08-16"
       }
     })
-    results = results.concat(res.data.results)
-    while(res.data.has_more) {
-      res = await axios({
-        method: "get",
-        url: `https://api.notion.com/v1/blocks/${id}/children?start_cursor=${res.data.next_cursor}`,
+    let data = await res.json()
+    results = results.concat(data.results)
+    while(data.has_more) {
+      res = await fetch(`https://api.notion.com/v1/blocks/${id}/children?start_cursor=${data.next_cursor}`, {
         headers: {
           "Authorization": `Bearer ${this.key}`,
           "Notion-Version": "2021-08-16"
         }
       })
-      results = results.concat(res.data.results)
+      data = await res.json()
+      results = results.concat(data.results)
     }
     return results
   }
