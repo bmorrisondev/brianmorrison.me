@@ -14,12 +14,13 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v3
-      # - name: Apply schema changes
-      #   run: |
-      #     cd website
-      #     npm run db:push
-      #   env:
-      #     DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      - name: Apply schema changes
+        run: |
+          npm i -g drizzle-orm drizzle-kit dotenv
+          cd website
+          npm run db:push
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
       - name: Setup fly
         uses: superfly/flyctl-actions/setup-flyctl@master
       # - name: Deploy convex
