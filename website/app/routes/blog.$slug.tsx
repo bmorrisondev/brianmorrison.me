@@ -82,7 +82,7 @@ function BlogPost() {
         <h1 className="my-0 py-0">{parse(post.title)}</h1>
         <div className="post-meta">
           <StylizedList>
-            <StylizedListItem><Calendar />{post.publishOn}</StylizedListItem>
+            <StylizedListItem><Calendar className='mr-1 max-w-[14px]' />{new Date(post.publishOn).toLocaleDateString()}</StylizedListItem>
 
             {series?.name && (
               <StylizedListItem onClick={() => scrollToSeriesListing()}>
