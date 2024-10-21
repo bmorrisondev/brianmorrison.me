@@ -43,5 +43,6 @@ export function buildHeader({ pageTitle, description, ogImageUrl, url }: BuildHe
     { name: "twitter:site", content: "@brianmmdev" },
     { name: "twitter:creator", content: "@brianmmdev" },
     { name: "twitter:description", content: desc },
+    { name: "runson", content: 'remix' },
   ];
 }
