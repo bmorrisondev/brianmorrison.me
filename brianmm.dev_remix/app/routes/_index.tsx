@@ -1,10 +1,10 @@
 import type { MetaFunction } from "@remix-run/node";
-import HomeCard from "../components/HomeCard";
-import LinkedIn from "../components/svgs/LinkedIn";
-import Paper from "../components/svgs/Paper";
-import Twitter from "../components/svgs/Twitter";
-import YouTube from "../components/svgs/YouTube";
-import profile from "../img/profile.png"
+import BentoBlock from "../components/BentoBlock";
+import { MdArticle, MdOutlineDownload, MdOutlineOpenInNew } from "react-icons/md";
+import ButtonLink from "../components/ButtonLink";
+import { BiLogoLinkedin, BiLogoTwitter, BiLogoYoutube } from "react-icons/bi";
+import { GrProjects } from "react-icons/gr";
+import profileImg from "../img/profile.png"
 
 export const meta: MetaFunction = () => {
   return [
@@ -15,40 +15,75 @@ export const meta: MetaFunction = () => {
 
 export default function Index() {
   return (
-    <main className="flex min-h-screen flex-col lg:gap-4 lg:p-24 p-4 pt-24">
+<main className="flex min-h-screen flex-col lg:gap-4 lg:p-24 p-4 pt-24 max-w-6xl mx-auto">
       <div className="z-10 w-full font-mono text-sm lg:flex">
         <p className="fixed left-0 top-0
-          flex w-full items-center justify-center gap-2 border-b
-          border-gray-300 bg-gradient-to-b from-zinc-200
-          py-2 backdrop-blur-2xl lg:static lg:w-auto
-          lg:rounded-xl lg:border lg:bg-gray-200 lg:p-2 lg:pr-3
+          flex w-full items-center justify-center gap-2 border-b lg:border-0
+          border-accent-2 bg-gradient-to-b
+          py-2 backdrop-blur-2xl lg:static lg:w-auto lg:p-2 lg:pr-3
           lg:dark:bg-zinc-800/30 text-lg">
-          <img src={profile} alt="profile" className="rounded-full h-[50px] w-auto" />
+          <img src={profileImg} alt="profile" className="rounded-full h-[50px] w-auto" />
           Brian Morrison II
         </p>
       </div>
       <div className="mb-4 flex items-center justify-center lg:justify-start">
-        <span>Developer Educator @ <a href="https://planetscale.com" className="ml-1 border-b border-b-gray-400 hover:border-b-gray-700 transition">PlanetScale</a>.</span>
+        <span>Full Stack Developer & Content Creator.</span>
       </div>
 
       <div className="mb-4 grid lg:mb-0 xl:grid-cols-5 lg:grid-cols-4 grid-cols-2 text-left gap-4">
-        <HomeCard href="https://youtube.com/@brianmmdev" color="youtube">
-          <YouTube /> @brianmmdev
-        </HomeCard>
-        <HomeCard href="https://twitter.com/@brianmmdev" color="twitter">
-          <Twitter /> @brianmmdev
-        </HomeCard>
-        <HomeCard href="https://www.linkedin.com/in/brianmmdev">
-          <LinkedIn /> @brianmmdev
-        </HomeCard>
-        <HomeCard href="https://brianmorrison.me/blog" color="purple">
-          <Paper /> my blog
-        </HomeCard>
+        <ButtonLink href="https://youtube.com/@brianmmdev">
+          <BiLogoYoutube className="text-red-500 text-2xl" /> @brianmmdev
+        </ButtonLink>
+        <ButtonLink href="https://twitter.com/@brianmmdev">
+          <BiLogoTwitter className="text-twitterBlue text-2xl" /> @brianmmdev
+        </ButtonLink>
+        <ButtonLink href="https://www.linkedin.com/in/brianmmdev">
+          <BiLogoLinkedin className="text-linkedinBlue text-xl" /> @brianmmdev
+        </ButtonLink>
+        <ButtonLink href="https://brianmorrison.me/content">
+          <MdArticle className="text-2xl text-purple-800" /> Content
+        </ButtonLink>
+        <ButtonLink href="https://brianmorrison.me/portfolio">
+          <GrProjects className="text-xl text-purple-800" /> Portfolio
+        </ButtonLink>
       </div>
 
-      <div className='md:col-span-2 border-accent-2 border rounded-lg'>
+      <div className="mb-4 grid md:grid-cols-2 lg:justify-start gap-4">
+        <BentoBlock className="p-4 md:border-0 flex flex-col">
+          <h3>Let{`'`}s chat!</h3>
+          <div className="flex-1">
+            <p>My 2024 goal is to foster my existing relationships and build new ones! I{`'`}ve opened my calendar for specific timeslots to have quick chats about programming, life, or anything else you want to chat about.</p>
+            <p>Feel free to schedule some time on my calendar, even if just for a quick 15 min intro:</p>
+          </div>
+          <div className="flex gap-2">
+            <ButtonLink href="https://cal.com/brianmmdev">
+            <MdOutlineOpenInNew /> Schedule a chat
+            </ButtonLink>
+          </div>
+        </BentoBlock>
+
+        <BentoBlock className="p-4 md:border-0">
+          <h3>Let{`'`}s work together!</h3>
+          <div>
+            <p>I{`'`}m a seasoned backend developer with over a decade of experience in the tech industry ranging from managing services & networking equipment to building complex integration systems for an IoT platform.</p>
+            <p>If you feel we could do great work together, reach out and lets have a conversation!</p>
+          </div>
+          <div className="flex gap-2">
+            <ButtonLink href="https://brianmorrison.me/contact">
+              <MdOutlineOpenInNew /> Contact me
+            </ButtonLink>
+            <ButtonLink href="/files/bmorrison-fullstack-2024.pdf">
+              <MdOutlineDownload /> Resume
+            </ButtonLink>
+          </div>
+        </BentoBlock>
+
+      </div>
+
+
+      <div className='md:col-span-2 shadow border-b-1 border-b-gray-500 rounded-lg bg-white'>
         <iframe
-          title="Newsletter subscribe form"
+          title="Newsletter form"
           src="https://embeds.beehiiv.com/db8ca15b-ac1c-4aa3-9912-46fec9df6688"
           data-test-id="beehiiv-embed"
           width="100%"
