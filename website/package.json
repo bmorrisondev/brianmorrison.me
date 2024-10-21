@@ -11,7 +11,7 @@
     "start": "remix-serve ./build/server/index.js",
     "typecheck": "tsc",
     "lockfile": "npm i --package-lock-only",
-    "db:push": "drizzle-kit push:pg --config drizzle.config.ts"
+    "db:push": "npx drizzle-kit push --config drizzle.config.ts"
   },
   "dependencies": {
     "@clerk/remix": "^4.2.36",
