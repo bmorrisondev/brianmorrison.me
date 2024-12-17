@@ -1,7 +1,6 @@
 import { Client } from '@notionhq/client'
 import Container from '~/components/Container'
 import { json, useLoaderData } from '@remix-run/react'
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '~/components/ui/card'
 import Box from '~/components/ui/Box'
 
 export const loader = async () => {
