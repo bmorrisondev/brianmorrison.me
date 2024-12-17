@@ -1,7 +1,6 @@
 import { Client } from '@notionhq/client'
 import Container from '~/components/Container'
 import { json, useLoaderData } from '@remix-run/react'
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '~/components/ui/card'
 import Box from '~/components/ui/Box'
 
 export const loader = async () => {
@@ -33,13 +32,15 @@ export const loader = async () => {
     const name = r.properties["Name"].title[0].plain_text
     const status = r.properties["Status"].status.name
     const description = r.properties["Description"]?.rich_text[0]?.plain_text
-    const iconUrl = r.icon.external.url
+    const iconUrl = r.icon?.external?.url
+    const iconEmoji = r.icon?.emoji
 
     projects[status].push({
       id,
       name,
       description,
-      iconUrl
+      iconUrl,
+      iconEmoji
     })
   })
 
@@ -62,7 +63,8 @@ function Workboard() {
             <Box key={p.id}>
               <div className='flex flex-col gap-1'>
                 <div className='flex gap-1'>
-                  <img src={p.iconUrl} className='h-[20px] w-[20px] mt-0.5'  />
+                  {p.iconUrl && <img src={p.iconUrl} className='h-[20px] w-[20px] mt-0.5'  /> }
+                  {p.iconEmoji && <span>{p.iconEmoji}</span>}
                   <div className='font-bold'>{p.name}</div>
                 </div>
                 <div>{p.description}</div>
@@ -76,8 +78,9 @@ function Workboard() {
             <Box key={p.id}>
               <div className='flex flex-col gap-1'>
                 <div className='flex gap-1'>
-                <img src={p.iconUrl} className='h-[20px] w-[20px] mt-0.5'  />
-                <div className='font-bold'>{p.name}</div>
+                  {p.iconUrl && <img src={p.iconUrl} className='h-[20px] w-[20px] mt-0.5'  /> }
+                  {p.iconEmoji && <span>{p.iconEmoji}</span>}
+                  <div className='font-bold'>{p.name}</div>
                 </div>
                 <div>{p.description}</div>
               </div>
@@ -90,8 +93,9 @@ function Workboard() {
             <Box key={p.id}>
               <div className='flex flex-col gap-1'>
                 <div className='flex gap-1 '>
-                <img src={p.iconUrl} className='h-[20px] w-[20px] mt-0.5'  />
-                <div className='font-bold'>{p.name}</div>
+                  {p.iconUrl && <img src={p.iconUrl} className='h-[20px] w-[20px] mt-0.5'  /> }
+                  {p.iconEmoji && <span>{p.iconEmoji}</span>}
+                  <div className='font-bold'>{p.name}</div>
                 </div>
                 <div>{p.description}</div>
               </div>

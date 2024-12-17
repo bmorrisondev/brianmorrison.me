@@ -16,6 +16,7 @@
   "dependencies": {
     "@clerk/remix": "^4.2.36",
     "@neondatabase/serverless": "^0.10.1",
+    "@notionhq/client": "^2.2.15",
     "@netlify/remix-adapter": "^2.5.1",
     "@radix-ui/react-icons": "^1.3.0",
     "@remix-run/node": "^2.12.1",
@@ -36,7 +37,6 @@
   },
   "devDependencies": {
     "@flydotio/dockerfile": "^0.5.9",
-    "@notionhq/client": "^2.2.15",
     "@remix-run/dev": "^2.12.1",
     "@types/react": "^18.2.20",
     "@types/react-dom": "^18.2.7",
