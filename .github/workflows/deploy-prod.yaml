@@ -21,6 +21,12 @@ jobs:
           npm run db:push
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
+
+      - name: Update cache
+        run: |
+          cd website
+          npm i -D dotenv tsx
+          npm run cache
       - name: Setup fly
         uses: superfly/flyctl-actions/setup-flyctl@master
       - name: Deploy to fly
