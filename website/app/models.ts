@@ -27,6 +27,10 @@ export type Job = {
     slug: string;
     name: string;
   };
+  visibility: {
+    slug: string;
+    name: string;
+  };
   testimonialAuthor: string;
   companyName: string;
   relation_notableProjects: string[];

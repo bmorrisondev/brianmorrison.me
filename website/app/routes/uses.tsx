@@ -1,6 +1,7 @@
 import StylizedList from '../components/StylizedList'
 import Container from '../components/Container'
 import StylizedListItem from '../components/StylizedListItem'
+import { MetaFunction } from '@remix-run/node'
 import { buildHeader } from '~/utils'
 
 // Images
@@ -8,7 +9,9 @@ import desk from "../images/uses-desk.jpg"
 import computer from "../images/uses-computer.jpg"
 import server from "../images/uses-server.jpg"
 
-export const meta = () => buildHeader("Uses")
+export const meta: MetaFunction = () => buildHeader({
+  pageTitle: "Uses"
+})
 
 function Uses() {
   const rig = [

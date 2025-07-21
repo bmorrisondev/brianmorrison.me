@@ -2,6 +2,8 @@ import { Job, PortfolioItem, Tag } from '~/models'
 import Container from '../components/Container'
 import PortfolioListItem from "../components/PortfolioListItem"
 import { json, useLoaderData } from '@remix-run/react'
+import { MetaFunction } from '@remix-run/node'
+import { buildHeader } from '~/utils'
 
 // Data
 import portfolioItems from "../content/notion/notionPortfolioItem.json"
@@ -38,6 +40,10 @@ export const loader = () => {
     items
   })
 }
+
+export const meta: MetaFunction = () => buildHeader({
+  pageTitle: "Portfolio"
+})
 
 function Portfolio() {
   const { items } = useLoaderData<typeof loader>()
