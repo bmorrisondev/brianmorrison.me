@@ -5,7 +5,7 @@ import BlockQuote from '../components/BlockQuote'
 import PortfolioListItem from '../components/PortfolioListItem'
 import { json, Link, MetaFunction, useLoaderData } from '@remix-run/react'
 import { buildHeader } from '~/utils'
-import { Job } from '~/models'
+import { Job, PortfolioItem } from '~/models'
 
 // Images
 import ccna from "../images/ccna-rs.png"
@@ -17,17 +17,16 @@ import employmentHistory from '../content/notion/notionEmploymentHistoryItem.jso
 import portfolioItems from '../content/notion/notionPortfolioItem.json'
 
 export const loader = async () => {
-  const jobs: Job[] = JSON.parse(JSON.stringify(employmentHistory))
+  let jobs: Job[] = JSON.parse(JSON.stringify(employmentHistory))
+  jobs = jobs.filter(j => j.visibility?.slug === "public")
   jobs.forEach(el => {
-    if(el.jobType.slug !== "contractor") {
-      el.notableProjects = []
-      el.relation_notableProjects.forEach(rel => {
-        const proj = portfolioItems.find(pi => pi.id === rel)
-        if(proj) {
-          el.notableProjects.push(proj)
-        }
-      })
-    }
+    el.notableProjects = []
+    el.relation_notableProjects.forEach(rel => {
+      const proj = portfolioItems.find(pi => pi.id === rel)
+      if(proj) {
+        el.notableProjects.push(proj)
+      }
+    })
   })
   return json({
     jobs

@@ -1,8 +1,11 @@
+import { MetaFunction } from '@remix-run/react'
 import ContactForm from '../components/ContactForm'
 import Container from '../components/Container'
 import { buildHeader } from '~/utils'
 
-export const meta = () => buildHeader("Contact me")
+export const meta: MetaFunction = () => buildHeader({
+  pageTitle: "Contact me"
+})
 
 function Contact() {
   return (

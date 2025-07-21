@@ -6,6 +6,7 @@ import { ContentItem, ContentItemIconType } from '~/models';
 import notionPosts from '../content/notion/notionPost.json'
 import notionExternalContent from '../content/notion/notionExternalContent.json'
 import { json, Link, useLoaderData } from '@remix-run/react';
+import { MetaFunction } from '@remix-run/node'
 import { buildHeader } from '~/utils';
 
 
@@ -26,7 +27,9 @@ function PostTypeIcon({ iconType }: { iconType: ContentItemIconType }) {
   }
 }
 
-export const meta = () => buildHeader("Content")
+export const meta: MetaFunction = () => buildHeader({
+  pageTitle: "Content"
+})
 
 export const loader = () => {
   // Year: Month: ContentItem
