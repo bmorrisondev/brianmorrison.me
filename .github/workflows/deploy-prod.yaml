@@ -26,13 +26,13 @@ jobs:
           version: latest
           run_install: false
           
-      - name: Apply schema changes
-        run: |
-          cd website
-          pnpm install -D @neondatabase/serverless drizzle-orm drizzle-kit dotenv
-          pnpm run db:push
-        env:
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      # - name: Apply schema changes
+      #   run: |
+      #     cd website
+      #     pnpm install -D @neondatabase/serverless drizzle-orm drizzle-kit dotenv
+      #     pnpm run db:push
+      #   env:
+      #     DATABASE_URL: ${{ secrets.DATABASE_URL }}
 
       - name: Update cache
         run: |
