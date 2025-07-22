@@ -39,6 +39,17 @@ jobs:
           cd website
           pnpm install -D dotenv tsx
           pnpm run cache
+        env:
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+          NOTION_CMS_DBID: ${{ secrets.NOTION_CMS_DBID }}
+          NOTION_PORTFOLIOITEMS_DBID: ${{ secrets.NOTION_PORTFOLIOITEMS_DBID }}
+          NOTION_SERIES_DBID: ${{ secrets.NOTION_SERIES_DBID }}
+          NOTION_EMP_HIST_DBID: ${{ secrets.NOTION_EMP_HIST_DBID }}
+          NOTION_TAGS_DBID: ${{ secrets.NOTION_TAGS_DBID }}
+          NOTION_PAGES_DBID: ${{ secrets.NOTION_PAGES_DBID }}
+          NOTION_EXTCONTENT_DBID: ${{ secrets.NOTION_EXTCONTENT_DBID }}
+          NOTION_GUESTBOOK_DBID: ${{ secrets.NOTION_GUESTBOOK_DBID }}
+          NOTION_PROJECTS_DBID: ${{ secrets.NOTION_PROJECTS_DBID }}
           
       - name: Install Vercel CLI
         run: pnpm install -g vercel@latest
