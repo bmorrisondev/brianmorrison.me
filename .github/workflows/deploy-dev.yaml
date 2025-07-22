@@ -1,4 +1,4 @@
-name: Deploy to Fly (Dev)
+name: Deploy to Vercel (Dev)
 
 on:
   workflow_dispatch:
@@ -12,13 +12,40 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: checkout
+      - name: Checkout
         uses: actions/checkout@v3
-      - name: Setup fly
-        uses: superfly/flyctl-actions/setup-flyctl@master
-      - name: Deploy to fly
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+          
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: latest
+          run_install: false
+          
+      - name: Apply schema changes
         run: |
           cd website
-          flyctl deploy --remote-only --strategy immediate -c fly.dev.toml
+          pnpm install -D @neondatabase/serverless drizzle-orm drizzle-kit dotenv
+          pnpm run db:push
         env:
-          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN_DEV }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          
+      - name: Update cache
+        run: |
+          cd website
+          pnpm install -D dotenv tsx
+          pnpm run cache
+          
+      - name: Install Vercel CLI
+        run: pnpm install -g vercel@latest
+        
+      - name: Deploy to Vercel
+        run: |
+          cd website
+          vercel deploy --token=${{ secrets.VERCEL_TOKEN }} --yes --project-id=${{ secrets.VERCEL_PROJECT_ID }}
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
