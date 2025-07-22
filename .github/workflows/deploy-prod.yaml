@@ -57,7 +57,8 @@ jobs:
       - name: Deploy to Vercel
         run: |
           cd website
-          vercel deploy --prod --token=${{ secrets.VERCEL_TOKEN }} --yes --project-id=${{ secrets.VERCEL_PROJECT_ID }}
+          vercel link --token=${{ secrets.VERCEL_TOKEN }} --yes --name="brianmorrison.me"
+          vercel deploy --prod --token=${{ secrets.VERCEL_TOKEN }} --yes
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
           
