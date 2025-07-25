@@ -70,12 +70,12 @@ h1 {
   font-size: calc(2rem + 1vw);
   line-height: 1.2;
   /* text-shadow: 2px 2px 15px rgba(0,0,0,0.2); */
-  @apply font-bold;
+  @apply font-bold mb-4 mt-8;
 }
 
 h2 {
   margin-top: 2rem !important;
-  @apply text-xl font-bold;
+  @apply text-2xl font-bold mb-1;
 }
 
 h3 {

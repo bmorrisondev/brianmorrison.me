@@ -5,16 +5,54 @@ import BlockQuote from '../components/BlockQuote'
 import PortfolioListItem from '../components/PortfolioListItem'
 import { json, Link, MetaFunction, useLoaderData } from '@remix-run/react'
 import { buildHeader } from '~/utils'
-import { Job, PortfolioItem } from '~/models'
+import { Job } from '~/models'
 
 // Images
 import ccna from "../images/ccna-rs.png"
 import sa from "../images/aws-sa-assoc.png"
 import awsdev from "../images/aws-dev-assoc.png"
+import me from "../images/me.jpg"
 
 // Data
 import employmentHistory from '../content/notion/notionEmploymentHistoryItem.json'
 import portfolioItems from '../content/notion/notionPortfolioItem.json'
+
+// Certifications data
+interface Certification {
+  url: string;
+  image: string;
+  alt: string;
+  period: string;
+}
+
+const certifications: Certification[] = [
+  {
+    url: "https://www.youracclaim.com/badges/885db61f-cf70-4922-bbbe-d66cb02a6336/public_url",
+    image: awsdev,
+    alt: "AWS Dev Assoc",
+    period: "2019 - 2022"
+  },
+  {
+    url: "https://www.youracclaim.com/badges/0740ed31-39a7-4515-b3df-1a51478ddbc7/public_url",
+    image: sa,
+    alt: "AWS Solutions Architect Assoc",
+    period: "2019 - 2022"
+  },
+  {
+    url: "https://www.youracclaim.com/badges/f24caf74-41fc-4cdb-a032-dcf9c20c9b4b/public_url",
+    image: ccna,
+    alt: "CCNA Routing and Switching",
+    period: "2015 - 2018"
+  }
+];
+
+// Proficiencies data
+const proficiencies: Record<string, string[]> = {
+  "Languages": ["JavaScript", "C#", "Go"],
+  "Frameworks": [".NET Core/Framework", "React", "Gatsby", "Vue", "Gridsome"],
+  "Cloud/Infrastructure": ["AWS", "Azure", "Netlify", "Digital Ocean", "Linux (Ubuntu, Centos)", "Windows Server", "Networking"],
+  "DevOps": ["Azure DevOps", "GitHub Actions", "Jenkins", "Octopus"]
+}
 
 export const loader = async () => {
   let jobs: Job[] = JSON.parse(JSON.stringify(employmentHistory))
@@ -34,79 +72,60 @@ export const loader = async () => {
 }
 
 export const meta: MetaFunction = () => buildHeader({
-  pageTitle: "About me"
+  pageTitle: "Work with me"
 })
 
-function About() {
+function WorkWithMe() {
   const { jobs } = useLoaderData<typeof loader>()
   return (
     <Container>
       <div>
-        <h1>About Me</h1>
-        <div>
-          <p>I'm a full stack software developer with a passion for all things tech, from web development to cloud infrastructure. I also create <Link to="/content">technical content</Link> to help other developers learn new and interesting things in the tech space.</p>
+        <h1>Work with me</h1>
+        {/* Intro section */}
+        <div className='flex gap-4 md:flex-row flex-col'>
+          <img src={me} alt="Brian Morrison II" className="w-[150px] h-[150px] rounded-full mb-4" />
+          <div className='flex flex-col gap-2'>
+            <div className='font-bold text-xl'>Brian Morrison II</div>
+            <p>I&apos;m a full stack software developer with over 15 years of experience in the tech space. I have a passion for all things tech, from web development to cloud infrastructure. </p>
+            <p>I am always interested in chatting about new collaboration opportunities, so be sure to <Link to="/contact" className="underline px-0.5 font-bold hover:bg-white hover:shadow rounded transition-colors">reach out</Link> if you are interested in working with me!</p>
+          </div>
         </div>
+
+        {/* Certifications section */}
         <div className="certifications">
           <h2>Certifications</h2>
           <div className='flex space-x-2'>
-            <a href="https://www.youracclaim.com/badges/885db61f-cf70-4922-bbbe-d66cb02a6336/public_url"
-              className='shadow-sm text-black flex flex-col items-center bg-white border-background-accent border-[1px] hover:shadow-lg rounded p-1 transition-all'
-              target="_blank" rel="noreferrer">
-              <img src={awsdev} alt="AWS Dev Assoc" />
-              <span>2019 - 2022</span>
-            </a>
-            <a href="https://www.youracclaim.com/badges/0740ed31-39a7-4515-b3df-1a51478ddbc7/public_url"
-              className='shadow-sm text-black flex flex-col items-center bg-white border-background-accent border-[1px] hover:shadow-lg rounded p-1 transition-all'
-              target="_blank" rel="noreferrer">
-              <img src={sa} alt="AWS Solutions Architect Assoc" />
-              <span>2019 - 2022</span>
-            </a>
-            <a href="https://www.youracclaim.com/badges/f24caf74-41fc-4cdb-a032-dcf9c20c9b4b/public_url"
-              className='shadow-sm text-black flex flex-col items-center bg-white border-background-accent border-[1px] hover:shadow-lg rounded p-1 transition-all'
-              target="_blank" rel="noreferrer">
-              <img src={ccna} alt="CCNA Routing and Switching" />
-              <span>2015 - 2018</span>
-            </a>
+            {certifications.map((cert, index) => (
+              <a 
+                key={`cert-${index}`}
+                href={cert.url}
+                className='shadow-sm text-black flex flex-col items-center bg-white border-background-accent border-[1px] hover:shadow-lg rounded p-1 transition-all'
+                target="_blank" 
+                rel="noreferrer"
+              >
+                <img src={cert.image} alt={cert.alt} />
+                <span>{cert.period}</span>
+              </a>
+            ))}
           </div>
         </div>
+
+        {/* Proficiencies section */}
         <div className="proficiencies">
           <h2>Proficiencies</h2>
-          <h3>Languages:</h3>
-          <StylizedList>
-            <StylizedListItem>JavaScript</StylizedListItem>
-            <StylizedListItem>C#</StylizedListItem>
-            <StylizedListItem>Go</StylizedListItem>
-          </StylizedList>
-          <h3>Frameworks:</h3>
-          <StylizedList>
-            <StylizedListItem>.NET Core/Framework</StylizedListItem>
-            <StylizedListItem>React</StylizedListItem>
-            <StylizedListItem>Gatsby</StylizedListItem>
-            <StylizedListItem>Vue</StylizedListItem>
-            <StylizedListItem>Gridsome</StylizedListItem>
-          </StylizedList>
-          <h3>Cloud/Infrastructure:</h3>
-          <StylizedList>
-            <StylizedListItem>AWS</StylizedListItem>
-            <StylizedListItem>Azure</StylizedListItem>
-            <StylizedListItem>Netlify</StylizedListItem>
-            <StylizedListItem>Digital Ocean</StylizedListItem>
-            <StylizedListItem>Linux (Ubuntu, Centos)</StylizedListItem>
-            <StylizedListItem>Windows Server</StylizedListItem>
-            <StylizedListItem>Networking</StylizedListItem>
-          </StylizedList>
-          <h3>DevOps:</h3>
-          <StylizedList>
-            <StylizedListItem>Azure DevOps</StylizedListItem>
-            <StylizedListItem>GitHub Actions</StylizedListItem>
-            <StylizedListItem>Jenkins</StylizedListItem>
-            <StylizedListItem>Octopus</StylizedListItem>
-          </StylizedList>
+          {Object.entries(proficiencies).map(([category, items]) => (
+            <div key={category}>
+              <h3>{category}:</h3>
+              <StylizedList>
+                {items.map((item, index) => (
+                  <StylizedListItem key={`${category.toLowerCase()}-${index}`}>{item}</StylizedListItem>
+                ))}
+              </StylizedList>
+            </div>
+          ))}
         </div>
-        <h2>More</h2>
-        <p>I have a great passion for technology and simply love working with it to help solve problems. While most of my jobs have started with a focus on systems & networking, I have always found ways to build tools and automations for the companies I've worked with over the years as a means to both exercise my love for software development and provide more value to the company.</p>
-        <p>Outside of tech, I love spending time with my wife and three sons, gaming on the PlayStation or Steam Deck, and being active when I can. </p>
 
+        {/* Work history section */}
         <div className="work-history">
           <h2 className="mb-8">Work history</h2>
           {jobs.map(j => (
@@ -138,4 +157,4 @@ function About() {
   )
 }
 
-export default About
+export default WorkWithMe
