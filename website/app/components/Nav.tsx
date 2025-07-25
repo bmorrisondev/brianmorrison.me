@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 // @ts-ignore
 import SiteLogo from '../images/logo.png'
 import MobileNavLink from './MobileNavLink'
@@ -9,6 +9,20 @@ import Menu from './svgs/Menu'
 function Navigation() {
   const [isMobileMenuShown, setIsMobileMenuShown] = useState(false)
 
+  // Prevent scrolling when mobile menu is open
+  useEffect(() => {
+    if (isMobileMenuShown) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = ''
+    }
+
+    // Cleanup function to reset overflow when component unmounts
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [isMobileMenuShown])
+
   const menuItems = [
     {
       title: "Home",
@@ -17,10 +31,6 @@ function Navigation() {
     {
       title: "Work with me",
       to: "/work-with-me"
-    },
-    {
-      title: "Uses",
-      to: "/uses"
     },
     {
       title: "Portfolio",
@@ -58,11 +68,11 @@ function Navigation() {
       </div>
 
       {isMobileMenuShown && (
-        <div className='absolute top-0 h-screen w-screen bg-slate-900 bg-opacity-95 text-white z-50'>
+        <div className='absolute top-0 h-screen w-full bg-neutral-900 bg-opacity-95 text-white z-50'>
           <div className='h-[66px] flex justify-between py-2 px-4'>
             <NavLink to="/" className='flex space-x-2 text-xl items-center text-white'>
               <img src={SiteLogo} alt="BrianMorrison.me Logo" className='w-[40px]' />
-              <span>Brian Morrison II</span>
+              <span className='!text-white'>Brian Morrison II</span>
             </NavLink>
             <div className='space-x-2 items-center flex'>
               <button onClick={() => setIsMobileMenuShown(false)}>

@@ -16,7 +16,7 @@ function Footer() {
         <div>•</div>
         <Link to="/about-this-site" className="text-black">About this site</Link>
         <div>•</div>
-        <Link to="/guestbook" className="text-black">Guestbook</Link>
+        <Link to="/uses" className="text-black">Uses</Link>
       </div>
       <div className="flex space-x-2 md:mb-0 mb-2">
         <SocialIconLink href={socials.youtube}><YouTube /></SocialIconLink>
