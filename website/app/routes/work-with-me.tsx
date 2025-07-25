@@ -87,7 +87,7 @@ function WorkWithMe() {
           <div className='flex flex-col gap-2'>
             <div className='font-bold text-xl'>Brian Morrison II</div>
             <p>I&apos;m a full stack software developer with over 15 years of experience in the tech space. I have a passion for all things tech, from web development to cloud infrastructure. </p>
-            <p>I am always interested in chatting about new collaboration opportunities, so be sure to <Link to="/contact" className="underline px-0.5 font-bold hover:bg-white hover:shadow rounded transition-colors">reach out</Link> if you are interested in working with me!</p>
+            <p>I am always interested in chatting about new collaboration opportunities, so be sure to <Link to="/contact" className="underline px-[5px] mx-[-4px] font-bold hover:bg-white hover:shadow rounded transition-colors">reach out</Link> if you are interested in working with me!</p>
           </div>
         </div>
 
