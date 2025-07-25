@@ -26,7 +26,7 @@ body {
   height: 100%;
   color: var(--light-text);
   min-height: 100vh;
-  font-family: "Open Sans", sans-serif;
+  font-family: "IBM Plex Mono", monospace;
   font-weight: 400;
   font-style: normal;
 }

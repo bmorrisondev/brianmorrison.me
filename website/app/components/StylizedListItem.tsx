@@ -11,7 +11,7 @@ type Props = {
 
 function StylizedListItemBase({ children, className }: Props) {
   return (
-    <div className={`flex bg-white shadow-sm py-[3px] px-[15px] mr-2 mb-2 rounded space-x-2 items-center ${className}`}>
+    <div className={`flex bg-white shadow-sm py-[3px] px-[15px] mr-2 mb-2 rounded-sm space-x-2 items-center ${className}`}>
       { children }
     </div>
   )

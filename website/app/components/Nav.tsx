@@ -51,7 +51,7 @@ function Navigation() {
       <div className='h-[66px] flex justify-between py-2 px-4'>
         <NavLink to="/" className='flex space-x-2 text-xl items-center text-black'>
           <img src={SiteLogo} alt="BrianMorrison.me Logo" className='w-[40px]' />
-          <span>Brian Morrison II</span>
+          <span className="font-sans">Brian Morrison II</span>
         </NavLink>
         <div className='space-x-4 items-center hidden sm:flex'>
           {menuItems.map((el, idx) => (

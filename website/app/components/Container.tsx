@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react'
+import { ReactNode } from 'react'
 
 type Props = {
   children: ReactNode
@@ -8,7 +8,7 @@ type Props = {
 
 function Container({ children, className, fluid }: Props) {
   return (
-    <div className={`container main p-4 ${!fluid ? "mx-auto max-w-4xl" : ""} ${className}`}>
+    <div className={`container p-4 ${!fluid ? "mx-auto max-w-4xl" : ""} ${className}`}>
       { children }
     </div>
   )

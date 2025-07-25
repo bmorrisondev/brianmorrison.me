@@ -10,7 +10,7 @@ type Props = {
 function PortfolioListItem({ item }: Props) {
   return (
     <Link to={`/portfolio/${item.slug}`}
-      className="group/portfolio-item text-black bg-white flex flex-col justify-between p-2 shadow-sm hover:shadow-lg rounded transition-all">
+      className="group/portfolio-item text-black bg-white flex flex-col justify-between p-2 hover:bg-[rgba(255,255,255,0.8)] rounded-sm transition-all">
       <div className="flex flex-col">
         {item.skillsUsed && item.skillsUsed.length > 0 && (
           <div className="flex gap-1 mt-1 mb-2">
@@ -18,7 +18,7 @@ function PortfolioListItem({ item }: Props) {
             <img key={`${item.notion_id}-${item.slug}`} src={su.icon} alt={su.name} className="max-w-[20px] max-h-[20px]"/>)}
           </div>
         )}
-        <div className="font-bold">{parse(item.title)}</div>
+        <div className="font-bold font-sans mb-1">{parse(item.title)}</div>
         <div className="excerpt">{ item.excerpt } </div>
       </div>
       <div>
