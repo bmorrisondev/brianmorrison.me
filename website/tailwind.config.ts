@@ -6,6 +6,10 @@ const gradientPurple = "#BC00BC";
 export default {
   content: ["./app/**/{**,.client,.server}/**/*.{js,jsx,ts,tsx}"],
   theme: {
+    fontFamily: {
+      sans: ['Open Sans', 'sans-serif'],
+      heading: ['Inter', 'sans-serif'],
+    },
     extend: {
       colors: {
         gradientBlue,
