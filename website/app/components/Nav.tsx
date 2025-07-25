@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 // @ts-ignore
 import SiteLogo from '../images/logo.png'
 import MobileNavLink from './MobileNavLink'
@@ -15,8 +15,8 @@ function Navigation() {
       to: "/"
     },
     {
-      title: "About",
-      to: "/about"
+      title: "Work with me",
+      to: "/work-with-me"
     },
     {
       title: "Uses",
