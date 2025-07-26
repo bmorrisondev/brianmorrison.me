@@ -72,14 +72,58 @@ export default function Index() {
           <div className="flex flex-col gap-2 text-center max-w-xl mx-auto">
             <h2 className="!mt-2">Other notable projects</h2>
             <p className="!mb-0">Here are some of the more notable projects I&apos;ve worked on that showcase my skills and expertise as a tech professional.</p>
-            <div className="flex justify-center mb-2">
+            <div className="flex justify-center mb-6">
               <Link to="/portfolio" className="flex justify-center gap-2 font-bold">View Portfolio</Link>
             </div>
-
-            <div className="flex flex-wrap justify-center gap-4 mt-6">
-              <img src={mockup1} alt="WishPin App - Lists Screen" className="h-80" />
-              <img src={mockup2} alt="WishPin App - Items Screen" className="h-80" />
-              <img src={mockup3} alt="WishPin App - Add Item Screen" className="h-80" />
+          </div>
+          
+          <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+            {/* Project 1 */}
+            <div className="bg-white cursor-pointer rounded p-6 transition-colors hover:shadow hover:border-neutral-300 border border-neutral-200">
+              <h3 className="text-xl font-bold mb-2">E-commerce Platform</h3>
+              <div className="text-gray-700 mb-2">Full-stack React & Node.js</div>
+              <p className="text-sm mb-4">A complete e-commerce solution with product management, cart functionality, and payment processing integration.</p>
+              <div className="flex gap-2 flex-wrap">
+                <StylizedListItem>React</StylizedListItem>
+                <StylizedListItem>Node.js</StylizedListItem>
+                <StylizedListItem>MongoDB</StylizedListItem>
+              </div>
+            </div>
+            
+            {/* Project 2 */}
+            <div className="bg-white cursor-pointer rounded p-6 transition-colors hover:shadow hover:border-neutral-300 border border-neutral-200">
+              <h3 className="text-xl font-bold mb-2">Analytics Dashboard</h3>
+              <div className="text-gray-700 mb-2">Data Visualization</div>
+              <p className="text-sm mb-4">Real-time analytics dashboard for monitoring business metrics with customizable widgets and reports.</p>
+              <div className="flex gap-2 flex-wrap">
+                <StylizedListItem>Vue.js</StylizedListItem>
+                <StylizedListItem>D3.js</StylizedListItem>
+                <StylizedListItem>GraphQL</StylizedListItem>
+              </div>
+            </div>
+            
+            {/* Project 3 */} 
+            <div className="bg-white cursor-pointer rounded p-6 transition-colors hover:shadow hover:border-neutral-300 border border-neutral-200">
+              <h3 className="text-xl font-bold mb-2">DevOps Automation</h3>
+              <div className="text-gray-700 mb-2">Infrastructure as Code</div>
+              <p className="text-sm mb-4">Automated CI/CD pipeline with infrastructure provisioning and deployment orchestration.</p>
+              <div className="flex gap-2 flex-wrap">
+                <StylizedListItem>Terraform</StylizedListItem>
+                <StylizedListItem>AWS</StylizedListItem>
+                <StylizedListItem>GitHub Actions</StylizedListItem>
+              </div>
+            </div>
+            
+            {/* Project 4 */}
+            <div className="bg-white cursor-pointer rounded p-6 transition-colors hover:shadow hover:border-neutral-300 border border-neutral-200">
+              <h3 className="text-xl font-bold mb-2">Mobile Fitness App</h3>
+              <div className="text-gray-700 mb-2">Cross-platform Development</div>
+              <p className="text-sm mb-4">Fitness tracking application with workout plans, progress monitoring, and social features.</p>
+              <div className="flex gap-2 flex-wrap">
+                <StylizedListItem>React Native</StylizedListItem>
+                <StylizedListItem>Firebase</StylizedListItem>
+                <StylizedListItem>TypeScript</StylizedListItem>
+              </div>
             </div>
           </div>
         </div>
@@ -97,7 +141,7 @@ export default function Index() {
 
           <div className="grid md:grid-cols-3 gap-6">
             {jobs.map(job => (
-              <div key={job.id} className="bg-white rounded-lg p-6 flex flex-col">
+              <div key={job.id} className="bg-white rounded p-6 flex flex-col transition-colors hover:shadow hover:border-neutral-300 border border-neutral-200">
                 <div className="flex justify-center mb-4">
                   {job.logo && job.logo.length > 0 && 
                     <img src={job.logo[0]} alt={`${job.companyName} logo`} className="h-16 object-contain" />
