@@ -10,35 +10,70 @@ import ContentList from "~/components/ContentList";
 import ContactForm from "~/components/ContactForm";
 import socials from "~/socials";
 import type { Job } from "~/models.ts";
+import type { PortfolioItem } from "~/models.ts";
+import type { Tag } from "~/models.ts";
 
 // Data
 import employmentHistory from '../content/notion/notionEmploymentHistoryItem.json';
+import portfolioItems from '../content/notion/notionPortfolioItem.json';
+import tags from '../content/notion/notionTag.json';
+import PortfolioListItem from "~/components/PortfolioListItem";
+import { ArrowRight } from "lucide-react";
+
 
 export const loader = async () => {
   // Filter for just the three companies we want
-  const jobData = (employmentHistory as Job[]).filter(job => 
+  const jobData = (employmentHistory as Job[])
+  
+  const featuredJobs = jobData.filter(job => 
     job.companyName === "Clerk" || 
     job.companyName === "Temeda LLC" || 
     job.companyName === "LeSaint Logistics"
   );
-  
+
+  const portfolioData = (portfolioItems as PortfolioItem[]).filter(i => i.status === "Published" && i.featured)
+  portfolioData.sort((a, b) => new Date(a.date) < new Date(b.date) ? 1 : -1)
+
+  portfolioData.forEach(el => {
+    el.job = []
+    el.relation_job.forEach(jid => {
+      const j = jobData.find(j => j.id === jid)
+      if(j) {
+        el.job?.push(j)
+      }
+    })
+
+    el.skillsUsed = []
+    el.relation_skillsUsed.forEach(sid => {
+      // TODO: This is ignored because `Tag` doesn't match the data.
+      // The fields are not named the same for some of the relations
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
+      const tag = (tags as Tag[]).find(t => t.id === sid)
+      if(tag) {
+        el.skillsUsed.push(tag)
+      }
+    })
+  })
+
   return json({
-    jobs: jobData
+    jobs: featuredJobs,
+    portfolioItems: portfolioData
   });
 }
 
 export const meta: MetaFunction = () => buildHeader({})
 
 export default function Index() {
-  const { jobs } = useLoaderData<typeof loader>();
+  const { jobs, portfolioItems } = useLoaderData<typeof loader>();
   return (
     <div className='-mt-20'>
       <div className="h-screen flex items-center justify-center">
         <div className="flex flex-col gap-3 max-w-3xl text-center">
           <img src={me} alt="Brian Morrison" className="w-32 h-32 rounded-full mx-auto" />
-          <div className='text-5xl font-bold font-sans gradient-header'>My name is Brian</div>
+          <div className='text-5xl font-bold font-sans gradient-header pb-2'>My name is Brian</div>
           <div className="md:text-4xl text-3xl font-bold text-neutral-700">I&apos;m a full stack developer with 15+ years experience.</div>
-          <Link to="#contact" className="flex justify-center gap-2 font-bold text-2xl underline">Let&apos;s talk</Link>
+          <Link to="#contact" className="flex justify-center gap-2 font-bold text-2xl">Let&apos;s talk</Link>
         </div>
       </div>
 
@@ -70,7 +105,7 @@ export default function Index() {
       <div className="min-h-screen">
         <div className="h-full md:m-8 md:rounded-xl p-8 mb-8">
           <div className="flex flex-col gap-2 text-center max-w-xl mx-auto">
-            <h2 className="!mt-2">Other notable projects</h2>
+            <h2 className="!mt-2">Other Notable Projects</h2>
             <p className="!mb-0">Here are some of the more notable projects I&apos;ve worked on that showcase my skills and expertise as a tech professional.</p>
             <div className="flex justify-center mb-6">
               <Link to="/portfolio" className="flex justify-center gap-2 font-bold">View Portfolio</Link>
@@ -78,53 +113,9 @@ export default function Index() {
           </div>
           
           <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-            {/* Project 1 */}
-            <div className="bg-white cursor-pointer rounded p-6 transition-colors hover:shadow hover:border-neutral-300 border border-neutral-200">
-              <h3 className="text-xl font-bold mb-2">E-commerce Platform</h3>
-              <div className="text-gray-700 mb-2">Full-stack React & Node.js</div>
-              <p className="text-sm mb-4">A complete e-commerce solution with product management, cart functionality, and payment processing integration.</p>
-              <div className="flex gap-2 flex-wrap">
-                <StylizedListItem>React</StylizedListItem>
-                <StylizedListItem>Node.js</StylizedListItem>
-                <StylizedListItem>MongoDB</StylizedListItem>
-              </div>
-            </div>
-            
-            {/* Project 2 */}
-            <div className="bg-white cursor-pointer rounded p-6 transition-colors hover:shadow hover:border-neutral-300 border border-neutral-200">
-              <h3 className="text-xl font-bold mb-2">Analytics Dashboard</h3>
-              <div className="text-gray-700 mb-2">Data Visualization</div>
-              <p className="text-sm mb-4">Real-time analytics dashboard for monitoring business metrics with customizable widgets and reports.</p>
-              <div className="flex gap-2 flex-wrap">
-                <StylizedListItem>Vue.js</StylizedListItem>
-                <StylizedListItem>D3.js</StylizedListItem>
-                <StylizedListItem>GraphQL</StylizedListItem>
-              </div>
-            </div>
-            
-            {/* Project 3 */} 
-            <div className="bg-white cursor-pointer rounded p-6 transition-colors hover:shadow hover:border-neutral-300 border border-neutral-200">
-              <h3 className="text-xl font-bold mb-2">DevOps Automation</h3>
-              <div className="text-gray-700 mb-2">Infrastructure as Code</div>
-              <p className="text-sm mb-4">Automated CI/CD pipeline with infrastructure provisioning and deployment orchestration.</p>
-              <div className="flex gap-2 flex-wrap">
-                <StylizedListItem>Terraform</StylizedListItem>
-                <StylizedListItem>AWS</StylizedListItem>
-                <StylizedListItem>GitHub Actions</StylizedListItem>
-              </div>
-            </div>
-            
-            {/* Project 4 */}
-            <div className="bg-white cursor-pointer rounded p-6 transition-colors hover:shadow hover:border-neutral-300 border border-neutral-200">
-              <h3 className="text-xl font-bold mb-2">Mobile Fitness App</h3>
-              <div className="text-gray-700 mb-2">Cross-platform Development</div>
-              <p className="text-sm mb-4">Fitness tracking application with workout plans, progress monitoring, and social features.</p>
-              <div className="flex gap-2 flex-wrap">
-                <StylizedListItem>React Native</StylizedListItem>
-                <StylizedListItem>Firebase</StylizedListItem>
-                <StylizedListItem>TypeScript</StylizedListItem>
-              </div>
-            </div>
+            {portfolioItems.map(item => (
+              <PortfolioListItem key={item.id} item={item} />
+            ))}
           </div>
         </div>
       </div>
@@ -141,7 +132,7 @@ export default function Index() {
 
           <div className="grid md:grid-cols-3 gap-6">
             {jobs.map(job => (
-              <div key={job.id} className="bg-white rounded p-6 flex flex-col transition-colors hover:shadow hover:border-neutral-300 border border-neutral-200">
+              <Link to={`/work-with-me#${job.slug}`} key={job.id} className="group/job-item bg-white rounded p-6 flex flex-col transition-colors hover:shadow hover:border-neutral-300 border border-neutral-200 text-inherit">
                 <div className="flex justify-center mb-4">
                   {job.logo && job.logo.length > 0 && 
                     <img src={job.logo[0]} alt={`${job.companyName} logo`} className="h-16 object-contain" />
@@ -153,7 +144,10 @@ export default function Index() {
                 <div className="text-sm flex-grow mb-4">
                   {job.summary}
                 </div>
-              </div>
+                <div className='flex justify-end'>
+                  <ArrowRight className="opacity-0 group-hover/job-item:opacity-100 transition-all" />
+                </div>
+              </Link>
             ))}
           </div>
         </div>
@@ -163,7 +157,6 @@ export default function Index() {
         <ContentList />
       </div>
 
-      
       <div className="min-h-screen" id="contact">
         <div className="h-full md:m-8 md:rounded-xl p-8 mb-8 bg-gradient-to-b from-gray-100 to-white">
           <div className="flex flex-col gap-2 text-center max-w-xl mx-auto">

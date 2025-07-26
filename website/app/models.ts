@@ -61,6 +61,7 @@ export type PortfolioItem = {
   date: Date
   job?: Job[]
   skillsUsed?: Tag[]
+  featured?: boolean
 }
 
 export type Tag = {

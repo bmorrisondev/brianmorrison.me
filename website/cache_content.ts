@@ -146,6 +146,10 @@ async function processNotionContent(type: string, notionPosts: NotionPosts) {
           prop
         })
       }
+
+      if(prop.type === "checkbox") {
+        n[fieldName] = prop.checkbox
+      }
     }) // end loop
 
     if(!n.title) {

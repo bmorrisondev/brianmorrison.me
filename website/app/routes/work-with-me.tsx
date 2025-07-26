@@ -92,25 +92,6 @@ function WorkWithMe() {
           </div>
         </div>
 
-        {/* Certifications section */}
-        <div className="certifications">
-          <h2>Certifications</h2>
-          <div className='flex space-x-2'>
-            {certifications.map((cert, index) => (
-              <a 
-                key={`cert-${index}`}
-                href={cert.url}
-                className='shadow-sm text-black flex flex-col items-center bg-white hover:bg-[rgba(255,255,255,0.8)] rounded-sm p-1 transition-all'
-                target="_blank" 
-                rel="noreferrer"
-              >
-                <img src={cert.image} alt={cert.alt} />
-                <span>{cert.period}</span>
-              </a>
-            ))}
-          </div>
-        </div>
-
         {/* Proficiencies section */}
         <div className="proficiencies">
           <h2>Proficiencies</h2>
@@ -130,7 +111,7 @@ function WorkWithMe() {
         <div className="work-history" id="work-history">
           <h2 className="mb-8">Work history</h2>
           {jobs.map(j => (
-            <div key={j.id} className="mb-8">
+            <div key={j.id} className="mb-8" id={j.slug}>
               {j.logo && j.logo.length > 0 && <img src={j.logo[0]} alt={`${j.companyName} logo`} className="max-w-[300px] py-2"></img>}
               <h3>{j.title} @ {j.companyName}</h3>
               <div className="italic mb-2 font-sans">{ j.yearsActive }</div>
@@ -152,6 +133,25 @@ function WorkWithMe() {
               )}
             </div>
           ))}
+        </div>
+
+        {/* Certifications section */}
+        <div className="certifications">
+          <h2>Certifications</h2>
+          <div className='flex space-x-2'>
+            {certifications.map((cert, index) => (
+              <a 
+                key={`cert-${index}`}
+                href={cert.url}
+                className='shadow-sm text-black flex flex-col items-center bg-white hover:bg-[rgba(255,255,255,0.8)] rounded-sm p-1 transition-all'
+                target="_blank" 
+                rel="noreferrer"
+              >
+                <img src={cert.image} alt={cert.alt} />
+                <span>{cert.period}</span>
+              </a>
+            ))}
+          </div>
         </div>
       </div>
     </Container>

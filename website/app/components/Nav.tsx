@@ -61,8 +61,8 @@ function Navigation() {
 
   return (
     <>
-      <div className={`fixed top-0 left-0 right-0 flex justify-center items-center gap-4 mx-auto w-full py-3 px-4 z-10 bg-white transition-shadow duration-300 ${scrolled ? 'shadow-sm' : ''}`}>
-        <NavLink to="/" className='flex space-x-2 text-xl items-center text-black'>
+      <div className={`fixed top-0 left-0 right-0 flex justify-center items-center mx-auto w-full py-3 px-4 z-10 gap-8 transition-all duration-300 ${scrolled ? 'shadow-sm bg-white' : ''}`}>
+        <NavLink to="/" className='flex text-xl items-center text-black'>
           {!isMobileMenuShown && <img src={SiteLogo} alt="Brian Morrison Logo" className='w-[40px]' /> }
         </NavLink>
         {menuItems.map((el, idx) => (
@@ -71,7 +71,7 @@ function Navigation() {
         <div className='flex items-center sm:hidden'>
           {!isMobileMenuShown && (
             <button onClick={() => setIsMobileMenuShown(true)}>
-              <NavLink to="#" className='flex space-x-2 text-xl items-center text-black'>
+              <NavLink to="#" className='flex text-xl items-center text-black'>
                 Menu
               </NavLink>
             </button>

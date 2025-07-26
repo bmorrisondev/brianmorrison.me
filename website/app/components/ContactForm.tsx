@@ -86,7 +86,7 @@ function ContactForm() {
           Send
         </Button>
         {formState == FormState.Submitting && <span className="form-response-message loading-icon"><Spinner /></span>}
-        {formState == FormState.Success && <span className="form-response-message text-gray-700">✅ You're info has been received!</span>}
+        {formState == FormState.Success && <span className="form-response-message text-gray-700">✅ Your info has been received!</span>}
         {formState == FormState.Error && <span className="form-response-message text-gray-700">❌ An error occurred, please try again later.</span>}
       </div>
     </form>

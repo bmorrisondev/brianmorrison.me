@@ -78,16 +78,16 @@ export default function ContentPage() {
               return (
                 <React.Fragment key={`content-item-${idx}`}>
                   {/* Year column */}
-                  <div className={`flex gap-2 ${idx !== 0 ? 'border-r border-r-1 border-gray-800' : ''}`}>
+                  <div className={`flex gap-2 ${idx !== 0 ? 'border-r border-r-1 border-gray-600' : ''}`}>
                     {isFirstOfYear && (
                       <>
                         <div className='my-2'>
                           <span className='text-gray-400 text-sm font-mono'>{itemYear}</span>
                         </div>
                         <div className='flex mt-5 flex-1 relative'>
-                          <hr className='w-full h-px border-b border-b-1 border-gray-800' />
+                          <hr className='w-full h-px border-b border-b-1 border-gray-600' />
                           {idx === 0 && (
-                            <div className='absolute top-0 right-0 h-full border-r border-r-1 border-gray-800' style={{ height: 'calc(100% + 1000px)' }}></div>
+                            <div className='absolute top-0 right-0 h-full border-r border-r-1 border-gray-600' style={{ height: 'calc(100% + 1000px)' }}></div>
                           )}
                         </div>
                       </>
@@ -96,10 +96,10 @@ export default function ContentPage() {
                       <>
                         <div className='my-2 relative'>
                           <span className='text-gray-400 text-sm font-mono'>Start</span>
-                          <div className='absolute top-0 right-0 border-r border-r-1 border-gray-800' style={{ height: '20px' }}></div>
+                          <div className='absolute top-0 right-0 border-r border-r-1 border-gray-600' style={{ height: '20px' }}></div>
                         </div>
                         <div className='flex mt-5 flex-1 relative'>
-                          <hr className='w-full h-px border-b border-b-1 border-gray-800' />
+                          <hr className='w-full h-px border-b border-b-1 border-gray-600' />
                         </div>
                       </>
                     )}
@@ -111,16 +111,16 @@ export default function ContentPage() {
                       <a href={p.url} target='_blank' rel='noreferrer' className='text-white transition hover:text-gradientBlue flex group'>
                         <PostTypeIcon iconType={p.icon!} />
                         <div className='flex flex-col gap-1'>
-                          <span className='text-xl flex items-center font-sans'>{p.title}  <PiArrowSquareUpRightLight className='ml-1 opacity-0 group-hover:opacity-100' /></span>
-                          <span className='italic text-gray-200 text-sm'>{ p.subtitle } </span>
+                          <span className='text-xl flex items-center'>{p.title}  <PiArrowSquareUpRightLight className='ml-1 opacity-0 group-hover:opacity-100' /></span>
+                          <span className='text-gray-200 text-sm'>{ p.subtitle } </span>
                         </div>
                       </a>
                     ) : (
                       <Link to={`/blog/${p.slug}`} className='text-white transition hover:text-gradientBlue flex'>
                         <PostTypeIcon iconType={p.icon!} />
                         <div className='flex flex-col gap-1'>
-                          <span className='text-xl font-sans'>{p.title}</span>
-                          <span className='italic text-gray-200 text-sm'>brianmorrison.me</span>
+                          <span className='text-xl'>{p.title}</span>
+                          <span className='text-gray-200 text-sm'>brianmorrison.me</span>
                         </div>
                       </Link>
                     )}
