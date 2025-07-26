@@ -47,48 +47,16 @@ export const meta: MetaFunction = () => buildHeader({
 
 function Portfolio() {
   const { items } = useLoaderData<typeof loader>()
-  // const data = useStaticQuery(graphql`
-  //   {
-  //     allNotionPortfolioItem(
-  //       filter: {
-  //         status: {
-  //           eq: "Published"
-  //         }
-  //       }
-  //       sort: {
-  //         date: DESC
-  //       }
-  //     ) {
-  //       edges {
-  //         node {
-  //           id
-  //           slug
-  //           title
-  //           excerpt
-  //           tags
-  //           date
-  //           skillsUsed {
-  //             icon
-  //             name
-  //           }
-  //           job {
-  //             companyName
-  //           }
-  //         }
-  //       }
-  //     }
-  //   }
-  // `)
-
-  // const posts = data.allNotionPortfolioItem.edges.map(el => el.node)
 
   return (
-    <Container>
-      <h1>Portfolio</h1>
-      <div className="grid md:grid-cols-3 gap-2">
-        {items.map(p => <PortfolioListItem key={p.id} item={p} />)}
-      </div>
-    </Container>
+    <div className="bg-gradient-to-b from-gray-100 to-white m-8 mt-20 rounded-xl">
+      <Container>
+        <h1>Portfolio</h1>
+        <div className="grid md:grid-cols-3 gap-2">
+          {items.map(p => <PortfolioListItem key={p.id} item={p} />)}
+        </div>
+      </Container>
+    </div>
   )
 }
 

@@ -78,7 +78,8 @@ export const meta: MetaFunction = () => buildHeader({
 function WorkWithMe() {
   const { jobs } = useLoaderData<typeof loader>()
   return (
-    <Container>
+    <div className="bg-gradient-to-b from-gray-100 to-white m-8 mt-20 rounded-xl">
+      <Container>
       <div>
         <h1>Work with me</h1>
         {/* Intro section */}
@@ -126,7 +127,7 @@ function WorkWithMe() {
         </div>
 
         {/* Work history section */}
-        <div className="work-history">
+        <div className="work-history" id="work-history">
           <h2 className="mb-8">Work history</h2>
           {jobs.map(j => (
             <div key={j.id} className="mb-8">
@@ -154,6 +155,7 @@ function WorkWithMe() {
         </div>
       </div>
     </Container>
+    </div>
   )
 }
 

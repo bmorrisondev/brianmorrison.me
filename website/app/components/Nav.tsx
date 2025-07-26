@@ -51,11 +51,11 @@ function Navigation() {
     },
     {
       title: "Content",
-      to: "/content"
+      to: "/#content"
     },
     {
       title: "Contact",
-      to: "/contact"
+      to: "/#contact"
     },
   ]
 

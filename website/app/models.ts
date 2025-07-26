@@ -6,7 +6,7 @@ export type SeriesEntry = {
 
 export type SeriesCollection = {
   name?: string
-  icon?: any
+  icon?: string
   entries?: SeriesEntry[]
 }
 
@@ -43,6 +43,7 @@ export type Job = {
   html: string;
   excerpt: string;
   cachedOn: number;
+  summary?: string;
 };
 
 export type PortfolioItem = {

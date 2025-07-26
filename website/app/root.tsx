@@ -39,7 +39,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </head>
       <body>
         <Navigation />
-        <div className="min-h-[calc(100vh-133px)] md:min-h-[calc(100vh-106px)]">
+        <div className="mt-20">
           {children}
         </div>
         <Footer />

@@ -59,21 +59,12 @@ export default function ContentPage() {
 
   return (
       <div className="bg-neutral-900 h-full m-0 md:m-8 md:rounded-xl text-white p-8">
-        <div className="text-center">{new Date().getFullYear() - 2020} years • {contentItems.length} pieces • {uniqueSources} publications</div>
+        <div className="text-center text-sm">{new Date().getFullYear() - 2020} years • {contentItems.length} pieces • {uniqueSources} publications</div>
         <h2 className="!mt-2 text-center">Content</h2>
         <div className="mb-8 max-w-3xl mx-auto text-center">
           <p>As a self-taught developer, I enjoy creating content to help other developers learn and grow while avoiding the same pitfalls I&apos;ve fallen into.</p>
         </div>
-        <div className='text-white max-w-xl mx-auto relative'>
-          {/* Timeline vertical line */}
-          {/* <div className='absolute left-16 top-0 bottom-0 w-px bg-gray-700'></div> */}
-          
-          {/* Start marker at the bottom */}
-          {/* <div className='absolute bottom-0 left-0 flex items-center'>
-            <span className='text-gray-400 text-sm font-mono'>start</span>
-            <div className='w-4 h-px bg-gray-500 ml-2'></div>
-          </div> */}
-          
+        <div className='text-white max-w-xl mx-auto relative'>          
           {/* Content items with grid layout */}
           <div className='grid grid-cols-[60px_1fr] gap-x-3'>
             {contentItems.map((p, idx) => {

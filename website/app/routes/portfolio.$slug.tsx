@@ -18,7 +18,8 @@ function PortfolioItemView() {
   const { item } = useLoaderData<typeof loader>()
 
   return (
-    <Container>
+    <div className="bg-gradient-to-b from-gray-100 to-white m-8 rounded-xl">
+      <Container>
       <article
         className="blog-post"
         itemScope
@@ -33,6 +34,7 @@ function PortfolioItemView() {
         )}
       </article>
     </Container>
+    </div>
   )
 }
 
