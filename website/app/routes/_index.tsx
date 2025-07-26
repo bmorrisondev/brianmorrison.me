@@ -23,19 +23,17 @@ export default function Index() {
         </div>
       </div>
 
-      <div className="h-screen">
-        <div className="bg-gradient h-full m-8 rounded-lg p-8">
+      <div className="min-h-screen">
+        <div className="bg-gradient h-full md:m-8 md:rounded-lg p-8 mb-8">
           <div className="flex flex-col gap-2 text-center max-w-xl mx-auto">
             <div>Mobile App • 2025</div>
             <h2 className="!mt-2">WishPin</h2>
             <p className="!mb-0">WishPin is a web application that allows users to create and manage wish lists for their loved ones.</p>
-            <div className="flex flex-col gap-2 items-center mb-2">
-              <StylizedList>
-                <StylizedListItem>React Native</StylizedListItem>
-                <StylizedListItem>Docker</StylizedListItem>
-                <StylizedListItem>Convex</StylizedListItem>
-                <StylizedListItem>Clerk</StylizedListItem>
-              </StylizedList>
+            <div className="flex gap-2 items-center mb-2 flex-wrap justify-center">
+              <StylizedListItem>React Native</StylizedListItem>
+              <StylizedListItem>Docker</StylizedListItem>
+              <StylizedListItem>Convex</StylizedListItem>
+              <StylizedListItem>Clerk</StylizedListItem>
             </div>
             <div className="flex justify-center mb-2">
               <Link to="/portfolio" className="flex justify-center gap-2 font-bold">View Project</Link>
@@ -50,11 +48,11 @@ export default function Index() {
         </div>
       </div>
 
-      <div className="h-screen">
+      {/* <div className="min-h-screen">
         <div className="h-full m-8 rounded-sm">
           This is where another thing will go
         </div>
-      </div>
+      </div> */}
 
       <div>
         <ContentList />

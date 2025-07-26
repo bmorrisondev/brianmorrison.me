@@ -58,7 +58,7 @@ export default function ContentPage() {
   }, [])
 
   return (
-      <div className="bg-neutral-900 h-full m-8 rounded-lg text-white p-8">
+      <div className="bg-neutral-900 h-full m-0 md:m-8 md:rounded-lg text-white p-8">
         <div className="text-center">{new Date().getFullYear() - 2020} years • {contentItems.length} pieces • {uniqueSources} publications</div>
         <h2 className="!mt-2 text-center">Content</h2>
         <div className="mb-8 max-w-3xl mx-auto text-center">
@@ -75,7 +75,7 @@ export default function ContentPage() {
           </div> */}
           
           {/* Content items with grid layout */}
-          <div className='grid grid-cols-[60px_1fr] gap-x-2'>
+          <div className='grid grid-cols-[60px_1fr] gap-x-3'>
             {contentItems.map((p, idx) => {
 
               const itemYear = new Date(p.date).getFullYear();
@@ -87,23 +87,27 @@ export default function ContentPage() {
               return (
                 <React.Fragment key={`content-item-${idx}`}>
                   {/* Year column */}
-                  <div className='border-r border-r-1 border-gray-800 flex gap-2'>
+                  <div className={`flex gap-2 ${idx !== 0 ? 'border-r border-r-1 border-gray-800' : ''}`}>
                     {isFirstOfYear && (
                       <>
                         <div className='my-2'>
                           <span className='text-gray-400 text-sm font-mono'>{itemYear}</span>
                         </div>
-                        <div className='flex mt-5 flex-1'>
+                        <div className='flex mt-5 flex-1 relative'>
                           <hr className='w-full h-px border-b border-b-1 border-gray-800' />
+                          {idx === 0 && (
+                            <div className='absolute top-0 right-0 h-full border-r border-r-1 border-gray-800' style={{ height: 'calc(100% + 1000px)' }}></div>
+                          )}
                         </div>
                       </>
                     )}
                     {idx === contentItems.length - 1 && (
                       <>
-                        <div className='my-2'>
+                        <div className='my-2 relative'>
                           <span className='text-gray-400 text-sm font-mono'>Start</span>
+                          <div className='absolute top-0 right-0 border-r border-r-1 border-gray-800' style={{ height: '20px' }}></div>
                         </div>
-                        <div className='flex mt-5 flex-1'>
+                        <div className='flex mt-5 flex-1 relative'>
                           <hr className='w-full h-px border-b border-b-1 border-gray-800' />
                         </div>
                       </>
