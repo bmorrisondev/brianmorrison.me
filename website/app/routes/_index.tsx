@@ -1,19 +1,66 @@
 import type { MetaFunction } from "@remix-run/node";
-import Container from "~/components/Container";
 import { buildHeader } from "~/utils";
+import { Link } from "@remix-run/react";
+import StylizedList from "~/components/StylizedList";
+import StylizedListItem from "~/components/StylizedListItem";
+import me from "../images/me.jpg"
+import mockup1 from "../images/mockups/iphone-mockup1.svg"
+import mockup2 from "../images/mockups/iphone-mockup2.svg"
+import mockup3 from "../images/mockups/iphone-mockup3.svg"
 
 
 export const meta: MetaFunction = () => buildHeader({})
 
 export default function Index() {
   return (
-    <Container fluid className=" max-w-5xl w-full flex gap-2 h-full items-center justify-center mx-auto sm:items-start pt-28 sm:pt-28">
-      <div className='w-[20px] rounded-sm flex-shrink-0 self-start md:mt-2.5 mt-0' style={{ background: 'linear-gradient(45deg, #BC00BC, #0381FF 60%)', height: 'calc(5.6rem + 0.4rem)' }}>
+    <div>
+      <div className="h-screen flex items-center justify-center">
+        <div className="flex flex-col gap-3 max-w-3xl text-center">
+          <img src={me} alt="Brian Morrison" className="w-32 h-32 rounded-full mx-auto" />
+          <div className='text-5xl font-bold font-sans gradient-header'>My name is Brian</div>
+          <div className="md:text-4xl text-3xl font-bold text-neutral-700">I&apos;m a full stack developer with 15+ years experience.</div>
+          <Link to="/contact" className="flex justify-center gap-2 font-bold text-2xl underline">Let&apos;s talk</Link>
+        </div>
       </div>
-      <div className='flex-1 h-full flex flex-col justify-center sm:block'>
-        <div className='text-[5.6rem] font-bold mb-8 leading-[5.5rem] md:leading-[6.4rem] xl:leading-[7rem] font-sans'>Hi, my name is Brian</div>
-        <div className="md:text-4xl text-3xl">I&apos;m a full stack developer with over 15 years experience building applications, managing infrastructure, and automating processes.</div>
+
+      <div className="h-screen">
+        <div className="bg-gradient h-full m-8 rounded-lg p-8">
+          <div className="flex flex-col gap-2 text-center max-w-xl mx-auto">
+            <div>Mobile App • 2025</div>
+            <h2 className="!mt-2">WishPin</h2>
+            <p className="!mb-0">WishPin is a web application that allows users to create and manage wish lists for their loved ones.</p>
+            <div className="flex flex-col gap-2 items-center mb-2">
+              <StylizedList>
+                <StylizedListItem>React Native</StylizedListItem>
+                <StylizedListItem>Docker</StylizedListItem>
+                <StylizedListItem>Convex</StylizedListItem>
+                <StylizedListItem>Clerk</StylizedListItem>
+              </StylizedList>
+            </div>
+            <div className="flex justify-center mb-2">
+              <Link to="/portfolio" className="flex justify-center gap-2 font-bold">View Project</Link>
+            </div>
+
+            <div className="flex flex-wrap justify-center gap-4 mt-6">
+              <img src={mockup1} alt="WishPin App - Lists Screen" className="h-80" />
+              <img src={mockup2} alt="WishPin App - Items Screen" className="h-80" />
+              <img src={mockup3} alt="WishPin App - Add Item Screen" className="h-80" />
+            </div>
+          </div>
+        </div>
       </div>
-    </Container>
+
+      <div className="h-screen">
+        <div className="h-full m-8 rounded-sm">
+          This is where another thing will go
+        </div>
+      </div>
+
+      <div className='bg-neutral-900'>
+        <div className="h-full mx-8 mt-8 rounded-sm">
+          This is where another thing will go
+        </div>
+      </div>
+    </div>
   );
 }

@@ -1,10 +1,8 @@
 import { useState, useEffect } from 'react'
-// @ts-ignore
 import SiteLogo from '../images/logo.png'
 import MobileNavLink from './MobileNavLink'
 import NavLink from './NavLink'
 import Close from './svgs/Close'
-import Menu from './svgs/Menu'
 
 function Navigation() {
   const [isMobileMenuShown, setIsMobileMenuShown] = useState(false)
@@ -25,10 +23,6 @@ function Navigation() {
 
   const menuItems = [
     {
-      title: "Home",
-      to: "/"
-    },
-    {
       title: "Work with me",
       to: "/work-with-me"
     },
@@ -48,20 +42,19 @@ function Navigation() {
 
   return (
     <>
-      <div className='h-[66px] flex justify-between py-2 px-4'>
+      <div className='fixed top-0 left-0 right-0 flex justify-center items-center gap-4 mx-auto w-full py-3 px-4 z-10 bg-white '>
         <NavLink to="/" className='flex space-x-2 text-xl items-center text-black'>
-          <img src={SiteLogo} alt="BrianMorrison.me Logo" className='w-[40px]' />
-          <span className="font-sans">Brian Morrison II</span>
+          {!isMobileMenuShown && <img src={SiteLogo} alt="Brian Morrison Logo" className='w-[40px]' /> }
         </NavLink>
-        <div className='space-x-4 items-center hidden sm:flex'>
-          {menuItems.map((el, idx) => (
-            <NavLink key={`mainnav-${idx}`} to={el.to}>{el.title}</NavLink>
-          ))}
-        </div>
+        {menuItems.map((el, idx) => (
+          <NavLink key={`mainnav-${idx}`} className='hidden sm:block' to={el.to}>{el.title}</NavLink>
+        ))}
         <div className='flex items-center sm:hidden'>
           {!isMobileMenuShown && (
             <button onClick={() => setIsMobileMenuShown(true)}>
-              <Menu />
+              <NavLink to="#" className='flex space-x-2 text-xl items-center text-black'>
+                Menu
+              </NavLink>
             </button>
           )}
         </div>

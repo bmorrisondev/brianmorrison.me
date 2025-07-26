@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="280" height="550" viewBox="0 0 280 550" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- iPhone frame -->
+  <rect x="10" y="10" width="260" height="530" rx="30" fill="#1A1A1A" stroke="#333333" stroke-width="2"/>
+  <rect x="20" y="20" width="240" height="510" rx="20" fill="#FFFFFF"/>
+  
+  <!-- App header -->
+  <rect x="20" y="20" width="240" height="70" fill="#6366F1"/>
+  <text x="40" y="60" font-family="Arial" font-size="24" font-weight="bold" fill="white">Birthday List</text>
+  
+  <!-- Content -->
+  <rect x="40" y="110" width="200" height="60" rx="10" fill="#F3F4F6"/>
+  <text x="60" y="140" font-family="Arial" font-size="16" fill="#374151">Wireless Headphones</text>
+  <text x="60" y="160" font-family="Arial" font-size="14" fill="#6B7280">$129.99</text>
+  
+  <rect x="40" y="180" width="200" height="60" rx="10" fill="#F3F4F6"/>
+  <text x="60" y="210" font-family="Arial" font-size="16" fill="#374151">Smart Watch</text>
+  <text x="60" y="230" font-family="Arial" font-size="14" fill="#6B7280">$249.99</text>
+  
+  <rect x="40" y="250" width="200" height="60" rx="10" fill="#F3F4F6"/>
+  <text x="60" y="280" font-family="Arial" font-size="16" fill="#374151">Coffee Maker</text>
+  <text x="60" y="300" font-family="Arial" font-size="14" fill="#6B7280">$89.99</text>
+  
+  <rect x="40" y="320" width="200" height="60" rx="10" fill="#F3F4F6"/>
+  <text x="60" y="350" font-family="Arial" font-size="16" fill="#374151">Fitness Tracker</text>
+  <text x="60" y="370" font-family="Arial" font-size="14" fill="#6B7280">$79.99</text>
+  
+  <!-- Bottom navigation -->
+  <rect x="20" y="480" width="240" height="50" fill="#F9FAFB"/>
+  <circle cx="70" cy="505" r="15" fill="#D1D5DB"/>
+  <circle cx="140" cy="505" r="15" fill="#6366F1"/>
+  <circle cx="210" cy="505" r="15" fill="#D1D5DB"/>
+</svg>
