@@ -8,6 +8,8 @@ import mockup1 from "../images/mockups/iphone-mockup1.svg"
 import mockup2 from "../images/mockups/iphone-mockup2.svg"
 import mockup3 from "../images/mockups/iphone-mockup3.svg"
 import ContentList from "~/components/ContentList";
+import ContactForm from "~/components/ContactForm";
+import socials from "~/socials";
 
 export const meta: MetaFunction = () => buildHeader({})
 
@@ -24,7 +26,32 @@ export default function Index() {
       </div>
 
       <div className="min-h-screen">
-        <div className="bg-gradient h-full md:m-8 md:rounded-lg p-8 mb-8">
+        <div className="bg-gradient h-full md:m-8 md:rounded-xl p-8 mb-8">
+          <div className="flex flex-col gap-2 text-center max-w-xl mx-auto">
+            <div>Mobile App • 2025</div>
+            <h2 className="!mt-2">WishPin</h2>
+            <p className="!mb-0">WishPin is a web application that allows users to create and manage wish lists for their loved ones.</p>
+            <div className="flex gap-2 items-center mb-2 flex-wrap justify-center">
+              <StylizedListItem>React Native</StylizedListItem>
+              <StylizedListItem>Docker</StylizedListItem>
+              <StylizedListItem>Convex</StylizedListItem>
+              <StylizedListItem>Clerk</StylizedListItem>
+            </div>
+            <div className="flex justify-center mb-2">
+              <Link to="/portfolio" className="flex justify-center gap-2 font-bold">View Project</Link>
+            </div>
+
+            <div className="flex flex-wrap justify-center gap-4 mt-6">
+              <img src={mockup1} alt="WishPin App - Lists Screen" className="h-80" />
+              <img src={mockup2} alt="WishPin App - Items Screen" className="h-80" />
+              <img src={mockup3} alt="WishPin App - Add Item Screen" className="h-80" />
+            </div>
+          </div>
+        </div>
+      </div>      
+      
+      <div className="min-h-screen">
+        <div className="bg-gradient h-full md:m-8 md:rounded-xl p-8 mb-8">
           <div className="flex flex-col gap-2 text-center max-w-xl mx-auto">
             <div>Mobile App • 2025</div>
             <h2 className="!mt-2">WishPin</h2>
@@ -48,14 +75,32 @@ export default function Index() {
         </div>
       </div>
 
-      {/* <div className="min-h-screen">
-        <div className="h-full m-8 rounded-sm">
+      <div className="min-h-screen">
+        <div className="h-full m-8 rounded-xl">
           This is where another thing will go
         </div>
-      </div> */}
+      </div>
 
       <div>
         <ContentList />
+      </div>
+
+      
+      <div className="min-h-screen">
+        <div className="bg-gradient h-full md:m-8 md:rounded-xl p-8 mb-8">
+          <div className="flex flex-col gap-2 text-center max-w-xl mx-auto">
+            <div>Let&apos;s talk</div>
+            <h2 className="!mt-2">Contact me</h2>
+            <p className="!mb-2">I&apos;m always looking for new opportunities to work with talented individuals and teams. If you&apos;re interested in working with me, let me know!</p>
+            <ContactForm />
+            <p className="!mt-2">You can also reach me on your favorite social network:</p>
+            <div className="flex justify-center">
+              <StylizedListItem to={socials.linkedin}>LinkedIn</StylizedListItem>
+              <StylizedListItem to={socials.twitter}>Twitter</StylizedListItem>
+              <StylizedListItem to={socials.github}>GitHub</StylizedListItem>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

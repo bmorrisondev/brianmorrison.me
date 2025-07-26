@@ -44,7 +44,7 @@ p code, ol code, li code, ul code {
 }
 
 .bg-gradient {
-  background: linear-gradient(to bottom left, var(--bg-light-upper-right), var(--bg-light-lower-left));
+  background: linear-gradient(to bottom, var(--bg-light-upper-right), var(--bg-light-lower-left) 50%, transparent 100%);
   background-repeat: no-repeat;
   background-size: cover;
 }

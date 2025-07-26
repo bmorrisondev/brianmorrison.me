@@ -58,7 +58,7 @@ export default function ContentPage() {
   }, [])
 
   return (
-      <div className="bg-neutral-900 h-full m-0 md:m-8 md:rounded-lg text-white p-8">
+      <div className="bg-neutral-900 h-full m-0 md:m-8 md:rounded-xl text-white p-8">
         <div className="text-center">{new Date().getFullYear() - 2020} years • {contentItems.length} pieces • {uniqueSources} publications</div>
         <h2 className="!mt-2 text-center">Content</h2>
         <div className="mb-8 max-w-3xl mx-auto text-center">
