@@ -10,7 +10,7 @@ type Props = {
 function PortfolioListItem({ item }: Props) {
   return (
     <Link to={`/portfolio/${item.slug}`}
-      className="group/portfolio-item text-black bg-white flex flex-col justify-between p-2 hover:bg-[rgba(255,255,255,0.8)] rounded-sm transition-all">
+      className="group/portfolio-item text-black bg-white flex flex-col justify-between p-2 hover:shadow hover:border-neutral-300 border border-neutral-200 rounded-sm transition-all">
       <div className="flex flex-col">
         {item.skillsUsed && item.skillsUsed.length > 0 && (
           <div className="flex gap-1 mt-1 mb-2">

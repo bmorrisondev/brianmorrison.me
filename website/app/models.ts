@@ -91,10 +91,11 @@ export enum ContentItemIconType {
 export type ContentItem = {
   id: string
   slug?: string
-  icon: ContentItemIconType
+  icon?: ContentItemIconType
   title: string
   date: Date
   url?: string
   subtitle?: string
   img?: string
+  kind?: string
 }

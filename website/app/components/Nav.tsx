@@ -6,6 +6,7 @@ import Close from './svgs/Close'
 
 function Navigation() {
   const [isMobileMenuShown, setIsMobileMenuShown] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
 
   // Prevent scrolling when mobile menu is open
   useEffect(() => {
@@ -20,6 +21,24 @@ function Navigation() {
       document.body.style.overflow = ''
     }
   }, [isMobileMenuShown])
+  
+  // Add scroll event listener to add shadow when scrolling
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 10) {
+        setScrolled(true)
+      } else {
+        setScrolled(false)
+      }
+    }
+    
+    window.addEventListener('scroll', handleScroll)
+    
+    // Clean up the event listener when component unmounts
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
 
   const menuItems = [
     {
@@ -42,7 +61,7 @@ function Navigation() {
 
   return (
     <>
-      <div className='fixed top-0 left-0 right-0 flex justify-center items-center gap-4 mx-auto w-full py-3 px-4 z-10 bg-white '>
+      <div className={`fixed top-0 left-0 right-0 flex justify-center items-center gap-4 mx-auto w-full py-3 px-4 z-10 bg-white transition-shadow duration-300 ${scrolled ? 'shadow-sm' : ''}`}>
         <NavLink to="/" className='flex space-x-2 text-xl items-center text-black'>
           {!isMobileMenuShown && <img src={SiteLogo} alt="Brian Morrison Logo" className='w-[40px]' /> }
         </NavLink>

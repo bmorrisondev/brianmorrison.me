@@ -7,7 +7,7 @@ import me from "../images/me.jpg"
 import mockup1 from "../images/mockups/iphone-mockup1.svg"
 import mockup2 from "../images/mockups/iphone-mockup2.svg"
 import mockup3 from "../images/mockups/iphone-mockup3.svg"
-
+import ContentList from "~/components/ContentList";
 
 export const meta: MetaFunction = () => buildHeader({})
 
@@ -56,10 +56,8 @@ export default function Index() {
         </div>
       </div>
 
-      <div className='bg-neutral-900'>
-        <div className="h-full mx-8 mt-8 rounded-sm">
-          This is where another thing will go
-        </div>
+      <div>
+        <ContentList />
       </div>
     </div>
   );
