@@ -18,15 +18,12 @@
 }
 
 body {
-  background: var(--light-bg); /* fallback color */
-  background: linear-gradient(to bottom left, var(--bg-light-upper-right), var(--bg-light-lower-left));
-  background-repeat: no-repeat;
-  background-size: cover;
+  background: #fefefe; /* fallback color */
   width: 100%;
   height: 100%;
   color: var(--light-text);
   min-height: 100vh;
-  font-family: "Open Sans", sans-serif;
+  font-family: "IBM Plex Mono", monospace;
   font-weight: 400;
   font-style: normal;
 }
@@ -44,6 +41,12 @@ p code, ol code, li code, ul code {
   font-size: 0.9em;
   color: #555 !important;
   font-weight: 300;
+}
+
+.bg-gradient {
+  background: linear-gradient(to bottom, var(--bg-light-upper-right), var(--bg-light-lower-left) 50%, transparent 100%);
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .main {
@@ -75,12 +78,12 @@ h1 {
 
 h2 {
   margin-top: 2rem !important;
-  @apply text-2xl font-bold mb-1;
+  @apply text-4xl font-bold mb-1;
 }
 
 h3 {
   margin-top: 1.3rem !important;
-  @apply text-lg font-bold;
+  @apply text-2xl font-bold;
 }
 
 p {

@@ -6,7 +6,7 @@ export type SeriesEntry = {
 
 export type SeriesCollection = {
   name?: string
-  icon?: any
+  icon?: string
   entries?: SeriesEntry[]
 }
 
@@ -43,6 +43,7 @@ export type Job = {
   html: string;
   excerpt: string;
   cachedOn: number;
+  summary?: string;
 };
 
 export type PortfolioItem = {
@@ -60,6 +61,7 @@ export type PortfolioItem = {
   date: Date
   job?: Job[]
   skillsUsed?: Tag[]
+  featured?: boolean
 }
 
 export type Tag = {
@@ -91,10 +93,11 @@ export enum ContentItemIconType {
 export type ContentItem = {
   id: string
   slug?: string
-  icon: ContentItemIconType
+  icon?: ContentItemIconType
   title: string
   date: Date
   url?: string
   subtitle?: string
   img?: string
+  kind?: string
 }

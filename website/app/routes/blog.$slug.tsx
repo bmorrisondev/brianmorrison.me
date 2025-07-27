@@ -71,6 +71,7 @@ function BlogPost() {
   }
 
   return (
+    <div className="bg-gradient m-8 pt-8 rounded-xl">
     <Container>
       <article className="blog-post" itemScope itemType="http://schema.org/Article" >
 
@@ -112,6 +113,7 @@ function BlogPost() {
         seriesCollection={series} />
       </article>
     </Container>
+    </div>
   )
 }
 

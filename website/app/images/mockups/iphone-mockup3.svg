@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="280" height="550" viewBox="0 0 280 550" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- iPhone frame -->
+  <rect x="10" y="10" width="260" height="530" rx="30" fill="#1A1A1A" stroke="#333333" stroke-width="2"/>
+  <rect x="20" y="20" width="240" height="510" rx="20" fill="#FFFFFF"/>
+  
+  <!-- App header -->
+  <rect x="20" y="20" width="240" height="70" fill="#6366F1"/>
+  <text x="40" y="60" font-family="Arial" font-size="24" font-weight="bold" fill="white">Add Item</text>
+  
+  <!-- Form -->
+  <text x="40" y="120" font-family="Arial" font-size="16" font-weight="bold" fill="#374151">Item Name</text>
+  <rect x="40" y="130" width="200" height="40" rx="5" fill="#F3F4F6" stroke="#D1D5DB"/>
+  <text x="50" y="155" font-family="Arial" font-size="14" fill="#9CA3AF">Portable Bluetooth Speaker</text>
+  
+  <text x="40" y="190" font-family="Arial" font-size="16" font-weight="bold" fill="#374151">Price</text>
+  <rect x="40" y="200" width="200" height="40" rx="5" fill="#F3F4F6" stroke="#D1D5DB"/>
+  <text x="50" y="225" font-family="Arial" font-size="14" fill="#9CA3AF">$59.99</text>
+  
+  <text x="40" y="260" font-family="Arial" font-size="16" font-weight="bold" fill="#374151">URL</text>
+  <rect x="40" y="270" width="200" height="40" rx="5" fill="#F3F4F6" stroke="#D1D5DB"/>
+  <text x="50" y="295" font-family="Arial" font-size="14" fill="#9CA3AF">https://example.com/speaker</text>
+  
+  <text x="40" y="330" font-family="Arial" font-size="16" font-weight="bold" fill="#374151">Notes</text>
+  <rect x="40" y="340" width="200" height="80" rx="5" fill="#F3F4F6" stroke="#D1D5DB"/>
+  <text x="50" y="365" font-family="Arial" font-size="14" fill="#9CA3AF">Waterproof, 20hr battery life</text>
+  <text x="50" y="385" font-family="Arial" font-size="14" fill="#9CA3AF">Prefer black or blue color</text>
+  
+  <!-- Button -->
+  <rect x="40" y="440" width="200" height="50" rx="10" fill="#6366F1"/>
+  <text x="115" y="470" font-family="Arial" font-size="18" font-weight="bold" fill="white">Save</text>
+  
+  <!-- Bottom navigation -->
+  <rect x="20" y="480" width="240" height="50" fill="#F9FAFB"/>
+  <circle cx="70" cy="505" r="15" fill="#D1D5DB"/>
+  <circle cx="140" cy="505" r="15" fill="#D1D5DB"/>
+  <circle cx="210" cy="505" r="15" fill="#6366F1"/>
+</svg>

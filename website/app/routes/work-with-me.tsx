@@ -16,6 +16,7 @@ import me from "../images/me.jpg"
 // Data
 import employmentHistory from '../content/notion/notionEmploymentHistoryItem.json'
 import portfolioItems from '../content/notion/notionPortfolioItem.json'
+import Card from '~/components/Card'
 
 // Certifications data
 interface Certification {
@@ -78,40 +79,40 @@ export const meta: MetaFunction = () => buildHeader({
 function WorkWithMe() {
   const { jobs } = useLoaderData<typeof loader>()
   return (
-    <Container>
+    <div className="bg-gradient-to-b from-gray-100 to-white m-0 md:m-8 mt-20 rounded-xl">
+      <Container>
       <div>
         <h1>Work with me</h1>
         {/* Intro section */}
         <div className='flex gap-4 md:flex-row flex-col'>
-          <img src={me} alt="Brian Morrison II" className="w-[150px] h-[150px] rounded-full mb-4" />
+          <img src={me} alt="Brian Morrison II" className="w-[150px] h-[150px] rounded-sm border-[1px] mb-4" />
           <div className='flex flex-col gap-2'>
             <div className='font-bold text-xl'>Brian Morrison II</div>
             <p>I&apos;m a full stack software developer with over 15 years of experience in the tech space. I have a passion for all things tech, from web development to cloud infrastructure. </p>
-            <p>I am always interested in chatting about new collaboration opportunities, so be sure to <Link to="/contact" className="underline px-[5px] mx-[-4px] font-bold hover:bg-white hover:shadow rounded transition-colors">reach out</Link> if you are interested in working with me!</p>
+            <p>I am always interested in chatting about new collaboration opportunities, so be sure to <Link to="/contact" className="underline px-[5px] mx-[-4px] font-bold hover:bg-white rounded-sm transition-colors">reach out</Link> if you are interested in working with me!</p>
           </div>
         </div>
 
-        {/* Certifications section */}
-        <div className="certifications">
-          <h2>Certifications</h2>
-          <div className='flex space-x-2'>
-            {certifications.map((cert, index) => (
-              <a 
-                key={`cert-${index}`}
-                href={cert.url}
-                className='shadow-sm text-black flex flex-col items-center bg-white border-background-accent border-[1px] hover:shadow-lg rounded p-1 transition-all'
-                target="_blank" 
-                rel="noreferrer"
-              >
-                <img src={cert.image} alt={cert.alt} />
-                <span>{cert.period}</span>
-              </a>
-            ))}
-          </div>
-        </div>
+        {/* <div className="grid md:grid-cols-3 gap-4">
+          <Card title="Front end">
+            <p>
+              I&apos;m highly skilled in building web interfaces with React and Gatsby.
+            </p>
+          </Card>
+          <Card title="Back end">
+            <p>
+              I&apos;m highly skilled in building web interfaces with React and Gatsby.
+            </p>
+          </Card>
+          <Card title="Infra">
+            <p>
+              I&apos;m highly skilled in building web interfaces with React and Gatsby.
+            </p>
+          </Card>
+        </div> */}
 
         {/* Proficiencies section */}
-        <div className="proficiencies">
+        {/* <div className="proficiencies">
           <h2>Proficiencies</h2>
           {Object.entries(proficiencies).map(([category, items]) => (
             <div key={category}>
@@ -123,16 +124,16 @@ function WorkWithMe() {
               </StylizedList>
             </div>
           ))}
-        </div>
+        </div> */}
 
         {/* Work history section */}
-        <div className="work-history">
+        <div className="work-history" id="work-history">
           <h2 className="mb-8">Work history</h2>
           {jobs.map(j => (
-            <div key={j.id} className="mb-8">
+            <div key={j.id} className="mb-8" id={j.slug}>
               {j.logo && j.logo.length > 0 && <img src={j.logo[0]} alt={`${j.companyName} logo`} className="max-w-[300px] py-2"></img>}
               <h3>{j.title} @ {j.companyName}</h3>
-              <div className="italic mb-2">{ j.yearsActive }</div>
+              <div className="italic mb-2 font-sans">{ j.yearsActive }</div>
               {j.testimonial && (
                 <BlockQuote citation={j.testimonialAuthor}>
                   { j.testimonial }
@@ -141,7 +142,7 @@ function WorkWithMe() {
               <div dangerouslySetInnerHTML={{__html: j.html}}></div>
               {j.notableProjects && j.notableProjects.length > 0 && j.notableProjects.filter(p => p.status === "Published").length > 0 && (
                 <div>
-                  <p className="italic">Notable projects:</p>
+                  <p className="italic font-sans">Notable projects:</p>
                   <div className="grid md:grid-cols-3 gap-2">
                     {j.notableProjects.filter(p => p.status === "Published").map(el => (
                       <PortfolioListItem key={el.id} item={el} />
@@ -152,8 +153,28 @@ function WorkWithMe() {
             </div>
           ))}
         </div>
+
+        {/* Certifications section */}
+        <div className="certifications">
+          <h2>Certifications</h2>
+          <div className='flex space-x-2'>
+            {certifications.map((cert, index) => (
+              <a 
+                key={`cert-${index}`}
+                href={cert.url}
+                className='shadow-sm text-black flex flex-col items-center bg-white hover:bg-[rgba(255,255,255,0.8)] rounded-sm p-1 transition-all'
+                target="_blank" 
+                rel="noreferrer"
+              >
+                <img src={cert.image} alt={cert.alt} />
+                <span>{cert.period}</span>
+              </a>
+            ))}
+          </div>
+        </div>
       </div>
     </Container>
+    </div>
   )
 }
 
