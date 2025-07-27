@@ -13,14 +13,18 @@ import socials from "~/socials";
 import type { Job } from "~/models.ts";
 import type { PortfolioItem } from "~/models.ts";
 import type { Tag } from "~/models.ts";
+import { ContentItem, ContentItemIconType } from "~/models.js";
 
 // Data
 import employmentHistory from '../content/notion/notionEmploymentHistoryItem.json';
 import portfolioItems from '../content/notion/notionPortfolioItem.json';
 import tags from '../content/notion/notionTag.json';
+import notionPosts from '../content/notion/notionPost.json'
+import notionExternalContent from '../content/notion/notionExternalContent.json'
+
 import PortfolioListItem from "~/components/PortfolioListItem";
 import { ArrowRight } from "lucide-react";
-import Card from "~/components/Card";
+import HashLander from "~/components/HashLander";
 
 
 export const loader = async () => {
@@ -58,7 +62,61 @@ export const loader = async () => {
     })
   })
 
+  const contentItems: ContentItem[] = []
+
+  notionPosts.forEach(p => {
+    if(p.status === "Published") {
+      contentItems.push({
+        id: p.id,
+        slug: p.slug,
+        icon: ContentItemIconType.Article,
+        title: p.title,
+        date: new Date(p.publishOn as string),
+      })
+    }
+  })
+
+  notionExternalContent.forEach(p => {
+    let icon = ContentItemIconType.Default;
+    switch (p.kind.slug) {
+      case 'article':
+        icon = ContentItemIconType.Article
+        break
+      case 'blog-post':
+        icon = ContentItemIconType.Article
+        break
+      case 'podcast-guest':
+        icon = ContentItemIconType.Podcast
+        break
+      case 'talk':
+        icon = ContentItemIconType.Talk
+        break
+      case 'social-post':
+        icon = ContentItemIconType.Social
+        break
+      case 'video':
+        icon = ContentItemIconType.Video
+        break
+    }
+    const subtitle = p.subtitle ? p.subtitle : (new URL(p.uRL)).hostname.replace('www.', '')
+    contentItems.push({
+      id: p.id,
+      icon: icon,
+      title: p.title,
+      date: new Date(p.date),
+      url: p.uRL,
+      subtitle: subtitle
+    })
+  })
+
+  contentItems.sort((a, b) => new Date(b.date) > new Date(a.date) ? 1 : -1)
+
+  const uniqueSources = new Set(contentItems.map(ci => ci.subtitle))
+
+
   return json({
+    contentItems,
+    uniqueSources: uniqueSources.size,
     jobs: featuredJobs,
     portfolioItems: portfolioData
   });
@@ -67,7 +125,7 @@ export const loader = async () => {
 export const meta: MetaFunction = () => buildHeader({})
 
 export default function Index() {
-  const { jobs, portfolioItems } = useLoaderData<typeof loader>();
+  const { jobs, portfolioItems, contentItems, uniqueSources } = useLoaderData<typeof loader>();
   return (
     <div className='-mt-20'>
       <div className="h-screen flex items-center justify-center">
@@ -162,11 +220,13 @@ export default function Index() {
         </div>
       </div>
 
-      <div id="content">
-        <ContentList />
+      <div>
+        <HashLander id="content" />   
+        <ContentList contentItems={contentItems as ContentItem[]} uniqueSources={uniqueSources} />
       </div>
 
-      <div className="min-h-screen" id="contact">
+      <div className="min-h-screen">
+        <HashLander id="contact" />
         <div className="h-full md:m-8 md:rounded-xl p-8 mb-8 bg-gradient-to-b from-gray-100 to-white">
           <div className="flex flex-col gap-2 text-center max-w-xl mx-auto">
             <div className="text-sm">Let&apos;s talk</div>

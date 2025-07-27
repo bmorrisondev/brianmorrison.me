@@ -23,20 +23,18 @@ function PostTypeIcon({ iconType }: { iconType: ContentItemIconType }) {
   }
 }
 
-export default function ContentPage() {
-  const [contentItems, setContentItems] = useState<ContentItem[]>([])
-  const [uniqueSources, setUniqueSources] = useState(0)
+interface Props {
+  contentItems: ContentItem[]
+  uniqueSources: number
+}
+
+export default function ContentPage({ contentItems, uniqueSources }: Props) {
   const [itemsByYear, setItemsByYear] = useState<Record<number, ContentItem[]>>({})
   const [displayLimit, setDisplayLimit] = useState(20)
   const [showAll, setShowAll] = useState(false)
 
   useEffect(() => {
     const fetchContent = async () => {
-      const res = await fetch('/api/content')
-      const { contentItems, uniqueSources } = await res.json()
-      setContentItems(contentItems)
-      setUniqueSources(uniqueSources)
-      
       // Group content items by year
       const groupedByYear: Record<number, ContentItem[]> = {}
       contentItems.forEach((item: ContentItem) => {
@@ -57,7 +55,7 @@ export default function ContentPage() {
       setItemsByYear(groupedByYear)
     }
     fetchContent()
-  }, [])
+  }, [contentItems])
 
   return (
       <div className="bg-neutral-900 h-full m-0 md:m-8 md:rounded-xl text-white p-8">

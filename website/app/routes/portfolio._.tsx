@@ -1,7 +1,7 @@
 import { Job, PortfolioItem, Tag } from '~/models'
 import Container from '../components/Container'
 import PortfolioListItem from "../components/PortfolioListItem"
-import { json, useLoaderData } from '@remix-run/react'
+import { json, useLoaderData, Link } from '@remix-run/react'
 import { MetaFunction } from '@remix-run/node'
 import { buildHeader } from '~/utils'
 
@@ -52,6 +52,8 @@ function Portfolio() {
     <div className="bg-gradient-to-b from-gray-100 to-white m-0 md:m-8 mt-20 rounded-xl">
       <Container>
         <h1>Portfolio</h1>
+        <p>Here are some of the projects I&apos;ve worked on that use the multi-faceted skills I&apos;ve picked up over the years.</p>
+        <p>If you&apos;re intersted in help on your own project, be sure to <Link to="/#contact">let me know</Link>!</p>
         <div className="grid md:grid-cols-3 gap-2">
           {items.map(p => <PortfolioListItem key={p.id} item={p} />)}
         </div>

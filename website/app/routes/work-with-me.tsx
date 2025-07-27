@@ -17,6 +17,7 @@ import me from "../images/me.jpg"
 import employmentHistory from '../content/notion/notionEmploymentHistoryItem.json'
 import portfolioItems from '../content/notion/notionPortfolioItem.json'
 import Card from '~/components/Card'
+import HashLander from '~/components/HashLander'
 
 // Certifications data
 interface Certification {
@@ -127,10 +128,12 @@ function WorkWithMe() {
         </div> */}
 
         {/* Work history section */}
-        <div className="work-history" id="work-history">
+        <div className="work-history">
+          <HashLander id="work-history" />
           <h2 className="mb-8">Work history</h2>
           {jobs.map(j => (
-            <div key={j.id} className="mb-8" id={j.slug}>
+            <div key={j.id} className="mb-8">
+              <HashLander id={j.slug} />
               {j.logo && j.logo.length > 0 && <img src={j.logo[0]} alt={`${j.companyName} logo`} className="max-w-[300px] py-2"></img>}
               <h3>{j.title} @ {j.companyName}</h3>
               <div className="italic mb-2 font-sans">{ j.yearsActive }</div>
