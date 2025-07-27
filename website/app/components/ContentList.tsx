@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { PiArticleThin, PiMicrophoneThin, PiMicrophoneStageThin, PiVideoThin, PiCubeThin, PiChatsThin, PiArrowSquareUpRightLight } from "react-icons/pi";
+import { PiArticleThin, PiMicrophoneThin, PiMicrophoneStageThin, PiVideoThin, PiCubeThin, PiChatsThin, PiArrowSquareUpRightLight, PiCaretDownBold } from "react-icons/pi";
 import { ContentItem, ContentItemIconType } from '~/models';
 
 // Data
@@ -27,6 +27,8 @@ export default function ContentPage() {
   const [contentItems, setContentItems] = useState<ContentItem[]>([])
   const [uniqueSources, setUniqueSources] = useState(0)
   const [itemsByYear, setItemsByYear] = useState<Record<number, ContentItem[]>>({})
+  const [displayLimit, setDisplayLimit] = useState(20)
+  const [showAll, setShowAll] = useState(false)
 
   useEffect(() => {
     const fetchContent = async () => {
@@ -67,7 +69,7 @@ export default function ContentPage() {
         <div className='text-white max-w-xl mx-auto relative'>          
           {/* Content items with grid layout */}
           <div className='grid grid-cols-[60px_1fr] gap-x-3'>
-            {contentItems.map((p, idx) => {
+            {contentItems.slice(0, showAll ? contentItems.length : displayLimit).map((p, idx) => {
 
               const itemYear = new Date(p.date).getFullYear();
 
@@ -127,6 +129,21 @@ export default function ContentPage() {
                 </React.Fragment>
               );
             })}
+            
+            {/* Show more button */}
+            {contentItems.length > displayLimit && !showAll && (
+              <React.Fragment>
+                <div className="col-span-2 flex justify-center mt-6">
+                  <button 
+                    onClick={() => setShowAll(true)} 
+                    className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors"
+                  >
+                    <span>Show more</span>
+                    <PiCaretDownBold className="text-sm" />
+                  </button>
+                </div>
+              </React.Fragment>
+            )}
           </div>
         </div>
       </div>

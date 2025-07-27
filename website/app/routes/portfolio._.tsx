@@ -49,7 +49,7 @@ function Portfolio() {
   const { items } = useLoaderData<typeof loader>()
 
   return (
-    <div className="bg-gradient-to-b from-gray-100 to-white m-8 mt-20 rounded-xl">
+    <div className="bg-gradient-to-b from-gray-100 to-white m-0 md:m-8 mt-20 rounded-xl">
       <Container>
         <h1>Portfolio</h1>
         <div className="grid md:grid-cols-3 gap-2">

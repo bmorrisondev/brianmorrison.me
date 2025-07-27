@@ -79,7 +79,7 @@ export const meta: MetaFunction = () => buildHeader({
 function WorkWithMe() {
   const { jobs } = useLoaderData<typeof loader>()
   return (
-    <div className="bg-gradient-to-b from-gray-100 to-white m-8 mt-20 rounded-xl">
+    <div className="bg-gradient-to-b from-gray-100 to-white m-0 md:m-8 mt-20 rounded-xl">
       <Container>
       <div>
         <h1>Work with me</h1>

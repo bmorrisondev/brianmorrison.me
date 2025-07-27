@@ -92,17 +92,17 @@ export default function Index() {
               <StylizedListItem>Clerk</StylizedListItem>
             </div>
             <div className="flex justify-center mb-2 gap-8">
-              <Link to="/portfolio" className="flex justify-center gap-2 font-bold">Learn More</Link>
+              {/* <Link to="/portfolio" className="flex justify-center gap-2 font-bold">Learn More</Link> */}
               <Link to="https://wishpin.app" className="flex justify-center gap-2 font-bold">Visit Website</Link>
             </div>
           </div>
 
           <div className="mt-6 w-full">
             <div className="flex gap-4 items-center justify-center">
-              <img src={wishPinLists1} alt="WishPin App - Lists screen" className="md:h-96 h-64" />
-              <img src={wishPinLists2} alt="WishPin App - Wishlist screen" className="md:h-96 h-64" />
-              <img src={wishPinLists3} alt="WishPin App - Search Amazon screen" className="md:h-96 h-64" />
-              <img src={wishPinLists4} alt="WishPin App - List settings screen" className="md:h-96 h-64" />
+              <img src={wishPinLists1} alt="WishPin App - Lists screen" className="lg:h-96 md:h-72 sm:h-64 h-56" />
+              <img src={wishPinLists2} alt="WishPin App - Wishlist screen" className="lg:h-96 md:h-72 sm:h-64 h-56" />
+              <img src={wishPinLists3} alt="WishPin App - Search Amazon screen" className="lg:h-96 md:h-72 sm:h-64 h-56" />
+              <img src={wishPinLists4} alt="WishPin App - List settings screen" className="lg:h-96 md:h-72 sm:h-64 h-56" />
             </div>
           </div>
         </div>
