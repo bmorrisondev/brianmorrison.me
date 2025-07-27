@@ -61,7 +61,7 @@ function Navigation() {
 
   return (
     <>
-      <div className={`fixed top-0 left-0 right-0 flex justify-center items-center mx-auto w-full py-3 px-4 z-10 gap-8 transition-all duration-300 bg-[#fefefe] bg-opacity-50 ${scrolled ? 'shadow-sm bg-white bg-opacity-100' : ''}`}>
+      <div className={`fixed top-0 left-0 right-0 flex justify-center items-center mx-auto w-full py-3 px-4 z-10 gap-8 transition-all duration-300 bg-[#fefefe] bg-opacity-95 ${scrolled ? 'shadow-sm bg-white bg-opacity-100' : ''}`}>
         <NavLink to="/" className='flex text-xl items-center text-black'>
           {!isMobileMenuShown && <img src={SiteLogo} alt="Brian Morrison Logo" className='w-[40px]' /> }
         </NavLink>

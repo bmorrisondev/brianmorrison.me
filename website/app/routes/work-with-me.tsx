@@ -93,7 +93,7 @@ function WorkWithMe() {
           </div>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-4">
+        {/* <div className="grid md:grid-cols-3 gap-4">
           <Card title="Front end">
             <p>
               I&apos;m highly skilled in building web interfaces with React and Gatsby.
@@ -109,7 +109,7 @@ function WorkWithMe() {
               I&apos;m highly skilled in building web interfaces with React and Gatsby.
             </p>
           </Card>
-        </div>
+        </div> */}
 
         {/* Proficiencies section */}
         {/* <div className="proficiencies">
