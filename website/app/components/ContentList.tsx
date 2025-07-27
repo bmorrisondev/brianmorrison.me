@@ -96,7 +96,6 @@ export default function ContentPage() {
                       <>
                         <div className='my-2 relative'>
                           <span className='text-gray-400 text-sm font-mono'>Start</span>
-                          <div className='absolute top-0 right-0 border-r border-r-1 border-gray-600' style={{ height: '20px' }}></div>
                         </div>
                         <div className='flex mt-5 flex-1 relative'>
                           <hr className='w-full h-px border-b border-b-1 border-gray-600' />

@@ -3,9 +3,10 @@ import { buildHeader } from "~/utils";
 import { Link, json, useLoaderData } from "@remix-run/react";
 import StylizedListItem from "~/components/StylizedListItem";
 import me from "../images/me.jpg"
-import mockup1 from "../images/mockups/iphone-mockup1.svg"
-import mockup2 from "../images/mockups/iphone-mockup2.svg"
-import mockup3 from "../images/mockups/iphone-mockup3.svg"
+import wishPinLists1 from "../images/wishpin/1-lists.png"
+import wishPinLists2 from "../images/wishpin/2-list.png"
+import wishPinLists3 from "../images/wishpin/3-search-amazon.png"
+import wishPinLists4 from "../images/wishpin/4-list-settings.png"
 import ContentList from "~/components/ContentList";
 import ContactForm from "~/components/ContactForm";
 import socials from "~/socials";
@@ -19,6 +20,7 @@ import portfolioItems from '../content/notion/notionPortfolioItem.json';
 import tags from '../content/notion/notionTag.json';
 import PortfolioListItem from "~/components/PortfolioListItem";
 import { ArrowRight } from "lucide-react";
+import Card from "~/components/Card";
 
 
 export const loader = async () => {
@@ -69,7 +71,7 @@ export default function Index() {
   return (
     <div className='-mt-20'>
       <div className="h-screen flex items-center justify-center">
-        <div className="flex flex-col gap-3 max-w-3xl text-center">
+        <div className="flex flex-col gap-3 max-w-3xl text-center mx-1">
           <img src={me} alt="Brian Morrison" className="w-32 h-32 rounded-full mx-auto" />
           <div className='text-5xl font-bold font-sans gradient-header pb-2'>My name is Brian</div>
           <div className="md:text-4xl text-3xl font-bold text-neutral-700">I&apos;m a full stack developer with 15+ years experience.</div>
@@ -77,31 +79,36 @@ export default function Index() {
         </div>
       </div>
 
-      <div className="min-h-screen">
-        <div className="bg-gradient h-full md:m-8 md:rounded-xl p-8 mb-8">
+      <div className="md:min-h-screen">
+        <div className="bg-gradient h-full md:m-8 md:rounded-xl p-8 mb-8 overflow-x-hidden">
           <div className="flex flex-col gap-2 text-center max-w-xl mx-auto">
             <div className="text-sm">Latest project • Mobile App</div>
             <h2 className="!mt-2">WishPin</h2>
-            <p className="!mb-0">WishPin is a web application that allows users to create and manage wish lists for their loved ones.</p>
+            <p className="!mb-0">WishPin is a web application that allows users to create collaborative wishlists for their loved ones.</p>
             <div className="flex gap-2 items-center mb-2 flex-wrap justify-center">
               <StylizedListItem>React Native</StylizedListItem>
               <StylizedListItem>Docker</StylizedListItem>
               <StylizedListItem>Convex</StylizedListItem>
               <StylizedListItem>Clerk</StylizedListItem>
             </div>
-            <div className="flex justify-center mb-2">
-              <Link to="/portfolio" className="flex justify-center gap-2 font-bold">View Project</Link>
+            <div className="flex justify-center mb-2 gap-8">
+              <Link to="/portfolio" className="flex justify-center gap-2 font-bold">Learn More</Link>
+              <Link to="https://wishpin.app" className="flex justify-center gap-2 font-bold">Visit Website</Link>
             </div>
+          </div>
 
-            <div className="flex flex-wrap justify-center gap-4 mt-6">
-              <img src={mockup1} alt="WishPin App - Lists Screen" className="h-80" />
-              <img src={mockup2} alt="WishPin App - Items Screen" className="h-80" />
-              <img src={mockup3} alt="WishPin App - Add Item Screen" className="h-80" />
+          <div className="mt-6 w-full">
+            <div className="flex gap-4 items-center justify-center">
+              <img src={wishPinLists1} alt="WishPin App - Lists screen" className="md:h-96 h-64" />
+              <img src={wishPinLists2} alt="WishPin App - Wishlist screen" className="md:h-96 h-64" />
+              <img src={wishPinLists3} alt="WishPin App - Search Amazon screen" className="md:h-96 h-64" />
+              <img src={wishPinLists4} alt="WishPin App - List settings screen" className="md:h-96 h-64" />
             </div>
           </div>
         </div>
       </div>      
       
+      {/* Other Notable Projects */}
       <div className="min-h-screen">
         <div className="h-full md:m-8 md:rounded-xl p-8 mb-8">
           <div className="flex flex-col gap-2 text-center max-w-xl mx-auto">
@@ -112,7 +119,7 @@ export default function Index() {
             </div>
           </div>
           
-          <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-12 max-w-4xl mx-auto">
             {portfolioItems.map(item => (
               <PortfolioListItem key={item.id} item={item} />
             ))}
@@ -120,9 +127,9 @@ export default function Index() {
         </div>
       </div>
 
+      {/* Work Experience */}
       <div className="min-h-screen">
         <div className="bg-gradient-to-b from-gray-100 to-white h-full md:m-8 md:rounded-xl p-8 mb-8">
-
           <div className="flex flex-col gap-2 text-center max-w-xl mx-auto mb-4">
             <div className="text-sm">Applications • Infrastructure • Automation</div>
             <h2 className="!mt-2">Work Experience</h2>
@@ -138,14 +145,16 @@ export default function Index() {
                     <img src={job.logo[0]} alt={`${job.companyName} logo`} className="h-16 object-contain" />
                   }
                 </div>
-                <h3 className="text-xl font-bold mb-2">{job.companyName}</h3>
-                <div className="text-gray-700 mb-2">{job.title}</div>
-                <div className="text-gray-500 text-sm mb-4">{job.yearsActive}</div>
-                <div className="text-sm flex-grow mb-4">
+                <div className="flex flex-col gap-0.5 mb-4">
+                  <h3 className="text-xl font-bold">{job.companyName}</h3>
+                  <div className="text-gray-700">{job.title}</div>
+                  <div className="text-gray-500 text-sm">{job.yearsActive}</div>
+                </div>
+                <div className="text-sm flex-grow">
                   {job.summary}
                 </div>
                 <div className='flex justify-end'>
-                  <ArrowRight className="opacity-0 group-hover/job-item:opacity-100 transition-all" />
+                  <ArrowRight className="opacity-20 group-hover/job-item:opacity-100 transition-all" />
                 </div>
               </Link>
             ))}

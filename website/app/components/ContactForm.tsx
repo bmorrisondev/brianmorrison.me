@@ -14,7 +14,6 @@ function ContactForm() {
   const [name, setName] = useState("")
   const [emailAddress, setEmailAddress] = useState("")
   const [message, setMessage] = useState("")
-  const [optInToNewsletter, setOptInToNewsletter] = useState(false)
 
   async function submit() {
     setFormState(FormState.Submitting)
@@ -27,7 +26,6 @@ function ContactForm() {
         name,
         emailAddress,
         message,
-        optInToNewsletter
       })
     })
 
@@ -39,9 +37,9 @@ function ContactForm() {
   }
 
   return (
-    <form className='rounded border bg-white shadow-sm border-gray-100 p-4'>
-      <div className="mb-2">
-        <label htmlFor="name" className="block text-gray-700 text-sm font-bold mb-2">
+    <form className='rounded-sm border bg-white shadow-sm border-gray-100 p-4 flex flex-col gap-4 text-start'>
+      <div className="flex flex-col gap-2">
+        <label htmlFor="name" className="block text-gray-700 text-sm font-bold">
           Name
         </label>
         <input
@@ -51,37 +49,32 @@ function ContactForm() {
           onChange={e => setName(e.target.value)}
           type="text" />
       </div>
-      <div className="mb-2">
-        <label htmlFor='email' className="block text-gray-700 text-sm font-bold mb-2">
+
+      <div className="flex flex-col gap-2">
+        <label htmlFor='email' className="block text-gray-700 text-sm font-bold">
           Email address
         </label>
         <input
           name='email'
-          className="shadow-sm appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+          className="shadow-sm appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           value={emailAddress}
           onChange={e => setEmailAddress(e.target.value)}
           type="text"  />
       </div>
-      <div>
-        <label htmlFor='message' className="block text-gray-700 text-sm font-bold mb-2">
+
+      <div className="flex flex-col gap-2">
+        <label htmlFor='message' className="block text-gray-700 text-sm font-bold">
           Message
         </label>
         <textarea
           name='message'
-          className="shadow-sm appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+          className="shadow-sm appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           value={message}
           onChange={e => setMessage(e.target.value)}
           rows={4}  />
       </div>
-      {/* <div className='flex space-x-2 items-center mb-2'>
-        <input
-          type="checkbox"
-          checked={optInToNewsletter}
-          onChange={() => setOptInToNewsletter(!optInToNewsletter)}
-          />
-        <span>Opt in to newsletter</span>
-      </div> */}
-      <div className="flex items-center space-x-2">
+
+      <div className="flex items-center gap-2">
         <Button onClick={() => submit()} disabled={formState !== FormState.None}>
           Send
         </Button>

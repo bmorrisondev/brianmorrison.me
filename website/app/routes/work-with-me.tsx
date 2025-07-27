@@ -16,6 +16,7 @@ import me from "../images/me.jpg"
 // Data
 import employmentHistory from '../content/notion/notionEmploymentHistoryItem.json'
 import portfolioItems from '../content/notion/notionPortfolioItem.json'
+import Card from '~/components/Card'
 
 // Certifications data
 interface Certification {
@@ -92,8 +93,26 @@ function WorkWithMe() {
           </div>
         </div>
 
+        <div className="grid md:grid-cols-3 gap-4">
+          <Card title="Front end">
+            <p>
+              I&apos;m highly skilled in building web interfaces with React and Gatsby.
+            </p>
+          </Card>
+          <Card title="Back end">
+            <p>
+              I&apos;m highly skilled in building web interfaces with React and Gatsby.
+            </p>
+          </Card>
+          <Card title="Infra">
+            <p>
+              I&apos;m highly skilled in building web interfaces with React and Gatsby.
+            </p>
+          </Card>
+        </div>
+
         {/* Proficiencies section */}
-        <div className="proficiencies">
+        {/* <div className="proficiencies">
           <h2>Proficiencies</h2>
           {Object.entries(proficiencies).map(([category, items]) => (
             <div key={category}>
@@ -105,7 +124,7 @@ function WorkWithMe() {
               </StylizedList>
             </div>
           ))}
-        </div>
+        </div> */}
 
         {/* Work history section */}
         <div className="work-history" id="work-history">
