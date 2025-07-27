@@ -94,7 +94,13 @@ function Navigation() {
           </div>
           <div className='flex flex-col w-full'>
             {menuItems.map((el, idx) => (
-              <MobileNavLink key={`mob-${idx}`} to={el.to}>{el.title}</MobileNavLink>
+              <MobileNavLink 
+                key={`mob-${idx}`} 
+                to={el.to} 
+                onClick={() => setIsMobileMenuShown(false)}
+              >
+                {el.title}
+              </MobileNavLink>
             ))}
           </div>
         </div>
