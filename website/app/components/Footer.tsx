@@ -11,12 +11,16 @@ import YouTube from './svgs/YouTube'
 function Footer() {
   return (
     <div className='flex mx-auto justify-center items-center sm:justify-between sm:flex-row flex-col-reverse gap-2 p-4'>
-      <div className='flex space-x-2'>
+      <div className='flex flex-wrap justify-center gap-x-2 gap-y-1 text-center'>
         <span>© {new Date().getFullYear()}</span>
         {/* <div>•</div> */}
         {/* <Link to="/about-this-site" className="text-black">About this site</Link> */}
         <div>•</div>
         <Link to="/uses" className="text-black">Uses</Link>
+        <div>•</div>
+        <Link to="/hermes-youtube-analytics/privacy-policy" className="text-black">Hermes Privacy</Link>
+        <div>•</div>
+        <Link to="/hermes-youtube-analytics/terms" className="text-black">Hermes Terms</Link>
       </div>
       <div className="flex space-x-2">
         <SocialIconLink href={socials.youtube}><YouTube /></SocialIconLink>
