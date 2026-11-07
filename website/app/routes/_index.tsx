@@ -157,8 +157,13 @@ export default function Index() {
                 "Readiness and recovery screenshot",
                 "AI coaching screenshot",
               ].map((label) => (
-                <div key={label} className="flex h-56 md:h-72 lg:h-96 items-center justify-center rounded-xl border border-dashed border-neutral-400 bg-white/20 p-6 text-center text-sm font-medium text-neutral-700">
-                  <span>{label}<br /><span className="text-xs font-normal">Coming soon</span></span>
+                <div key={label} className="flex justify-center">
+                  <div role="img" aria-label={`${label} placeholder in an iPhone frame`} className="relative h-56 md:h-72 lg:h-96 aspect-[1153/2333] rounded-[2.25rem] border-[6px] border-neutral-950 bg-neutral-950 p-1 shadow-xl">
+                    <div className="relative flex h-full items-center justify-center overflow-hidden rounded-[1.75rem] bg-white/80 p-5 text-center text-sm font-medium text-neutral-700">
+                      <div className="absolute top-2 h-4 w-16 rounded-full bg-neutral-950" aria-hidden="true" />
+                      <span>{label}<br /><span className="text-xs font-normal">Coming soon</span></span>
+                    </div>
+                  </div>
                 </div>
               ))}
             </div>
