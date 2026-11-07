@@ -3,10 +3,6 @@ import { buildHeader } from "~/utils";
 import { Link, json, useLoaderData } from "@remix-run/react";
 import StylizedListItem from "~/components/StylizedListItem";
 import me from "../images/me.jpg"
-import wishPinLists1 from "../images/wishpin/1-lists.png"
-import wishPinLists2 from "../images/wishpin/2-list.png"
-import wishPinLists3 from "../images/wishpin/3-search-amazon.png"
-import wishPinLists4 from "../images/wishpin/4-list-settings.png"
 import ContentList from "~/components/ContentList";
 import ContactForm from "~/components/ContactForm";
 import socials from "~/socials";
@@ -140,27 +136,31 @@ export default function Index() {
       <div className="md:min-h-screen">
         <div className="bg-gradient h-full md:m-8 md:rounded-xl p-8 mb-8 overflow-x-hidden">
           <div className="flex flex-col gap-2 text-center max-w-xl mx-auto">
-            <div className="text-sm">Latest project • Mobile App</div>
-            <h2 className="!mt-2">WishPin</h2>
-            <p className="!mb-0">WishPin is a web application that allows users to create collaborative wishlists for their loved ones.</p>
+            <div className="text-sm">Latest project • Fitness app</div>
+            <h2 className="!mt-2">Coalesce</h2>
+            <p className="!mb-0">Coalesce builds one coherent training week across every discipline, balancing load and recovery so your workouts work together.</p>
             <div className="flex gap-2 items-center mb-2 flex-wrap justify-center">
-              <StylizedListItem>React Native</StylizedListItem>
-              <StylizedListItem>Docker</StylizedListItem>
-              <StylizedListItem>Convex</StylizedListItem>
-              <StylizedListItem>Clerk</StylizedListItem>
+              <StylizedListItem>iOS</StylizedListItem>
+              <StylizedListItem>SwiftUI</StylizedListItem>
+              <StylizedListItem>AI coaching</StylizedListItem>
+              <StylizedListItem>HealthKit</StylizedListItem>
             </div>
             <div className="flex justify-center mb-2 gap-8">
-              {/* <Link to="/portfolio" className="flex justify-center gap-2 font-bold">Learn More</Link> */}
-              <Link to="https://wishpin.app" className="flex justify-center gap-2 font-bold">Visit Website</Link>
+              <Link to="https://coalescefitness.com/#beta-signup" className="flex justify-center gap-2 font-bold">Join the beta</Link>
             </div>
           </div>
 
           <div className="mt-6 w-full">
-            <div className="flex gap-4 items-center justify-center">
-              <img src={wishPinLists1} alt="WishPin App - Lists screen" className="lg:h-96 md:h-72 sm:h-64 h-56" />
-              <img src={wishPinLists2} alt="WishPin App - Wishlist screen" className="lg:h-96 md:h-72 sm:h-64 h-56" />
-              <img src={wishPinLists3} alt="WishPin App - Search Amazon screen" className="lg:h-96 md:h-72 sm:h-64 h-56" />
-              <img src={wishPinLists4} alt="WishPin App - List settings screen" className="lg:h-96 md:h-72 sm:h-64 h-56" />
+            <div className="grid gap-4 sm:grid-cols-3 max-w-5xl mx-auto" aria-label="Coalesce screenshots coming soon">
+              {[
+                "Training plan screenshot",
+                "Readiness and recovery screenshot",
+                "AI coaching screenshot",
+              ].map((label) => (
+                <div key={label} className="flex h-56 md:h-72 lg:h-96 items-center justify-center rounded-xl border border-dashed border-neutral-400 bg-white/20 p-6 text-center text-sm font-medium text-neutral-700">
+                  <span>{label}<br /><span className="text-xs font-normal">Coming soon</span></span>
+                </div>
+              ))}
             </div>
           </div>
         </div>
