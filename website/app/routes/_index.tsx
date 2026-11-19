@@ -295,40 +295,42 @@ export default function Index() {
       <section
         id="independent-products"
         aria-labelledby="products-heading"
-        className="mx-auto max-w-5xl scroll-mt-20 px-5 py-14 sm:px-8"
+        className="scroll-mt-20 bg-gradient md:mx-8 md:rounded-xl"
       >
-        <h2 id="products-heading" className="!mt-0 mb-6 text-3xl sm:text-4xl">
-          Independent products
-        </h2>
-        <ul className="grid gap-4 md:grid-cols-3">
-          {independentProducts.map(({ name, description, url, icon }) => (
-            <li
-              key={name}
-              className="m-0 flex flex-col rounded-lg border border-neutral-200 bg-gradient p-5 sm:p-6"
-            >
-              <div className="flex items-center gap-3">
-                <img
-                  src={icon}
-                  alt=""
-                  width={48}
-                  height={48}
-                  loading="lazy"
-                  className="h-12 w-12 shrink-0 rounded-lg object-contain"
-                />
-                <h3 className="!mt-0 text-xl">{name}</h3>
-              </div>
-              <p className="mb-4 mt-3 text-base leading-relaxed text-neutral-700">
-                {description}
-              </p>
-              <a
-                href={url}
-                className="mt-auto self-start font-sans text-base font-semibold text-blue-700 underline underline-offset-4 hover:text-blue-900"
+        <div className="mx-auto max-w-5xl px-5 py-14 sm:px-8">
+          <h2 id="products-heading" className="!mt-0 mb-6 text-3xl sm:text-4xl">
+            Independent products
+          </h2>
+          <ul className="grid gap-4 md:grid-cols-3">
+            {independentProducts.map(({ name, description, url, icon }) => (
+              <li
+                key={name}
+                className="m-0 flex flex-col rounded-lg border border-neutral-200 bg-white p-5 sm:p-6"
               >
-                Visit {name}
-              </a>
-            </li>
-          ))}
-        </ul>
+                <div className="flex items-center gap-3">
+                  <img
+                    src={icon}
+                    alt=""
+                    width={48}
+                    height={48}
+                    loading="lazy"
+                    className="h-12 w-12 shrink-0 rounded-lg object-contain"
+                  />
+                  <h3 className="!mt-0 text-xl">{name}</h3>
+                </div>
+                <p className="mb-4 mt-3 text-base leading-relaxed text-neutral-700">
+                  {description}
+                </p>
+                <a
+                  href={url}
+                  className="mt-auto self-start font-sans text-base font-semibold text-blue-700 underline underline-offset-4 hover:text-blue-900"
+                >
+                  Visit {name}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
       </section>
 
       <section
