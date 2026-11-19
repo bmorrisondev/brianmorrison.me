@@ -1,6 +1,6 @@
 import type { LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
 import { json, Link, useLoaderData } from "@remix-run/react";
-import parse, { domToReact, Element, type DOMNode } from "html-react-parser";
+import parse from "html-react-parser";
 import BlockQuote from "~/components/BlockQuote";
 import Container from "~/components/Container";
 import { replaceCode } from "~/components/PostCode";
@@ -20,20 +20,6 @@ export const meta: MetaFunction<typeof loader> = ({ data }) =>
     pageTitle: data?.item.title ?? "Portfolio",
     description: data?.item.excerpt,
   });
-
-function replacePortfolioHtml(node: DOMNode) {
-  if (
-    node instanceof Element &&
-    node.name === "a" &&
-    node.attribs.href === "https://brianmorrison.me/demos/waystone"
-  ) {
-    return (
-      <Link to="/demos/waystone">{domToReact(node.children as DOMNode[])}</Link>
-    );
-  }
-
-  return replaceCode(node) || undefined;
-}
 
 export default function PortfolioItemView() {
   const { item } = useLoaderData<typeof loader>();
@@ -73,25 +59,18 @@ export default function PortfolioItemView() {
 
           {item.html && (
             <div className="post-content">
-              {parse(item.html, { replace: replacePortfolioHtml })}
+              {parse(item.html, { replace: replaceCode })}
             </div>
           )}
 
-          {item.slug === "proposals-app" && (
-            <section aria-labelledby="related-work">
-              <h2 id="related-work">Related work</h2>
-              <p>
-                <Link to="/portfolio/waystone">
-                  Waystone and a sample AI-assisted transaction import
-                </Link>
-              </p>
-              {systechTestimonial.quote && (
-                <BlockQuote
-                  citation={`${systechTestimonial.author}, Systech Information Services`}
-                >
-                  {systechTestimonial.quote}
-                </BlockQuote>
-              )}
+          {item.slug === "proposals-app" && systechTestimonial.quote && (
+            <section aria-labelledby="testimonial">
+              <h2 id="testimonial">Testimonial</h2>
+              <BlockQuote
+                citation={`${systechTestimonial.author}, Systech Information Services`}
+              >
+                {systechTestimonial.quote}
+              </BlockQuote>
             </section>
           )}
 

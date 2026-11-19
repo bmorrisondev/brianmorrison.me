@@ -10,6 +10,9 @@ dotenv.config()
 const baseContentPath = './app/content/notion'
 const baseImagePath = './public'
 
+// Retired portfolio pages can remain in Notion without shipping in the site.
+const retiredPortfolioIds = new Set(['41dd43db-82db-81d9-87a5-c69ce795dc48'])
+
 // Initializing a client
 const notion = new Client({
   auth: process.env.NOTION_TOKEN,
@@ -39,13 +42,14 @@ async function loadNotionContent(type: string, dbid: string) {
 type NotionPosts = (PageObjectResponse | PartialPageObjectResponse | PartialDatabaseObjectResponse | DatabaseObjectResponse)[]
 
 async function processNotionContent(type: string, notionPosts: NotionPosts) {
-  // load cach
-  let needsRecache = false
   const cached = loadCachedContent(type)
+  const isPortfolio = type === 'notionPortfolioItem'
+  let needsRecache = isPortfolio && cached.some(({ id }: { id: string }) => retiredPortfolioIds.has(id))
   const normalized = []
 
   for(let i = 0; i < notionPosts.length; i++) {
     const p = notionPosts[i]
+    if (isPortfolio && retiredPortfolioIds.has(p.id)) continue
 
     // get last edited time
     const lastEdited = Math.floor(new Date(p.last_edited_time).getTime() / 1000)

@@ -5,7 +5,6 @@ import {
   jobs,
   portfolioItems,
 } from "../app/content/portfolio";
-import { advanceDemo, initialState } from "../app/demos/waystone";
 
 test("each selected case study is published and associated with a company", () => {
   for (const slug of featuredCaseStudySlugs) {
@@ -26,24 +25,20 @@ test("the Homerun job links to the release case study", () => {
   );
 });
 
-test("retrying an interrupted Waystone import skips the row already saved", () => {
-  const ready = advanceDemo(initialState);
-  assert.equal(ready.phase, "ready");
-  assert.equal(ready.savedRows.length, 0);
-
-  const interrupted = advanceDemo(ready);
-  assert.equal(interrupted.phase, "interrupted");
-  assert.deepEqual(
-    interrupted.savedRows.map(({ sourceId }) => sourceId),
-    ["TX-1042"],
+test("public Homerun copy omits customer deployment counts", () => {
+  const job = jobs.find((job) => job.slug === "homerun-presales");
+  const release = portfolioItems.find(
+    ({ slug }) => slug === "reliable-releases-at-homerun-presales",
   );
-
-  const completed = advanceDemo(interrupted);
-  assert.equal(completed.phase, "complete");
-  assert.deepEqual(
-    completed.savedRows.map(({ sourceId }) => sourceId),
-    ["TX-1042", "TX-1043"],
+  assert.ok(job && release);
+  const publicCopy = [
+    job.summary,
+    job.html,
+    release.excerpt,
+    release.html,
+  ].join(" ");
+  assert.doesNotMatch(
+    publicCopy,
+    /\b\d[\d,]*\+?\s+(?:(?:separately|independently) deployed\s+)?(?:customer\s+)?(?:tenants|environments|instances)\b/i,
   );
-  assert.equal(completed.skippedRows, 1);
-  assert.deepEqual(advanceDemo(completed), initialState);
 });

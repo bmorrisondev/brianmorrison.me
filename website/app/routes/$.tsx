@@ -1,7 +1,6 @@
-export * from "~/routes/$";
-import { json, MetaFunction, useLoaderData } from "@remix-run/react";
+import { json, useLoaderData } from "@remix-run/react";
 import notionPage from "../content/notion/notionPage.json"
-import { LoaderFunctionArgs } from "@remix-run/node";
+import type { LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
 import { buildHeader } from "~/utils";
 import Container from "~/components/Container";
 import YouTubeEmbed from "~/components/YouTubeEmbed";
@@ -11,10 +10,7 @@ import parse from "html-react-parser"
 export const loader = async ({ params, request }: LoaderFunctionArgs) => {
   const slug = `/${params['*']}`
   const page = notionPage.find(el => el.slug === slug)
-  return json({
-    url: request.url,
-    page
-  });
+  return json({ url: request.url, page }, { status: page ? 200 : 404 });
 };
 
 export const meta: MetaFunction<typeof loader> = ({ data }) => {

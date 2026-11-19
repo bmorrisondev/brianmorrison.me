@@ -125,10 +125,10 @@ export default function Index() {
             </h1>
             <p className="mb-0 mt-5 max-w-2xl text-base leading-relaxed text-neutral-700 sm:text-lg">
               I’m Brian Morrison II, Engineering Manager at Homerun Presales,
-              where I lead engineering delivery for a product deployed across
-              50+ tenants. I’ve built customer integrations in logistics,
-              redesigned a fleet dashboard for a customer tracking nearly 30,000
-              assets, and created developer tools at PlanetScale.
+              where I lead engineering delivery for a multi-tenant SaaS product.
+              I’ve built customer integrations in logistics, redesigned a fleet
+              dashboard for a customer tracking nearly 30,000 assets, and
+              created developer tools at PlanetScale.
             </p>
             <div className="mt-6 flex flex-wrap gap-2 font-sans text-sm font-semibold sm:gap-3 sm:text-base">
               <Link
@@ -193,13 +193,6 @@ export default function Index() {
                   <p className="mb-0 mt-3 text-base leading-relaxed text-neutral-700">
                     {excerpt}
                   </p>
-                  {isRenewalsStudy && (
-                    <p className="mb-0 mt-4 font-sans text-sm font-semibold">
-                      <Link to="/demos/waystone">
-                        Try the Waystone prototype walkthrough
-                      </Link>
-                    </p>
-                  )}
                   {slug === "iot-dashboard-optimizations" && (
                     <p className="mb-0 mt-4 font-sans text-sm font-semibold">
                       <Link to="/portfolio/graphql-api-and-dynamic-groups">
