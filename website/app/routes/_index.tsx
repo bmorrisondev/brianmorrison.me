@@ -11,8 +11,9 @@ import {
 import socials from "~/socials";
 import { buildHeader } from "~/utils";
 import me from "../images/me.jpg";
-import wishPinLists from "../images/wishpin/1-lists.png";
-import wishPinList from "../images/wishpin/2-list.png";
+import coalesceIcon from "../images/products/coalesce.png";
+import dailyRepsIcon from "../images/products/dailyreps.png";
+import guardianForgeIcon from "../images/products/guardianforge.png";
 
 const featuredWriting = [
   {
@@ -29,6 +30,30 @@ const featuredWriting = [
     title: "How to take your Clerk application to production",
     publisher: "Clerk",
     url: "https://clerk.com/blog/how-to-take-your-clerk-app-to-prod",
+  },
+];
+
+const independentProducts = [
+  {
+    name: "Coalesce",
+    description:
+      "A training planner that fits running, lifting, and other workouts into one week while accounting for recovery.",
+    url: "https://coalescefitness.com/",
+    icon: coalesceIcon,
+  },
+  {
+    name: "DailyReps",
+    description:
+      "Set daily workout goals, log reps or time, and track your progress and streaks.",
+    url: "https://dailyreps.in/",
+    icon: dailyRepsIcon,
+  },
+  {
+    name: "GuardianForge",
+    description:
+      "Find community builds, save snapshots of your loadouts, and share Destiny 2 builds with a link.",
+    url: "https://guardianforge.net/",
+    icon: guardianForgeIcon,
   },
 ];
 
@@ -75,7 +100,7 @@ export const meta: MetaFunction = () => {
 
   return buildHeader({ description, url: "https://brianmorrison.me/" }).map(
     (tag) =>
-      tag.name === "description" ? { ...tag, content: description } : tag
+      tag.name === "description" ? { ...tag, content: description } : tag,
   );
 };
 
@@ -275,41 +300,42 @@ export default function Index() {
       </section>
 
       <section
+        id="independent-products"
         aria-labelledby="products-heading"
-        className="mx-auto max-w-5xl px-5 py-14 sm:px-8"
+        className="mx-auto max-w-5xl scroll-mt-20 px-5 py-14 sm:px-8"
       >
         <h2 id="products-heading" className="!mt-0 mb-6 text-3xl sm:text-4xl">
           Independent products
         </h2>
-        <div className="grid items-center gap-8 overflow-hidden rounded-lg border border-neutral-200 bg-gradient p-5 sm:p-7 md:grid-cols-2">
-          <div>
-            <h3 className="!mt-0">WishPin</h3>
-            <p className="mb-3 mt-2 max-w-md text-base leading-relaxed text-neutral-700">
-              A collaborative wishlist app for sharing gift ideas with friends
-              and family.
-            </p>
-            <a
-              href="https://wishpin.app"
-              className="font-sans font-semibold text-blue-700 underline underline-offset-4 hover:text-blue-900"
+        <ul className="grid gap-4 md:grid-cols-3">
+          {independentProducts.map(({ name, description, url, icon }) => (
+            <li
+              key={name}
+              className="m-0 flex flex-col rounded-lg border border-neutral-200 bg-gradient p-5 sm:p-6"
             >
-              Visit WishPin
-            </a>
-          </div>
-          <div className="flex justify-center gap-3 sm:gap-5">
-            <img
-              src={wishPinLists}
-              alt="WishPin app showing a collection of wishlists"
-              loading="lazy"
-              className="h-44 w-auto max-w-[46%] object-contain sm:h-60"
-            />
-            <img
-              src={wishPinList}
-              alt="WishPin app showing a shared wishlist"
-              loading="lazy"
-              className="h-44 w-auto max-w-[46%] object-contain sm:h-60"
-            />
-          </div>
-        </div>
+              <div className="flex items-center gap-3">
+                <img
+                  src={icon}
+                  alt=""
+                  width={48}
+                  height={48}
+                  loading="lazy"
+                  className="h-12 w-12 shrink-0 rounded-lg object-contain"
+                />
+                <h3 className="!mt-0 text-xl">{name}</h3>
+              </div>
+              <p className="mb-4 mt-3 text-base leading-relaxed text-neutral-700">
+                {description}
+              </p>
+              <a
+                href={url}
+                className="mt-auto self-start font-sans text-base font-semibold text-blue-700 underline underline-offset-4 hover:text-blue-900"
+              >
+                Visit {name}
+              </a>
+            </li>
+          ))}
+        </ul>
       </section>
 
       <section
