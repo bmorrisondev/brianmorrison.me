@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import {
   featuredCaseStudySlugs,
+  getPortfolioItem,
   jobs,
   portfolioItems,
 } from "../app/content/portfolio";
@@ -41,4 +42,13 @@ test("public Homerun copy omits customer deployment counts", () => {
     publicCopy,
     /\b\d[\d,]*\+?\s+(?:(?:separately|independently) deployed\s+)?(?:customer\s+)?(?:tenants|environments|instances)\b/i,
   );
+});
+
+test("independent product links resolve to complete case studies", () => {
+  for (const slug of ["coalesce", "daily-reps", "guardianforge"]) {
+    const item = getPortfolioItem(slug);
+    assert.ok(item?.excerpt, `Missing case study for ${slug}`);
+    assert.match(item.html, /<h2>What I built<\/h2>/);
+    assert.match(item.html, /<h2>Stack<\/h2>/);
+  }
 });
