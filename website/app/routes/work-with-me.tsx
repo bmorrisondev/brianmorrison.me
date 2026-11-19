@@ -1,11 +1,10 @@
 import Container from '../components/Container'
-import StylizedList from '../components/StylizedList'
-import StylizedListItem from '../components/StylizedListItem'
 import BlockQuote from '../components/BlockQuote'
 import PortfolioListItem from '../components/PortfolioListItem'
-import { json, Link, MetaFunction, useLoaderData } from '@remix-run/react'
+import type { MetaFunction } from '@remix-run/node'
+import { json, Link, useLoaderData } from '@remix-run/react'
 import { buildHeader } from '~/utils'
-import { Job } from '~/models'
+import { jobs } from '~/content/portfolio'
 
 // Images
 import ccna from "../images/ccna-rs.png"
@@ -13,10 +12,6 @@ import sa from "../images/aws-sa-assoc.png"
 import awsdev from "../images/aws-dev-assoc.png"
 import me from "../images/me.jpg"
 
-// Data
-import employmentHistory from '../content/notion/notionEmploymentHistoryItem.json'
-import portfolioItems from '../content/notion/notionPortfolioItem.json'
-import Card from '~/components/Card'
 import HashLander from '~/components/HashLander'
 
 // Certifications data
@@ -48,30 +43,7 @@ const certifications: Certification[] = [
   }
 ];
 
-// Proficiencies data
-const proficiencies: Record<string, string[]> = {
-  "Languages": ["JavaScript", "C#", "Go"],
-  "Frameworks": [".NET Core/Framework", "React", "Gatsby", "Vue", "Gridsome"],
-  "Cloud/Infrastructure": ["AWS", "Azure", "Netlify", "Digital Ocean", "Linux (Ubuntu, Centos)", "Windows Server", "Networking"],
-  "DevOps": ["Azure DevOps", "GitHub Actions", "Jenkins", "Octopus"]
-}
-
-export const loader = async () => {
-  let jobs: Job[] = JSON.parse(JSON.stringify(employmentHistory))
-  jobs = jobs.filter(j => j.visibility?.slug === "public")
-  jobs.forEach(el => {
-    el.notableProjects = []
-    el.relation_notableProjects.forEach(rel => {
-      const proj = portfolioItems.find(pi => pi.id === rel)
-      if(proj) {
-        el.notableProjects.push(proj)
-      }
-    })
-  })
-  return json({
-    jobs
-  })
-}
+export const loader = () => json({ jobs });
 
 export const meta: MetaFunction = () => buildHeader({
   pageTitle: "Work with me"
@@ -89,43 +61,13 @@ function WorkWithMe() {
           <img src={me} alt="Brian Morrison II" className="w-[150px] h-[150px] rounded-sm border-[1px] mb-4" />
           <div className='flex flex-col gap-2'>
             <div className='font-bold text-xl'>Brian Morrison II</div>
-            <p>I&apos;m a full stack software developer with over 15 years of experience in the tech space. I have a passion for all things tech, from web development to cloud infrastructure. </p>
-            <p>I am always interested in chatting about new collaboration opportunities, so be sure to <Link to="/contact" className="underline px-[5px] mx-[-4px] font-bold hover:bg-white rounded-sm transition-colors">reach out</Link> if you are interested in working with me!</p>
+            <p>I lead engineering delivery at Homerun Presales and stay hands-on with the software we ship. My work spans customer integrations, application architecture, and the systems that help teams release reliably.</p>
+            <p className="flex flex-wrap gap-x-6 gap-y-2">
+              <a href="/docs/brian-morrison-ii-resume.pdf" download className="font-semibold underline">Download résumé</a>
+              <Link to="/contact" className="font-semibold underline">Contact me</Link>
+            </p>
           </div>
         </div>
-
-        {/* <div className="grid md:grid-cols-3 gap-4">
-          <Card title="Front end">
-            <p>
-              I&apos;m highly skilled in building web interfaces with React and Gatsby.
-            </p>
-          </Card>
-          <Card title="Back end">
-            <p>
-              I&apos;m highly skilled in building web interfaces with React and Gatsby.
-            </p>
-          </Card>
-          <Card title="Infra">
-            <p>
-              I&apos;m highly skilled in building web interfaces with React and Gatsby.
-            </p>
-          </Card>
-        </div> */}
-
-        {/* Proficiencies section */}
-        {/* <div className="proficiencies">
-          <h2>Proficiencies</h2>
-          {Object.entries(proficiencies).map(([category, items]) => (
-            <div key={category}>
-              <h3>{category}:</h3>
-              <StylizedList>
-                {items.map((item, index) => (
-                  <StylizedListItem key={`${category.toLowerCase()}-${index}`}>{item}</StylizedListItem>
-                ))}
-              </StylizedList>
-            </div>
-          ))}
-        </div> */}
 
         {/* Work history section */}
         <div className="work-history">
@@ -137,17 +79,17 @@ function WorkWithMe() {
               {j.logo && j.logo.length > 0 && <img src={j.logo[0]} alt={`${j.companyName} logo`} className="max-w-[300px] py-2"></img>}
               <h3>{j.title} @ {j.companyName}</h3>
               <div className="italic mb-2 font-sans">{ j.yearsActive }</div>
-              {j.testimonial && (
+              {j.testimonial && j.slug !== "network-engineer" && (
                 <BlockQuote citation={j.testimonialAuthor}>
                   { j.testimonial }
                 </BlockQuote>
               )}
               <div dangerouslySetInnerHTML={{__html: j.html}}></div>
-              {j.notableProjects && j.notableProjects.length > 0 && j.notableProjects.filter(p => p.status === "Published").length > 0 && (
+              {j.notableProjects.length > 0 && (
                 <div>
                   <p className="italic font-sans">Notable projects:</p>
                   <div className="grid md:grid-cols-3 gap-2">
-                    {j.notableProjects.filter(p => p.status === "Published").map(el => (
+                    {j.notableProjects.map(el => (
                       <PortfolioListItem key={el.id} item={el} />
                     ))}
                   </div>

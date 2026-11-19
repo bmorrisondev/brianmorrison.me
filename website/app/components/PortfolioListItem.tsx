@@ -8,15 +8,17 @@ type Props = {
 }
 
 function PortfolioListItem({ item }: Props) {
+  const skillIcons = item.skillsUsed?.filter((skill) => skill.icon) ?? [];
+
   return (
     <Link to={`/portfolio/${item.slug}`}
       className="gap-4 group/portfolio-item text-black bg-white flex flex-col justify-between p-2 hover:shadow hover:border-neutral-300 border border-neutral-200 rounded-sm transition-all">
 
       <div className="flex flex-col">
-        {item.skillsUsed && item.skillsUsed.length > 0 && (
-          <div className="flex gap-2 mt-1 mb-4">
-          {item.skillsUsed && item.skillsUsed.map(su =>
-            <img key={`${item.notion_id}-${item.slug}`} src={su.icon} alt={su.name} className="max-w-[20px] max-h-[20px]"/>)}
+        {skillIcons.length > 0 && (
+          <div className="flex flex-wrap gap-2 mt-1 mb-4">
+          {skillIcons.map(skill =>
+            <img key={skill.id} src={skill.icon} alt={skill.name} className="max-w-[20px] max-h-[20px]"/>)}
           </div>
         )}
         <div className="font-bold font-sans mb-2">{parse(item.title)}</div>

@@ -1,247 +1,334 @@
 import type { MetaFunction } from "@remix-run/node";
-import { buildHeader } from "~/utils";
-import { Link, json, useLoaderData } from "@remix-run/react";
-import StylizedListItem from "~/components/StylizedListItem";
-import me from "../images/me.jpg"
-import wishPinLists1 from "../images/wishpin/1-lists.png"
-import wishPinLists2 from "../images/wishpin/2-list.png"
-import wishPinLists3 from "../images/wishpin/3-search-amazon.png"
-import wishPinLists4 from "../images/wishpin/4-list-settings.png"
-import ContentList from "~/components/ContentList";
+import { json, Link, useLoaderData } from "@remix-run/react";
 import ContactForm from "~/components/ContactForm";
+import StylizedListItem from "~/components/StylizedListItem";
+import {
+  featuredCaseStudySlugs,
+  jobs,
+  portfolioItems,
+  systechTestimonial,
+} from "~/content/portfolio";
 import socials from "~/socials";
-import type { Job } from "~/models.ts";
-import type { PortfolioItem } from "~/models.ts";
-import type { Tag } from "~/models.ts";
-import { ContentItem, ContentItemIconType } from "~/models.js";
+import { buildHeader } from "~/utils";
+import me from "../images/me.jpg";
+import wishPinLists from "../images/wishpin/1-lists.png";
+import wishPinList from "../images/wishpin/2-list.png";
 
-// Data
-import employmentHistory from '../content/notion/notionEmploymentHistoryItem.json';
-import portfolioItems from '../content/notion/notionPortfolioItem.json';
-import tags from '../content/notion/notionTag.json';
-import notionPosts from '../content/notion/notionPost.json'
-import notionExternalContent from '../content/notion/notionExternalContent.json'
+const featuredWriting = [
+  {
+    title: "How to Design a Multi-Tenant SaaS Architecture",
+    publisher: "Clerk",
+    url: "https://clerk.com/blog/how-to-design-multitenant-saas-architecture",
+  },
+  {
+    title: "Horizontal scaling with Postgres replication",
+    publisher: "Readyset",
+    url: "https://readyset.io/blog/horizontal-scaling-with-postgres-replication",
+  },
+  {
+    title: "How to take your Clerk application to production",
+    publisher: "Clerk",
+    url: "https://clerk.com/blog/how-to-take-your-clerk-app-to-prod",
+  },
+];
 
-import PortfolioListItem from "~/components/PortfolioListItem";
-import { ArrowRight } from "lucide-react";
-import HashLander from "~/components/HashLander";
+export const loader = () => {
+  const caseStudies = featuredCaseStudySlugs.flatMap((slug) => {
+    const item = portfolioItems.find((entry) => entry.slug === slug);
+    if (!item) return [];
 
-
-export const loader = async () => {
-  // Filter for just the three companies we want
-  const jobData = (employmentHistory as Job[])
-  
-  const featuredJobs = jobData.filter(job => 
-    job.companyName === "Clerk" || 
-    job.companyName === "Temeda LLC" || 
-    job.companyName === "LeSaint Logistics"
-  );
-
-  const portfolioData = (portfolioItems as PortfolioItem[]).filter(i => i.status === "Published" && i.featured)
-  portfolioData.sort((a, b) => new Date(a.date) < new Date(b.date) ? 1 : -1)
-
-  portfolioData.forEach(el => {
-    el.job = []
-    el.relation_job.forEach(jid => {
-      const j = jobData.find(j => j.id === jid)
-      if(j) {
-        el.job?.push(j)
-      }
-    })
-
-    el.skillsUsed = []
-    el.relation_skillsUsed.forEach(sid => {
-      // TODO: This is ignored because `Tag` doesn't match the data.
-      // The fields are not named the same for some of the relations
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-expect-error
-      const tag = (tags as Tag[]).find(t => t.id === sid)
-      if(tag) {
-        el.skillsUsed.push(tag)
-      }
-    })
-  })
-
-  const contentItems: ContentItem[] = []
-
-  notionPosts.forEach(p => {
-    if(p.status === "Published") {
-      contentItems.push({
-        id: p.id,
-        slug: p.slug,
-        icon: ContentItemIconType.Article,
-        title: p.title,
-        date: new Date(p.publishOn as string),
-      })
-    }
-  })
-
-  notionExternalContent.forEach(p => {
-    let icon = ContentItemIconType.Default;
-    switch (p.kind.slug) {
-      case 'article':
-        icon = ContentItemIconType.Article
-        break
-      case 'blog-post':
-        icon = ContentItemIconType.Article
-        break
-      case 'podcast-guest':
-        icon = ContentItemIconType.Podcast
-        break
-      case 'talk':
-        icon = ContentItemIconType.Talk
-        break
-      case 'social-post':
-        icon = ContentItemIconType.Social
-        break
-      case 'video':
-        icon = ContentItemIconType.Video
-        break
-    }
-    const subtitle = p.subtitle ? p.subtitle : (new URL(p.uRL)).hostname.replace('www.', '')
-    contentItems.push({
-      id: p.id,
-      icon: icon,
-      title: p.title,
-      date: new Date(p.date),
-      url: p.uRL,
-      subtitle: subtitle
-    })
-  })
-
-  contentItems.sort((a, b) => new Date(b.date) > new Date(a.date) ? 1 : -1)
-
-  const uniqueSources = new Set(contentItems.map(ci => ci.subtitle))
-
-
-  return json({
-    contentItems,
-    uniqueSources: uniqueSources.size,
-    jobs: featuredJobs,
-    portfolioItems: portfolioData
+    return [
+      {
+        slug: item.slug,
+        title: item.title,
+        excerpt: item.excerpt,
+        company: item.job?.[0]?.companyName,
+      },
+    ];
   });
-}
 
-export const meta: MetaFunction = () => buildHeader({})
+  const featuredJobs = [
+    "homerun-presales",
+    "lead-backend-developer",
+    "api-developer-sr-systems-engineer",
+  ].flatMap((slug) => {
+    const job = jobs.find((entry) => entry.slug === slug);
+    if (!job) return [];
+
+    return [
+      {
+        slug: job.slug,
+        companyName: job.companyName,
+        title: job.title,
+        yearsActive: job.yearsActive,
+        summary: job.summary,
+      },
+    ];
+  });
+
+  return json({ caseStudies, featuredJobs, systechTestimonial });
+};
+
+export const meta: MetaFunction = () => {
+  const description =
+    "Brian Morrison II, Engineering Manager at Homerun Presales. Customer integrations, architecture, and engineering delivery.";
+
+  return buildHeader({ description, url: "https://brianmorrison.me/" }).map(
+    (tag) =>
+      tag.name === "description" ? { ...tag, content: description } : tag
+  );
+};
 
 export default function Index() {
-  const { jobs, portfolioItems, contentItems, uniqueSources } = useLoaderData<typeof loader>();
+  const { caseStudies, featuredJobs, systechTestimonial } =
+    useLoaderData<typeof loader>();
+
   return (
-    <div className='-mt-20'>
-      <div className="h-screen flex items-center justify-center">
-        <div className="flex flex-col gap-3 max-w-3xl text-center mx-1">
-          <img src={me} alt="Brian Morrison" className="w-32 h-32 rounded-full mx-auto" />
-          <div className='text-5xl font-bold font-sans gradient-header pb-2'>My name is Brian</div>
-          <div className="md:text-4xl text-3xl font-bold text-neutral-700">I&apos;m a full stack developer with 15+ years experience.</div>
-          <Link to="#contact" className="flex justify-center gap-2 font-bold text-2xl">Let&apos;s talk</Link>
-        </div>
-      </div>
-
-      <div className="md:min-h-screen">
-        <div className="bg-gradient h-full md:m-8 md:rounded-xl p-8 mb-8 overflow-x-hidden">
-          <div className="flex flex-col gap-2 text-center max-w-xl mx-auto">
-            <div className="text-sm">Latest project • Mobile App</div>
-            <h2 className="!mt-2">WishPin</h2>
-            <p className="!mb-0">WishPin is a web application that allows users to create collaborative wishlists for their loved ones.</p>
-            <div className="flex gap-2 items-center mb-2 flex-wrap justify-center">
-              <StylizedListItem>React Native</StylizedListItem>
-              <StylizedListItem>Docker</StylizedListItem>
-              <StylizedListItem>Convex</StylizedListItem>
-              <StylizedListItem>Clerk</StylizedListItem>
+    <main>
+      <section className="bg-gradient md:mx-8 md:rounded-xl">
+        <div className="mx-auto grid max-w-5xl gap-5 px-5 pb-12 pt-6 sm:gap-8 sm:px-8 sm:pb-24 sm:pt-20 md:grid-cols-[minmax(0,1fr)_auto] md:items-center">
+          <img
+            src={me}
+            alt="Brian Morrison II"
+            width={144}
+            height={144}
+            className="h-16 w-16 rounded-full border border-neutral-200 object-cover sm:h-24 sm:w-24 md:order-last md:mr-8 md:h-36 md:w-36"
+          />
+          <div>
+            <h1 className="m-0 max-w-[16ch] text-balance text-4xl leading-tight tracking-tight text-neutral-900 sm:text-5xl md:text-6xl">
+              I build software around how customers work.
+            </h1>
+            <p className="mb-0 mt-5 max-w-2xl text-base leading-relaxed text-neutral-700 sm:text-lg">
+              I’m Brian Morrison II, Engineering Manager at Homerun Presales,
+              where I lead engineering delivery for a product deployed across
+              50+ tenants. I’ve built customer integrations in logistics,
+              redesigned a fleet dashboard for a customer tracking nearly 30,000
+              assets, and created developer tools at PlanetScale.
+            </p>
+            <div className="mt-6 flex flex-wrap gap-2 font-sans text-sm font-semibold sm:gap-3 sm:text-base">
+              <Link
+                to="#selected-work"
+                className="rounded-md bg-neutral-900 px-3 py-3 text-white sm:px-4 hover:bg-neutral-700"
+              >
+                View selected work
+              </Link>
+              <a
+                href="/docs/brian-morrison-ii-resume.pdf"
+                download
+                className="rounded-md border border-neutral-300 bg-white px-3 py-3 text-neutral-900 sm:px-4 hover:border-neutral-500"
+              >
+                Download résumé
+              </a>
             </div>
-            <div className="flex justify-center mb-2 gap-8">
-              {/* <Link to="/portfolio" className="flex justify-center gap-2 font-bold">Learn More</Link> */}
-              <Link to="https://wishpin.app" className="flex justify-center gap-2 font-bold">Visit Website</Link>
-            </div>
-          </div>
-
-          <div className="mt-6 w-full">
-            <div className="flex gap-4 items-center justify-center">
-              <img src={wishPinLists1} alt="WishPin App - Lists screen" className="lg:h-96 md:h-72 sm:h-64 h-56" />
-              <img src={wishPinLists2} alt="WishPin App - Wishlist screen" className="lg:h-96 md:h-72 sm:h-64 h-56" />
-              <img src={wishPinLists3} alt="WishPin App - Search Amazon screen" className="lg:h-96 md:h-72 sm:h-64 h-56" />
-              <img src={wishPinLists4} alt="WishPin App - List settings screen" className="lg:h-96 md:h-72 sm:h-64 h-56" />
-            </div>
-          </div>
-        </div>
-      </div>      
-      
-      {/* Other Notable Projects */}
-      <div className="min-h-screen">
-        <div className="h-full md:m-8 md:rounded-xl p-8 mb-8">
-          <div className="flex flex-col gap-2 text-center max-w-xl mx-auto">
-            <h2 className="!mt-2">Other Notable Projects</h2>
-            <p className="!mb-0">Here are some of the more notable projects I&apos;ve worked on that showcase my skills and expertise as a tech professional.</p>
-            <div className="flex justify-center mb-6">
-              <Link to="/portfolio" className="flex justify-center gap-2 font-bold">View Portfolio</Link>
-            </div>
-          </div>
-          
-          <div className="grid md:grid-cols-2 gap-12 max-w-4xl mx-auto">
-            {portfolioItems.map(item => (
-              <PortfolioListItem key={item.id} item={item} />
-            ))}
           </div>
         </div>
-      </div>
+      </section>
 
-      {/* Work Experience */}
-      <div className="min-h-screen">
-        <div className="bg-gradient-to-b from-gray-100 to-white h-full md:m-8 md:rounded-xl p-8 mb-8">
-          <div className="flex flex-col gap-2 text-center max-w-xl mx-auto mb-4">
-            <div className="text-sm">Applications • Infrastructure • Automation</div>
-            <h2 className="!mt-2">Work Experience</h2>
-            <p className="!mb-0">Key positions I&apos;ve held over the course of my 15 year career in tech.</p>
-            <Link to="/work-with-me#work-history" className="flex justify-center gap-2 font-bold">View my full work history</Link>
-          </div>
+      <section
+        id="selected-work"
+        aria-labelledby="selected-work-heading"
+        className="mx-auto max-w-5xl scroll-mt-20 px-5 pb-16 pt-4 sm:px-8"
+      >
+        <div className="mb-6 flex flex-wrap items-end justify-between gap-3">
+          <h2 id="selected-work-heading" className="!my-0 text-3xl sm:text-4xl">
+            Selected work
+          </h2>
+          <Link
+            to="/portfolio"
+            className="font-sans font-semibold text-blue-700 underline underline-offset-4 hover:text-blue-900"
+          >
+            View full portfolio
+          </Link>
+        </div>
 
-          <div className="grid md:grid-cols-3 gap-6">
-            {jobs.map(job => (
-              <Link to={`/work-with-me#${job.slug}`} key={job.id} className="group/job-item bg-white rounded p-6 flex flex-col transition-colors hover:shadow hover:border-neutral-300 border border-neutral-200 text-inherit">
-                <div className="flex justify-center mb-4">
-                  {job.logo && job.logo.length > 0 && 
-                    <img src={job.logo[0]} alt={`${job.companyName} logo`} className="h-16 object-contain" />
-                  }
+        <div className="grid gap-4 md:grid-cols-2">
+          {caseStudies.map(({ slug, title, excerpt, company }) => {
+            const isRenewalsStudy = slug === "proposals-app";
+            return (
+              <article
+                key={slug}
+                className={`grid content-start gap-5 rounded-lg border border-neutral-200 bg-white p-5 sm:p-7 ${
+                  isRenewalsStudy
+                    ? "md:col-span-2 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]"
+                    : ""
+                }`}
+              >
+                <div>
+                  {company && (
+                    <p className="mb-2 text-sm text-neutral-600">{company}</p>
+                  )}
+                  <h3 className="!mt-0 text-xl leading-snug sm:text-2xl">
+                    <Link
+                      to={`/portfolio/${slug}`}
+                      className="!border-0 !text-neutral-900 underline decoration-neutral-300 underline-offset-4 hover:decoration-neutral-900"
+                    >
+                      {title}
+                    </Link>
+                  </h3>
+                  <p className="mb-0 mt-3 text-base leading-relaxed text-neutral-700">
+                    {excerpt}
+                  </p>
+                  {isRenewalsStudy && (
+                    <p className="mb-0 mt-4 font-sans text-sm font-semibold">
+                      <Link to="/demos/waystone">
+                        Try the Waystone prototype walkthrough
+                      </Link>
+                    </p>
+                  )}
+                  {slug === "iot-dashboard-optimizations" && (
+                    <p className="mb-0 mt-4 font-sans text-sm font-semibold">
+                      <Link to="/portfolio/graphql-api-and-dynamic-groups">
+                        Related work on Go and dynamic asset groups
+                      </Link>
+                    </p>
+                  )}
                 </div>
-                <div className="flex flex-col gap-0.5 mb-4">
-                  <h3 className="text-xl font-bold">{job.companyName}</h3>
-                  <div className="text-gray-700">{job.title}</div>
-                  <div className="text-gray-500 text-sm">{job.yearsActive}</div>
-                </div>
-                <div className="text-sm flex-grow">
+                {isRenewalsStudy && systechTestimonial.quote && (
+                  <figure className="rounded-md bg-neutral-100 p-4 sm:p-5">
+                    <blockquote>
+                      <p className="mb-2 text-base leading-relaxed">
+                        “{systechTestimonial.quote}”
+                      </p>
+                    </blockquote>
+                    <figcaption className="text-sm text-neutral-700">
+                      {systechTestimonial.author}, Systech Information Services
+                    </figcaption>
+                  </figure>
+                )}
+              </article>
+            );
+          })}
+        </div>
+      </section>
+
+      <section
+        aria-labelledby="experience-heading"
+        className="bg-gradient-to-b from-gray-100 to-white md:mx-8 md:rounded-xl"
+      >
+        <div className="mx-auto max-w-5xl px-5 py-12 sm:px-8">
+          <div className="mb-6 flex flex-wrap items-end justify-between gap-3">
+            <h2 id="experience-heading" className="!my-0 text-3xl sm:text-4xl">
+              Work experience
+            </h2>
+            <Link
+              to="/work-with-me#work-history"
+              className="font-sans font-semibold text-blue-700 underline underline-offset-4 hover:text-blue-900"
+            >
+              View full work history
+            </Link>
+          </div>
+
+          <div className="grid gap-4 md:grid-cols-3">
+            {featuredJobs.map((job) => (
+              <Link
+                to={`/work-with-me#${job.slug}`}
+                key={job.slug}
+                className="rounded-lg border border-neutral-200 bg-white p-5 text-neutral-900 transition hover:border-neutral-400 hover:shadow-sm"
+              >
+                <h3 className="!mt-0 text-xl">{job.companyName}</h3>
+                <p className="mb-1 mt-2 font-sans text-base">{job.title}</p>
+                <p className="mb-3 text-sm text-neutral-600">
+                  {job.yearsActive}
+                </p>
+                <p className="mb-0 text-base leading-relaxed text-neutral-700">
                   {job.summary}
-                </div>
-                <div className='flex justify-end'>
-                  <ArrowRight className="opacity-20 group-hover/job-item:opacity-100 transition-all" />
-                </div>
+                </p>
               </Link>
             ))}
           </div>
         </div>
-      </div>
+      </section>
 
-      <div>
-        <HashLander id="content" />   
-        <ContentList contentItems={contentItems as ContentItem[]} uniqueSources={uniqueSources} />
-      </div>
+      <section
+        id="content"
+        aria-labelledby="writing-heading"
+        className="scroll-mt-20 bg-neutral-900 md:mx-8 md:rounded-xl"
+      >
+        <div className="mx-auto max-w-5xl px-5 py-12 text-white sm:px-8 sm:py-14">
+          <div className="mb-6 flex flex-wrap items-end justify-between gap-3">
+            <h2 id="writing-heading" className="!my-0 text-3xl sm:text-4xl">
+              Selected writing
+            </h2>
+            <Link
+              to="/content"
+              className="font-sans font-semibold text-white underline underline-offset-4 hover:text-blue-200"
+            >
+              View full archive
+            </Link>
+          </div>
+          <ul className="grid gap-4 md:grid-cols-3">
+            {featuredWriting.map(({ title, publisher, url }) => (
+              <li key={url} className="m-0">
+                <a
+                  href={url}
+                  className="flex h-full flex-col gap-2 rounded-lg border border-neutral-600 bg-neutral-800 p-5 text-white transition hover:border-white"
+                >
+                  <span className="text-sm text-neutral-300">{publisher}</span>
+                  <span className="font-sans text-lg font-semibold">
+                    {title}
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
 
-      <div className="min-h-screen">
-        <HashLander id="contact" />
-        <div className="h-full md:m-8 md:rounded-xl p-8 mb-8 bg-gradient-to-b from-gray-100 to-white">
-          <div className="flex flex-col gap-2 text-center max-w-xl mx-auto">
-            <div className="text-sm">Let&apos;s talk</div>
-            <h2 className="!mt-2">Contact me</h2>
-            <p className="!mb-2">I&apos;m always looking for new opportunities to work with talented individuals and teams. If you&apos;re interested in working with me, let me know!</p>
-            <ContactForm />
-            <p className="!mt-2">You can also reach me on your favorite social network:</p>
-            <div className="flex justify-center">
-              <StylizedListItem to={socials.linkedin}>LinkedIn</StylizedListItem>
-              <StylizedListItem to={socials.twitter}>Twitter</StylizedListItem>
-              <StylizedListItem to={socials.github}>GitHub</StylizedListItem>
-            </div>
+      <section
+        aria-labelledby="products-heading"
+        className="mx-auto max-w-5xl px-5 py-14 sm:px-8"
+      >
+        <h2 id="products-heading" className="!mt-0 mb-6 text-3xl sm:text-4xl">
+          Independent products
+        </h2>
+        <div className="grid items-center gap-8 overflow-hidden rounded-lg border border-neutral-200 bg-gradient p-5 sm:p-7 md:grid-cols-2">
+          <div>
+            <h3 className="!mt-0">WishPin</h3>
+            <p className="mb-3 mt-2 max-w-md text-base leading-relaxed text-neutral-700">
+              A collaborative wishlist app for sharing gift ideas with friends
+              and family.
+            </p>
+            <a
+              href="https://wishpin.app"
+              className="font-sans font-semibold text-blue-700 underline underline-offset-4 hover:text-blue-900"
+            >
+              Visit WishPin
+            </a>
+          </div>
+          <div className="flex justify-center gap-3 sm:gap-5">
+            <img
+              src={wishPinLists}
+              alt="WishPin app showing a collection of wishlists"
+              loading="lazy"
+              className="h-44 w-auto max-w-[46%] object-contain sm:h-60"
+            />
+            <img
+              src={wishPinList}
+              alt="WishPin app showing a shared wishlist"
+              loading="lazy"
+              className="h-44 w-auto max-w-[46%] object-contain sm:h-60"
+            />
           </div>
         </div>
-      </div>
-    </div>
+      </section>
+
+      <section
+        id="contact"
+        aria-labelledby="contact-heading"
+        className="scroll-mt-20 bg-gradient-to-b from-gray-100 to-white md:mx-8 md:rounded-xl"
+      >
+        <div className="mx-auto flex max-w-xl flex-col gap-2 px-5 py-12 text-center sm:px-8">
+          <h2 id="contact-heading" className="!mt-0 text-3xl sm:text-4xl">
+            Contact me
+          </h2>
+          <ContactForm />
+          <div className="mt-3 flex flex-wrap justify-center">
+            <StylizedListItem to={socials.linkedin}>LinkedIn</StylizedListItem>
+            <StylizedListItem to={socials.twitter}>Twitter</StylizedListItem>
+            <StylizedListItem to={socials.github}>GitHub</StylizedListItem>
+          </div>
+        </div>
+      </section>
+    </main>
   );
 }

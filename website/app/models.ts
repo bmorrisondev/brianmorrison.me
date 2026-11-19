@@ -58,9 +58,9 @@ export type PortfolioItem = {
   slug: string;
   html: string;
   cachedOn: number;
-  date: Date
-  job?: Job[]
-  skillsUsed?: Tag[]
+  date?: string
+  job?: Pick<Job, "companyName">[]
+  skillsUsed?: (Pick<Tag, "id" | "name"> & { icon?: string })[]
   featured?: boolean
 }
 
