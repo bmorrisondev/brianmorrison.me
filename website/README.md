@@ -19,7 +19,7 @@ The homepage and portfolio pick their selected case studies by slug in
 `app/content/portfolio.ts`.
 
 The Waystone transaction import demo at `/demos/waystone` uses fictional records
-and runs in the browser. The homepage résumé links to
+and runs in the browser. The homepage resume links to
 `public/docs/brian-morrison-ii-resume.pdf`. Run `pnpm test` to check case-study
 links and the demo's retry behavior.
 

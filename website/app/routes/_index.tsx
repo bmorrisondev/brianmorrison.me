@@ -142,7 +142,7 @@ export default function Index() {
                 download
                 className="rounded-md border border-neutral-300 bg-white px-3 py-3 text-neutral-900 sm:px-4 hover:border-neutral-500"
               >
-                Download résumé
+                Download resume
               </a>
             </div>
           </div>

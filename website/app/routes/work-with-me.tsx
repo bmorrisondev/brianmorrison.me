@@ -63,7 +63,7 @@ function WorkWithMe() {
             <div className='font-bold text-xl'>Brian Morrison II</div>
             <p>I lead engineering delivery at Homerun Presales and stay hands-on with the software we ship. My work spans customer integrations, application architecture, and the systems that help teams release reliably.</p>
             <p className="flex flex-wrap gap-x-6 gap-y-2">
-              <a href="/docs/brian-morrison-ii-resume.pdf" download className="font-semibold underline">Download résumé</a>
+              <a href="/docs/brian-morrison-ii-resume.pdf" download className="font-semibold underline">Download resume</a>
               <Link to="/contact" className="font-semibold underline">Contact me</Link>
             </p>
           </div>
