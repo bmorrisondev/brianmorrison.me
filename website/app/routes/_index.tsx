@@ -39,7 +39,7 @@ const independentProducts = [
     description:
       "A training planner that fits running, lifting, and other workouts into one week while accounting for recovery.",
     url: "https://coalescefitness.com/",
-    caseStudySlug: "coalesce",
+    portfolioSlug: "coalesce",
     icon: coalesceIcon,
   },
   {
@@ -47,7 +47,7 @@ const independentProducts = [
     description:
       "Set daily workout goals, log reps or time, and track your progress and streaks.",
     url: "https://dailyreps.in/",
-    caseStudySlug: "daily-reps",
+    portfolioSlug: "daily-reps",
     icon: dailyRepsIcon,
   },
   {
@@ -55,7 +55,7 @@ const independentProducts = [
     description:
       "Find community builds, save snapshots of your loadouts, and share Destiny 2 builds with a link.",
     url: "https://guardianforge.net/",
-    caseStudySlug: "guardianforge",
+    portfolioSlug: "guardianforge",
     icon: guardianForgeIcon,
   },
 ];
@@ -306,7 +306,7 @@ export default function Index() {
           </h2>
           <ul className="grid gap-4 md:grid-cols-3">
             {independentProducts.map(
-              ({ name, description, url, caseStudySlug, icon }) => (
+              ({ name, description, url, portfolioSlug, icon }) => (
                 <li
                   key={name}
                   className="m-0 flex flex-col rounded-lg border border-neutral-200 bg-white p-5 sm:p-6"
@@ -327,10 +327,10 @@ export default function Index() {
                   </p>
                   <div className="mt-auto flex flex-wrap gap-x-5 gap-y-2 font-sans text-base font-semibold">
                     <Link
-                      to={`/portfolio/${caseStudySlug}`}
+                      to={`/portfolio/${portfolioSlug}`}
                       className="text-blue-700 underline underline-offset-4 hover:text-blue-900"
                     >
-                      Case study<span className="sr-only"> for {name}</span>
+                      About<span className="sr-only"> {name}</span>
                     </Link>
                     <a
                       href={url}

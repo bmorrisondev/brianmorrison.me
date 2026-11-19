@@ -44,11 +44,14 @@ test("public Homerun copy omits customer deployment counts", () => {
   );
 });
 
-test("independent product links resolve to complete case studies", () => {
+test("independent product pages describe the product and technology stack", () => {
   for (const slug of ["coalesce", "daily-reps", "guardianforge"]) {
     const item = getPortfolioItem(slug);
-    assert.ok(item?.excerpt, `Missing case study for ${slug}`);
-    assert.match(item.html, /<h2>What I built<\/h2>/);
-    assert.match(item.html, /<h2>Stack<\/h2>/);
+    assert.ok(item?.excerpt, `Missing About page for ${slug}`);
+    const headings = [...item.html.matchAll(/<h2>(.*?)<\/h2>/g)].map(
+      (match) => match[1],
+    );
+    assert.deepEqual(headings, ["What I built", "Stack"]);
+    assert.match(item.html, /<h2>Stack<\/h2>[\s\S]*<li>/);
   }
 });

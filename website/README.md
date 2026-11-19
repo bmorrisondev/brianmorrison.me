@@ -16,7 +16,7 @@ Use the Notion portfolio and employment history databases to update case studies
 and roles. Run `pnpm cache` with the site's Notion configuration to refresh the
 local content. Keep published slugs stable so existing portfolio links still work.
 The homepage and portfolio pick their selected case studies by slug in
-`app/content/portfolio.ts`. Independent product cards link to case studies in
+`app/content/portfolio.ts`. Independent product cards link to About pages in
 the same portfolio database using the slugs in `app/routes/_index.tsx`.
 
 The homepage resume links to
